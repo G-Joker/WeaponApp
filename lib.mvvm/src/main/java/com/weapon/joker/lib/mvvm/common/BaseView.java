@@ -12,5 +12,10 @@ public interface BaseView {
     //页面初始化操作
     void initView();
 
+    //获取 BR 参数
+    int getBR();
+
+    //页面的 finish 操作
+    void finish();
 
 }

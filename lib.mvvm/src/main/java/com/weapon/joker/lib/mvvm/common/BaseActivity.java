@@ -1,10 +1,10 @@
 package com.weapon.joker.lib.mvvm.common;
 
-import android.content.Context;
-import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.support.annotation.IdRes;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 
@@ -15,62 +15,28 @@ import android.support.v7.app.AppCompatActivity;
  * e-mail: guanzhi.zhang@sojex.cn
  */
 
-public abstract class BaseActivity<VM extends BaseViewModel,M extends BaseModel> extends AppCompatActivity implements BaseView{
-    public VM mViewModel;
-    public ViewDataBinding viewDataBinding;
-    public Context mContext;
+public abstract class BaseActivity extends AppCompatActivity implements BaseView {
+    private FragmentTransaction mFragmentTransaction;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        doBeforeSetcontentView();
-        initActivity();
+        setContentView(getLayoutId());
         initView();
-    }
-
-
-    /*********************基类实现***********************/
-    //设置 layout 之前的配置
-    private void doBeforeSetcontentView() {}
-
-    //MVVM 绑定的初始化
-    private void initActivity() {
-
-        viewDataBinding = DataBindingUtil.setContentView(this, getLayoutId());
-
-//        ButterKnife.bind(this);
-
-        //在某些特殊情况需要用到 Context 对象
-        mContext = this;
-
-        //反射生成泛型类对象
-        mViewModel = TUtil.getT(this,0);
-        M model = TUtil.getT(this,1);
-        //VM 和 View 绑定
-        if (mViewModel != null) {
-            mViewModel.setView(this);
-            mViewModel.setModel(model);
-            mViewModel.setContext(this);
-        }
-        if (model != null){
-            model.setViewModel(mViewModel);
-        }
-
-        //DataBinding 绑定
-        viewDataBinding.setVariable(getBR(), mViewModel);
-
-        mViewModel.init();
+        mFragmentTransaction = getSupportFragmentManager().beginTransaction();
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-//        ButterKnife.unbind(this);
+    public int getBR() {
+        return 0;
     }
 
-    public VM getViewModel(){
-        return mViewModel;
+    public void startActivity(Class<?> cls) {
+        Intent intent = new Intent(this, cls);
+        startActivity(intent);
     }
 
-    public abstract int getBR();
+    public void startFragment(Fragment fragment, @IdRes int layout) {
+        mFragmentTransaction.replace(layout, fragment).commit();
+    }
 }

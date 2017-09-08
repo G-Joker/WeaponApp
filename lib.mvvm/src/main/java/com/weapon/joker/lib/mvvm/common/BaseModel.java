@@ -11,7 +11,5 @@ public abstract class BaseModel<VM extends BaseViewModel>{
         return mViewModel;
     }
 
-    public void setViewModel(VM viewModel){
-        mViewModel = viewModel;
-    }
+    public void attachViewModel(VM viewModel){mViewModel = viewModel;}
 }
