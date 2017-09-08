@@ -1,1 +1,8 @@
-include ':app'
+include ':app',
+        ':lib.mvvm',
+        ':lib.middleware',
+        ':lib.style',
+        ':lib.net',
+
+        ':app.home',
+        ':app+stub'
