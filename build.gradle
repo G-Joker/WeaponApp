@@ -6,7 +6,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.3'
-
+        classpath 'net.wequick.tools.build:gradle-small:1.3.0-beta2'//Small插件版本
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -20,4 +20,10 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+apply plugin: 'net.wequick.small'//引用 small 插件
+
+small{
+//这里可以设置统一的编译版本
 }
