@@ -38,6 +38,7 @@
 * **[func] do sth**：功能开发
 * **[fixbug] #xx# do sth**：Bug 修改，#号内为 issue 编号
 * **[doc] do sth**：文档
+* **[chore] do sth**：build相关的修改
 
 ### 代码规范
 待补充
