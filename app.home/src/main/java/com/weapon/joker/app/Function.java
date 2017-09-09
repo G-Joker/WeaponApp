@@ -15,4 +15,6 @@ interface Function {
     void activity();
 
     void fragment();
+
+    void View();
 }

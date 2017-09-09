@@ -31,4 +31,8 @@ dependencies {
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
+
+    //这里的引用都是 provided 引用，只是为了方便编译期可以调用到相关类和方法
+    compile project(':lib.mvvm')
+    compile project(':lib.style')
 }

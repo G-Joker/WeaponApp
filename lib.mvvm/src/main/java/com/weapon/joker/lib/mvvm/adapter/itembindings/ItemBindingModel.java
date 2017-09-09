@@ -1,6 +1,7 @@
 package com.weapon.joker.lib.mvvm.adapter.itembindings;
 
-import me.tatarka.bindingcollectionadapter2.ItemBinding;
+
+import com.weapon.joker.lib.mvvm.adapter.ItemBinding;
 
 /**
  * Implement this interface on yor items to use with {@link OnItemBindModel}.

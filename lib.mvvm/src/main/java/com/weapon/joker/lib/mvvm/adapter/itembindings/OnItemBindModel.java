@@ -1,7 +1,8 @@
 package com.weapon.joker.lib.mvvm.adapter.itembindings;
 
-import me.tatarka.bindingcollectionadapter2.ItemBinding;
-import me.tatarka.bindingcollectionadapter2.OnItemBind;
+
+import com.weapon.joker.lib.mvvm.adapter.ItemBinding;
+import com.weapon.joker.lib.mvvm.adapter.OnItemBind;
 
 /**
  * An {@link OnItemBind} that selects item views by delegating to each item. Items must implement

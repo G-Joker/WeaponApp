@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 
 public abstract class BaseActivity extends AppCompatActivity implements BaseView {
     private FragmentTransaction mFragmentTransaction;
+    public String TAG;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +25,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         setContentView(getLayoutId());
         initView();
         mFragmentTransaction = getSupportFragmentManager().beginTransaction();
+        TAG = getComponentName().getShortClassName();
     }
 
     @Override
