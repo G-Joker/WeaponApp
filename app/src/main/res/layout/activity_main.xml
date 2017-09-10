@@ -5,11 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <FrameLayout
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_main"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/tab_layout"
-        />
+        android:layout_height="match_parent"/>
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tab_layout"

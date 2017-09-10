@@ -1,4 +1,4 @@
-package com.weapon.joker.application;
+package com.weapon.joker;
 
 import android.app.Application;
 

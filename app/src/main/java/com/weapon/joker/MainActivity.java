@@ -2,6 +2,7 @@ package com.weapon.joker;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 
 import com.weapon.joker.lib.mvvm.common.BaseActivity;
 
@@ -16,6 +17,7 @@ import com.weapon.joker.lib.mvvm.common.BaseActivity;
 public class MainActivity extends BaseActivity {
 
     private TabLayout mTabLayout;
+    private ViewPager mViewPager;
 
     /********** Fragment 相关 **********/
     private Fragment mHomeFragment;
@@ -31,7 +33,17 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        initFragment();
+        initViewPager();
         initTabLayout();
+    }
+
+    private void initFragment() {
+
+    }
+
+    private void initViewPager() {
+        mViewPager = (ViewPager) findViewById(R.id.vp_main);
     }
 
     /**
@@ -44,5 +56,27 @@ public class MainActivity extends BaseActivity {
         mTabLayout.addTab(mTabLayout.newTab().setText(getResources().getString(R.string.home)).setIcon(R.drawable.selector_tab_main_home));
         mTabLayout.addTab(mTabLayout.newTab().setText(getResources().getString(R.string.message)).setIcon(R.drawable.selector_tab_main_message));
         mTabLayout.addTab(mTabLayout.newTab().setText(getResources().getString(R.string.mine)).setIcon(R.drawable.selector_tab_main_mine));
+
+        mTabLayout.addOnTabSelectedListener(new TabSelectedListener());
+
+        mTabLayout.setupWithViewPager(mViewPager);
+    }
+
+    private class TabSelectedListener implements TabLayout.OnTabSelectedListener {
+
+        @Override
+        public void onTabSelected(TabLayout.Tab tab) {
+
+        }
+
+        @Override
+        public void onTabUnselected(TabLayout.Tab tab) {
+
+        }
+
+        @Override
+        public void onTabReselected(TabLayout.Tab tab) {
+
+        }
     }
 }
