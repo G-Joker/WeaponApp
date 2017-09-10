@@ -25,6 +25,7 @@
 - [x] Small 插件化框架
 - [x] **Databinding**
 - [ ] 全平台推送服务
+- [ ] 友盟统计
 - [ ] Okhttp + Retrofit + RxJava
 - [ ] **通过 RecyclerView 拓展的刷新列表库**
 - [ ] **控件组件化**

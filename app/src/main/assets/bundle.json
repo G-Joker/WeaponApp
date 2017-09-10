@@ -15,7 +15,11 @@
     },
     {
       "uri": "lib.style",
-      "uri": "com.weapon.joker.lib.style"
+      "pkg": "com.weapon.joker.lib.style"
+    },
+    {
+      "uri": "main",
+      "pkg": "com.weapon.joker.app.main"
     },
     {
       "uri": "home",

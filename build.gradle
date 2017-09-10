@@ -26,11 +26,10 @@ apply plugin: 'net.wequick.small'//引用 small 插件
 
 small {
     //这里可以设置统一的编译版本和一些配置
-    strictSplitResources = false
     buildToAssets = false
     android {
-        compileSdkVersion = 26
-        buildToolsVersion = "26.0.1"
-        supportVersion = "26.+"
+        compileSdkVersion = 25
+        buildToolsVersion = "25.0.2"
+        supportVersion = "25.1.0"
     }
 }
