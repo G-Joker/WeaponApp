@@ -38,10 +38,16 @@ public class MainActivity extends BaseActivity {
         initTabLayout();
     }
 
+    /**
+     * 初始化 Fragment
+     */
     private void initFragment() {
 
     }
 
+    /**
+     * 初始化 ViewPager
+     */
     private void initViewPager() {
         mViewPager = (ViewPager) findViewById(R.id.vp_main);
     }
@@ -53,9 +59,13 @@ public class MainActivity extends BaseActivity {
         mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
 
         //设置 TabLayout 初始图像和字样
-        mTabLayout.addTab(mTabLayout.newTab().setText(getResources().getString(R.string.home)).setIcon(R.drawable.selector_tab_main_home));
-        mTabLayout.addTab(mTabLayout.newTab().setText(getResources().getString(R.string.message)).setIcon(R.drawable.selector_tab_main_message));
-        mTabLayout.addTab(mTabLayout.newTab().setText(getResources().getString(R.string.mine)).setIcon(R.drawable.selector_tab_main_mine));
+        TabItemView homeTab = new TabItemView(this).setText(getString(R.string.home)).setImageRes(R.drawable.selector_tab_main_home);
+        TabItemView messageTab = new TabItemView(this).setText(getString(R.string.message)).setImageRes(R.drawable.selector_tab_main_message);
+        TabItemView mineTab = new TabItemView(this).setText(getString(R.string.mine)).setImageRes(R.drawable.selector_tab_main_mine);
+
+        mTabLayout.addTab(mTabLayout.newTab().setCustomView(homeTab));
+        mTabLayout.addTab(mTabLayout.newTab().setCustomView(messageTab));
+        mTabLayout.addTab(mTabLayout.newTab().setCustomView(mineTab));
 
         mTabLayout.addOnTabSelectedListener(new TabSelectedListener());
 
@@ -66,12 +76,12 @@ public class MainActivity extends BaseActivity {
 
         @Override
         public void onTabSelected(TabLayout.Tab tab) {
-
+            tab.getCustomView().setSelected(true);
         }
 
         @Override
         public void onTabUnselected(TabLayout.Tab tab) {
-
+            tab.getCustomView().setSelected(false);
         }
 
         @Override

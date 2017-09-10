@@ -16,10 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         app:tabBackground="@android:color/white"
-        app:tabIndicatorHeight="0dp"
-        app:tabSelectedTextColor="@android:color/holo_orange_light"
-        app:tabTextAppearance="@android:style/TextAppearance.Holo.Large"
-        app:tabTextColor="@android:color/darker_gray">
+        app:tabIndicatorHeight="0dp">
 
     </android.support.design.widget.TabLayout>
 
