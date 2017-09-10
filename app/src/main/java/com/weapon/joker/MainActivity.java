@@ -2,9 +2,13 @@ package com.weapon.joker;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.weapon.joker.lib.mvvm.common.BaseActivity;
+
+import net.wequick.small.Small;
 
 /**
  * MainActivity 创建首页所有的 fragment，以及
@@ -20,11 +24,8 @@ public class MainActivity extends BaseActivity {
     private ViewPager mViewPager;
 
     /********** Fragment 相关 **********/
-    private Fragment mHomeFragment;
-    private Fragment mMessageFragment;
-    private Fragment mMineFragment;
-    //当前 fragment
-    private Fragment mCurrentFragment;
+    private static String[] sUris = new String[]{"home", "message", "mine"};
+    private TabPagerAdapter mTabPagerAdapter;
 
     @Override
     public int getLayoutId() {
@@ -33,23 +34,19 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        initFragment();
         initViewPager();
         initTabLayout();
-    }
-
-    /**
-     * 初始化 Fragment
-     */
-    private void initFragment() {
-
     }
 
     /**
      * 初始化 ViewPager
      */
     private void initViewPager() {
+
+        mTabPagerAdapter = new TabPagerAdapter(getSupportFragmentManager());
+
         mViewPager = (ViewPager) findViewById(R.id.vp_main);
+        mViewPager.setAdapter(mTabPagerAdapter);
     }
 
     /**
@@ -72,6 +69,9 @@ public class MainActivity extends BaseActivity {
         mTabLayout.setupWithViewPager(mViewPager);
     }
 
+    /**
+     * 通过 Selected 状态改变 Tab 的图标和文字颜色
+     */
     private class TabSelectedListener implements TabLayout.OnTabSelectedListener {
 
         @Override
@@ -87,6 +87,25 @@ public class MainActivity extends BaseActivity {
         @Override
         public void onTabReselected(TabLayout.Tab tab) {
 
+        }
+    }
+
+    private class TabPagerAdapter extends FragmentPagerAdapter {
+
+        private TabPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            // TODO: 2017/9/10 fragment == null 情况处理
+            //构造插件 Fragment
+            return Small.createObject("fragment-v4", sUris[position], MainActivity.this);
+        }
+
+        @Override
+        public int getCount() {
+            return sUris.length;
         }
     }
 }

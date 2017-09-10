@@ -20,6 +20,14 @@
     {
       "uri": "home",
       "pkg": "com.weapon.joker.app.home"
+    },
+    {
+      "uri": "message",
+      "pkg": "com.weapon.joker.app.message"
+    },
+    {
+      "uri": "mine",
+      "pkg": "com.weapon.joker.app.mine"
     }
   ]
 }

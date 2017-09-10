@@ -1,13 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
+
     defaultConfig {
-        applicationId "com.weapon.app"
+        applicationId "com.weapon.joker.app.mine"
         minSdkVersion 21
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
     }
     buildTypes {
         release {
@@ -15,13 +18,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
-    dataBinding {
-        enabled = true
-    }
 }
 
-//宿主请不要引用插件
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -30,6 +28,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
-    compile project(':lib.mvvm')
+
     compile project(':lib.style')
 }
