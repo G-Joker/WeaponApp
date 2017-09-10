@@ -32,7 +32,6 @@ public class MainActivity extends BaseActivity {
     @Override
     public void initView() {
         initTabLayout();
-
     }
 
     /**
@@ -42,58 +41,8 @@ public class MainActivity extends BaseActivity {
         mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
 
         //设置 TabLayout 初始图像和字样
-        mTabLayout.addTab(mTabLayout.newTab().setText(getResources().getString(R.string.home)).setIcon(R.mipmap.comui_tab_home));
-        mTabLayout.addTab(mTabLayout.newTab().setText(getResources().getString(R.string.message)).setIcon(R.mipmap.comui_tab_message));
-        mTabLayout.addTab(mTabLayout.newTab().setText(getResources().getString(R.string.mine)).setIcon(R.mipmap.comui_tab_mine));
-
-        mTabLayout.addOnTabSelectedListener(new TabSelectedListener());
-    }
-
-    private class TabSelectedListener implements TabLayout.OnTabSelectedListener {
-
-        @Override
-        public void onTabSelected(TabLayout.Tab tab) {
-            onTabSelect(tab);
-        }
-
-        @Override
-        public void onTabUnselected(TabLayout.Tab tab) {
-            onTabUnSelect(tab);
-        }
-
-        @Override
-        public void onTabReselected(TabLayout.Tab tab) {
-
-        }
-    }
-
-    private void onTabSelect(TabLayout.Tab tab) {
-        int position = tab.getPosition();
-        switch (position) {
-            case 0:
-                mTabLayout.getTabAt(position).setIcon(R.mipmap.comui_tab_home_selected);
-                break;
-            case 1:
-                mTabLayout.getTabAt(position).setIcon(R.mipmap.comui_tab_message_selected);
-                break;
-            case 2:
-                mTabLayout.getTabAt(position).setIcon(R.mipmap.comui_tab_mine_selected);
-                break;
-        }
-    }
-
-    private void onTabUnSelect(TabLayout.Tab tab) {
-        int position = tab.getPosition();
-        switch (position) {
-            case 0:
-                mTabLayout.getTabAt(position).setIcon(R.mipmap.comui_tab_home);
-                break;
-            case 1:
-                mTabLayout.getTabAt(position).setIcon(R.mipmap.comui_tab_message);
-                break;
-            case 2:
-                mTabLayout.getTabAt(position).setIcon(R.mipmap.comui_tab_mine);
-                break;
-        }
+        mTabLayout.addTab(mTabLayout.newTab().setText(getResources().getString(R.string.home)).setIcon(R.drawable.selector_tab_main_home));
+        mTabLayout.addTab(mTabLayout.newTab().setText(getResources().getString(R.string.message)).setIcon(R.drawable.selector_tab_main_message));
+        mTabLayout.addTab(mTabLayout.newTab().setText(getResources().getString(R.string.mine)).setIcon(R.drawable.selector_tab_main_mine));
     }
 }
