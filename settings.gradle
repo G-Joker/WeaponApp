@@ -1,4 +1,4 @@
-include ':app', ':app.message', ':app.mine', ':app.main',
+include ':app', ':app.message', ':app.mine', ':app.main', ':buildSrc',
         ':lib.mvvm',
         ':lib.middleware',
         ':lib.style',

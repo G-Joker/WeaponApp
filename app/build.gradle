@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: JokerPlugin
 
 android {
     defaultConfig {
@@ -19,6 +20,10 @@ android {
     dataBinding {
         enabled = true
     }
+}
+
+advancedOutput {
+    fileOutputName "joker"
 }
 
 //宿主请不要引用插件
