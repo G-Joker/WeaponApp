@@ -1,6 +1,8 @@
 import groovy.text.SimpleTemplateEngine
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.tasks.StopExecutionException
+
 /**
  * author: yueyang
  * date: 2017.9.14
@@ -11,7 +13,7 @@ public class JokerPlugin implements Plugin<Project> {
     @Override
     void apply(Project project) {
         def androidGradlePlugin = getAndroidGradlePluginVersion(project)
-        if (androidGradlePlugin == null) throw new IllegalArgumentException('Joker Plugin depends on androidGradlePlugin')
+        if (androidGradlePlugin == null) throw new StopExecutionException('Joker Plugin depends on androidGradlePlugin')
         def advancedOutputOption = project.extensions.create('advancedOutput',FileOutputExtensions,project)
         project.afterEvaluate {
             println 'status : project.afterEvaluate'
