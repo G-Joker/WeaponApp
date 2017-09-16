@@ -27,15 +27,14 @@
 - [ ] **自定义 Gradle 插件**
 - [ ] 全平台推送服务
 - [ ] 友盟统计
-- [ ] Okhttp + Retrofit + RxJava
+- [ ] OkHttp + Retrofit + RxJava
 - [ ] **通过 RecyclerView 拓展的刷新列表库**
 - [ ] **控件组件化**
 - [ ] **单元测试**
 - [ ] **集成测试**
 - [ ] 视频服务
 - [ ] Material Design
-- [ ] Glide
-- [ ] Gradle插件
+- [x] Glide
 
 ### 提交规范
 
