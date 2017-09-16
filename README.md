@@ -35,6 +35,7 @@
 - [ ] 视频服务
 - [ ] Material Design
 - [ ] Glide
+- [ ] Gradle插件
 
 ### 提交规范
 
