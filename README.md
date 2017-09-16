@@ -43,6 +43,7 @@
 * **[doc] do sth**：文档
 * **[chore] do sth**：build相关的修改
 * **[test] do sth**：添加测试代码
+* **[optimize] do sth**: 优化部分代码
 
 ### 代码规范
 待补充
