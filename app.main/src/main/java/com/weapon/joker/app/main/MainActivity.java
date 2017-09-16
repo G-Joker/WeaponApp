@@ -25,7 +25,6 @@ public class MainActivity extends BaseActivity {
 
     /********** Fragment 相关 **********/
     private static String[] sUris = new String[]{"home", "message", "mine"};
-    private TabPagerAdapter mTabPagerAdapter;
 
     @Override
     public int getLayoutId() {
@@ -43,7 +42,7 @@ public class MainActivity extends BaseActivity {
      */
     private void initViewPager() {
 
-        mTabPagerAdapter = new TabPagerAdapter(getSupportFragmentManager());
+        TabPagerAdapter mTabPagerAdapter = new TabPagerAdapter(getSupportFragmentManager());
 
         mViewPager = (ViewPager) findViewById(R.id.vp_main);
         mViewPager.setAdapter(mTabPagerAdapter);
@@ -78,7 +77,11 @@ public class MainActivity extends BaseActivity {
         @Override
         public Fragment getItem(int position) {
             //构造插件 Fragment
-            return Small.createObject("fragment-v4", sUris[position], MainActivity.this);
+            Fragment fragment = Small.createObject("fragment-v4", sUris[position], MainActivity.this);
+            if (fragment == null) {
+                fragment = PlaceHolderFragment.newInstance(position);
+            }
+            return fragment;
         }
 
         @Override
