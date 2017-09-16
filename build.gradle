@@ -5,6 +5,7 @@ buildscript {
         maven {
             url "https://maven.google.com"
         }
+        mavenCentral()
         jcenter()
     }
     dependencies {
@@ -17,6 +18,10 @@ buildscript {
 
 allprojects {
     repositories {
+        maven {
+            url "https://maven.google.com"
+        }
+        mavenCentral()
         jcenter()
     }
 }
@@ -31,8 +36,8 @@ small {
     //这里可以设置统一的编译版本和一些配置
     buildToAssets = false
     android {
-        compileSdkVersion = 25
-        buildToolsVersion = "25.0.2"
-        supportVersion = "25.1.0"
+        compileSdkVersion = 26
+        buildToolsVersion = "26.0.1"
+        supportVersion = "26.+"
     }
 }
