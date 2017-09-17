@@ -1,6 +1,7 @@
 import groovy.text.SimpleTemplateEngine
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.tasks.Exec
 import org.gradle.api.tasks.StopExecutionException
 
 /**
@@ -21,6 +22,16 @@ public class JokerPlugin implements Plugin<Project> {
             project.android.applicationVariants.all {
                 generateOutputFile(advancedOutputOption,it)
             }
+        }
+
+        createADBTask(project,'devices',ADBCommand.ADB_DEVICES)
+        createADBTask(project,'version',ADBCommand.ADB_VERSION)
+    }
+
+    def createADBTask(Project project, taskName, executeCommand) {
+        if (project == null) throw new StopExecutionException('project cannot be null')
+        project.task(taskName, type: Exec) {
+            commandLine executeCommand
         }
     }
 
