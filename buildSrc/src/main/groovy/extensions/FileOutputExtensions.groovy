@@ -1,3 +1,5 @@
+package extensions
+
 import org.gradle.api.Project
 
 /**

@@ -1,7 +1,11 @@
+import extensions.ADBExtensions
+import extensions.FileOutputExtensions
 import groovy.text.SimpleTemplateEngine
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.StopExecutionException
+import tasks.InstallTask
+
 /**
  * author: yueyang
  * date: 2017.9.14
@@ -13,27 +17,28 @@ public class JokerPlugin implements Plugin<Project> {
     void apply(Project project) {
         def androidGradlePlugin = getAndroidGradlePluginVersion(project)
         if (androidGradlePlugin == null) throw new StopExecutionException('Joker Plugin depends on androidGradlePlugin')
-        def advancedOutputOption = project.extensions.create('advancedOutput',FileOutputExtensions,project)
+        def advancedOutputOption = project.extensions.create('advancedOutput', FileOutputExtensions, project)
         project.afterEvaluate {
             println 'status : project.afterEvaluate'
             println "project name is $project.name"
             project.android.applicationVariants.all {
-                generateOutputFile(advancedOutputOption,it)
+                generateOutputFile(advancedOutputOption, it)
             }
         }
 
-        ADBExtensions adbExtensions = project.extensions.create('command',ADBExtensions,project)
-        adbExtensions.createADBTask(project,'devices',ADBCommand.ADB_DEVICES)
-        adbExtensions.createADBTask(project,'version',ADBCommand.ADB_VERSION)
+        ADBExtensions adbExtensions = project.extensions.create('command', ADBExtensions, project)
+        adbExtensions.createADBTask('devices', CommonADBTask, ADBCommand.ADB_DEVICES)
+        adbExtensions.createADBTask('version', CommonADBTask, ADBCommand.ADB_VERSION)
+        adbExtensions.createADBTask('install', InstallTask, ADBCommand.ADB_INSTALL)
     }
 
-    def static generateOutputFile(fileOutputOption,variant) {
+    def static generateOutputFile(fileOutputOption, variant) {
         println("projec version is $variant.versionCode,\nname is $variant.versionName")
         println "advancedOutput name is $fileOutputOption.fileOutputName"
         def generateTemplate = new SimpleTemplateEngine();
         def templateMap = [
-                'versionName' : variant.versionName,
-                'versionCode' : variant.versionCode,
+                'versionName': variant.versionName,
+                'versionCode': variant.versionCode,
                 'customName' : fileOutputOption.fileOutputName
         ]
 
