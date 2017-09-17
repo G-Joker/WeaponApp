@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="color_333333">#333333</color>
+    <color name="color_cccccc">#cccccc</color>
+    <color name="color_fed952">#fed952</color>
+    <color name="color_666666">#666666</color>
+    <color name="color_e3e3e3">#e3e3e3</color>
+    <color name="color_mine_line">#cdcdcd</color>
+    <color name="white">#fff</color>
+</resources>
