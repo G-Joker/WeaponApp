@@ -1,7 +1,5 @@
 package com.weapon.joker.app.mine;
 
-import com.weapon.joker.app.mine.mine.MineFragment;
-
 /**
  * class：   WeaponApp
  * author：  xiaweizi
@@ -17,7 +15,7 @@ interface Function {
     void activity();
 
     /**
-     * {@link MineFragment 我的 Fragment}
+     * {@link MainFragment 我的 Fragment}
      */
     void fragment();
 

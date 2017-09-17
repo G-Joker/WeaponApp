@@ -1,4 +1,4 @@
-package com.weapon.joker.app.mine.mine;
+package com.weapon.joker.app.mine;
 
 import com.weapon.joker.lib.mvvm.common.BaseModel;
 import com.weapon.joker.lib.mvvm.common.BaseView;
