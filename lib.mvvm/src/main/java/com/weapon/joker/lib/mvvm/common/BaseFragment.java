@@ -9,8 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.lang.reflect.Method;
-
 /**
  * BaseFragment MVVM 基类 Fragment
  * author:张冠之
@@ -18,9 +16,7 @@ import java.lang.reflect.Method;
  * e-mail: guanzhi.zhang@sojex.cn
  */
 
-public abstract class BaseFragment<VM extends BaseViewModel<? extends BaseView, ? extends BaseModel>,
-        M extends BaseModel>
-        extends Fragment
+public abstract class BaseFragment<VM extends BaseViewModel, M extends BaseModel> extends Fragment
         implements BaseView {
 
     protected VM mViewModel;
@@ -51,15 +47,8 @@ public abstract class BaseFragment<VM extends BaseViewModel<? extends BaseView, 
             //VM 和 View 绑定
             if (mViewModel != null) {
                 mViewModel.setContext(mContext);
-                try {
-
-                    Method setModel = mViewModel.getClass().getDeclaredMethod("setModel", model.getClass().getSuperclass());
-                    Method attachView = mViewModel.getClass().getDeclaredMethod("attachView", this.getClass().getInterfaces());
-                    setModel.invoke(mViewModel, model);
-                    attachView.invoke(mViewModel, this);
-                } catch (Exception e) {
-
-                }
+                mViewModel.setModel(model);
+                mViewModel.attachView(this);
             }
 
             //Model 和 VM 绑定
