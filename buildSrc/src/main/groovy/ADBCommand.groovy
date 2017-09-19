@@ -1,3 +1,5 @@
+import org.gradle.api.Project
+
 /**
  * author: yueyang
  * date: 2017.9.17
@@ -12,5 +14,12 @@ public class ADBCommand {
         command.execute().text.eachLine { line ->
             println line
         }
+    }
+
+    def static getAdb(Project project) {
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+        def adbPath = properties.getProperty('sdk.dir')
+        return adbPath + "/platform-tools/adb"
     }
 }
