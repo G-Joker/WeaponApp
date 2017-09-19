@@ -1,8 +1,11 @@
 package com.weapon.joker;
 
 import android.app.Application;
+import android.util.Log;
 
 import net.wequick.small.Small;
+
+import cn.jpush.android.api.JPushInterface;
 
 /**
  * BaseApplication 程序入口，做初始化工作，并对整个应用提供上下文环境
@@ -24,6 +27,10 @@ public class WeaponApplication extends Application{
     public void onCreate() {
         super.onCreate();
         sApplication = this;
+        Log.i("JIGUANG", "初始化成功");
+        JPushInterface.setDebugMode(true); 	// 设置开启日志,发布时请关闭日志
+        JPushInterface.init(this);     		// 初始化 JPush
+        Log.i("JIGUANG", "registid:" + JPushInterface.getRegistrationID(sApplication));
     }
 
     public static WeaponApplication getInstance(){

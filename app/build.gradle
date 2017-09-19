@@ -3,7 +3,7 @@ apply plugin: JokerPlugin
 
 android {
     defaultConfig {
-        applicationId "com.weapon.app"
+        applicationId "com.weapon.joker"
         minSdkVersion 21
         targetSdkVersion 25
         versionCode 1
@@ -14,6 +14,12 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
         }
     }
 
