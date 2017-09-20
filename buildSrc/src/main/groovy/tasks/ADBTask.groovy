@@ -9,5 +9,6 @@ import org.gradle.api.DefaultTask
  */
 public class ADBTask extends DefaultTask {
 
+    def commandParams
 
 }

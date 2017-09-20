@@ -27,9 +27,10 @@ public class JokerPlugin implements Plugin<Project> {
         }
 
         ADBExtensions adbExtensions = project.extensions.create('command', ADBExtensions, project)
-        adbExtensions.createADBTask('devices', CommonADBTask, ADBCommand.ADB_DEVICES)
-        adbExtensions.createADBTask('version', CommonADBTask, ADBCommand.ADB_VERSION)
         adbExtensions.createADBTask('install', InstallTask, ADBCommand.ADB_INSTALL)
+        adbExtensions.createADBTask('version', CommonADBTask, ADBCommand.ADB_VERSION)
+        adbExtensions.createADBTask('devices', CommonADBTask, ADBCommand.ADB_DEVICES)
+        adbExtensions.createADBTask('aapt', AaptTask, ADBCommand.AAPT_INFO)
     }
 
     def static generateOutputFile(fileOutputOption, variant) {
