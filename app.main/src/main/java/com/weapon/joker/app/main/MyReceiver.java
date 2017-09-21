@@ -7,8 +7,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.Toast;
+
+import com.weapon.joker.lib.middleware.utils.JLog;
 
 import net.wequick.small.Small;
 
@@ -29,29 +30,26 @@ import cn.jpush.android.api.JPushInterface;
  * </pre>
  */
 public class MyReceiver extends BroadcastReceiver {
-    private static final String TAG = "push---->";
 
     @Override
     public void onReceive(final Context context, Intent intent) {
         try {
             Bundle bundle = intent.getExtras();
-            Log.d(TAG, "[MyReceiver] onReceive - " + intent.getAction() + ", extras: " + printBundle(bundle));
-
+            JLog.i("action:" + intent.getAction() + ", extras: " + printBundle(bundle));
             if (JPushInterface.ACTION_REGISTRATION_ID.equals(intent.getAction())) {
                 String regId = bundle.getString(JPushInterface.EXTRA_REGISTRATION_ID);
-                Log.d(TAG, "[MyReceiver] 接收Registration Id : " + regId);
-                //send the Registration Id to your server...
+                JLog.i("Registration Id : " + regId);
 
             } else if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(intent.getAction())) {
-                Log.d(TAG, "[MyReceiver] 接收到推送下来的自定义消息: " + bundle.getString(JPushInterface.EXTRA_MESSAGE));
+                JLog.i("Custom message : " + bundle.getString(JPushInterface.EXTRA_MESSAGE));
 
             } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {
-                Log.d(TAG, "[MyReceiver] 接收到推送下来的通知");
-                int notifactionId = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
-                Log.d(TAG, "[MyReceiver] 接收到推送下来的通知的ID: " + notifactionId);
+                JLog.i("Get push message!");
+                int notification = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
+                JLog.i("Push message notification Id : " + notification);
 
             } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
-                Log.d(TAG, "[MyReceiver] 用户点击打开了通知");
+                JLog.i("User has clicked the notification!");
 
                 //打开自定义的Activity
                 Toast.makeText(context, "用户点击打开了通知", Toast.LENGTH_SHORT).show();
@@ -62,30 +60,34 @@ public class MyReceiver extends BroadcastReceiver {
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-//                                Small.openUri("mine", context);
+                                //                                Small.openUri("mine", context);
                             }
                         }, 1000);
                     }
                 });
 
             } else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent.getAction())) {
-                Log.d(TAG, "[MyReceiver] 用户收到到RICH PUSH CALLBACK: " + bundle.getString(JPushInterface.EXTRA_EXTRA));
                 //在这里根据 JPushInterface.EXTRA_EXTRA 的内容处理代码，比如打开新的Activity， 打开一个网页等..
+                JLog.i("Rich push callback : " + bundle.getString(JPushInterface.EXTRA_EXTRA));
 
             } else if (JPushInterface.ACTION_CONNECTION_CHANGE.equals(intent.getAction())) {
                 boolean connected = intent.getBooleanExtra(JPushInterface.EXTRA_CONNECTION_CHANGE, false);
-                Log.w(TAG, "[MyReceiver]" + intent.getAction() + " connected state change to " + connected);
+                JLog.i("connected state change to " + connected);
             } else {
-                Log.d(TAG, "[MyReceiver] Unhandled intent - " + intent.getAction());
+                JLog.i("Unhandled intent - " + intent.getAction());
             }
         } catch (Exception e) {
-            Log.e(TAG, "Error!!!:" + e.getMessage());
-            Toast.makeText(context, "用户点击打开了通知" + e.getMessage(), Toast.LENGTH_SHORT).show();
+            JLog.e("Push has occurs some error! error message : " + e.getMessage());
         }
 
     }
 
-    // 打印所有的 intent extra 数据
+    /**
+     * 打印所有的 bundle 信息
+     *
+     * @param bundle
+     * @return
+     */
     private static String printBundle(Bundle bundle) {
         StringBuilder sb = new StringBuilder();
         for (String key : bundle.keySet()) {
@@ -95,7 +97,7 @@ public class MyReceiver extends BroadcastReceiver {
                 sb.append("\nkey:" + key + ", value:" + bundle.getBoolean(key));
             } else if (key.equals(JPushInterface.EXTRA_EXTRA)) {
                 if (TextUtils.isEmpty(bundle.getString(JPushInterface.EXTRA_EXTRA))) {
-                    Log.i(TAG, "This message has no Extra data");
+                    JLog.i("This message has no Extra data");
                     continue;
                 }
 
@@ -109,7 +111,7 @@ public class MyReceiver extends BroadcastReceiver {
                                   myKey + " - " + json.optString(myKey) + "]");
                     }
                 } catch (JSONException e) {
-                    Log.e(TAG, "Get message extra JSON error!");
+                    JLog.i("Get message extra JSON error!");
                 }
 
             } else {
