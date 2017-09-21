@@ -27,10 +27,9 @@ public class WeaponApplication extends Application{
     public void onCreate() {
         super.onCreate();
         sApplication = this;
-        Log.i("JIGUANG", "初始化成功");
+        Log.i("push---->", "push start work!");
         JPushInterface.setDebugMode(true); 	// 设置开启日志,发布时请关闭日志
         JPushInterface.init(this);     		// 初始化 JPush
-        Log.i("JIGUANG", "registid:" + JPushInterface.getRegistrationID(sApplication));
     }
 
     public static WeaponApplication getInstance(){
