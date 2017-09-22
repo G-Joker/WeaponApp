@@ -1,13 +1,17 @@
 import org.gradle.api.tasks.TaskAction
 import tasks.ADBTask
 
-public class AaptTask extends ADBTask {
+/**
+ * author: yueyang
+ * date: 2017.9.22
+ * e-mail: hi.yangyue1993@gmail.com
+ */
+public class UninstallTask extends ADBTask {
 
     def resultCommand = []
 
     @TaskAction
     public void excute() {
-
         if (resultCommand instanceof List) {
             resultCommand.removeAll {
                 it < 0
@@ -19,16 +23,13 @@ public class AaptTask extends ADBTask {
         resultCommand.add(0, aapt)
         resultCommand.addAll(commandParams)
         project.android.applicationVariants.all { variant ->
-            if (variant.name == "debug") {
+            if (variant.name == 'debug') {
                 def apkPath = variant.outputs[0].outputFile
                 resultCommand.add(apkPath)
-                def launchActivity = getLaunchActivity(resultCommand, 'launchable-activity: name=')
                 def packageName = getPackageName(resultCommand, 'package: name=')
-                logger.quiet "launchActivity is : $launchActivity"
-                logger.quiet "resultParams is : $resultCommand"
+                def start = ['adb', 'uninstall', "$packageName"]
                 logger.quiet "packageName is $packageName"
-
-                def start = ['adb', 'shell', 'am', 'start', '-n', "$packageName/$launchActivity"]
+                logger.quiet "start command is : $start"
                 start.execute()
             }
         }
