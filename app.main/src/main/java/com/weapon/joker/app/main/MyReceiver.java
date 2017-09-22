@@ -4,12 +4,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.text.TextUtils;
-import android.widget.Toast;
 
 import com.weapon.joker.lib.middleware.utils.JLog;
+import com.weapon.joker.lib.middleware.utils.NotificationUtil;
 
 import net.wequick.small.Small;
 
@@ -42,7 +40,7 @@ public class MyReceiver extends BroadcastReceiver {
 
             } else if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(intent.getAction())) {
                 JLog.i("Custom message : " + bundle.getString(JPushInterface.EXTRA_MESSAGE));
-
+                dealCustomPush(context, bundle.getString(JPushInterface.EXTRA_MESSAGE));
             } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {
                 JLog.i("Get push message!");
                 int notification = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
@@ -52,19 +50,7 @@ public class MyReceiver extends BroadcastReceiver {
                 JLog.i("User has clicked the notification!");
 
                 //打开自定义的Activity
-                Toast.makeText(context, "用户点击打开了通知", Toast.LENGTH_SHORT).show();
-                Small.setUp(context, new Small.OnCompleteListener() {
-                    @Override
-                    public void onComplete() {
-                        Handler handler = new Handler(Looper.getMainLooper());
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                //                                Small.openUri("mine", context);
-                            }
-                        }, 1000);
-                    }
-                });
+
 
             } else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent.getAction())) {
                 //在这里根据 JPushInterface.EXTRA_EXTRA 的内容处理代码，比如打开新的Activity， 打开一个网页等..
@@ -78,6 +64,27 @@ public class MyReceiver extends BroadcastReceiver {
             }
         } catch (Exception e) {
             JLog.e("Push has occurs some error! error message : " + e.getMessage());
+        }
+
+    }
+
+    /**
+     * 处理自定义推送消息
+     *
+     * @param extra 自定义推送消息
+     */
+    private void dealCustomPush(Context context, String extra) {
+        if (TextUtils.isEmpty(extra)) {
+            return;
+        }
+        try {
+            JSONObject jsonObject = new JSONObject(extra);
+            String     title      = jsonObject.getString("title");
+            Intent     intent     = new Intent(context, MainActivity.class);
+            Small.wrapIntent(intent);
+            NotificationUtil.commonNotfication(intent, context, title, 12, R.mipmap.ic_launcher);
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
 
     }
