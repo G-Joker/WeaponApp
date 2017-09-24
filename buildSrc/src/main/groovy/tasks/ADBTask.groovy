@@ -11,6 +11,7 @@ import org.gradle.api.Project
 public class ADBTask extends DefaultTask {
 
     def commandParams
+    def resultCommand = []
 
     def getPackageName(def commandParams, def key) {
         def subString = getExecuteResult(commandParams, key)

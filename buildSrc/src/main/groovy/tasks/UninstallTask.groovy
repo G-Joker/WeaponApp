@@ -8,8 +8,6 @@ import tasks.ADBTask
  */
 public class UninstallTask extends ADBTask {
 
-    def resultCommand = []
-
     @TaskAction
     public void excute() {
         if (resultCommand instanceof List) {

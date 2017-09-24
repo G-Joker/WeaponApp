@@ -3,8 +3,6 @@ import tasks.ADBTask
 
 public class ClearDataTask extends ADBTask {
 
-    def resultCommand = []
-
     @TaskAction
     public void excute() {
 
