@@ -32,6 +32,7 @@ public class JokerPlugin implements Plugin<Project> {
         adbExtensions.createADBTask('devices', CommonADBTask, ADBCommand.ADB_DEVICES)
         adbExtensions.createADBTask('aapt', AaptTask, ADBCommand.AAPT_INFO)
         adbExtensions.createADBTask('uninstall', UninstallTask, ADBCommand.AAPT_INFO)
+        adbExtensions.createADBTask('clearData', ClearDataTask, ADBCommand.ADB_CLEAR)
     }
 
     def static generateOutputFile(fileOutputOption, variant) {
