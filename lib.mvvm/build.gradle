@@ -28,6 +28,7 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    //databinding adapter 框架，适用于 ListView,RecyclerView,ViewPager
     compile 'me.tatarka.bindingcollectionadapter2:bindingcollectionadapter:2.2.0'
     compile 'me.tatarka.bindingcollectionadapter2:bindingcollectionadapter-recyclerview:2.2.0'
     testCompile 'junit:junit:4.12'
