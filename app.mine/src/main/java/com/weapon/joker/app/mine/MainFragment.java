@@ -1,5 +1,7 @@
 package com.weapon.joker.app.mine;
 
+import android.widget.Toast;
+
 import com.weapon.joker.lib.mvvm.common.BaseFragment;
 
 /**
@@ -9,7 +11,7 @@ import com.weapon.joker.lib.mvvm.common.BaseFragment;
  * e-mail: guanzhi.zhang@sojex.cn
  */
 
-public class MainFragment extends BaseFragment<MineViewModel,MineModel> {
+public class MainFragment extends BaseFragment<MineViewModel,MineModel> implements MineContact.View{
 
     @Override
     public int getLayoutId() {
@@ -24,5 +26,10 @@ public class MainFragment extends BaseFragment<MineViewModel,MineModel> {
     @Override
     public int getBR() {
         return BR.model;
+    }
+
+    @Override
+    public void TestType() {
+        Toast.makeText(getActivity(),"接口调用成功",Toast.LENGTH_LONG).show();
     }
 }

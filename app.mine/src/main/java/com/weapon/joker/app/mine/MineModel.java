@@ -1,5 +1,7 @@
 package com.weapon.joker.app.mine;
 
+import android.databinding.Bindable;
+
 /**
  * MineModel 我的界面 model
  * author:张冠之
@@ -8,4 +10,6 @@ package com.weapon.joker.app.mine;
  */
 
 public class MineModel extends MineContact.Model{
+    @Bindable
+    public String testString;
 }

@@ -13,10 +13,10 @@ import com.weapon.joker.lib.mvvm.common.BaseViewModel;
  */
 interface MineContact {
     interface View extends BaseView {
-
+        void TestType();
     }
 
-    abstract class ViewModel extends BaseViewModel<View, Model> {
+    abstract class ViewModel extends BaseViewModel<View, MineModel> {
 
     }
 

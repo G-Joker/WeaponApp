@@ -1,5 +1,7 @@
 package com.weapon.joker.app.mine;
 
+import android.databinding.Bindable;
+
 /**
  * class：   WeaponApp
  * author：  xiaweizi
@@ -8,11 +10,19 @@ package com.weapon.joker.app.mine;
  * desc:
  */
 public class MineViewModel extends MineContact.ViewModel{
-    public MineEntry mEntry;
 
     public void init(){
-        mEntry = new MineEntry();
-        mEntry.testString = "Test MVVP";
+        setTestString("反射封装测试成功");
+        getView().TestType();
+    }
+
+    @Bindable
+    public String getTestString(){
+        return getModel().testString;
+    }
+
+    public void setTestString(String testString){
+        getModel().testString = testString;
         notifyPropertyChanged(BR.testString);
     }
 }

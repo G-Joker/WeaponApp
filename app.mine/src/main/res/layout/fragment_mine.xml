@@ -144,7 +144,7 @@
             style="@style/MineStyle"
             android:text="@string/version_update"/>
         <TextView
-            android:text="@{model.mEntry.testString}"
+            android:text="@{model.testString}"
             style="@style/MineStyle"/>
 
         <View
