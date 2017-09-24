@@ -50,7 +50,6 @@ public abstract class BaseViewModel<V extends BaseView, M extends BaseModel> ext
         mContext = context;
     }
 
-    protected abstract void init();
 
     public void detachView() {
         if (mView != null) {

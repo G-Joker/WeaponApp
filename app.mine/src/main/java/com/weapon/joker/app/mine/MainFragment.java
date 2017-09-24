@@ -1,11 +1,6 @@
 package com.weapon.joker.app.mine;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import com.weapon.joker.lib.mvvm.common.BaseFragment;
 
 /**
  * MainFragment 我的 Fragment
@@ -14,19 +9,20 @@ import android.view.ViewGroup;
  * e-mail: guanzhi.zhang@sojex.cn
  */
 
-public class MainFragment extends Fragment {
+public class MainFragment extends BaseFragment<MineViewModel,MineModel> {
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = null;
-        if (view == null) {
-            view = inflater.inflate(R.layout.fragment_mine, container, false);
-        } else {
-            if (view.getParent() != null) {
-                ((ViewGroup) view.getParent()).removeView(view);
-            }
-        }
-        return view;
+    public int getLayoutId() {
+        return R.layout.fragment_mine;
+    }
+
+    @Override
+    public void initView() {
+        getViewModel().init();
+    }
+
+    @Override
+    public int getBR() {
+        return BR.model;
     }
 }

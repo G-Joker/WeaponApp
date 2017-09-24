@@ -1,8 +1,5 @@
 package com.weapon.joker.app.mine;
 
-import com.weapon.joker.lib.mvvm.common.BaseView;
-import com.weapon.joker.lib.mvvm.common.BaseViewModel;
-
 /**
  * class：   WeaponApp
  * author：  xiaweizi
@@ -10,6 +7,12 @@ import com.weapon.joker.lib.mvvm.common.BaseViewModel;
  * e-mail:   1012126908@qq.com
  * desc:
  */
-public class MineViewModel {
+public class MineViewModel extends MineContact.ViewModel{
+    public MineEntry mEntry;
 
+    public void init(){
+        mEntry = new MineEntry();
+        mEntry.testString = "Test MVVP";
+        notifyPropertyChanged(BR.testString);
+    }
 }

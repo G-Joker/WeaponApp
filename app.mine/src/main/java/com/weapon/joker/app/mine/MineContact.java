@@ -11,16 +11,16 @@ import com.weapon.joker.lib.mvvm.common.BaseViewModel;
  * e-mail:   1012126908@qq.com
  * desc:     我的管理类
  */
-public class MineContact {
-    public interface View extends BaseView{
+interface MineContact {
+    interface View extends BaseView {
 
     }
 
-    public abstract class ViewModel extends BaseViewModel<View, Model>{
+    abstract class ViewModel extends BaseViewModel<View, Model> {
 
     }
 
-    public abstract class Model extends BaseModel<ViewModel>{
+    abstract class Model extends BaseModel<ViewModel> {
 
     }
 }

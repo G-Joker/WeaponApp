@@ -1,0 +1,2 @@
+android.arch.lifecycle:common:1.0.0
+android.arch.core:common:1.0.0
