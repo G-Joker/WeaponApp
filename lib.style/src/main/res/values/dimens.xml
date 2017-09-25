@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="public_main_text_size">16dp</dimen>       <!-- 主文字大小 -->
+    <dimen name="public_sub_text_size">14dp</dimen>       <!-- 辅助文字大小 -->
+</resources>
