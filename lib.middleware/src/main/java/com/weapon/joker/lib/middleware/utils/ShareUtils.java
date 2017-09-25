@@ -4,9 +4,12 @@ import android.app.Activity;
 import android.os.Bundle;
 
 import com.tencent.connect.share.QQShare;
+import com.tencent.connect.share.QzoneShare;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
+
+import java.util.ArrayList;
 
 /**
  * <pre>
@@ -45,13 +48,13 @@ public class ShareUtils {
 
     public void shareToQZone() {
         Bundle params = new Bundle();
-        params.putInt(QQShare.SHARE_TO_QQ_KEY_TYPE, QQShare.SHARE_TO_QQ_TYPE_DEFAULT);
-        params.putString(QQShare.SHARE_TO_QQ_TITLE, "Hi,叶应是叶");
-        params.putString(QQShare.SHARE_TO_QQ_SUMMARY, "欢迎访问我的博客");
-        params.putString(QQShare.SHARE_TO_QQ_TARGET_URL, "http://blog.csdn.net/new_one_object");
-//        params.putString(QQShare.SHARE_TO_QQ_IMAGE_URL, "http://avatar.csdn.net/B/0/1/1_new_one_object.jpg");
-        params.putString(QQShare.SHARE_TO_QQ_APP_NAME, "HiTips");
-        params.putInt(QQShare.SHARE_TO_QQ_EXT_INT, QQShare.SHARE_TO_QQ_FLAG_QZONE_AUTO_OPEN);
+        params.putInt(QzoneShare.SHARE_TO_QZONE_KEY_TYPE, QzoneShare.SHARE_TO_QZONE_TYPE_IMAGE_TEXT);
+        params.putString(QzoneShare.SHARE_TO_QQ_TITLE, "Hi~ this is weaponApp!");
+        params.putString(QzoneShare.SHARE_TO_QQ_SUMMARY, "Welcome to the WeaponApp!");
+        params.putString(QzoneShare.SHARE_TO_QQ_TARGET_URL, "https://github.com/G-Joker/WeaponApp");
+        params.putStringArrayList(QzoneShare.SHARE_TO_QQ_IMAGE_URL, new ArrayList<String>());
+//        params.putString(QQShare.SHARE_TO_QQ_APP_NAME, "WeaponApp");
+//        params.putInt(QQShare.SHARE_TO_QQ_EXT_INT, QQShare.SHARE_TO_QQ_FLAG_QZONE_AUTO_OPEN);
         mTencent.shareToQzone(mActivity, params, new IUiListener() {
             @Override
             public void onComplete(Object o) {
@@ -78,7 +81,7 @@ public class ShareUtils {
         params.putString(QQShare.SHARE_TO_QQ_TARGET_URL, "https://github.com/G-Joker/WeaponApp");
         params.putString(QQShare.SHARE_TO_QQ_IMAGE_URL, "https://avatars2.githubusercontent.com/u/31761754?v=4&s=200.png");
         params.putString(QQShare.SHARE_TO_QQ_APP_NAME, "WeaponApp");
-        params.putInt(QQShare.SHARE_TO_QQ_EXT_INT, QQShare.SHARE_TO_QQ_FLAG_QZONE_AUTO_OPEN);
+//        params.putInt(QQShare.SHARE_TO_QQ_EXT_INT, QQShare.SHARE_TO_QQ_FLAG_QZONE_AUTO_OPEN);
         mTencent.shareToQQ(mActivity, params, new IUiListener() {
             @Override
             public void onComplete(Object o) {
