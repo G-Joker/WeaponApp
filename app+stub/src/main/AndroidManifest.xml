@@ -98,6 +98,13 @@
             </intent-filter>
         </receiver>
 
+        <!-- since 3.0.9 Required SDK 核心功能-->
+        <provider
+            android:authorities="com.weapon.joker.DataProvider"
+            android:name="cn.jpush.android.service.DataProvider"
+            android:exported="true"
+            />
+
         <!-- Required SDK核心功能-->
         <receiver
             android:name="cn.jpush.android.service.AlarmReceiver"
