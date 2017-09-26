@@ -51,4 +51,4 @@
 >未完待续，目前正迭代中...
 
 ------------
-**开发人员**：*WeaponZhi，xiaweizi，hiyangyue*
+**开发人员**：*WeaponZhi，xiaweizi，hiyangyue，foxlee*
