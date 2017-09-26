@@ -1,7 +1,12 @@
 import org.gradle.api.tasks.TaskAction
 import tasks.ADBTask
 
-public class AaptTask extends ADBTask {
+/**
+ * 启动当前的应用
+ * author : yueyang
+ * e-mail: hi.yangyue1993@gmail.com
+ */
+public class LaunchTask extends ADBTask {
 
     @TaskAction
     public void excute() {

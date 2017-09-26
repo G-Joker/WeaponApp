@@ -1,6 +1,11 @@
 import org.gradle.api.tasks.TaskAction
 import tasks.ADBTask
 
+/**
+ * 清除当前应用的缓存
+ * author : yueyang
+ * e-mail: hi.yangyue1993@gmail.com
+ */
 public class ClearDataTask extends ADBTask {
 
     @TaskAction

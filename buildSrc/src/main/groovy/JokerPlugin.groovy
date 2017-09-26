@@ -15,9 +15,12 @@ public class JokerPlugin implements Plugin<Project> {
 
     @Override
     void apply(Project project) {
+        // 判断当前项目中是否使用了Android Gradle Plugin
         def androidGradlePlugin = getAndroidGradlePluginVersion(project)
         if (androidGradlePlugin == null) throw new StopExecutionException('Joker Plugin depends on androidGradlePlugin')
+        // 关联外部引用的插件配置
         def advancedOutputOption = project.extensions.create('advancedOutput', FileOutputExtensions, project)
+
         project.afterEvaluate {
             println 'status : project.afterEvaluate'
             println "project name is $project.name"
@@ -30,11 +33,17 @@ public class JokerPlugin implements Plugin<Project> {
         adbExtensions.createADBTask('install', InstallTask, ADBCommand.ADB_INSTALL)
         adbExtensions.createADBTask('version', CommonADBTask, ADBCommand.ADB_VERSION)
         adbExtensions.createADBTask('devices', CommonADBTask, ADBCommand.ADB_DEVICES)
-        adbExtensions.createADBTask('aapt', AaptTask, ADBCommand.AAPT_INFO)
+        adbExtensions.createADBTask('launch', LaunchTask, ADBCommand.AAPT_INFO)
         adbExtensions.createADBTask('uninstall', UninstallTask, ADBCommand.AAPT_INFO)
         adbExtensions.createADBTask('clearData', ClearDataTask, ADBCommand.ADB_CLEAR)
     }
 
+    /**
+     * 更新输出的文件的名称
+     * @param fileOutputOption 外部引用这个插件的设置
+     * @param variant 构建变种(可以是debug、release等等)
+     * @return
+     */
     def static generateOutputFile(fileOutputOption, variant) {
         println("projec version is $variant.versionCode,\nname is $variant.versionName")
         println "advancedOutput name is $fileOutputOption.fileOutputName"
@@ -53,6 +62,11 @@ public class JokerPlugin implements Plugin<Project> {
                 new File(file.parent, fileOutputName + "-unaligned.apk")
     }
 
+    /**
+     * 获取到根目录中的com.android.tools.build:gradle插件
+     * author : yueyang
+     * e-mail: hi.yangyue1993@gmail.com
+     */
     def static getAndroidGradlePluginVersion(Project project) {
         if (project == null) throw IllegalArgumentException("project cannot be null")
         return project.rootProject.buildscript.configurations.classpath.dependencies.find {
