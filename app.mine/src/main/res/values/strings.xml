@@ -11,4 +11,6 @@
     <string name="share_weapon">分享joker给朋友</string>
     <string name="my_qrcode">我的二维码</string>
     <string name="version_update">版本更新</string>
+    <string name="mine_nick_name">昵称</string>
+    <string name="mine_signature">个性签名</string>
 </resources>

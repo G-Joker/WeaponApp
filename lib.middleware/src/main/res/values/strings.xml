@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">lib.middleware</string>
+
+    <!-- 分享 -->
+    <string name="share_title">分享到</string>
+    <string name="share_cancel">取消</string>
+    <string name="share_weibo">微博</string>
+    <string name="share_friend_circle">朋友圈</string>
+    <string name="share_wechat">微信好友</string>
+    <string name="share_qq_zone">QQ空间</string>
+    <string name="share_qq">QQ</string>
+    //----------------------------------------------------
+
 </resources>

@@ -67,7 +67,6 @@ public class ShareView {
         mLlShareQQ.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext, "QQ", Toast.LENGTH_SHORT).show();
                 mShareUtils.shareToQQ();
                 mDialog.cancel();
             }
@@ -75,7 +74,6 @@ public class ShareView {
         mLlShareZone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext, "QQ空间", Toast.LENGTH_SHORT).show();
                 mShareUtils.shareToQZone();
                 mDialog.cancel();
             }

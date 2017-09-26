@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+        android:color="@color/material_text_color_black_divider">
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="10dp"/>
+            <solid android:color="@color/material_color_yellow_600"/>
+        </shape>
+    </item>
+</ripple>

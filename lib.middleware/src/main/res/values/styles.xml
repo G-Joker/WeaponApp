@@ -1,0 +1,27 @@
+<resources>
+
+    <style name="ShareTextViewStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">#de000000</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="ShareImageViewStyle">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:background">@drawable/bg_share_item_view</item>
+        <item name="android:padding">5dp</item>
+    </style>
+
+    <style name="ShareLinearLayoutStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+</resources>

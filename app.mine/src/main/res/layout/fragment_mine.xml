@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-  <data>
-      <variable
-          name="model"
-          type="com.weapon.joker.app.mine.MineViewModel"/>
+    <data>
 
-  </data>
+        <variable
+            name="model"
+            type="com.weapon.joker.app.mine.MineViewModel"/>
+
+    </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
+        android:background="@color/material_color_grey_100"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -19,6 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
+            android:background="@color/material_color_grey_1001"
             android:paddingBottom="15dp"
             android:paddingTop="15dp">
 
@@ -38,20 +40,21 @@
                 android:layout_marginLeft="20dp"
                 android:layout_toRightOf="@+id/iv_mine_avatar"
                 android:text="@string/unlogin"
-                android:textColor="@color/color_333333"
+                android:textColor="@color/material_text_color_black_text"
                 android:textSize="13sp"/>
 
-            <TextView
-                android:id="@+id/tv_mine_login_now"
+            <Button
+                android:id="@+id/bt_mine_login_now"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="20dp"
-                android:background="@color/color_fed952"
+                android:background="@drawable/bg_mine_login_now"
                 android:padding="10dp"
                 android:text="@string/login_now"
-                android:textColor="@color/color_333333"
+                android:shadowColor="@color/material_color_red_500"
+                android:textColor="@color/material_text_color_black_text"
                 android:textSize="16sp"/>
 
         </RelativeLayout>
@@ -83,19 +86,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:text="昵称"
-                    android:textColor="@color/color_333333"
+                    android:text="@string/mine_nick_name"
+                    android:textColor="@color/material_text_color_black_text"
                     android:textSize="16sp"/>
 
-                <TextView
-                    android:id="@+id/tv_mine_signature"
+                <Button
+                    android:id="@+id/bt_mine_signature"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_mine_nickname"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="7dp"
-                    android:text="个性签名"
-                    android:textColor="@color/color_mine_line"
+                    android:text="@string/mine_signature"
+                    android:textColor="@color/material_text_color_black_text"
                     android:textSize="13sp"/>
             </RelativeLayout>
         </RelativeLayout>
@@ -103,54 +106,71 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="10dp"
-            android:background="@color/color_cccccc"/>
+            android:background="@color/material_text_color_black_divider"/>
 
-        <TextView
-            android:id="@+id/tv_mine_video_setting"
-            style="@style/MineStyle"
-            android:text="@string/video_play_setting"/>
-
-        <View
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginLeft="@dimen/public_text_padding"
-            android:background="@color/color_mine_line"/>
+            android:layout_height="wrap_content"
+            android:background="@color/material_color_grey_1001"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_mine_share"
-            style="@style/MineStyle"
-            android:text="@string/share_weapon"/>
+            <TextView
+                android:id="@+id/tv_mine_video_setting"
+                style="@style/MineStyle"
+                android:text="@string/video_play_setting"/>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginLeft="@dimen/public_text_padding"
-            android:background="@color/color_mine_line"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="@dimen/public_text_padding"
+                android:background="@color/material_text_color_black_divider"/>
 
-        <TextView
-            android:id="@+id/tv_mine_qr_code"
-            style="@style/MineStyle"
-            android:layout_width="match_parent"
-            android:text="@string/my_qrcode"/>
+            <TextView
+                android:id="@+id/tv_mine_share"
+                style="@style/MineStyle"
+                android:text="@string/share_weapon"/>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginLeft="@dimen/public_text_padding"
-            android:background="@color/color_mine_line"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="@dimen/public_text_padding"
+                android:background="@color/material_text_color_black_divider"/>
 
-        <TextView
-            android:id="@+id/tv_mine_update"
-            style="@style/MineStyle"
-            android:text="@string/version_update"/>
-        <TextView
-            android:text="@{model.testString}"
-            style="@style/MineStyle"/>
+            <TextView
+                android:id="@+id/tv_mine_qr_code"
+                style="@style/MineStyle"
+                android:layout_width="match_parent"
+                android:text="@string/my_qrcode"/>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/color_mine_line"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="@dimen/public_text_padding"
+                android:background="@color/material_text_color_black_divider"/>
+
+            <TextView
+                android:id="@+id/tv_mine_update"
+                style="@style/MineStyle"
+                android:text="@string/version_update"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="@dimen/public_text_padding"
+                android:background="@color/material_text_color_black_divider"/>
+
+            <TextView
+                style="@style/MineStyle"
+                android:text="@{model.testString}"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/material_text_color_black_divider"/>
+
+        </LinearLayout>
+
+
     </LinearLayout>
 
 </layout>
