@@ -533,3 +533,4 @@ int color material_text_color_yellow_A400 0x79030211
 int color material_text_color_yellow_A700 0x79030212
 int dimen public_main_text_size 0x79040000
 int dimen public_sub_text_size 0x79040001
+int drawable public_click_bg 0x79050000

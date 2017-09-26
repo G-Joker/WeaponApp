@@ -1,4 +1,4 @@
-package com.weapon.joker.lib.middleware.view;
+package com.weapon.joker.lib.middleware.utils;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,8 +9,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.tencent.tauth.IUiListener;
 import com.weapon.joker.lib.middleware.R;
-import com.weapon.joker.lib.middleware.utils.ShareUtils;
 
 /**
  * <pre>
@@ -37,13 +37,17 @@ public class ShareView {
     private Button mBtCancel;
 
 
-    public ShareView(Context context) {
+    public ShareView(Context context, IUiListener listener) {
         if (!(context instanceof Activity)) {
             throw new RuntimeException("context must is activity!");
+        }
+        if (listener == null) {
+            throw new RuntimeException("listener should not be null!");
         }
         mContext = context;
         mActivity = (Activity) context;
         mShareUtils = ShareUtils.getInstance(mActivity);
+        mShareUtils.setIUiListener(listener);
         initView(context);
     }
 

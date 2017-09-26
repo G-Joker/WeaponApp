@@ -7,7 +7,6 @@ import com.tencent.connect.share.QQShare;
 import com.tencent.connect.share.QzoneShare;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
-import com.tencent.tauth.UiError;
 
 import java.util.ArrayList;
 
@@ -23,10 +22,12 @@ import java.util.ArrayList;
 
 public class ShareUtils {
 
+    private final static String APP_ID = "101426105";
+
     private static ShareUtils sInstance;
     private Tencent mTencent;
     private Activity mActivity;
-    private final static String APP_ID = "101426105";
+    private IUiListener mIUiListener;
 
     public static ShareUtils getInstance(Activity activity) {
 
@@ -46,6 +47,10 @@ public class ShareUtils {
         mTencent = Tencent.createInstance(APP_ID, activity.getApplicationContext());
     }
 
+    public void setIUiListener(IUiListener listener) {
+        this.mIUiListener = listener;
+    }
+
     public void shareToQZone() {
         Bundle params = new Bundle();
         params.putInt(QzoneShare.SHARE_TO_QZONE_KEY_TYPE, QzoneShare.SHARE_TO_QZONE_TYPE_IMAGE_TEXT);
@@ -53,24 +58,7 @@ public class ShareUtils {
         params.putString(QzoneShare.SHARE_TO_QQ_SUMMARY, "Welcome to the WeaponApp!");
         params.putString(QzoneShare.SHARE_TO_QQ_TARGET_URL, "https://github.com/G-Joker/WeaponApp");
         params.putStringArrayList(QzoneShare.SHARE_TO_QQ_IMAGE_URL, new ArrayList<String>());
-//        params.putString(QQShare.SHARE_TO_QQ_APP_NAME, "WeaponApp");
-//        params.putInt(QQShare.SHARE_TO_QQ_EXT_INT, QQShare.SHARE_TO_QQ_FLAG_QZONE_AUTO_OPEN);
-        mTencent.shareToQzone(mActivity, params, new IUiListener() {
-            @Override
-            public void onComplete(Object o) {
-                JLog.i("shareTo-->" + "onComplete:\t" + o.toString());
-            }
-
-            @Override
-            public void onError(UiError uiError) {
-                JLog.i("shareTo-->" + "UiError:\t" + uiError.errorMessage);
-            }
-
-            @Override
-            public void onCancel() {
-                JLog.i("shareTo--->" + "onCancel");
-            }
-        });
+        mTencent.shareToQzone(mActivity, params, mIUiListener);
     }
 
     public void shareToQQ() {
@@ -81,23 +69,7 @@ public class ShareUtils {
         params.putString(QQShare.SHARE_TO_QQ_TARGET_URL, "https://github.com/G-Joker/WeaponApp");
         params.putString(QQShare.SHARE_TO_QQ_IMAGE_URL, "https://avatars2.githubusercontent.com/u/31761754?v=4&s=200.png");
         params.putString(QQShare.SHARE_TO_QQ_APP_NAME, "WeaponApp");
-//        params.putInt(QQShare.SHARE_TO_QQ_EXT_INT, QQShare.SHARE_TO_QQ_FLAG_QZONE_AUTO_OPEN);
-        mTencent.shareToQQ(mActivity, params, new IUiListener() {
-            @Override
-            public void onComplete(Object o) {
-                JLog.i("shareTo-->" + "onComplete:\t" + o.toString());
-            }
-
-            @Override
-            public void onError(UiError uiError) {
-                JLog.i("shareTo-->" + "UiError:\t" + uiError.errorMessage);
-            }
-
-            @Override
-            public void onCancel() {
-                JLog.i("shareTo--->" + "onCancel");
-            }
-        });
+        mTencent.shareToQQ(mActivity, params, mIUiListener);
     }
 
 

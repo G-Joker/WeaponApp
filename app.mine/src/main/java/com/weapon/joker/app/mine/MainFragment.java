@@ -8,7 +8,7 @@ import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
 import com.weapon.joker.app.mine.databinding.FragmentMineBinding;
 import com.weapon.joker.lib.middleware.utils.JLog;
-import com.weapon.joker.lib.middleware.view.ShareView;
+import com.weapon.joker.lib.middleware.utils.ShareView;
 import com.weapon.joker.lib.mvvm.common.BaseFragment;
 
 /**
@@ -18,7 +18,7 @@ import com.weapon.joker.lib.mvvm.common.BaseFragment;
  * e-mail: guanzhi.zhang@sojex.cn
  */
 
-public class MainFragment extends BaseFragment<MineViewModel,MineModel> implements MineContact.View{
+public class MainFragment extends BaseFragment<MineViewModel,MineModel> implements MineContact.View, IUiListener {
 
     private ShareView mShareView;
     @Override
@@ -28,7 +28,8 @@ public class MainFragment extends BaseFragment<MineViewModel,MineModel> implemen
 
     @Override
     public void initView() {
-        mShareView = new ShareView(getActivity());
+        mShareView = new ShareView(getActivity(), this);
+
         getViewModel().init();
         FragmentMineBinding binding = (FragmentMineBinding) getViewDataBinding();
         binding.tvMineShare.setOnClickListener(new View.OnClickListener() {
@@ -51,22 +52,13 @@ public class MainFragment extends BaseFragment<MineViewModel,MineModel> implemen
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Tencent.onActivityResultData(requestCode, resultCode, data, new IUiListener() {
-            @Override
-            public void onComplete(Object o) {
-                JLog.i("shareTo-->" + "onComplete:\t" + o.toString());
-            }
-
-            @Override
-            public void onError(UiError uiError) {
-                JLog.i("shareTo-->" + "UiError:\t" + uiError.errorMessage);
-            }
-
-            @Override
-            public void onCancel() {
-                JLog.i("shareTo--->" + "onCancel");
-            }
-        });
+        Tencent.onActivityResultData(requestCode, resultCode, data, this);
         super.onActivityResult(requestCode, resultCode, data);
     }
+
+    @Override public void onComplete(Object o) {JLog.i("shareTo-->" + "onComplete:\t" + o.toString());}
+
+    @Override public void onError(UiError uiError) {JLog.i("shareTo-->" + "UiError:\t" + uiError.errorMessage);}
+
+    @Override public void onCancel() {JLog.i("shareTo--->" + "onCancel");}
 }
