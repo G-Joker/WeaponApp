@@ -2,6 +2,17 @@
 
 >**一个极致的App**。学习项目，帮助你提升独自开发 `Android` 业务层的能力。基于该开发框架，可以快速构建应用，同时你可以当做一个工具 App，以供你平时开发参考。
 
+整包打包方式：
+```
+gradlew cleanLib
+gradlew buildLib -q -Dbundle.arch=x86
+gradlew cleanBundle
+gradlew buildBundle -q -Dbundle.arch=x86
+```
+其中 -q 代表整洁模式，只看到插件的打包结果信息。
+-Dbundle.arch 中，如果是模拟器调试，则是`x86`，如果是真机调试则是`armeabi`
+
+详细打包指令参数请参考`Small`文档:[Small文档](http://code.wequick.net/Small/cn/compile-options)
 
 ### 开发方法：**测试驱动开发**
 
