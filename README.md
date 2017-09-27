@@ -41,7 +41,7 @@
 
 * **[func] do sth**：功能开发
 * **[fixbug] #xx# do sth**：Bug 修改，#号内为 issue 编号
-* **[doc] do sth**：文档
+* **[docs] do sth**：文档
 * **[chore] do sth**：build相关的修改
 * **[test] do sth**：添加测试代码
 * **[optimize] do sth**: 优化部分代码
