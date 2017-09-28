@@ -3,6 +3,7 @@ package com.weapon.joker.lib.middleware.utils;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.tencent.connect.share.QQShare;
 import com.tencent.connect.share.QzoneShare;
@@ -25,10 +26,10 @@ import java.util.ArrayList;
 
 public class ShareUtils {
 
-    private static ShareUtils sInstance;
-    private Tencent mTencent;
-    private Activity mActivity;
-    private IUiListener mIUiListener;
+    private static ShareUtils  sInstance;
+    private        Tencent     mTencent;
+    private        Activity    mActivity;
+    private        IUiListener mIUiListener;
 
     public static ShareUtils getInstance(Activity activity) {
 
@@ -56,38 +57,53 @@ public class ShareUtils {
      * 分享到QQ空间
      */
     public void shareToQZone() {
-        Bundle params = new Bundle();
-        params.putInt(QzoneShare.SHARE_TO_QZONE_KEY_TYPE, QzoneShare.SHARE_TO_QZONE_TYPE_IMAGE_TEXT);
-        params.putString(QzoneShare.SHARE_TO_QQ_TITLE, mActivity.getResources().getString(R.string.share_title));
-        params.putString(QzoneShare.SHARE_TO_QQ_SUMMARY, mActivity.getResources().getString(R.string.share_desc));
-        params.putString(QzoneShare.SHARE_TO_QQ_TARGET_URL, mActivity.getResources().getString(R.string.share_url));
-        ArrayList<String> value = new ArrayList<>();
-        value.add(mActivity.getResources().getString(R.string.share_img_url));
-        params.putStringArrayList(QzoneShare.SHARE_TO_QQ_IMAGE_URL, value);
-        mTencent.shareToQzone(mActivity, params, mIUiListener);
+        try {
+            Bundle params = new Bundle();
+            params.putInt(QzoneShare.SHARE_TO_QZONE_KEY_TYPE, QzoneShare.SHARE_TO_QZONE_TYPE_IMAGE_TEXT);
+            params.putString(QzoneShare.SHARE_TO_QQ_TITLE, mActivity.getResources().getString(R.string.share_title));
+            params.putString(QzoneShare.SHARE_TO_QQ_SUMMARY, mActivity.getResources().getString(R.string.share_desc));
+            params.putString(QzoneShare.SHARE_TO_QQ_TARGET_URL, mActivity.getResources().getString(R.string.share_url));
+            ArrayList<String> value = new ArrayList<>();
+            value.add(mActivity.getResources().getString(R.string.share_img_url));
+            params.putStringArrayList(QzoneShare.SHARE_TO_QQ_IMAGE_URL, value);
+            mTencent.shareToQzone(mActivity, params, mIUiListener);
+        } catch (Exception e) {
+            JLog.i("Share:\t" + e.getMessage());
+            Toast.makeText(mActivity, R.string.share_error_toast, Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
      * 分享给QQ好友
      */
     public void shareToQQ() {
-        Bundle params = new Bundle();
-        params.putInt(QQShare.SHARE_TO_QQ_KEY_TYPE, QQShare.SHARE_TO_QQ_TYPE_DEFAULT);
-        params.putString(QQShare.SHARE_TO_QQ_TITLE, mActivity.getResources().getString(R.string.share_title));
-        params.putString(QQShare.SHARE_TO_QQ_SUMMARY, mActivity.getResources().getString(R.string.share_desc));
-        params.putString(QQShare.SHARE_TO_QQ_TARGET_URL, mActivity.getResources().getString(R.string.share_url));
-        params.putString(QQShare.SHARE_TO_QQ_IMAGE_URL, mActivity.getResources().getString(R.string.share_img_url));
-        params.putString(QQShare.SHARE_TO_QQ_APP_NAME, "WeaponApp");
-        mTencent.shareToQQ(mActivity, params, mIUiListener);
+        try {
+            Bundle params = new Bundle();
+            params.putInt(QQShare.SHARE_TO_QQ_KEY_TYPE, QQShare.SHARE_TO_QQ_TYPE_DEFAULT);
+            params.putString(QQShare.SHARE_TO_QQ_TITLE, mActivity.getResources().getString(R.string.share_title));
+            params.putString(QQShare.SHARE_TO_QQ_SUMMARY, mActivity.getResources().getString(R.string.share_desc));
+            params.putString(QQShare.SHARE_TO_QQ_TARGET_URL, mActivity.getResources().getString(R.string.share_url));
+            params.putString(QQShare.SHARE_TO_QQ_IMAGE_URL, mActivity.getResources().getString(R.string.share_img_url));
+            params.putString(QQShare.SHARE_TO_QQ_APP_NAME, "WeaponApp");
+            mTencent.shareToQQ(mActivity, params, mIUiListener);
+        } catch (Exception e) {
+            JLog.i("Share:\t" + e.getMessage());
+            Toast.makeText(mActivity, R.string.share_error_toast, Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
      * 分享给微信好友
      */
     public void shareToWX() {
-        Intent wxIntent = new Intent(mActivity, WXEntryActivity.class);
-        wxIntent.putExtra(WXEntryActivity.SHARE_TYPE, WXEntryActivity.WX_SESSION);
-        mActivity.startActivity(wxIntent);
+        try {
+            Intent wxIntent = new Intent(mActivity, WXEntryActivity.class);
+            wxIntent.putExtra(WXEntryActivity.SHARE_TYPE, WXEntryActivity.WX_SESSION);
+            mActivity.startActivity(wxIntent);
+        } catch (Exception e) {
+            JLog.i("Share:\t" + e.getMessage());
+            Toast.makeText(mActivity, R.string.share_error_toast, Toast.LENGTH_SHORT).show();
+        }
     }
 
 
@@ -95,18 +111,28 @@ public class ShareUtils {
      * 分享到朋友圈
      */
     public void shareToWXFriendCircle() {
-        Intent wxIntent = new Intent(mActivity, WXEntryActivity.class);
-        wxIntent.putExtra(WXEntryActivity.SHARE_TYPE, WXEntryActivity.WX_CIRCLE);
-        mActivity.startActivity(wxIntent);
+        try {
+            Intent wxIntent = new Intent(mActivity, WXEntryActivity.class);
+            wxIntent.putExtra(WXEntryActivity.SHARE_TYPE, WXEntryActivity.WX_CIRCLE);
+            mActivity.startActivity(wxIntent);
+        } catch (Exception e) {
+            JLog.i("Share:\t" + e.getMessage());
+            Toast.makeText(mActivity, R.string.share_error_toast, Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
      * 分享到收藏
      */
     public void shareToWXFavorite() {
-        Intent wxIntent = new Intent(mActivity, WXEntryActivity.class);
-        wxIntent.putExtra(WXEntryActivity.SHARE_TYPE, WXEntryActivity.WX_FAVORITE);
-        mActivity.startActivity(wxIntent);
+        try {
+            Intent wxIntent = new Intent(mActivity, WXEntryActivity.class);
+            wxIntent.putExtra(WXEntryActivity.SHARE_TYPE, WXEntryActivity.WX_FAVORITE);
+            mActivity.startActivity(wxIntent);
+        } catch (Exception e) {
+            JLog.i("Share:\t" + e.getMessage());
+            Toast.makeText(mActivity, R.string.share_error_toast, Toast.LENGTH_SHORT).show();
+        }
     }
 
 }
