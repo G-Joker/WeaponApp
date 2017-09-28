@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.tencent.tauth.IUiListener;
+import com.weapon.joker.app.stub.ShareParams;
 import com.weapon.joker.lib.middleware.R;
 
 /**
@@ -37,8 +38,11 @@ public class ShareView {
     private LinearLayout mLlShareWxFavorite;
     private Button mBtCancel;
 
+    private ShareParams mParams;
+    private IUiListener mListener;
 
-    public ShareView(Context context, IUiListener listener) {
+
+    public ShareView(Context context, ShareParams shareParams, IUiListener listener) {
         if (!(context instanceof Activity)) {
             throw new RuntimeException("context must is activity!");
         }
@@ -47,8 +51,9 @@ public class ShareView {
         }
         mContext = context;
         mActivity = (Activity) context;
+        mParams = shareParams;
+        mListener = listener;
         mShareUtils = ShareUtils.getInstance(mActivity);
-        mShareUtils.setIUiListener(listener);
         initView(context);
     }
 
@@ -73,35 +78,35 @@ public class ShareView {
         mLlShareQQ.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mShareUtils.shareToQQ();
+                mShareUtils.shareToQQ(mParams, mListener);
                 mDialog.cancel();
             }
         });
         mLlShareZone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mShareUtils.shareToQZone();
+                mShareUtils.shareToQZone(mParams, mListener);
                 mDialog.cancel();
             }
         });
         mLlShareWechat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mShareUtils.shareToWX();
+                mShareUtils.shareToWX(mParams);
                 mDialog.cancel();
             }
         });
         mLlShareFriendCircle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mShareUtils.shareToWXFriendCircle();
+                mShareUtils.shareToWXFriendCircle(mParams);
                 mDialog.cancel();
             }
         });
         mLlShareWxFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mShareUtils.shareToWXFavorite();
+                mShareUtils.shareToWXFavorite(mParams);
                 mDialog.cancel();
             }
         });

@@ -37,6 +37,7 @@ gradlew buildBundle -q -Dbundle.arch=x86
 - [x] **Databinding**
 - [ ] **自建服务器**
 - [ ] **自定义 Gradle 插件**
+- [ ] **集成QQ、微信、微博官方分享**
 - [ ] 全平台推送服务
 - [ ] 友盟统计
 - [ ] OkHttp + Retrofit + RxJava

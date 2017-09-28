@@ -534,3 +534,7 @@ int color material_text_color_yellow_A700 0x79030212
 int dimen public_main_text_size 0x79040000
 int dimen public_sub_text_size 0x79040001
 int drawable public_click_bg 0x79050000
+int string share_desc 0x79060000
+int string share_img_url 0x79060001
+int string share_name 0x79060002
+int string share_url 0x79060003

@@ -4,6 +4,10 @@ int drawable ic_share_qq 0x62020002
 int drawable ic_share_wechat 0x62020003
 int drawable ic_share_weibo 0x62020004
 int drawable ic_share_zone 0x62020005
+int drawable bg_share_cancel 0x62020006
+int drawable bg_share_cancel_normal 0x62020007
+int drawable bg_share_cancel_press 0x62020008
+int drawable ic_share_favorite 0x62020009
 int layout view_share 0x62030000
 int string share_cancel 0x62040000
 int string share_friend_circle 0x62040001
@@ -16,6 +20,8 @@ int string share_desc 0x62040007
 int string share_img_url 0x62040008
 int string share_name 0x62040009
 int string share_url 0x6204000a
+int string share_error_toast 0x6204000b
+int string share_wx_favorite 0x6204000c
 int style ShareImageViewStyle 0x62050000
 int style ShareLinearLayoutStyle 0x62050001
 int style ShareTextViewStyle 0x62050002
@@ -25,3 +31,4 @@ int id ll_share_we_chat 0x62060002
 int id ll_share_friend_circle 0x62060003
 int id ll_share_weibo 0x62060004
 int id bt_share_cancel 0x62060005
+int id ll_share_wx_favorite 0x62060006

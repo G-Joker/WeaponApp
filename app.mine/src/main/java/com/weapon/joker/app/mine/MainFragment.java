@@ -7,6 +7,7 @@ import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
 import com.weapon.joker.app.mine.databinding.FragmentMineBinding;
+import com.weapon.joker.app.stub.ShareParams;
 import com.weapon.joker.lib.middleware.utils.JLog;
 import com.weapon.joker.lib.middleware.utils.ShareView;
 import com.weapon.joker.lib.mvvm.common.BaseFragment;
@@ -18,9 +19,10 @@ import com.weapon.joker.lib.mvvm.common.BaseFragment;
  * e-mail: guanzhi.zhang@sojex.cn
  */
 
-public class MainFragment extends BaseFragment<MineViewModel,MineModel> implements MineContact.View, IUiListener {
+public class MainFragment extends BaseFragment<MineViewModel, MineModel> implements MineContact.View, IUiListener {
 
     private ShareView mShareView;
+
     @Override
     public int getLayoutId() {
         return R.layout.fragment_mine;
@@ -28,7 +30,13 @@ public class MainFragment extends BaseFragment<MineViewModel,MineModel> implemen
 
     @Override
     public void initView() {
-        mShareView = new ShareView(getActivity(), this);
+        ShareParams params = new ShareParams.Builder().setTitle(getActivity().getResources().getString(R.string.share_name))
+                                                      .setDescription(getActivity().getResources().getString(R.string.share_desc))
+                                                      .setAppUrl(getActivity().getResources().getString(R.string.share_url))
+                                                      .setImgUrl(getActivity().getResources().getString(R.string.share_img_url))
+                                                      .setResId(R.mipmap.ic_launcher_round)
+                                                      .build();
+        mShareView = new ShareView(getActivity(), params, this);
 
         getViewModel().init();
         FragmentMineBinding binding = (FragmentMineBinding) getViewDataBinding();
@@ -42,12 +50,12 @@ public class MainFragment extends BaseFragment<MineViewModel,MineModel> implemen
 
     @Override
     public int getBR() {
-        return com.weapon.joker.app.mine.BR.model;
+        return BR.model;
     }
 
     @Override
     public void TestType() {
-//        Toast.makeText(getActivity(),"接口调用成功",Toast.LENGTH_LONG).show();
+        //        Toast.makeText(getActivity(),"接口调用成功",Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -56,9 +64,18 @@ public class MainFragment extends BaseFragment<MineViewModel,MineModel> implemen
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    @Override public void onComplete(Object o) {JLog.i("shareTo-->" + "onComplete:\t" + o.toString());}
+    @Override
+    public void onComplete(Object o) {
+        JLog.i("shareTo-->" + "onComplete:\t" + o.toString());
+    }
 
-    @Override public void onError(UiError uiError) {JLog.i("shareTo-->" + "UiError:\t" + uiError.errorMessage);}
+    @Override
+    public void onError(UiError uiError) {
+        JLog.i("shareTo-->" + "UiError:\t" + uiError.errorMessage);
+    }
 
-    @Override public void onCancel() {JLog.i("shareTo--->" + "onCancel");}
+    @Override
+    public void onCancel() {
+        JLog.i("shareTo--->" + "onCancel");
+    }
 }

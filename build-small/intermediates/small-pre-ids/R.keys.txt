@@ -1004,6 +1004,7 @@ int layout abc_search_dropdown_item_icons_2line
 int layout abc_search_view
 int layout abc_select_dialog_material
 int layout activity_splash
+int layout activity_wxshare
 int layout design_bottom_navigation_item
 int layout design_bottom_sheet_dialog
 int layout design_layout_snackbar
@@ -1075,6 +1076,11 @@ int string app_name
 int string appbar_scrolling_view_behavior
 int string bottom_sheet_behavior
 int string character_counter_pattern
+int string errcode_cancel
+int string errcode_deny
+int string errcode_success
+int string errcode_unknown
+int string errcode_unsupported
 int string password_toggle_content_description
 int string path_password_eye
 int string path_password_eye_mask_strike_through
@@ -1253,6 +1259,7 @@ int style Base_Widget_AppCompat_Toolbar_Button_Navigation
 int style Base_Widget_Design_AppBarLayout
 int style Base_Widget_Design_TabLayout
 int style FullscreenTheme
+int style NoTitleTranslucentTheme
 int style Platform_AppCompat
 int style Platform_AppCompat_Light
 int style Platform_ThemeOverlay_AppCompat
@@ -2137,6 +2144,10 @@ int drawable ic_share_qq
 int drawable ic_share_wechat
 int drawable ic_share_weibo
 int drawable ic_share_zone
+int drawable bg_share_cancel
+int drawable bg_share_cancel_normal
+int drawable bg_share_cancel_press
+int drawable ic_share_favorite
 int layout view_share
 int string share_cancel
 int string share_friend_circle
@@ -2145,6 +2156,12 @@ int string share_qq_zone
 int string share_title
 int string share_wechat
 int string share_weibo
+int string share_desc
+int string share_img_url
+int string share_name
+int string share_url
+int string share_error_toast
+int string share_wx_favorite
 int style ShareImageViewStyle
 int style ShareLinearLayoutStyle
 int style ShareTextViewStyle
@@ -2154,6 +2171,7 @@ int id ll_share_we_chat
 int id ll_share_friend_circle
 int id ll_share_weibo
 int id bt_share_cancel
+int id ll_share_wx_favorite
 int style AppTheme_NoActionBar
 int style AppTheme_Base
 int color material_color_amber_100

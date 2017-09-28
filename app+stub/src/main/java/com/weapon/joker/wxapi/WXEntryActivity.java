@@ -18,6 +18,7 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.weapon.joker.app.stub.R;
+import com.weapon.joker.app.stub.ShareParams;
 
 import java.io.ByteArrayOutputStream;
 
@@ -44,6 +45,7 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
 
 
     private int mTargetScene = WX_ERROR; // 分享类别
+    private ShareParams mParams;
 
     private IWXAPI mApi;
 
@@ -56,8 +58,10 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
         Intent intent = getIntent();
         if (intent != null) {
             mTargetScene = getIntent().getIntExtra(SHARE_TYPE, WX_ERROR);
+            mParams = (ShareParams) getIntent().getSerializableExtra("param");
         }
-        if (mTargetScene != WX_ERROR) {
+        if (mTargetScene != WX_ERROR && mParams != null) {
+            Log.i("xwz--->", "onCreate: " + mParams.toString());
             shareToSession();
             try {
                 mApi.handleIntent(getIntent(), this);
@@ -78,12 +82,12 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
 
     private void shareToSession() {
         WXWebpageObject webpage = new WXWebpageObject();
-        webpage.webpageUrl = getResources().getString(R.string.share_url);
+        webpage.webpageUrl = mParams.getAppUrl();
 
         WXMediaMessage msg = new WXMediaMessage(webpage);
-        msg.title = getResources().getString(R.string.share_title);
-        msg.description = getResources().getString(R.string.share_desc);
-        Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round);
+        msg.title = mParams.getTitle();
+        msg.description = mParams.getDescription();
+        Bitmap bmp = BitmapFactory.decodeResource(getResources(), mParams.getResId());
         Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, THUMB_SIZE, THUMB_SIZE, true);
         bmp.recycle();
         msg.thumbData = bmpToByteArray(thumbBmp, true);
