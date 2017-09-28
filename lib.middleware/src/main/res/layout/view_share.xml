@@ -2,19 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="#efeff4"
               android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="6dp"
+        android:paddingTop="16dp"
+        android:paddingLeft="16dp"
+        android:paddingBottom="8dp"
         android:text="@string/share_title"
         android:textColor="#de000000"
         android:textSize="16sp"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:background="#e9e6e6"
+        android:layout_height="1px"/>
+
     <LinearLayout
-        android:paddingTop="6dp"
+        android:paddingTop="2dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
@@ -47,6 +53,29 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_share_weibo"
+            style="@style/ShareLinearLayoutStyle">
+
+            <ImageView
+                style="@style/ShareImageViewStyle"
+                android:src="@drawable/ic_share_weibo"/>
+
+            <TextView
+                style="@style/ShareTextViewStyle"
+                android:text="@string/share_weibo"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:paddingTop="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
             android:id="@+id/ll_share_we_chat"
             style="@style/ShareLinearLayoutStyle">
 
@@ -73,25 +102,29 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/ll_share_weibo"
+            android:id="@+id/ll_share_wx_favorite"
             style="@style/ShareLinearLayoutStyle">
 
             <ImageView
                 style="@style/ShareImageViewStyle"
-                android:src="@drawable/ic_share_weibo"/>
+                android:padding="9dp"
+                android:src="@drawable/ic_share_favorite"/>
 
             <TextView
                 style="@style/ShareTextViewStyle"
-                android:text="@string/share_weibo"/>
+                android:text="@string/share_wx_favorite"/>
         </LinearLayout>
-    </LinearLayout>
 
-    <Button
+    </LinearLayout>
+    <android.support.v7.widget.AppCompatButton
         android:id="@+id/bt_share_cancel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
-        android:background="#fff"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:background="@drawable/bg_share_cancel"
+        android:gravity="center"
         android:text="@string/share_cancel"
         android:textColor="#de000000"
         android:textSize="16sp"/>

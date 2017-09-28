@@ -100,8 +100,8 @@
 
         <!-- since 3.0.9 Required SDK 核心功能-->
         <provider
-            android:authorities="com.weapon.joker.DataProvider"
             android:name="cn.jpush.android.service.DataProvider"
+            android:authorities="com.weapon.joker.DataProvider"
             android:exported="true"
             />
 
@@ -136,6 +136,12 @@
                 <data android:scheme="tencent101426105"/>
             </intent-filter>
         </activity>
+
+        <activity
+            android:name="com.weapon.joker.wxapi.WXEntryActivity"
+            android:theme="@style/NoTitleTranslucentTheme"
+            android:launchMode="singleTask"
+            android:exported="true"></activity>
     </application>
 
 </manifest>

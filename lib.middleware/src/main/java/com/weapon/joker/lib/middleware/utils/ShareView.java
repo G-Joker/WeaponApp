@@ -34,6 +34,7 @@ public class ShareView {
     private LinearLayout mLlShareWechat;
     private LinearLayout mLlShareFriendCircle;
     private LinearLayout mLlShareWeibo;
+    private LinearLayout mLlShareWxFavorite;
     private Button mBtCancel;
 
 
@@ -59,6 +60,7 @@ public class ShareView {
         mLlShareWechat = view.findViewById(R.id.ll_share_we_chat);
         mLlShareFriendCircle = view.findViewById(R.id.ll_share_friend_circle);
         mLlShareWeibo = view.findViewById(R.id.ll_share_weibo);
+        mLlShareWxFavorite = view.findViewById(R.id.ll_share_wx_favorite);
         mBtCancel = view.findViewById(R.id.bt_share_cancel);
         initListener();
         mDialog.setContentView(view);
@@ -85,14 +87,21 @@ public class ShareView {
         mLlShareWechat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext, "微信", Toast.LENGTH_SHORT).show();
+                mShareUtils.shareToWX();
                 mDialog.cancel();
             }
         });
         mLlShareFriendCircle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext, "朋友圈", Toast.LENGTH_SHORT).show();
+                mShareUtils.shareToWXFriendCircle();
+                mDialog.cancel();
+            }
+        });
+        mLlShareWxFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mShareUtils.shareToWXFavorite();
                 mDialog.cancel();
             }
         });

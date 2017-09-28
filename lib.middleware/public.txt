@@ -12,6 +12,10 @@ int string share_qq_zone 0x62040003
 int string share_title 0x62040004
 int string share_wechat 0x62040005
 int string share_weibo 0x62040006
+int string share_desc 0x62040007
+int string share_img_url 0x62040008
+int string share_name 0x62040009
+int string share_url 0x6204000a
 int style ShareImageViewStyle 0x62050000
 int style ShareLinearLayoutStyle 0x62050001
 int style ShareTextViewStyle 0x62050002
