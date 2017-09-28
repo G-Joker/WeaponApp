@@ -1,2 +1,6 @@
+com.github.bumptech.glide:disklrucache:4.1.1
+com.github.bumptech.glide:gifdecoder:4.1.1
+com.github.bumptech.glide:glide:4.1.1
 android.arch.lifecycle:common:1.0.0
+com.github.bumptech.glide:annotations:4.1.1
 android.arch.core:common:1.0.0
