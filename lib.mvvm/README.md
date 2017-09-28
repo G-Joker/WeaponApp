@@ -131,10 +131,10 @@ public class MineFragment extends BaseFragment<MineViewModel,MineModel> implemen
         return com.weapon.joker.app.mine.BR.model;
     }
 
-	@Override
-	public void testType(){
+    @Override
+    public void testType(){
 		
-	}
+    }
 }
 
 //ViewModel
