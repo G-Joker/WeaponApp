@@ -95,18 +95,18 @@ attachView.invoke(mViewModel, this);
 我们来看一个具体使用封装的栗子，比如现在项目中的我的界面，用这个封装框架来写界面的时候，先写一个接口定义类 Contact ：
 ```java
 interface MineContact{
-	interface View extends BaseView{
-		void testType();
-	}
+    interface View extends BaseView{
+	void testType();
+    }
 	
-	abstract class ViewModel extends BaseViewModel<View,MineModel>{
-		void onHttpResponse();
-		void onHttpError();
-	}
+    abstract class ViewModel extends BaseViewModel<View,MineModel>{
+	void onHttpResponse();
+	void onHttpError();
+    }
 
-	abstract class Model extends BaseModel<ViewModel>{
-		void loadData();
-	}
+    abstract class Model extends BaseModel<ViewModel>{
+	void loadData();
+    }
 
 }
 ```
@@ -156,8 +156,8 @@ public class MineViewModel extends MineContact.ViewModel{
         notifyPropertyChanged(BR.testString);
     }
 
-	public void onHttpResponse(){}
-	public void onHttpError(){}
+    public void onHttpResponse(){}
+    public void onHttpError(){}
 }
 
 //Model
@@ -165,10 +165,10 @@ public class MineModel extends MineContact.Model{
     @Bindable
     public String testString;
 
-	public void loadData(){
-		getViewModel().onHttpResponse();
-		getViewModel().onHttpError();
-	}
+    public void loadData(){
+	getViewModel().onHttpResponse();
+	getViewModel().onHttpError();
+    }
 }
 
 ```
@@ -180,23 +180,23 @@ public class Test{
 	@Test
 	public void main(){
 	
-		MineContact.View view = new MineContact.View(){
-			 @Override
-			 public void testType() {}
+	MineContact.View view = new MineContact.View(){
+		@Override
+		public void testType() {}
 			 
-			 @Override
-			 public int getLayoutId() {
+		@Override
+		 public int getLayoutId() {
 		     return 0;
-			 }
+		 }
 			 
-			 @Override
-			 public void initView() {}
+		@Override
+		public void initView() {}
 			 
-			 @Override
-			 public int getBR() {
-		     return 0;
-			 }	
-		};
+		@Override
+		public int getBR() {
+		    return 0;
+		}	
+	};
 		
 	MineContact.Model model = new MineContact.Model(){
 	    @Override
@@ -204,8 +204,10 @@ public class Test{
 	};
 	
 	MineViewModel vm = new MineViewModel();
+	
 	vm.attachView(view);
 	vm.setModel(model);
+	
 	//调用 init() 方法
 	vm.init();
 	
