@@ -1,4 +1,4 @@
-package com.weapon.joker.lib.middleware.utils;
+package com.weapon.joker.lib.middleware.utils.share;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.tencent.tauth.IUiListener;
-import com.weapon.joker.app.stub.ShareParams;
+import com.weapon.joker.app.stub.share.ShareParams;
 import com.weapon.joker.lib.middleware.R;
 
 /**

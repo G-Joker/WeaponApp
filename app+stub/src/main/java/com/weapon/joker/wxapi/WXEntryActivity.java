@@ -18,7 +18,7 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.weapon.joker.app.stub.R;
-import com.weapon.joker.app.stub.ShareParams;
+import com.weapon.joker.app.stub.share.ShareParams;
 
 import java.io.ByteArrayOutputStream;
 

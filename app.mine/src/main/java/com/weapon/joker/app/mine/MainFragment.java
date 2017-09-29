@@ -7,9 +7,9 @@ import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
 import com.weapon.joker.app.mine.databinding.FragmentMineBinding;
-import com.weapon.joker.app.stub.ShareParams;
+import com.weapon.joker.app.stub.share.ShareParams;
 import com.weapon.joker.lib.middleware.utils.JLog;
-import com.weapon.joker.lib.middleware.utils.ShareView;
+import com.weapon.joker.lib.middleware.utils.share.ShareView;
 import com.weapon.joker.lib.mvvm.common.BaseFragment;
 
 /**
@@ -50,7 +50,7 @@ public class MainFragment extends BaseFragment<MineViewModel, MineModel> impleme
 
     @Override
     public int getBR() {
-        return BR.model;
+        return com.weapon.joker.app.mine.BR.model;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.weapon.joker.lib.middleware.utils;
+package com.weapon.joker.lib.middleware.utils.share;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,8 +9,10 @@ import com.tencent.connect.share.QQShare;
 import com.tencent.connect.share.QzoneShare;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
-import com.weapon.joker.app.stub.ShareParams;
+import com.weapon.joker.app.stub.share.ShareParams;
 import com.weapon.joker.lib.middleware.R;
+import com.weapon.joker.lib.middleware.utils.Constants;
+import com.weapon.joker.lib.middleware.utils.JLog;
 import com.weapon.joker.wxapi.WXEntryActivity;
 
 import java.util.ArrayList;
@@ -18,7 +20,7 @@ import java.util.ArrayList;
 /**
  * <pre>
  *     author : xiaweizi
- *     class  : com.weapon.joker.lib.middleware.utils.ShareUtils
+ *     class  : com.weapon.joker.lib.middleware.utils.share.ShareUtils
  *     e-mail : 1012126908@qq.com
  *     time   : 2017/09/25
  *     desc   : 分享工具

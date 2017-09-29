@@ -1,4 +1,4 @@
-package com.weapon.joker.app.stub;
+package com.weapon.joker.app.stub.share;
 
 
 import java.io.Serializable;
@@ -6,7 +6,7 @@ import java.io.Serializable;
 /**
  * <pre>
  *     author : xiaweizi
- *     class  : com.weapon.joker.app.stub.ShareParams
+ *     class  : com.weapon.joker.app.stub.share.ShareParams
  *     e-mail : 1012126908@qq.com
  *     time   : 2017/09/28
  *     desc   : 分享参数
