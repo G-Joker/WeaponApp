@@ -116,6 +116,48 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <LinearLayout
+        android:paddingTop="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/ll_share_copy_link"
+            style="@style/ShareLinearLayoutStyle">
+
+            <ImageView
+                style="@style/ShareImageViewStyle"
+                android:padding="8dp"
+                android:src="@drawable/ic_share_copy_link"/>
+
+            <TextView
+                style="@style/ShareTextViewStyle"
+                android:text="@string/share_copy_link"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_share_other"
+            style="@style/ShareLinearLayoutStyle">
+
+            <ImageView
+                style="@style/ShareImageViewStyle"
+                android:padding="10dp"
+                android:src="@drawable/ic_share_other"/>
+
+            <TextView
+                style="@style/ShareTextViewStyle"
+                android:text="@string/share_other"/>
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/ShareLinearLayoutStyle">
+        </LinearLayout>
+
+    </LinearLayout>
+
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/bt_share_cancel"
         android:layout_width="match_parent"

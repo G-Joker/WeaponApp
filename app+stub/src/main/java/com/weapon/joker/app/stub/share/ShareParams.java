@@ -92,7 +92,9 @@ public class ShareParams implements Serializable {
 
     @Override
     public String toString() {
-        return "ShareParams{" + "title='" + title + '\'' + ", description='" + description + '\'' + ", appUrl='" + appUrl + '\'' +
-               ", imgUrl='" + imgUrl + '\'' + ", resId=" + resId + '}';
+        return "title:\t" + getTitle() + "\n" +
+                "description:\t" + getDescription() + "\n" +
+                "appUrl:\t" + getAppUrl() + "\n" +
+                "imgUrl:\t" + getImgUrl();
     }
 }

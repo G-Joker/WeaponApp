@@ -11,7 +11,7 @@ package com.weapon.joker.app.stub.share;
  */
 
 public interface IShareListener {
-    void onShareSuccess(ShareType shareType);
+    void onShareSuccess(ShareType shareType, String desc);
     void onShareFailed(ShareType shareType, String  errorMessage);
-    void onShareCancel(ShareType shareType, String desc);
+    void onShareCancel(ShareType shareType);
 }

@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.tencent.tauth.IUiListener;
+import com.weapon.joker.app.stub.share.IShareListener;
 import com.weapon.joker.app.stub.share.ShareParams;
 import com.weapon.joker.lib.middleware.R;
 
@@ -36,13 +36,15 @@ public class ShareView {
     private LinearLayout mLlShareFriendCircle;
     private LinearLayout mLlShareWeibo;
     private LinearLayout mLlShareWxFavorite;
+    private LinearLayout mLlShareCopyLink;
+    private LinearLayout mLlShareOther;
     private Button mBtCancel;
 
-    private ShareParams mParams;
-    private IUiListener mListener;
+    private ShareParams    mParams;
+    private IShareListener mListener;
 
 
-    public ShareView(Context context, ShareParams shareParams, IUiListener listener) {
+    public ShareView(Context context, ShareParams shareParams, IShareListener listener) {
         if (!(context instanceof Activity)) {
             throw new RuntimeException("context must is activity!");
         }
@@ -53,7 +55,7 @@ public class ShareView {
         mActivity = (Activity) context;
         mParams = shareParams;
         mListener = listener;
-        mShareUtils = ShareUtils.getInstance(mActivity);
+        mShareUtils = ShareUtils.getInstance(mActivity, mListener);
         initView(context);
     }
 
@@ -66,6 +68,8 @@ public class ShareView {
         mLlShareFriendCircle = view.findViewById(R.id.ll_share_friend_circle);
         mLlShareWeibo = view.findViewById(R.id.ll_share_weibo);
         mLlShareWxFavorite = view.findViewById(R.id.ll_share_wx_favorite);
+        mLlShareCopyLink = view.findViewById(R.id.ll_share_copy_link);
+        mLlShareOther = view.findViewById(R.id.ll_share_other);
         mBtCancel = view.findViewById(R.id.bt_share_cancel);
         initListener();
         mDialog.setContentView(view);
@@ -78,14 +82,14 @@ public class ShareView {
         mLlShareQQ.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mShareUtils.shareToQQ(mParams, mListener);
+                mShareUtils.shareToQQ(mParams);
                 mDialog.cancel();
             }
         });
         mLlShareZone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mShareUtils.shareToQZone(mParams, mListener);
+                mShareUtils.shareToQZone(mParams);
                 mDialog.cancel();
             }
         });
@@ -114,6 +118,20 @@ public class ShareView {
             @Override
             public void onClick(View view) {
                 Toast.makeText(mContext, "微博", Toast.LENGTH_SHORT).show();
+                mDialog.cancel();
+            }
+        });
+        mLlShareCopyLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mShareUtils.addContentToClipboard(mParams);
+                mDialog.cancel();
+            }
+        });
+        mLlShareOther.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mShareUtils.shareToSystem(mParams);
                 mDialog.cancel();
             }
         });

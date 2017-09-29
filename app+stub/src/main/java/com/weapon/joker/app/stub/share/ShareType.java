@@ -12,14 +12,14 @@ package com.weapon.joker.app.stub.share;
 
 public enum ShareType {
 
-    QQ_ZONE("qq zone"), // qq 空间
-    QQ("qq"), // qq
-    WEIXIN_CIRCLE("weixin friend circle"), // 微信朋友圈
-    WEIXIN_FAVORITE("weixin favorite"), // 微信收藏
-    WEIXIN("weixin"), // 微信
-    WEIBO("sina weibo"), // 新浪微博
-    OTHER("other"), // 其他系统分享
-    COPY("copy"); // 复制链接
+    QQ_ZONE("QQ 空间"), // qq 空间
+    QQ("QQ"), // qq
+    WEIXIN_CIRCLE("微信朋友圈"), // 微信朋友圈
+    WEIXIN_FAVORITE("微信收藏"), // 微信收藏
+    WEIXIN("微信"), // 微信
+    WEIBO("新浪微博"), // 新浪微博
+    OTHER("其他系统分享"), // 其他系统分享
+    COPY("复制链接"); // 复制链接
 
     private String type;
 

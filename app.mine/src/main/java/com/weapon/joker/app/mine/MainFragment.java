@@ -2,12 +2,15 @@ package com.weapon.joker.app.mine;
 
 import android.content.Intent;
 import android.view.View;
+import android.widget.Toast;
 
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
 import com.weapon.joker.app.mine.databinding.FragmentMineBinding;
+import com.weapon.joker.app.stub.share.IShareListener;
 import com.weapon.joker.app.stub.share.ShareParams;
+import com.weapon.joker.app.stub.share.ShareType;
 import com.weapon.joker.lib.middleware.utils.JLog;
 import com.weapon.joker.lib.middleware.utils.share.ShareView;
 import com.weapon.joker.lib.mvvm.common.BaseFragment;
@@ -19,7 +22,7 @@ import com.weapon.joker.lib.mvvm.common.BaseFragment;
  * e-mail: guanzhi.zhang@sojex.cn
  */
 
-public class MainFragment extends BaseFragment<MineViewModel, MineModel> implements MineContact.View, IUiListener {
+public class MainFragment extends BaseFragment<MineViewModel, MineModel> implements MineContact.View, IUiListener, IShareListener {
 
     private ShareView mShareView;
 
@@ -77,5 +80,21 @@ public class MainFragment extends BaseFragment<MineViewModel, MineModel> impleme
     @Override
     public void onCancel() {
         JLog.i("shareTo--->" + "onCancel");
+    }
+
+    @Override
+    public void onShareSuccess(ShareType shareType, String desc) {
+        Toast.makeText(mContext, shareType.toString() + "\tdesc：" + desc, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onShareFailed(ShareType shareType, String errorMessage) {
+        Toast.makeText(mContext, shareType.toString() + "\terrorMessage：" + errorMessage, Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void onShareCancel(ShareType shareType) {
+        Toast.makeText(mContext, shareType.toString(), Toast.LENGTH_SHORT).show();
     }
 }

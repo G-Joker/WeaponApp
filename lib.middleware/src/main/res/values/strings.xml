@@ -15,6 +15,9 @@
     <string name="share_url">https://github.com/G-Joker/WeaponApp</string>
     <string name="share_img_url">https://avatars2.githubusercontent.com/u/31761754?v=4&amp;s=200.png</string>
     <string name="share_error_toast">该功能需要全量编译才可运行！</string>
+    <string name="add_clipboard_success">内容已复制到剪贴板</string>
+    <string name="share_copy_link">复制链接</string>
+    <string name="share_other">其他</string>
     //----------------------------------------------------
 
 </resources>
