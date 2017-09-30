@@ -32,6 +32,7 @@ task clean(type: Delete) {
 
 apply plugin: 'net.wequick.small'//引用 small 插件
 
+
 small {
     //这里可以设置统一的编译版本和一些配置
     buildToAssets = false
@@ -40,4 +41,19 @@ small {
         buildToolsVersion = "26.0.1"
         supportVersion = "26.+"
     }
+}
+
+apply plugin: 'checkstyle'
+checkstyle {
+    toolVersion = '6.12.1'
+}
+
+task checkstyle(type: Checkstyle) {
+    source 'src'
+    include '**/*.java'
+    exclude '**/gen/**'
+    ignoreFailures true
+
+    configFile = new File(rootDir, "google_checks.xml")
+    classpath = files()
 }
