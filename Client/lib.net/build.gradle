@@ -24,4 +24,13 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     testCompile 'junit:junit:4.12'
+
+    /** OkHttp */
+    compile 'com.squareup.okhttp3:okhttp:3.9.0'
+    /** Retrofit */
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    /** 网络请求适配器 */
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
+    /** Gson 解析 */
+    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
 }

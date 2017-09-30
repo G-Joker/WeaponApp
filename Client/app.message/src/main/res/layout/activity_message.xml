@@ -8,6 +8,7 @@
     tools:context="com.weapon.joker.app.message.MessageActivity">
 
     <TextView
+        android:id="@+id/tv_fragment_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="This is MessageFragment!"
