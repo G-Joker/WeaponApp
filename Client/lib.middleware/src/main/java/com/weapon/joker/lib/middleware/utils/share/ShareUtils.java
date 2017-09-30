@@ -22,6 +22,8 @@ import com.weapon.joker.wxapi.WXEntryActivity;
 
 import java.util.ArrayList;
 
+import static com.weapon.joker.wxapi.WXEntryActivity.SHARE_PARAM;
+
 /**
  * <pre>
  *     author : xiaweizi
@@ -38,7 +40,6 @@ public class ShareUtils {
     private        Tencent     mTencent;
     private        Activity    mActivity;
     private IShareListener mShareListener;
-    public static final String SHARE_PARAM = "param";
 
     public static ShareUtils getInstance(Activity activity, IShareListener listener) {
 
@@ -137,8 +138,8 @@ public class ShareUtils {
     public void shareToWX(ShareParams shareParams) {
         testParams(shareParams);
         try {
+            shareParams.setShareType(ShareType.WEIXIN);
             Intent wxIntent = new Intent(mActivity, WXEntryActivity.class);
-            wxIntent.putExtra(WXEntryActivity.SHARE_TYPE, WXEntryActivity.WX_SESSION);
             wxIntent.putExtra(SHARE_PARAM, shareParams);
             mActivity.startActivity(wxIntent);
         } catch (Exception e) {
@@ -154,8 +155,8 @@ public class ShareUtils {
     public void shareToWXFriendCircle(ShareParams shareParams) {
         testParams(shareParams);
         try {
+            shareParams.setShareType(ShareType.WEIXIN_CIRCLE);
             Intent wxIntent = new Intent(mActivity, WXEntryActivity.class);
-            wxIntent.putExtra(WXEntryActivity.SHARE_TYPE, WXEntryActivity.WX_CIRCLE);
             wxIntent.putExtra(SHARE_PARAM, shareParams);
             mActivity.startActivity(wxIntent);
         } catch (Exception e) {
@@ -170,8 +171,8 @@ public class ShareUtils {
     public void shareToWXFavorite(ShareParams shareParams) {
         testParams(shareParams);
         try {
+            shareParams.setShareType(ShareType.WEIXIN_FAVORITE);
             Intent wxIntent = new Intent(mActivity, WXEntryActivity.class);
-            wxIntent.putExtra(WXEntryActivity.SHARE_TYPE, WXEntryActivity.WX_FAVORITE);
             wxIntent.putExtra(SHARE_PARAM, shareParams);
             mActivity.startActivity(wxIntent);
         } catch (Exception e) {

@@ -1,5 +1,7 @@
 package com.weapon.joker.app.stub.share;
 
+import java.io.Serializable;
+
 /**
  * <pre>
  *     author : xiaweizi
@@ -10,7 +12,7 @@ package com.weapon.joker.app.stub.share;
  * </pre>
  */
 
-public enum ShareType {
+public enum ShareType implements Serializable{
 
     QQ_ZONE("QQ 空间"), // qq 空间
     QQ("QQ"), // qq
@@ -29,6 +31,6 @@ public enum ShareType {
 
     @Override
     public String toString() {
-        return "type:" + this.type;
+        return this.type;
     }
 }

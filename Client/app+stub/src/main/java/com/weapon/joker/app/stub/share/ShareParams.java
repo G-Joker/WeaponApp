@@ -21,6 +21,8 @@ public class ShareParams implements Serializable {
     private String imgUrl; // 分享图片地址
     private int    resId; // 分享图片资源ID
 
+    private ShareType shareType;
+
     private ShareParams(Builder builder) {
         title = builder.title;
         description = builder.description;
@@ -29,6 +31,13 @@ public class ShareParams implements Serializable {
         resId = builder.resId;
     }
 
+    public void setShareType(ShareType shareType) {
+        this.shareType = shareType;
+    }
+
+    public ShareType getShareType() {
+        return shareType;
+    }
 
     public static final class Builder {
         private String title;
