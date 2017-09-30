@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.weapon.joker.app.stub.share.IShareListener;
 import com.weapon.joker.app.stub.share.ShareParams;
+import com.weapon.joker.app.stub.share.ShareType;
 import com.weapon.joker.lib.middleware.R;
 
 /**
@@ -82,6 +83,7 @@ public class ShareView {
         mLlShareQQ.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mParams.setShareType(ShareType.QQ);
                 mShareUtils.shareToQQ(mParams);
                 mDialog.cancel();
             }
@@ -89,13 +91,15 @@ public class ShareView {
         mLlShareZone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mShareUtils.shareToQZone(mParams);
+                mParams.setShareType(ShareType.QQ_ZONE);
+                mShareUtils.shareToQQ(mParams);
                 mDialog.cancel();
             }
         });
         mLlShareWechat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mParams.setShareType(ShareType.WEIXIN);
                 mShareUtils.shareToWX(mParams);
                 mDialog.cancel();
             }
@@ -103,14 +107,16 @@ public class ShareView {
         mLlShareFriendCircle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mShareUtils.shareToWXFriendCircle(mParams);
+                mParams.setShareType(ShareType.WEIXIN_CIRCLE);
+                mShareUtils.shareToWX(mParams);
                 mDialog.cancel();
             }
         });
         mLlShareWxFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mShareUtils.shareToWXFavorite(mParams);
+                mParams.setShareType(ShareType.WEIXIN_FAVORITE);
+                mShareUtils.shareToWX(mParams);
                 mDialog.cancel();
             }
         });
@@ -124,14 +130,16 @@ public class ShareView {
         mLlShareCopyLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mShareUtils.addContentToClipboard(mParams);
+                mParams.setShareType(ShareType.COPY);
+                mShareUtils.shareToOther(mParams);
                 mDialog.cancel();
             }
         });
         mLlShareOther.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mShareUtils.shareToSystem(mParams);
+                mParams.setShareType(ShareType.OTHER);
+                mShareUtils.shareToOther(mParams);
                 mDialog.cancel();
             }
         });
