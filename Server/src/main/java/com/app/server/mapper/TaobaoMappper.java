@@ -13,6 +13,11 @@ import java.util.List;
 
 public interface TaobaoMappper {
 
+    /**
+     * 批量插入List
+     * insertAllTaobao是RestProvider中的一个方法，这里相当于反射
+     * Param("list")中的list必须与insertAllTaobao中的list名字一致
+     */
     @InsertProvider(type = RestProvider.class, method = "insertAllTaobao")
     void insertAll(@Param("list") List<TaobaoModel> users);
 
@@ -24,6 +29,6 @@ public interface TaobaoMappper {
 
 
     @Select("select * from taobao")
-    public ArrayList<TaobaoModel> selectAll();
+    ArrayList<TaobaoModel> selectAll();
 
 }

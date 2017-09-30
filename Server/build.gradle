@@ -14,9 +14,11 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'eclipse-wtp'
 apply plugin: 'org.springframework.boot'
-apply plugin: 'war'
+if (!DEVELOP_MODE.toBoolean()) {
+	apply plugin: 'war'
+}
 
-group = 'com.example'
+group = 'com.app.server'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
@@ -39,6 +41,8 @@ dependencies {
 	compile('org.projectlombok:lombok')
 	compile("org.jsoup:jsoup:1.9.2")
 	runtime('mysql:mysql-connector-java')
-	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+	if (!DEVELOP_MODE.toBoolean()) {
+		providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
+	}
 }

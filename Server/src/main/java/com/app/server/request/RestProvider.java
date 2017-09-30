@@ -9,6 +9,7 @@ import java.util.Map;
 
 public class RestProvider {
 
+    /** 该方法必须是Map作为参数，将List的数据转换为sql语句一次性插入*/
     public String insertAllTaobao(Map map) {
         List<TaobaoModel> list = (List<TaobaoModel>) map.get("list");
         StringBuilder sb = new StringBuilder();
