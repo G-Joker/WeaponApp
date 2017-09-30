@@ -12,6 +12,14 @@ gradlew buildBundle -q -Dbundle.arch=x86
 其中 -q 代表整洁模式，只看到插件的打包结果信息。
 -Dbundle.arch 中，如果是模拟器调试，则是`x86`，如果是真机调试则是`armeabi`
 
+脚本打包方式：
+```
+buildAll.bat      全量打包
+buildBundle.bat   只打包Bundle，Lib没改变
+buildAll.bat q d  相当于加-q 和 -Dbundle.arch=x86
+buildBundle.bat q d  相当于加-q 和 -Dbundle.arch=x86
+```
+
 详细打包指令参数请参考`Small`文档:[Small文档](http://code.wequick.net/Small/cn/compile-options)
 
 ### 开发方法：**测试驱动开发**
@@ -35,7 +43,7 @@ gradlew buildBundle -q -Dbundle.arch=x86
 - [x] **组件化开发**
 - [x] Small 插件化框架
 - [x] **Databinding**
-- [ ] **自建服务器**
+- [x] **自建服务器**
 - [ ] **自定义 Gradle 插件**
 - [ ] **集成QQ、微信、微博官方分享**
 - [ ] 全平台推送服务

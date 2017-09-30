@@ -45,7 +45,7 @@ buildBundle.bat q d  相当于加-q 和 -Dbundle.arch=x86
 - [x] **组件化开发**
 - [x] Small 插件化框架
 - [x] **Databinding**
-- [ ] **自建服务器**
+- [x] **自建服务器**
 - [ ] **自定义 Gradle 插件**
 - [ ] **集成QQ、微信、微博官方分享**
 - [ ] 全平台推送服务
