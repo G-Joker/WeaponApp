@@ -35,7 +35,8 @@ public class UserController {
         if(!userModel.password.equals(password)){
             return new BaseResponse("用户名或密码错误", ConstResponse.STATUS_KNOWN_ERROR);
         }
-        return new BaseResponse("登录成功", ConstResponse.STATUS_OK);
+        RegisterResponse registerResponse = userMappper.findRegisterByname(name);
+        return new DataResponse(registerResponse,"登录成功", ConstResponse.STATUS_OK);
     }
 
     @RequestMapping("/user/register")
