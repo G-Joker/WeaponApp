@@ -2,8 +2,6 @@ package com.app.server.util;
 
 import java.security.MessageDigest;
 
-import static com.app.server.util.Util.isEmpty;
-
 /**
  * Created by Administrator on 2015/10/26.
  */
@@ -43,7 +41,7 @@ public class SafeUtil {
      */
     public static String shortMD5(String s) {
         String md5=MD5(s);
-        if(!isEmpty(md5)&&md5.length()>23) {
+        if(!TextUtils.isEmpty(md5)&&md5.length()>23) {
             return md5.substring(8, 24);
         }else {
             return s;

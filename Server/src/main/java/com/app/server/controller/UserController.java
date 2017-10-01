@@ -5,15 +5,13 @@ import com.app.server.model.response.BaseResponse;
 import com.app.server.model.response.DataResponse;
 import com.app.server.model.response.ConstResponse;
 import com.app.server.model.UserModel;
-import com.app.server.model.response.RegisterResponse;
 import com.app.server.util.PatternUtil;
 import com.app.server.util.SafeUtil;
+import com.app.server.util.TextUtils;
 import com.app.server.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 public class UserController {
@@ -35,8 +33,7 @@ public class UserController {
         if(!userModel.password.equals(password)){
             return new BaseResponse("用户名或密码错误", ConstResponse.STATUS_KNOWN_ERROR);
         }
-        RegisterResponse registerResponse = userMappper.findRegisterByname(name);
-        return new DataResponse(registerResponse,"登录成功", ConstResponse.STATUS_OK);
+        return new DataResponse(userModel,"登录成功", ConstResponse.STATUS_OK);
     }
 
     @RequestMapping("/user/register")
@@ -47,7 +44,7 @@ public class UserController {
         }
 
         String nameCheck=PatternUtil.isNickname(name);
-        if (!Util.isEmpty(nameCheck)) {
+        if (!TextUtils.isEmpty(nameCheck)) {
             return new BaseResponse(nameCheck, ConstResponse.STATUS_KNOWN_ERROR);
         }
         if (!PatternUtil.isPassword(password)) {
@@ -60,8 +57,7 @@ public class UserController {
         String token = SafeUtil.MD5(name + "app" + password);
         password = SafeUtil.shortMD5(password);
         userMappper.register(name, password, token);
-        RegisterResponse registerResponse = userMappper.findRegisterByname(name);
-        return new DataResponse(registerResponse, ConstResponse.DESC_OK,ConstResponse.STATUS_OK);
+        return new DataResponse(userMappper.findUserByname(name), ConstResponse.DESC_OK,ConstResponse.STATUS_OK);
     }
 
 

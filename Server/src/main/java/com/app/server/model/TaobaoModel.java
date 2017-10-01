@@ -2,12 +2,14 @@ package com.app.server.model;
 
 import com.app.server.util.SafeUtil;
 import com.app.server.util.Util;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties({ "sign" })
 public class TaobaoModel {
     public String user;
     public String title;
     public String image;
-    public String price;
+    public double price;
     public String time;
     public String region;
     public String sign;

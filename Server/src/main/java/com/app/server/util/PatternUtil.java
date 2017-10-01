@@ -19,7 +19,7 @@ public class PatternUtil {
     }
 
     public static String isNickname(String input){
-        if(Util.isEmpty(input)){
+        if(TextUtils.isEmpty(input)){
             return "用户名不能为空";
         }
         if(input.contains("<")||input.contains(">")||input.contains("\\")){
@@ -28,7 +28,7 @@ public class PatternUtil {
         if(input.length()<1||input.length()>12){
             return "用户名请输入1~12个字符";
         }
-        if(Util.isEmpty(input.trim())){
+        if(TextUtils.isEmpty(input.trim())){
             return "用户名不能只包含空字符";
         }
         return "";

@@ -1,6 +1,7 @@
 package com.app.server.request;
 
 import com.app.server.model.TaobaoModel;
+import com.app.server.util.MathUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -58,7 +59,7 @@ public class RestTemplateController {
                 taobaoModel.image="http:"+img.attr("data-ks-lazyload-custom");
                 Elements attributes = info.select("div[class=item-attributes]");
                 taobaoModel.region=attributes.get(0).select("div[class=item-location]").get(0).text();
-                taobaoModel.price=attributes.get(0).select("em").get(0).text();
+                taobaoModel.price= MathUtil.getDouble(attributes.get(0).select("em").get(0).text());
                 taobaoModel.title=info.select("div[class=item-brief-desc]").get(0).text();
                 taobaoModel.time=info.select("span[class=item-pub-time]").get(0).text();
                 taobaoModel.sign=taobaoModel.getSign();
