@@ -13,6 +13,7 @@
 
 将这个war包拷贝到tomcat的webapps下，运行tomcat，即可在浏览器输入http://localhost:8080/home/taobaolist 即可访问
 
+详细使用方法请参考doc目录下的[服务器搭建](https://github.com/G-Joker/WeaponApp/tree/master/Server/doc/服务器搭建.md)
 #### 目录结构
 
 **doc目录**  一些文档说明
