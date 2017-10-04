@@ -1,18 +1,8 @@
 package com.weapon.joker.app.mine;
 
 import android.content.Intent;
-import android.view.View;
-import android.widget.Toast;
 
-import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
-import com.tencent.tauth.UiError;
-import com.weapon.joker.app.mine.databinding.FragmentMineBinding;
-import com.weapon.joker.app.stub.share.IShareListener;
-import com.weapon.joker.app.stub.share.ShareParams;
-import com.weapon.joker.app.stub.share.ShareType;
-import com.weapon.joker.lib.middleware.utils.JLog;
-import com.weapon.joker.lib.middleware.utils.share.ShareView;
 import com.weapon.joker.lib.mvvm.common.BaseFragment;
 
 /**
@@ -22,9 +12,7 @@ import com.weapon.joker.lib.mvvm.common.BaseFragment;
  * e-mail: guanzhi.zhang@sojex.cn
  */
 
-public class MainFragment extends BaseFragment<MineViewModel, MineModel> implements MineContact.View, IUiListener, IShareListener {
-
-    private ShareView mShareView;
+public class MainFragment extends BaseFragment<MineViewModel, MineModel> implements MineContact.View {
 
     @Override
     public int getLayoutId() {
@@ -33,22 +21,7 @@ public class MainFragment extends BaseFragment<MineViewModel, MineModel> impleme
 
     @Override
     public void initView() {
-        ShareParams params = new ShareParams.Builder().setTitle(getActivity().getResources().getString(R.string.share_name))
-                                                      .setDescription(getActivity().getResources().getString(R.string.share_desc))
-                                                      .setAppUrl(getActivity().getResources().getString(R.string.share_url))
-                                                      .setImgUrl(getActivity().getResources().getString(R.string.share_img_url))
-                                                      .setResId(R.mipmap.ic_launcher_round)
-                                                      .build();
-        mShareView = new ShareView(getActivity(), params, this);
-
-        getViewModel().init();
-        FragmentMineBinding binding = (FragmentMineBinding) getViewDataBinding();
-        binding.tvMineShare.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mShareView.show();
-            }
-        });
+        getViewModel().initShare();
     }
 
     @Override
@@ -57,44 +30,9 @@ public class MainFragment extends BaseFragment<MineViewModel, MineModel> impleme
     }
 
     @Override
-    public void TestType() {
-        //        Toast.makeText(getActivity(),"接口调用成功",Toast.LENGTH_LONG).show();
-    }
-
-    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Tencent.onActivityResultData(requestCode, resultCode, data, this);
+        Tencent.onActivityResultData(requestCode, resultCode, data, getViewModel().getIUiListener());
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    @Override
-    public void onComplete(Object o) {
-        JLog.i("shareTo-->" + "onComplete:\t" + o.toString());
-    }
-
-    @Override
-    public void onError(UiError uiError) {
-        JLog.i("shareTo-->" + "UiError:\t" + uiError.errorMessage);
-    }
-
-    @Override
-    public void onCancel() {
-        JLog.i("shareTo--->" + "onCancel");
-    }
-
-    @Override
-    public void onShareSuccess(ShareType shareType, String desc) {
-        Toast.makeText(mContext, shareType.toString() + "\tdesc：" + desc, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onShareFailed(ShareType shareType, String errorMessage) {
-        Toast.makeText(mContext, shareType.toString() + "\terrorMessage：" + errorMessage, Toast.LENGTH_SHORT).show();
-
-    }
-
-    @Override
-    public void onShareCancel(ShareType shareType) {
-        Toast.makeText(mContext, shareType.toString(), Toast.LENGTH_SHORT).show();
-    }
 }

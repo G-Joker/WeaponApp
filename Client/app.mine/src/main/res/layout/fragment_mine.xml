@@ -128,6 +128,7 @@
             <TextView
                 android:id="@+id/tv_mine_share"
                 style="@style/MineStyle"
+                android:onClick='@{model.shareOnClick}'
                 android:text="@string/share_weapon"/>
 
             <View
@@ -152,16 +153,6 @@
                 android:id="@+id/tv_mine_update"
                 style="@style/MineStyle"
                 android:text="@string/version_update"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginLeft="@dimen/public_text_padding"
-                android:background="@color/material_text_color_black_divider"/>
-
-            <TextView
-                style="@style/MineStyle"
-                android:text="@{model.testString}"/>
 
             <View
                 android:layout_width="match_parent"
