@@ -53,6 +53,7 @@
                 android:background="@drawable/bg_mine_login_now"
                 android:padding="10dp"
                 android:text="@string/login_now"
+                android:onClick="@{model.loginOnClick}"
                 android:shadowColor="@color/material_color_red_500"
                 android:textColor="@color/material_text_color_black_text"
                 android:textSize="16sp"/>
