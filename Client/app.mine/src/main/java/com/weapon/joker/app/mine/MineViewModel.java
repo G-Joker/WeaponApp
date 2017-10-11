@@ -1,9 +1,8 @@
 package com.weapon.joker.app.mine;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.transition.Explode;
 import android.view.View;
 import android.widget.Toast;
 
@@ -49,22 +48,8 @@ public class MineViewModel extends MineContact.ViewModel implements IShareListen
     }
 
     public void loginOnClick(View view) {
-
-        AppCompatActivity activity = null;
-        if (getContext() instanceof AppCompatActivity) {
-            activity = (AppCompatActivity) getContext();
-        } else {
-            return;
-        }
-
         Intent intent = new Intent(getContext(), LoginActivity.class);
-        Explode explode = new Explode();
-        explode.setDuration(500);
-
-        activity.getWindow().setExitTransition(explode);
-        activity.getWindow().setEnterTransition(explode);
-        ActivityOptionsCompat sceneTransitionAnimation = ActivityOptionsCompat.makeSceneTransitionAnimation(activity);
-        getContext().startActivity(intent, sceneTransitionAnimation.toBundle());
+        getContext().startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(((Activity) getContext())).toBundle());
     }
 
     public IUiListener getIUiListener() {
