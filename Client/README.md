@@ -48,8 +48,8 @@ buildBundle.bat q d  相当于加-q 和 -Dbundle.arch=x86
 - [x] **自建服务器**
 - [ ] **自定义 Gradle 插件**
 - [ ] **集成QQ、微信、微博官方分享**
-- [ ] 全平台推送服务
-- [ ] 友盟统计
+- [x] **全平台推送服务**
+- [x] **友盟统计**
 - [ ] OkHttp + Retrofit + RxJava
 - [ ] **通过 RecyclerView 拓展的刷新列表库**
 - [ ] **控件组件化**
