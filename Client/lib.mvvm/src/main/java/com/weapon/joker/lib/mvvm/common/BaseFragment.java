@@ -65,6 +65,7 @@ public abstract class BaseFragment<VM extends BaseViewModel<? extends BaseView, 
 
             //Model 和 VM 绑定
             if (model != null) {
+                model.setContext(mContext);
                 model.attachViewModel(mViewModel);
             }
 

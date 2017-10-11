@@ -1,5 +1,6 @@
 package com.weapon.joker.lib.mvvm.common;
 
+import android.content.Context;
 import android.databinding.BaseObservable;
 
 /**
@@ -8,10 +9,19 @@ import android.databinding.BaseObservable;
 
 public abstract class BaseModel<VM extends BaseViewModel> extends BaseObservable{
     private VM mViewModel;
+    private Context mContext;
 
     public VM getViewModel(){
         return mViewModel;
     }
 
     public void attachViewModel(VM viewModel){mViewModel = viewModel;}
+
+    public void setContext(Context context){
+        mContext = context.getApplicationContext();
+    }
+
+    public Context getContext(){
+        return mContext;
+    }
 }

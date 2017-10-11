@@ -52,7 +52,7 @@ public class MainActivity extends BaseActivity {
      * 初始化 TabLayout
      */
     private void initTabLayout() {
-        mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        mTabLayout = findViewById(R.id.tab_layout);
 
         //设置 TabLayout 初始图像和字样
         TabItemView homeTab = new TabItemView(this).setText(getString(R.string.home)).setImageRes(R.drawable.selector_tab_main_home);
