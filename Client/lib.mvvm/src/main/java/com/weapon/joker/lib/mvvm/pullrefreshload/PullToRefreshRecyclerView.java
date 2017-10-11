@@ -1,4 +1,4 @@
-package com.weapon.joker.lib.middleware.pullrefreshload;
+package com.weapon.joker.lib.mvvm.pullrefreshload;
 
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;

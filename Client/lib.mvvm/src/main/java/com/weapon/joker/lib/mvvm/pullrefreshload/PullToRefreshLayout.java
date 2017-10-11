@@ -1,4 +1,4 @@
-package com.weapon.joker.lib.middleware.pullrefreshload;
+package com.weapon.joker.lib.mvvm.pullrefreshload;
 
 /**
  * <pre>
@@ -6,7 +6,7 @@ package com.weapon.joker.lib.middleware.pullrefreshload;
  *     class  : com.weapon.joker.app.mine.pulltorefresh.PullToRefreshLayout
  *     e-mail : 1012126908@qq.com
  *     time   : 2017/10/10
- *     desc   : 适用于所有 view 的下拉刷新控件，对于下拉刷新的view需要实现 {@link com.weapon.joker.lib.middleware.pullrefreshload.Pullable}
+ *     desc   : 适用于所有 view 的下拉刷新控件，对于下拉刷新的view需要实现 {@link com.weapon.joker.lib.mvvm.pullrefreshload.Pullable}
  *     的接口
  * </pre>
  */
@@ -25,8 +25,7 @@ import android.view.animation.RotateAnimation;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.weapon.joker.lib.middleware.R;
-import com.weapon.joker.lib.middleware.utils.JLog;
+import com.weapon.joker.lib.mvvm.R;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -578,7 +577,6 @@ public class PullToRefreshLayout extends RelativeLayout {
     private OnClickListener loadMoreClickListener = new OnClickListener() {
         @Override
         public void onClick(View view) {
-            JLog.i("state:\t" + state);
             changeState(LOADING);
             // 加载操作
             if (mListener != null) {

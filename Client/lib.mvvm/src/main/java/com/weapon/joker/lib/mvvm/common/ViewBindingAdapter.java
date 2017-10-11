@@ -1,5 +1,10 @@
 package com.weapon.joker.lib.mvvm.common;
 
+import android.databinding.BindingAdapter;
+
+import com.weapon.joker.lib.mvvm.command.ReplyCommand;
+import com.weapon.joker.lib.mvvm.pullrefreshload.PullToRefreshLayout;
+
 /**
  * ViewBindingAdapter 放置一些公用的 @BindingAdapter
  * 配合 Command 使用
@@ -8,6 +13,28 @@ package com.weapon.joker.lib.mvvm.common;
  * e-mail: guanzhi.zhang@sojex.cn
  */
 
-public class ViewBindingAdapter {
+public final class ViewBindingAdapter {
 
+
+    @BindingAdapter (value = {"onRefreshCommand", "onLoadCommand"}, requireAll = false)
+    public static void onRefreshCommand(
+            final PullToRefreshLayout pullToRefreshLayout, final ReplyCommand onRefreshCommand, final ReplyCommand onLoadCommand) {
+
+        pullToRefreshLayout.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
+                if (onRefreshCommand != null) {
+                    onRefreshCommand.execute();
+                }
+            }
+
+            @Override
+            public void onLoadMore(PullToRefreshLayout pullToRefreshLayout) {
+                if (onLoadCommand != null) {
+                    onLoadCommand.execute();
+                }
+            }
+        });
+
+    }
 }
