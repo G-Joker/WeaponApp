@@ -5,13 +5,14 @@
     android:layout_height="match_parent">
 
     <android.support.v7.widget.CardView
-        android:id="@+id/cv"
+        android:id="@+id/cd_login"
         android:layout_width="match_parent"
         android:layout_height="350dp"
         android:layout_centerInParent="true"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        app:cardCornerRadius="6dp"
+        app:cardBackgroundColor="@color/material_color_lime_300"
+        app:cardCornerRadius="10dp"
         app:cardElevation="3dp"
         app:cardUseCompatPadding="true">
 
@@ -25,19 +26,13 @@
                 android:layout_height="45dp"
                 android:layout_marginTop="40dp">
 
-                <View
-                    android:layout_width="8dp"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentStart="true"
-                    android:background="#2fa881"/>
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="50dp"
-                    android:text="登录"
-                    android:textColor="#FFCC00"
+                    android:text="@string/mine_login"
+                    android:textColor="@color/material_color_teal_700"
                     android:textSize="18sp"
                     android:textStyle="bold"/>
             </RelativeLayout>
@@ -51,18 +46,17 @@
                 android:paddingStart="50dp">
 
                 <android.support.design.widget.TextInputLayout
+                    android:id="@+id/til_login_username"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColorHint="#c5c5c5">
+                    android:textColorHint="@color/material_color_pink_400">
 
                     <EditText
-                        android:id="@+id/et_username"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:hint="用户名："
+                        android:hint="@string/mine_user_name"
                         android:inputType="textPersonName"
                         android:paddingBottom="2dp"
-                        android:textColor="#2fa881"
                         android:textSize="13sp"/>
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
@@ -75,39 +69,48 @@
                 android:paddingStart="50dp">
 
                 <android.support.design.widget.TextInputLayout
+                    android:id="@+id/til_login_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColorHint="#c5c5c5">
+                    android:textColorHint="@color/material_color_pink_400">
 
                     <EditText
-                        android:id="@+id/et_password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="密码："
+                        android:hint="@string/mine_password"
                         android:inputType="textPassword"
                         android:paddingBottom="2dp"
-                        android:textColor="#2fa881"
                         android:textSize="13sp"/>
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
 
 
-            <Button
-                android:id="@+id/bt_go"
-                android:layout_width="150dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/public_click_bg"
-                android:text="go"
-                android:textColor="#f14c4c"></Button>
-
-            <TextView
+            <android.support.v7.widget.CardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp"
-                android:text="忘记密码?"
-                android:textColor="#9a9a9a"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="3dp"
+                app:cardUseCompatPadding="false">
+
+                <Button
+                    android:id="@+id/bt_login"
+                    android:layout_width="200dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/public_click_bg"
+                    android:text="@string/mine_login"
+                    android:textColor="@color/material_color_pink_400"></Button>
+            </android.support.v7.widget.CardView>
+
+            <TextView
+                android:id="@+id/tv_forget_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="15dp"
+                android:clickable="true"
+                android:text="@string/mine_forget_password"
+                android:textColor="@color/material_color_blue_grey_800"
                 android:textSize="12sp"/>
         </LinearLayout>
     </android.support.v7.widget.CardView>
@@ -116,12 +119,13 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@id/cv"
-        android:layout_alignTop="@id/cv"
+        android:layout_alignEnd="@id/cd_login"
+        android:layout_alignTop="@id/cd_login"
         android:layout_marginEnd="-20dp"
         android:layout_marginTop="25dp"
         android:src="@mipmap/ic_mine_register"
         android:transitionName="loginFab"
+        app:backgroundTint="@color/material_color_pink_400"
         app:fabSize="normal"/>
 
 </RelativeLayout>

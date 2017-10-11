@@ -24,6 +24,9 @@
             android:name=".login.LoginActivity"/>
 
         <activity android:name=".login.QQAuthLoginActivity"/>
+        <activity
+            android:theme="@style/MyDialog"
+            android:name=".login.RegisterActivity"/>
     </application>
 
 </manifest>
