@@ -19,6 +19,13 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
+
 /**
  * author : yueyang
  * date : 2017/10/11
@@ -28,19 +35,14 @@ public class QQAuthLoginActivity extends Activity {
     private WebView mWebView;
     public static String mUrl;
     public static final int QQ_AUTHORITY_REQUEST = 2001;
-    private QQListener mQQListener = new QQListener() {
+    private QQAuthLoginListener mQQAuthLoginListener = new QQAuthLoginListener() {
         @Override
         public void onComplete(String uid, String access_token) {
-
+            // TODO: 2017/10/11 toLogin
         }
 
         @Override
         public void onError() {
-
-        }
-
-        @Override
-        public void onCancel() {
 
         }
     };
@@ -132,7 +134,7 @@ public class QQAuthLoginActivity extends Activity {
         if (!TextUtils.isEmpty(mAccessToken))
             getOpenIdByAccessToken(mAccessToken);
         else
-            mQQListener.onError();
+            mQQAuthLoginListener.onError();
     }
 
     private void getOpenIdByAccessToken(String token) {
@@ -142,34 +144,31 @@ public class QQAuthLoginActivity extends Activity {
         url = url.replace("[YOUR_ACCESS_TOKEN]", token);
         Uri.Builder urlBuilder = Uri.parse(url).buildUpon();
         final String realUrl = urlBuilder.build().toString();
-        // todo import okhttp
-//        Request.Builder requestBuilder = new Request.Builder().url(realUrl).get();
-//        final Request request = requestBuilder.build();
-//        OkHttpClient okHttpClient = new OkHttpClient();
-//        final Call call = okHttpClient.newCall(request);
-//        call.enqueue(new Callback() {
-//            @Override
-//            public void onFailure(Call call, IOException e) {
-//                mQQListener.onError();
-//            }
-//
-//            @Override
-//            public void onResponse(Call call, Response response) throws IOException {
-//                ResponseBody body = response.body();
-//                String respStr = new String(body.bytes(), "utf-8");
-//                int start = respStr.indexOf("{");
-//                int end = respStr.indexOf("}") + 1;
-//                String substring = respStr.substring(start, end);
-//                // TODO: 2017/10/11 parse response
-//            }
-//        });
+        Request.Builder requestBuilder = new Request.Builder().url(realUrl).get();
+        final Request request = requestBuilder.build();
+        OkHttpClient okHttpClient = new OkHttpClient();
+        final Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                mQQAuthLoginListener.onError();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                ResponseBody body = response.body();
+                String respStr = new String(body.bytes(), "utf-8");
+                int start = respStr.indexOf("{");
+                int end = respStr.indexOf("}") + 1;
+                String substring = respStr.substring(start, end);
+                // TODO: 2017/10/11 parse response
+            }
+        });
     }
 
-    private interface QQListener {
+    private interface QQAuthLoginListener {
         void onComplete(String uid, String access_token);
 
         void onError();
-
-        void onCancel();
     }
 }
