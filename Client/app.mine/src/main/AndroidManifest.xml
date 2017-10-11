@@ -17,7 +17,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".login.LoginActivity"/>
+        <activity
+            android:theme="@style/MyDialog"
+            android:name=".login.LoginActivity"/>
     </application>
 
 </manifest>

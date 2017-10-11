@@ -14,7 +14,7 @@ import com.weapon.joker.app.stub.share.ShareParams;
 import com.weapon.joker.app.stub.share.ShareType;
 import com.weapon.joker.lib.middleware.R;
 import com.weapon.joker.lib.middleware.utils.Constants;
-import com.weapon.joker.lib.middleware.utils.JLog;
+import com.weapon.joker.lib.middleware.utils.LogUtils;
 
 import java.util.ArrayList;
 
@@ -47,7 +47,7 @@ public class QQShareAction implements IShareAction {
                 shareToQZone(shareParams, iShareListener);
             }
         } catch (Exception e) {
-            JLog.i("Share:\t" + e.getMessage());
+            LogUtils.logi("Share:\t" + e.getMessage());
             iShareListener.onShareFailed(shareParams.getShareType(), mActivity.getResources().getString(R.string.share_error_toast));
         }
     }

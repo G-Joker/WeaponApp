@@ -6,7 +6,7 @@ import android.content.Intent;
 import com.weapon.joker.app.stub.share.IShareListener;
 import com.weapon.joker.app.stub.share.ShareParams;
 import com.weapon.joker.lib.middleware.R;
-import com.weapon.joker.lib.middleware.utils.JLog;
+import com.weapon.joker.lib.middleware.utils.LogUtils;
 import com.weapon.joker.wxapi.WXEntryActivity;
 
 import static com.weapon.joker.wxapi.WXEntryActivity.SHARE_PARAM;
@@ -69,7 +69,7 @@ public class ShareUtils {
             wxIntent.putExtra(SHARE_PARAM, shareParams);
             mActivity.startActivity(wxIntent);
         } catch (Exception e) {
-            JLog.i("Share:\t" + e.getMessage());
+            LogUtils.logi("Share:\t" + e.getMessage());
             mShareListener.onShareFailed(shareParams.getShareType(), mActivity.getResources().getString(R.string.share_error_toast));
         }
     }

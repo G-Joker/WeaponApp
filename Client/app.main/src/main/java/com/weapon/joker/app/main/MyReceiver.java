@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 
-import com.weapon.joker.lib.middleware.utils.JLog;
+import com.weapon.joker.lib.middleware.utils.LogUtils;
 import com.weapon.joker.lib.middleware.utils.NotificationUtil;
 
 import net.wequick.small.Small;
@@ -33,37 +33,37 @@ public class MyReceiver extends BroadcastReceiver {
     public void onReceive(final Context context, Intent intent) {
         try {
             Bundle bundle = intent.getExtras();
-            JLog.i("action:" + intent.getAction() + ", extras: " + printBundle(bundle));
+            LogUtils.logi("action:" + intent.getAction() + ", extras: " + printBundle(bundle));
             if (JPushInterface.ACTION_REGISTRATION_ID.equals(intent.getAction())) {
                 String regId = bundle.getString(JPushInterface.EXTRA_REGISTRATION_ID);
-                JLog.i("Registration Id : " + regId);
+                LogUtils.logi("Registration Id : " + regId);
 
             } else if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(intent.getAction())) {
-                JLog.i("Custom message : " + bundle.getString(JPushInterface.EXTRA_MESSAGE));
+                LogUtils.logi("Custom message : " + bundle.getString(JPushInterface.EXTRA_MESSAGE));
                 dealCustomPush(context, bundle.getString(JPushInterface.EXTRA_MESSAGE));
             } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {
-                JLog.i("Get push message!");
+                LogUtils.logi("Get push message!");
                 int notification = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
-                JLog.i("Push message notification Id : " + notification);
+                LogUtils.logi("Push message notification Id : " + notification);
 
             } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
-                JLog.i("User has clicked the notification!");
+                LogUtils.logi("User has clicked the notification!");
 
                 //打开自定义的Activity
 
 
             } else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent.getAction())) {
                 //在这里根据 JPushInterface.EXTRA_EXTRA 的内容处理代码，比如打开新的Activity， 打开一个网页等..
-                JLog.i("Rich push callback : " + bundle.getString(JPushInterface.EXTRA_EXTRA));
+                LogUtils.logi("Rich push callback : " + bundle.getString(JPushInterface.EXTRA_EXTRA));
 
             } else if (JPushInterface.ACTION_CONNECTION_CHANGE.equals(intent.getAction())) {
                 boolean connected = intent.getBooleanExtra(JPushInterface.EXTRA_CONNECTION_CHANGE, false);
-                JLog.i("connected state change to " + connected);
+                LogUtils.logi("connected state change to " + connected);
             } else {
-                JLog.i("Unhandled intent - " + intent.getAction());
+                LogUtils.logi("Unhandled intent - " + intent.getAction());
             }
         } catch (Exception e) {
-            JLog.e("Push has occurs some error! error message : " + e.getMessage());
+            LogUtils.loge("Push has occurs some error! error message : " + e.getMessage());
         }
 
     }
@@ -104,7 +104,7 @@ public class MyReceiver extends BroadcastReceiver {
                 sb.append("\nkey:" + key + ", value:" + bundle.getBoolean(key));
             } else if (key.equals(JPushInterface.EXTRA_EXTRA)) {
                 if (TextUtils.isEmpty(bundle.getString(JPushInterface.EXTRA_EXTRA))) {
-                    JLog.i("This message has no Extra data");
+                    LogUtils.logi("This message has no Extra data");
                     continue;
                 }
 
@@ -118,7 +118,7 @@ public class MyReceiver extends BroadcastReceiver {
                                   myKey + " - " + json.optString(myKey) + "]");
                     }
                 } catch (JSONException e) {
-                    JLog.i("Get message extra JSON error!");
+                    LogUtils.logi("Get message extra JSON error!");
                 }
 
             } else {

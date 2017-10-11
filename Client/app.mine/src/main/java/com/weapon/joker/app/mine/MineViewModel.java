@@ -13,7 +13,7 @@ import com.weapon.joker.app.mine.login.LoginActivity;
 import com.weapon.joker.app.stub.share.IShareListener;
 import com.weapon.joker.app.stub.share.ShareParams;
 import com.weapon.joker.app.stub.share.ShareType;
-import com.weapon.joker.lib.middleware.utils.JLog;
+import com.weapon.joker.lib.middleware.utils.LogUtils;
 import com.weapon.joker.lib.middleware.utils.share.ShareView;
 
 /**
@@ -62,24 +62,24 @@ public class MineViewModel extends MineContact.ViewModel implements IShareListen
     /*************************** 分享事件相关的回调 ***************************/
     @Override public void onShareSuccess(ShareType shareType, String s) {
         Toast.makeText(getContext(), shareType.toString() + ":\t分享成功", Toast.LENGTH_SHORT).show();
-        JLog.i("Share result:\t" + "type:\t" + shareType.toString() + "desc:\t" + s);
+        LogUtils.logi("Share result:\t" + "type:\t" + shareType.toString() + "desc:\t" + s);
     }
 
     @Override public void onShareFailed(ShareType shareType, String s) {
         Toast.makeText(getContext(), shareType.toString() + ":\t分享失败", Toast.LENGTH_SHORT).show();
-        JLog.i("Share result:\t" + "type:\t" + shareType.toString() + "desc:\t" + s);
+        LogUtils.logi("Share result:\t" + "type:\t" + shareType.toString() + "desc:\t" + s);
 
     }
 
     @Override public void onShareCancel(ShareType shareType) {
         Toast.makeText(getContext(), shareType.toString() + ":\t分享取消", Toast.LENGTH_SHORT).show();
-        JLog.i("Share result:\t" + "type:\t" + shareType.toString());
+        LogUtils.logi("Share result:\t" + "type:\t" + shareType.toString());
 
     }
 
-    @Override public void onComplete(Object o) {JLog.i("QQ Share result:\tonComplete!" + o.toString());}
-    @Override public void onError(UiError uiError) {JLog.i("QQ Share result:\tonError!" + uiError.errorMessage);}
-    @Override public void onCancel() {JLog.i("QQ Share result:\tonCancel!");}
+    @Override public void onComplete(Object o) {LogUtils.logi("QQ Share result:\tonComplete!" + o.toString());}
+    @Override public void onError(UiError uiError) {LogUtils.logi("QQ Share result:\tonError!" + uiError.errorMessage);}
+    @Override public void onCancel() {LogUtils.logi("QQ Share result:\tonCancel!");}
     /************************************************************************/
 
 
