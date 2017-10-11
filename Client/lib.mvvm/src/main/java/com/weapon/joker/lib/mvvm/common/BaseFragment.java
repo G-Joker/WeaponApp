@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.umeng.analytics.MobclickAgent;
+
 import java.lang.reflect.Method;
 
 /**
@@ -97,5 +99,17 @@ public abstract class BaseFragment<VM extends BaseViewModel<? extends BaseView, 
     @Override
     public void finish() {
         getActivity().finish();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd(getClass().getSimpleName());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart(getClass().getSimpleName());
     }
 }

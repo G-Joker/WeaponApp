@@ -7,6 +7,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
+import com.umeng.analytics.MobclickAgent;
+
 
 /**
  * BaseActivity MVVM 基类 Activity
@@ -40,5 +42,19 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
 
     public void startFragment(Fragment fragment, @IdRes int layout) {
         mFragmentTransaction.replace(layout, fragment).commit();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd(getClass().getSimpleName());
+        MobclickAgent.onPause(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart(getClass().getSimpleName());
+        MobclickAgent.onResume(this);
     }
 }

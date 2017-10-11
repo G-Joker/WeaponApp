@@ -9,7 +9,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        manifestPlaceholders = [UMENG_CHANNEL_VALUE: "official", UMENG_APPKEY: "59dd7e40a40fa3359a000025"]
     }
     buildTypes {
         release {
@@ -31,6 +31,8 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile 'com.android.support:appcompat-v7:25.1.0+'
+    compile 'com.android.support:cardview-v7:26.0.0'
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+' // 微信分享
+    compile 'com.umeng.analytics:analytics:latest.integration' // 友盟统计
     testCompile 'junit:junit:4.12'
 }

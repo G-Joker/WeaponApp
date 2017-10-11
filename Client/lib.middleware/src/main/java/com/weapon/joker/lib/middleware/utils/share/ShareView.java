@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.umeng.analytics.MobclickAgent;
 import com.weapon.joker.app.stub.share.IShareListener;
 import com.weapon.joker.app.stub.share.ShareParams;
 import com.weapon.joker.app.stub.share.ShareType;
@@ -83,6 +84,7 @@ public class ShareView {
         mLlShareQQ.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                MobclickAgent.onEvent(mActivity.getApplicationContext(), "share_qq");
                 mParams.setShareType(ShareType.QQ);
                 mShareUtils.shareToQQ(mParams);
                 mDialog.cancel();
@@ -91,6 +93,7 @@ public class ShareView {
         mLlShareZone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                MobclickAgent.onEvent(mActivity.getApplicationContext(), "share_qq_zone");
                 mParams.setShareType(ShareType.QQ_ZONE);
                 mShareUtils.shareToQQ(mParams);
                 mDialog.cancel();
@@ -99,6 +102,7 @@ public class ShareView {
         mLlShareWechat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                MobclickAgent.onEvent(mActivity.getApplicationContext(), "share_we_chat");
                 mParams.setShareType(ShareType.WEIXIN);
                 mShareUtils.shareToWX(mParams);
                 mDialog.cancel();
@@ -107,6 +111,7 @@ public class ShareView {
         mLlShareFriendCircle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                MobclickAgent.onEvent(mActivity.getApplicationContext(), "share_friend_circle");
                 mParams.setShareType(ShareType.WEIXIN_CIRCLE);
                 mShareUtils.shareToWX(mParams);
                 mDialog.cancel();
@@ -115,6 +120,7 @@ public class ShareView {
         mLlShareWxFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                MobclickAgent.onEvent(mActivity.getApplicationContext(), "share_wx_favorite");
                 mParams.setShareType(ShareType.WEIXIN_FAVORITE);
                 mShareUtils.shareToWX(mParams);
                 mDialog.cancel();
@@ -123,6 +129,7 @@ public class ShareView {
         mLlShareWeibo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                MobclickAgent.onEvent(mActivity.getApplicationContext(), "share_weibo");
                 Toast.makeText(mContext, "微博", Toast.LENGTH_SHORT).show();
                 mDialog.cancel();
             }
@@ -130,6 +137,7 @@ public class ShareView {
         mLlShareCopyLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                MobclickAgent.onEvent(mActivity.getApplicationContext(), "share_copy");
                 mParams.setShareType(ShareType.COPY);
                 mShareUtils.shareToOther(mParams);
                 mDialog.cancel();
@@ -138,6 +146,7 @@ public class ShareView {
         mLlShareOther.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                MobclickAgent.onEvent(mActivity.getApplicationContext(), "share_other");
                 mParams.setShareType(ShareType.OTHER);
                 mShareUtils.shareToOther(mParams);
                 mDialog.cancel();
@@ -146,6 +155,7 @@ public class ShareView {
         mBtCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                MobclickAgent.onEvent(mActivity.getApplicationContext(), "share_cancel");
                 Toast.makeText(mContext, "取消分享", Toast.LENGTH_SHORT).show();
                 mDialog.cancel();
             }

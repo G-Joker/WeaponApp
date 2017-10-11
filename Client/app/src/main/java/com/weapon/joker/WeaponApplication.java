@@ -1,7 +1,8 @@
 package com.weapon.joker;
 
 import android.app.Application;
-import android.util.Log;
+
+import com.umeng.analytics.MobclickAgent;
 
 import net.wequick.small.Small;
 
@@ -29,6 +30,10 @@ public class WeaponApplication extends Application{
         sApplication = this;
         JPushInterface.setDebugMode(true); 	// 设置开启日志,发布时请关闭日志
         JPushInterface.init(this);     		// 初始化 JPush
+
+        // 设置友盟统计场景为 普通统计场景类型
+        MobclickAgent.setScenarioType(getApplicationContext(), MobclickAgent.EScenarioType.E_UM_NORMAL);
+        MobclickAgent.setDebugMode(true);  // 设置友盟 debug 模式，发布时请关闭
     }
 
     public static WeaponApplication getInstance(){
