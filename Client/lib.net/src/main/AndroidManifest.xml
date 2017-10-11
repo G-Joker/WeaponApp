@@ -5,6 +5,7 @@
 
     <application android:allowBackup="true"
                  android:label="@string/app_name"
+                 android:name=".BaseApplication"
                  android:supportsRtl="true"
     >
 
