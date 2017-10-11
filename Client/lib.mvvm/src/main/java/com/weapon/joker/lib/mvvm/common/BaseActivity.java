@@ -6,6 +6,9 @@ import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.transition.Fade;
+import android.transition.Transition;
+import android.view.Window;
 
 import com.umeng.analytics.MobclickAgent;
 
@@ -24,6 +27,9 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // 添加转场动画
+        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+        getWindow().setEnterTransition(getTransition());
         setContentView(getLayoutId());
         initView();
         mFragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -56,5 +62,12 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         super.onResume();
         MobclickAgent.onPageStart(getClass().getSimpleName());
         MobclickAgent.onResume(this);
+    }
+
+    /**
+     * @return 转场动画
+     */
+    protected  Transition getTransition(){
+        return new Fade();
     }
 }
