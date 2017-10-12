@@ -85,6 +85,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private void login() {
         String userName     = mTilUserName.getEditText().getText().toString().trim();
         String password = mTilPassword.getEditText().getText().toString().trim();
+        mTilPassword.setErrorEnabled(false);
+        mTilUserName.setErrorEnabled(false);
         if (TextUtils.isEmpty(userName)) {
             mTilUserName.setError("用户名不能为空");
             return;
@@ -93,8 +95,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             mTilPassword.setError("密码不能为空");
             return;
         }
-        mTilPassword.setErrorEnabled(false);
-        mTilUserName.setErrorEnabled(false);
+
 
         Api.getDefault(HostType.MINE)
            .login(userName, password)

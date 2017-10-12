@@ -45,7 +45,7 @@
                 android:paddingEnd="30dp"
                 android:paddingStart="50dp">
 
-                <android.support.design.widget.TextInputLayout
+                <com.weapon.joker.lib.middleware.view.CustomTextInputLayout
                     android:id="@+id/til_login_username"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
                         android:inputType="textPersonName"
                         android:paddingBottom="2dp"
                         android:textSize="13sp"/>
-                </android.support.design.widget.TextInputLayout>
+                </com.weapon.joker.lib.middleware.view.CustomTextInputLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -69,7 +69,7 @@
                 android:paddingEnd="30dp"
                 android:paddingStart="50dp">
 
-                <android.support.design.widget.TextInputLayout
+                <com.weapon.joker.lib.middleware.view.CustomTextInputLayout
                     android:id="@+id/til_login_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -83,7 +83,7 @@
                         android:inputType="textPassword"
                         android:paddingBottom="2dp"
                         android:textSize="13sp"/>
-                </android.support.design.widget.TextInputLayout>
+                </com.weapon.joker.lib.middleware.view.CustomTextInputLayout>
             </LinearLayout>
 
 
