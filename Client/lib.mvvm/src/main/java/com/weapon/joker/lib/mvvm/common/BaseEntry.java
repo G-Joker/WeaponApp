@@ -9,5 +9,6 @@ import android.databinding.BaseObservable;
  * e-mail: guanzhi.zhang@sojex.cn
  */
 
-public class BaseEntry extends BaseObservable{
+public class BaseEntry<T> extends BaseObservable{
+    public T data;
 }

@@ -7,11 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import com.weapon.joker.lib.middleware.utils.LogUtils;
+import com.weapon.joker.lib.net.Api;
+import com.weapon.joker.lib.net.BaseObserver;
+import com.weapon.joker.lib.net.HostType;
+import com.weapon.joker.lib.net.bean.MessageModel;
+
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * MessageFragment 消息 Fragment
@@ -20,36 +22,35 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * e-mail: guanzhi.zhang@sojex.cn
  */
 
-public class MainFragment extends Fragment{
+public class MainFragment extends Fragment {
     private View root;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        root = inflater.inflate(R.layout.activity_message,container,false);
+        root = inflater.inflate(R.layout.activity_message, container, false);
         request();
         return root;
     }
 
 
     private void request() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://fy.iciba.com/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        Api.getDefault(HostType.MESSAGE)
+                .getCall()
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.single())
+                .subscribe(new BaseObserver<MessageModel>() {
+                    @Override
+                    protected void onSuccess(MessageModel entry) throws Exception {
+                        entry.show();
+                    }
 
-        GetRequest_Interface requset = retrofit.create(GetRequest_Interface.class);
-        Call<MessageModel> call = requset.getCall();
-        call.enqueue(new Callback<MessageModel>() {
-            @Override
-            public void onResponse(Call<MessageModel> call, Response<MessageModel> response) {
-                response.body().show();
-            }
+                    @Override
+                    protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+                        LogUtils.logi("http error");
+                    }
+                });
 
-            @Override
-            public void onFailure(Call<MessageModel> call, Throwable t) {
-                System.out.println("连接失败");
-            }
-        });
+
     }
 }

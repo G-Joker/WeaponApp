@@ -32,11 +32,12 @@ dependencies {
     /** Retrofit */
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     /** 网络请求适配器 */
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
     /** RxJava */
     compile "io.reactivex.rxjava2:rxjava:2.1.5"
     /** Gson 解析 */
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
 
     compile project(':lib.middleware')
+    compile project(':lib.mvvm')
 }
