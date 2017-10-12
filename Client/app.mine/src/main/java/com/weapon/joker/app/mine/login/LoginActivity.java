@@ -10,15 +10,17 @@ import android.transition.Explode;
 import android.transition.Transition;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.umeng.analytics.MobclickAgent;
 import com.weapon.joker.app.mine.R;
-import com.weapon.joker.lib.middleware.utils.LogUtils;
 import com.weapon.joker.lib.mvvm.common.BaseActivity;
 import com.weapon.joker.lib.net.Api;
 import com.weapon.joker.lib.net.BaseObserver;
 import com.weapon.joker.lib.net.HostType;
+import com.weapon.joker.lib.net.bean.UserBean;
 import com.weapon.joker.lib.net.model.LoginModel;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -38,6 +40,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private TextInputLayout      mTilUserName;
     private TextInputLayout      mTilPassword;
     private Button               mBtLogin;
+    private ProgressBar          mPbLoading;
 
     @Override
     public int getLayoutId() {
@@ -52,6 +55,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         mTilUserName = findViewById(R.id.til_login_username);
         mTilPassword = findViewById(R.id.til_login_password);
         mBtLogin = findViewById(R.id.bt_login);
+        mPbLoading = findViewById(R.id.pb_loading);
 
         mButton.setOnClickListener(this);
         mBtLogin.setOnClickListener(this);
@@ -83,20 +87,22 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
      * 登陆
      */
     private void login() {
-        String userName     = mTilUserName.getEditText().getText().toString().trim();
+        String userName = mTilUserName.getEditText().getText().toString().trim();
         String password = mTilPassword.getEditText().getText().toString().trim();
         mTilPassword.setErrorEnabled(false);
         mTilUserName.setErrorEnabled(false);
         if (TextUtils.isEmpty(userName)) {
-            mTilUserName.setError("用户名不能为空");
+            mTilUserName.setError(getString(R.string.mine_username_null));
             return;
         }
         if (TextUtils.isEmpty(password)) {
-            mTilPassword.setError("密码不能为空");
+            mTilPassword.setError(getString(R.string.mine_password_null));
             return;
         }
 
 
+        mPbLoading.setVisibility(View.VISIBLE);
+        mBtLogin.setVisibility(View.GONE);
         Api.getDefault(HostType.MINE)
            .login(userName, password)
            .subscribeOn(Schedulers.io())
@@ -105,20 +111,50 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                @Override
                protected void onSuccess(LoginModel entry) throws Exception {
                    if (entry.status == 1000 && entry != null && entry.data != null) {
-                       Toast.makeText(LoginActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
-                       LogUtils.logi("userBean:\t" + entry.data.toString());
-                   } else {
-                       Toast.makeText(LoginActivity.this, "登陆失败" + entry.desc, Toast.LENGTH_SHORT).show();
-                       LogUtils.logi("login:\t" + entry.desc);
+                       loginSuccess(entry.data);
+                   } else if (entry != null) {
+                       loginFailed(entry.desc);
                    }
                }
 
                @Override
                protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                   Toast.makeText(LoginActivity.this, "网络异常" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                   LogUtils.logi("login:\t" + e.getMessage());
+
                }
            });
+    }
+
+    /**
+     * 登陆失败
+     *
+     * @param desc 失败相关描述
+     */
+    private void loginFailed(String desc) {
+        Toast.makeText(this, desc, Toast.LENGTH_SHORT).show();
+        mPbLoading.setVisibility(View.GONE);
+        mBtLogin.setVisibility(View.VISIBLE);
+        mBtLogin.setText(getString(R.string.mine_login_repeat));
+    }
+
+    /**
+     * 登陆成功
+     *
+     * @param data 用户信息
+     */
+    private void loginSuccess(UserBean data) {
+        Toast.makeText(this, getString(R.string.mine_login_success), Toast.LENGTH_SHORT).show();
+        MobclickAgent.onProfileSignIn(data.uid);
+        MobclickAgent.onEvent(getApplicationContext(), "mine_login", data.user);
+
+        mPbLoading.setVisibility(View.GONE);
+        mBtLogin.setVisibility(View.VISIBLE);
+        mBtLogin.setText(getString(R.string.mine_login_success));
+        mBtLogin.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                finish();
+            }
+        }, 500);
     }
 
 }

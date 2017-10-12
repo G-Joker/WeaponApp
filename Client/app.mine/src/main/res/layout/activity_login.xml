@@ -95,6 +95,13 @@
                 app:cardElevation="3dp"
                 app:cardUseCompatPadding="false">
 
+                <ProgressBar
+                    android:visibility="gone"
+                    android:id="@+id/pb_loading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"/>
+
                 <Button
                     android:id="@+id/bt_login"
                     android:layout_width="200dp"
