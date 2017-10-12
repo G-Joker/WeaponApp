@@ -1,9 +1,11 @@
 package com.weapon.joker.lib.net;
 
-import com.weapon.joker.lib.net.bean.MessageModel;
+import com.weapon.joker.lib.net.model.LoginModel;
+import com.weapon.joker.lib.net.model.MessageModel;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 /**
  * ApiManager 管理 Api 请求
@@ -13,6 +15,17 @@ import retrofit2.http.GET;
  */
 
 public interface ApiManager {
-    @GET("ajax.php?a=fy&f=auto&t=auto&w=hello%20world")
+    @GET ("ajax.php?a=fy&f=auto&t=auto&w=hello%20world")
     Observable<MessageModel> getCall();
+
+    /**
+     * 登陆
+     * @param name      用户名
+     * @param password  用户密码
+     */
+    @GET ("user/login")
+    Observable<LoginModel> login(
+            @Query ("name") String name,
+            @Query ("password") String password);
+
 }

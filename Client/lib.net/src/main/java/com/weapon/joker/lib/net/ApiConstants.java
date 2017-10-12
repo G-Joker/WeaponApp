@@ -20,7 +20,7 @@ public class ApiConstants {
 
     public static final String HOME_HOST = "";
     public static final String MESSAGE_HOST = "http://fy.iciba.com/";
-    public static final String MINE_HOST = "";
+    public static final String MINE_HOST = "http://47.95.198.174/api/";
 
     /**
      * 获取对应的host

@@ -11,7 +11,7 @@ import com.weapon.joker.lib.middleware.utils.LogUtils;
 import com.weapon.joker.lib.net.Api;
 import com.weapon.joker.lib.net.BaseObserver;
 import com.weapon.joker.lib.net.HostType;
-import com.weapon.joker.lib.net.bean.MessageModel;
+import com.weapon.joker.lib.net.model.MessageModel;
 
 import io.reactivex.schedulers.Schedulers;
 

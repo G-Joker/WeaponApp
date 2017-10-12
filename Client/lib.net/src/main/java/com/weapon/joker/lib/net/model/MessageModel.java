@@ -1,4 +1,4 @@
-package com.weapon.joker.lib.net.bean;
+package com.weapon.joker.lib.net.model;
 
 import android.util.Log;
 

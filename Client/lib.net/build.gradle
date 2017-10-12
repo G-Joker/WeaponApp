@@ -35,6 +35,8 @@ dependencies {
     compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
     /** RxJava */
     compile "io.reactivex.rxjava2:rxjava:2.1.5"
+    /** RxAndroid Android 主线程的调度*/
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     /** Gson 解析 */
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
 
