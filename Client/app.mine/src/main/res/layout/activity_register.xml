@@ -121,6 +121,12 @@
                     app:cardElevation="3dp"
                     app:cardUseCompatPadding="false">
 
+                    <ProgressBar
+                        android:id="@+id/pb_register_loading"
+                        android:visibility="gone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
                     <Button
                         android:id="@+id/bt_register"
                         android:layout_width="200dp"

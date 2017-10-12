@@ -16,8 +16,13 @@
     <string name="mine_password_again">重输密码</string>
     <string name="mine_username_null">用户名不能为空</string>
     <string name="mine_password_null">密码不能为空</string>
+    <string name="mine_password_different">两次密码不同</string>
     <string name="mine_login_success">登陆成功</string>
     <string name="mine_login_repeat">重试</string>
+    <string name="mine_register_repeat">注册成功</string>
+
+
+    <string name="public_net_error">网络异常</string>
 
 
 </resources>

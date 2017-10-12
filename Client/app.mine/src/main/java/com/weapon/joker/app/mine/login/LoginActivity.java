@@ -1,5 +1,6 @@
 package com.weapon.joker.app.mine.login;
 
+import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Paint;
@@ -22,8 +23,8 @@ import com.weapon.joker.lib.net.BaseObserver;
 import com.weapon.joker.lib.net.HostType;
 import com.weapon.joker.lib.net.bean.UserBean;
 import com.weapon.joker.lib.net.model.LoginModel;
+import com.weapon.joker.lib.net.rx.RxSchedulers;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -67,12 +68,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         return new Explode();
     }
 
+    @SuppressLint ("RestrictedApi")
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.fab:
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, mButton, mButton.getTransitionName());
-                startActivity(new Intent(this, RegisterActivity.class), options.toBundle());
+                startActivityForResult(new Intent(this, RegisterActivity.class), 200, options.toBundle());
                 break;
             case R.id.bt_login:
                 // 登陆
@@ -106,20 +108,22 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         Api.getDefault(HostType.MINE)
            .login(userName, password)
            .subscribeOn(Schedulers.io())
-           .observeOn(AndroidSchedulers.mainThread())
+           .compose(RxSchedulers.<LoginModel>io_main())
            .subscribe(new BaseObserver<LoginModel>() {
                @Override
                protected void onSuccess(LoginModel entry) throws Exception {
-                   if (entry.status == 1000 && entry != null && entry.data != null) {
+                   if (entry != null && entry.status == 1000 && entry.data != null) {
                        loginSuccess(entry.data);
                    } else if (entry != null) {
                        loginFailed(entry.desc);
+                   } else {
+                       loginFailed(getString(R.string.public_net_error));
                    }
                }
 
                @Override
                protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-
+                   loginFailed(e.getMessage());
                }
            });
     }
@@ -148,6 +152,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
         mPbLoading.setVisibility(View.GONE);
         mBtLogin.setVisibility(View.VISIBLE);
+        mBtLogin.setOnClickListener(null);
         mBtLogin.setText(getString(R.string.mine_login_success));
         mBtLogin.postDelayed(new Runnable() {
             @Override
@@ -157,4 +162,15 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         }, 500);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 200 && resultCode == 201 && data != null) {
+            String userName = data.getStringExtra("user_name");
+            String password = data.getStringExtra("password");
+            mTilUserName.getEditText().setText(userName);
+            mTilPassword.getEditText().setText(password);
+        }
+    }
 }

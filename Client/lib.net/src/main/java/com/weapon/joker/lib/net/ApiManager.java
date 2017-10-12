@@ -2,6 +2,7 @@ package com.weapon.joker.lib.net;
 
 import com.weapon.joker.lib.net.model.LoginModel;
 import com.weapon.joker.lib.net.bean.MessageBean;
+import com.weapon.joker.lib.net.model.RegisterModel;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -25,6 +26,17 @@ public interface ApiManager {
      */
     @GET ("user/login")
     Observable<LoginModel> login(
+            @Query ("name") String name,
+            @Query ("password") String password);
+
+
+    /**
+     * 注册
+     * @param name      用户名
+     * @param password  密码
+     */
+    @GET ("user/register")
+    Observable<RegisterModel> register(
             @Query ("name") String name,
             @Query ("password") String password);
 
