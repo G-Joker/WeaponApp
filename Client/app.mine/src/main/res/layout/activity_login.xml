@@ -54,6 +54,7 @@
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@drawable/et_mine_bg"
                         android:hint="@string/mine_user_name"
                         android:inputType="textPersonName"
                         android:paddingBottom="2dp"
@@ -77,6 +78,7 @@
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/et_mine_bg"
                         android:hint="@string/mine_password"
                         android:inputType="textPassword"
                         android:paddingBottom="2dp"
