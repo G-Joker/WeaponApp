@@ -1,7 +1,7 @@
 package com.weapon.joker.lib.net;
 
 import com.weapon.joker.lib.net.model.LoginModel;
-import com.weapon.joker.lib.net.model.MessageModel;
+import com.weapon.joker.lib.net.bean.MessageBean;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -16,7 +16,7 @@ import retrofit2.http.Query;
 
 public interface ApiManager {
     @GET ("ajax.php?a=fy&f=auto&t=auto&w=hello%20world")
-    Observable<MessageModel> getCall();
+    Observable<MessageBean> getCall();
 
     /**
      * 登陆

@@ -1,19 +1,7 @@
 package com.weapon.joker.app.message;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import com.weapon.joker.lib.middleware.utils.LogUtils;
-import com.weapon.joker.lib.net.Api;
-import com.weapon.joker.lib.net.BaseObserver;
-import com.weapon.joker.lib.net.HostType;
-import com.weapon.joker.lib.net.model.MessageModel;
-
-import io.reactivex.schedulers.Schedulers;
+import com.weapon.joker.lib.mvvm.common.BaseFragment;
+import com.weapon.joker.lib.net.bean.MessageBean;
 
 /**
  * MessageFragment 消息 Fragment
@@ -22,35 +10,25 @@ import io.reactivex.schedulers.Schedulers;
  * e-mail: guanzhi.zhang@sojex.cn
  */
 
-public class MainFragment extends Fragment {
-    private View root;
+public class MainFragment extends BaseFragment<MessageViewModel,MessageModel> implements MessageContact.View{
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        root = inflater.inflate(R.layout.activity_message, container, false);
-        request();
-        return root;
+    public int getLayoutId() {
+        return R.layout.activity_message;
     }
 
+    @Override
+    public void initView() {
+        getViewModel().requestData();
+    }
 
-    private void request() {
-        Api.getDefault(HostType.MESSAGE)
-                .getCall()
-                .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.single())
-                .subscribe(new BaseObserver<MessageModel>() {
-                    @Override
-                    protected void onSuccess(MessageModel entry) throws Exception {
-                        entry.show();
-                    }
+    @Override
+    public int getBR() {
+        return com.weapon.joker.app.message.BR.model;
+    }
 
-                    @Override
-                    protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                        LogUtils.logi("http error");
-                    }
-                });
-
-
+    @Override
+    public void loadSuccess(MessageBean bean) {
+        bean.show();
     }
 }

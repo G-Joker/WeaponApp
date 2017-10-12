@@ -15,7 +15,7 @@ interface MineContact {
     interface View extends BaseView {
     }
 
-    abstract class ViewModel extends BaseViewModel<View, MineModel> {
+    abstract class ViewModel extends BaseViewModel<View, Model> {
 
     }
 

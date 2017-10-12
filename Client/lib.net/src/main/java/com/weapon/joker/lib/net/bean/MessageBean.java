@@ -1,6 +1,6 @@
-package com.weapon.joker.lib.net.model;
+package com.weapon.joker.lib.net.bean;
 
-import android.util.Log;
+import com.weapon.joker.lib.middleware.utils.LogUtils;
 
 /**
  * MessageModel 消息页面 Model
@@ -9,7 +9,7 @@ import android.util.Log;
  * e-mail: guanzhi.zhang@sojex.cn
  */
 
-public class MessageModel {
+public class MessageBean {
     public int status;
 
     public content content;
@@ -23,6 +23,6 @@ public class MessageModel {
 
     /** 定义 输出返回数据 的方法 */
     public void show() {
-        Log.i("Request",status+"\n"+content.from+"\n"+content.vendor+"\n"+content.out+"\n"+content.errNo);
+        LogUtils.logi("Request"+status+"\n"+content.from+"\n"+content.vendor+"\n"+content.out+"\n"+content.errNo);
     }
 }
