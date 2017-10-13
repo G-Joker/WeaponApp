@@ -32,11 +32,11 @@
                     android:id="@+id/rl_mine_login"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:onClick="@{model.loginOnClick}"
                     android:layout_marginTop="?attr/actionBarSize"
-                    android:background="@color/material_color_grey_1001">
+                    android:background="@color/material_color_grey_1001"
+                    android:onClick="@{model.loginOnClick}"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp">
 
                     <ImageView
                         android:id="@+id/iv_mine_avatar"
@@ -50,20 +50,32 @@
                         android:id="@+id/tv_mine_login_info"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
                         android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
                         android:layout_toRightOf="@+id/iv_mine_avatar"
                         android:text="@string/unlogin"
                         android:textColor="@color/material_text_color_black_text"
-                        android:textSize="13sp"/>
+                        android:textSize="13sp"
+                        app:visibility="@{!model.hasLogin}"/>
 
                     <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:src="@drawable/arrow_right"
-                        android:layout_width="15dp"
-                        android:layout_marginRight="@dimen/public_text_padding"
                         android:layout_centerVertical="true"
-                        android:layout_height="15dp"/>
+                        android:layout_marginRight="@dimen/public_text_padding"
+                        android:src="@drawable/arrow_right"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:layout_toRightOf="@+id/iv_mine_avatar"
+                        android:text="@{model.userName}"
+                        android:textColor="@color/material_text_color_black_text"
+                        android:textSize="13sp"
+                        app:visibility="@{model.hasLogin}"/>
 
 
                 </RelativeLayout>
@@ -82,9 +94,9 @@
                         android:layout_height="match_parent"
                         android:background="?attr/colorPrimary"
                         android:gravity="center"
-                        android:text="我的"
-                        android:textSize="@dimen/public_main_text_size"
-                        android:textColor="@color/material_text_color_white_text"/>
+                        android:text='@{model.userName}'
+                        android:textColor="@color/material_text_color_white_text"
+                        android:textSize="@dimen/public_main_text_size"/>
                 </android.support.v7.widget.Toolbar>
 
 

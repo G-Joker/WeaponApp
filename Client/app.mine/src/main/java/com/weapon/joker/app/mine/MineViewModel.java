@@ -2,7 +2,9 @@ package com.weapon.joker.app.mine;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.databinding.Bindable;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
 
@@ -15,6 +17,8 @@ import com.weapon.joker.app.stub.share.ShareParams;
 import com.weapon.joker.app.stub.share.ShareType;
 import com.weapon.joker.lib.middleware.utils.LogUtils;
 import com.weapon.joker.lib.middleware.utils.share.ShareView;
+import com.weapon.joker.lib.net.bean.UserBean;
+import com.weapon.joker.lib.net.data.UserData;
 
 /**
  * class：   WeaponApp
@@ -26,6 +30,45 @@ import com.weapon.joker.lib.middleware.utils.share.ShareView;
 public class MineViewModel extends MineContact.ViewModel implements IShareListener, IUiListener {
 
     private ShareView mShareView;
+
+    private String userName;
+    private boolean hasLogin = false;
+    private UserBean mUserBean;
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+        notifyPropertyChanged(BR.userName);
+    }
+
+    @Bindable
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setHasLogin(boolean hasLogin) {
+        this.hasLogin = hasLogin;
+    }
+
+    @Bindable
+    public boolean getHasLogin() {
+        return hasLogin;
+    }
+
+    /**
+     * 设置用户信息
+     */
+    public void setUserBean() {
+        mUserBean = UserData.getInstance(getContext().getApplicationContext()).getUserBean();
+        if (TextUtils.isEmpty(mUserBean.token)) {
+            // 未登录
+            setUserName("我的");
+            setHasLogin(false);
+        } else {
+            // 已经登录
+            setUserName(mUserBean.user);
+            setHasLogin(true);
+        }
+    }
 
     /**
      * 初始化分享
@@ -50,8 +93,13 @@ public class MineViewModel extends MineContact.ViewModel implements IShareListen
     }
 
     public void loginOnClick(View view) {
-        Intent intent = new Intent(getContext(), LoginActivity.class);
-        getContext().startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(((Activity) getContext())).toBundle());
+        if (getHasLogin()) {
+            Toast.makeText(getContext().getApplicationContext(), "已经登录", Toast.LENGTH_SHORT).show();
+            // TODO: 2017/10/13 跳转到个人中心界面
+        } else {
+            Intent intent = new Intent(getContext(), LoginActivity.class);
+            getContext().startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(((Activity) getContext())).toBundle());
+        }
     }
 
     public IUiListener getIUiListener() {

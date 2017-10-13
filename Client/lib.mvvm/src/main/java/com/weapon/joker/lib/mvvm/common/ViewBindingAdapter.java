@@ -2,6 +2,7 @@ package com.weapon.joker.lib.mvvm.common;
 
 import android.databinding.BindingAdapter;
 import android.support.design.widget.AppBarLayout;
+import android.view.View;
 
 import com.weapon.joker.lib.mvvm.command.ReplyCommand;
 import com.weapon.joker.lib.mvvm.pullrefreshload.PullToRefreshLayout;
@@ -49,5 +50,13 @@ public final class ViewBindingAdapter {
         if (listener != null) {
             appBarLayout.addOnOffsetChangedListener(listener);
         }
+    }
+
+    /**
+     * 设置 view 是否可见
+     */
+    @BindingAdapter("visibility")
+    public static void setVisibility(View view, boolean isVisible) {
+        view.setVisibility(isVisible ? View.VISIBLE : View.GONE);
     }
 }

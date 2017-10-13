@@ -22,6 +22,7 @@ import com.weapon.joker.lib.net.Api;
 import com.weapon.joker.lib.net.BaseObserver;
 import com.weapon.joker.lib.net.HostType;
 import com.weapon.joker.lib.net.bean.UserBean;
+import com.weapon.joker.lib.net.data.UserData;
 import com.weapon.joker.lib.net.model.LoginModel;
 import com.weapon.joker.lib.net.rx.RxSchedulers;
 
@@ -166,6 +167,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         MobclickAgent.onProfileSignIn(data.uid);
         /** 统计用户点击登录事件 */
         MobclickAgent.onEvent(getApplicationContext(), "mine_login", data.user);
+        /** 保存用户信息到缓存 */
+        UserData.getInstance(getApplicationContext()).setUserBean(data);
 
         mPbLoading.setVisibility(View.GONE);
         mBtLogin.setVisibility(View.VISIBLE);
