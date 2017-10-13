@@ -13,23 +13,17 @@ import java.util.regex.Pattern;
  * time: 2017/10/11 下午1:48
  * e-mail: guanzhi.zhang@sojex.cn
  */
-
 public class NetWorkUtils {
 
     /**
      * 检查网络是否可用
-     *
-     * @param paramContext
-     * @return
      */
     public static boolean isNetConnected(Context paramContext) {
-        boolean i = false;
         NetworkInfo localNetworkInfo = ((ConnectivityManager) paramContext
                 .getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
-        if ((localNetworkInfo != null) && (localNetworkInfo.isAvailable()))
-            return true;
-        return false;
+        return  ((localNetworkInfo != null) && (localNetworkInfo.isAvailable()));
     }
+
     /**
      * 检测wifi是否连接
      */
