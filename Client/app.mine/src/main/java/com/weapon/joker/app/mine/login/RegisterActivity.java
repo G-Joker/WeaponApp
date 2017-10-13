@@ -38,8 +38,11 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
     private CardView             mCardView;
     private FloatingActionButton mFloatingActionButton;
+    /** 用户名输入框 */
     private TextInputLayout      mTilUserName;
+    /** 密码输入框 */
     private TextInputLayout      mTilPassword;
+    /** 重新输入密码输入框 */
     private TextInputLayout      mTilPasswordAgain;
     private ProgressBar          mPbLoading;
     private Button               mBtRegister;
@@ -64,6 +67,9 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         mBtRegister.setOnClickListener(this);
     }
 
+    /**
+     * 给 FloatActionButton 设置共享元素动画
+     */
     private void ShowEnterAnimation() {
         Transition transition = TransitionInflater.from(this).inflateTransition(R.transition.fabtransition);
         getWindow().setSharedElementEnterTransition(transition);
@@ -99,6 +105,9 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         });
     }
 
+    /**
+     * 进入注册界面 CardView 铺满界面的动画效果
+     */
     public void animateRevealShow() {
         Animator mAnimator = ViewAnimationUtils.createCircularReveal(mCardView,
                                                                      mCardView.getWidth() / 2,
@@ -122,6 +131,9 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         mAnimator.start();
     }
 
+    /**
+     * 退出注册界面 CardView 的动画效果i
+     */
     public void animateRevealClose() {
         Animator mAnimator = ViewAnimationUtils.createCircularReveal(mCardView,
                                                                      mCardView.getWidth() / 2,
@@ -173,10 +185,11 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         String userName      = mTilUserName.getEditText().getText().toString().trim();
         String password      = mTilPassword.getEditText().getText().toString().trim();
         String passwordAgain = mTilPasswordAgain.getEditText().getText().toString().trim();
-
+        /** 重置输入框的状态 */
         mTilUserName.setErrorEnabled(false);
         mTilPassword.setErrorEnabled(false);
         mTilPasswordAgain.setErrorEnabled(false);
+        /** 对输入框的输入内容进行判空处理 */
         if (TextUtils.isEmpty(userName)) {
             mTilUserName.setError(getString(R.string.mine_username_null));
             return;
@@ -193,9 +206,17 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             mTilPasswordAgain.setError(getString(R.string.mine_password_different));
             return;
         }
-
         mBtRegister.setVisibility(View.GONE);
         mPbLoading.setVisibility(View.VISIBLE);
+        registerRequest(userName, password);
+    }
+
+    /**
+     * 注册请求
+     * @param userName 用户名
+     * @param password 密码
+     */
+    private void registerRequest(String userName, String password) {
         Api.getDefault(HostType.MINE)
            .register(userName, password)
            .subscribeOn(Schedulers.io())
@@ -228,7 +249,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         Toast.makeText(this, getString(R.string.mine_register_repeat), Toast.LENGTH_SHORT).show();
         MobclickAgent.onEvent(getApplicationContext(), "mine_register", model.data.user);
 
-        // 将结果回传给登陆界面
+        /** 将结果回传给登陆界面 */
         Intent result = new Intent();
         result.putExtra("user_name", model.data.user);
         result.putExtra("password", mTilPassword.getEditText().getText().toString().trim());

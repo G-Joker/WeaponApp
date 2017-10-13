@@ -38,8 +38,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     private FloatingActionButton mButton;
     private TextView             mTvForgetPassword;
+    /** 登录用户名 */
     private TextInputLayout      mTilUserName;
+    /** 登录密码 */
     private TextInputLayout      mTilPassword;
+    /** 登录按钮 */
     private Button               mBtLogin;
     private ProgressBar          mPbLoading;
 
@@ -52,6 +55,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     public void initView() {
         mButton = findViewById(R.id.fab);
         mTvForgetPassword = findViewById(R.id.tv_forget_password);
+        /** 忘记密码设置下划线 */
         mTvForgetPassword.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
         mTilUserName = findViewById(R.id.til_login_username);
         mTilPassword = findViewById(R.id.til_login_password);
@@ -73,6 +77,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.fab:
+                /** 添加跳转到注册界面的转场动画 */
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, mButton, mButton.getTransitionName());
                 startActivityForResult(new Intent(this, RegisterActivity.class), 200, options.toBundle());
                 break;
@@ -91,8 +96,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private void login() {
         String userName = mTilUserName.getEditText().getText().toString().trim();
         String password = mTilPassword.getEditText().getText().toString().trim();
+        /** 重置输入框的状态 */
         mTilPassword.setErrorEnabled(false);
         mTilUserName.setErrorEnabled(false);
+        /** 判断用户名和密码是否为空 */
         if (TextUtils.isEmpty(userName)) {
             mTilUserName.setError(getString(R.string.mine_username_null));
             return;
@@ -102,9 +109,17 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             return;
         }
 
-
         mPbLoading.setVisibility(View.VISIBLE);
         mBtLogin.setVisibility(View.GONE);
+        loginRequest(userName, password);
+    }
+
+    /**
+     * 登录请求
+     * @param userName 用户名
+     * @param password 密码
+     */
+    private void loginRequest(String userName, String password) {
         Api.getDefault(HostType.MINE)
            .login(userName, password)
            .subscribeOn(Schedulers.io())
@@ -147,7 +162,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
      */
     private void loginSuccess(UserBean data) {
         Toast.makeText(this, getString(R.string.mine_login_success), Toast.LENGTH_SHORT).show();
+        /** 统计用户信息 */
         MobclickAgent.onProfileSignIn(data.uid);
+        /** 统计用户点击登录事件 */
         MobclickAgent.onEvent(getApplicationContext(), "mine_login", data.user);
 
         mPbLoading.setVisibility(View.GONE);
@@ -167,6 +184,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 200 && resultCode == 201 && data != null) {
+            /** 拿到注册成功后的用户名和密码 */
             String userName = data.getStringExtra("user_name");
             String password = data.getStringExtra("password");
             mTilUserName.getEditText().setText(userName);
