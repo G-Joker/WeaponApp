@@ -1,6 +1,7 @@
 package com.weapon.joker.lib.mvvm.common;
 
 import android.databinding.BindingAdapter;
+import android.support.design.widget.AppBarLayout;
 
 import com.weapon.joker.lib.mvvm.command.ReplyCommand;
 import com.weapon.joker.lib.mvvm.pullrefreshload.PullToRefreshLayout;
@@ -16,8 +17,14 @@ import com.weapon.joker.lib.mvvm.pullrefreshload.PullToRefreshLayout;
 public final class ViewBindingAdapter {
 
 
-    @BindingAdapter (value = {"onRefreshCommand", "onLoadCommand"}, requireAll = false)
-    public static void onRefreshCommand(
+    /**
+     * pullToRefreshLayout 上拉加载和下拉刷新的控制 adapter
+     * @param pullToRefreshLayout
+     * @param onRefreshCommand
+     * @param onLoadCommand
+     */
+    @BindingAdapter (value = {"onRefreshLoadCommand", "onLoadCommand"}, requireAll = false)
+    public static void onRefreshLoadCommand(
             final PullToRefreshLayout pullToRefreshLayout, final ReplyCommand onRefreshCommand, final ReplyCommand onLoadCommand) {
 
         pullToRefreshLayout.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
@@ -35,6 +42,12 @@ public final class ViewBindingAdapter {
                 }
             }
         });
+    }
 
+    @BindingAdapter ("onOffsetChanged")
+    public static void setOnOffsetChanged(AppBarLayout appBarLayout, AppBarLayout.OnOffsetChangedListener listener){
+        if (listener != null) {
+            appBarLayout.addOnOffsetChangedListener(listener);
+        }
     }
 }

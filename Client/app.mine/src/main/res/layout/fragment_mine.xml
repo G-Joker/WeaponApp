@@ -1,168 +1,174 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
 
     <data>
 
         <variable
             name="model"
             type="com.weapon.joker.app.mine.MineViewModel"/>
-
     </data>
 
-    <LinearLayout
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/material_color_grey_100"
-        android:orientation="vertical">
+        android:background="@color/material_color_grey_100">
 
-        <RelativeLayout
-            android:id="@+id/rl_mine_login"
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:background="@color/material_color_grey_1001"
-            android:paddingBottom="15dp"
-            android:paddingTop="15dp">
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-            <ImageView
-                android:id="@+id/iv_mine_avatar"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="20dp"
-                android:src="@drawable/default_user_avatar"/>
-
-            <TextView
-                android:id="@+id/tv_mine_login_info"
-                android:layout_width="wrap_content"
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="20dp"
-                android:layout_toRightOf="@+id/iv_mine_avatar"
-                android:text="@string/unlogin"
-                android:textColor="@color/material_text_color_black_text"
-                android:textSize="13sp"/>
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <Button
-                android:id="@+id/bt_mine_login_now"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="20dp"
-                android:background="@drawable/bg_mine_login_now"
-                android:padding="10dp"
-                android:text="@string/login_now"
-                android:onClick="@{model.loginOnClick}"
-                android:shadowColor="@color/material_color_red_500"
-                android:textColor="@color/material_text_color_black_text"
-                android:textSize="16sp"/>
+                <RelativeLayout
+                    android:id="@+id/rl_mine_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:onClick="@{model.loginOnClick}"
+                    android:layout_marginTop="?attr/actionBarSize"
+                    android:background="@color/material_color_grey_1001">
 
-        </RelativeLayout>
+                    <ImageView
+                        android:id="@+id/iv_mine_avatar"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginLeft="20dp"
+                        android:padding="10dp"
+                        android:src="@mipmap/ic_avatar_default"/>
 
-        <RelativeLayout
-            android:id="@+id/rl_mine_logined"
+                    <TextView
+                        android:id="@+id/tv_mine_login_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/iv_mine_avatar"
+                        android:text="@string/unlogin"
+                        android:textColor="@color/material_text_color_black_text"
+                        android:textSize="13sp"/>
+
+                    <ImageView
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/arrow_right"
+                        android:layout_width="15dp"
+                        android:layout_marginRight="@dimen/public_text_padding"
+                        android:layout_centerVertical="true"
+                        android:layout_height="15dp"/>
+
+
+                </RelativeLayout>
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:contentInsetLeft="0dp"
+                    app:contentInsetStart="0dp"
+                    app:layout_collapseMode="pin"
+                    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="?attr/colorPrimary"
+                        android:gravity="center"
+                        android:text="我的"
+                        android:textSize="@dimen/public_main_text_size"
+                        android:textColor="@color/material_text_color_white_text"/>
+                </android.support.v7.widget.Toolbar>
+
+
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+        </android.support.design.widget.AppBarLayout>
+
+
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/viewPager"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:paddingBottom="15dp"
-            android:visibility="gone">
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <ImageView
-                android:id="@+id/iv_mine_avatar_logined"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="30dp"
-                android:src="@drawable/default_user_avatar"/>
+            <android.support.v7.widget.CardView
+                android:id="@+id/cd_login"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:layout_centerInParent="true"
+                app:cardBackgroundColor="@color/material_color_grey_100"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="3dp"
+                app:cardUseCompatPadding="true">
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true">
-
-                <TextView
-                    android:id="@+id/tv_mine_nickname"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:text="@string/mine_nick_name"
-                    android:textColor="@color/material_text_color_black_text"
-                    android:textSize="16sp"/>
+                    android:background="@color/material_color_grey_1001"
+                    android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/bt_mine_signature"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/tv_mine_nickname"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="7dp"
-                    android:text="@string/mine_signature"
-                    android:textColor="@color/material_text_color_black_text"
-                    android:textSize="13sp"/>
-            </RelativeLayout>
-        </RelativeLayout>
+                    <TextView
+                        android:id="@+id/tv_mine_video_setting"
+                        style="@style/MineStyle"
+                        android:text="@string/video_play_setting"/>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:background="@color/material_text_color_black_divider"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginLeft="@dimen/public_text_padding"
+                        android:background="@color/material_text_color_black_divider"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/material_color_grey_1001"
-            android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/tv_mine_share"
+                        style="@style/MineStyle"
+                        android:onClick='@{model.shareOnClick}'
+                        android:text="@string/share_weapon"/>
 
-            <TextView
-                android:id="@+id/tv_mine_video_setting"
-                style="@style/MineStyle"
-                android:text="@string/video_play_setting"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginLeft="@dimen/public_text_padding"
+                        android:background="@color/material_text_color_black_divider"/>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginLeft="@dimen/public_text_padding"
-                android:background="@color/material_text_color_black_divider"/>
+                    <TextView
+                        android:id="@+id/tv_mine_qr_code"
+                        style="@style/MineStyle"
+                        android:layout_width="match_parent"
+                        android:text="@string/my_qrcode"/>
 
-            <TextView
-                android:id="@+id/tv_mine_share"
-                style="@style/MineStyle"
-                android:onClick='@{model.shareOnClick}'
-                android:text="@string/share_weapon"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginLeft="@dimen/public_text_padding"
+                        android:background="@color/material_text_color_black_divider"/>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginLeft="@dimen/public_text_padding"
-                android:background="@color/material_text_color_black_divider"/>
+                    <TextView
+                        android:id="@+id/tv_mine_update"
+                        style="@style/MineStyle"
+                        android:text="@string/version_update"/>
 
-            <TextView
-                android:id="@+id/tv_mine_qr_code"
-                style="@style/MineStyle"
-                android:layout_width="match_parent"
-                android:text="@string/my_qrcode"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/material_text_color_black_divider"/>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginLeft="@dimen/public_text_padding"
-                android:background="@color/material_text_color_black_divider"/>
-
-            <TextView
-                android:id="@+id/tv_mine_update"
-                style="@style/MineStyle"
-                android:text="@string/version_update"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="@color/material_text_color_black_divider"/>
-
-        </LinearLayout>
+                </LinearLayout>
 
 
-    </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+
+        </android.support.v4.widget.NestedScrollView>
+
+    </android.support.design.widget.CoordinatorLayout>
+
 
 </layout>
