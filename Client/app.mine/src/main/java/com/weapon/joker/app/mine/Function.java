@@ -2,7 +2,6 @@ package com.weapon.joker.app.mine;
 
 import com.weapon.joker.app.mine.login.LoginActivity;
 import com.weapon.joker.app.mine.login.RegisterActivity;
-import com.weapon.joker.app.mine.person.PersonCenterActivity;
 
 /**
  * class：   WeaponApp

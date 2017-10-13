@@ -29,6 +29,17 @@
             android:name=".login.RegisterActivity"/>
         <activity
             android:name="com.weapon.joker.lib.mvvm.common.PublicActivity"/>
+
+        <activity android:name=".WBShareActivity"
+                  android:configChanges="keyboardHidden|orientation"
+                  android:screenOrientation="portrait">
+
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+        </activity>
     </application>
 
 </manifest>

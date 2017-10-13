@@ -2,6 +2,9 @@ package com.weapon.joker.lib.middleware;
 
 import android.app.Application;
 
+import com.sina.weibo.sdk.WbSdk;
+import com.sina.weibo.sdk.auth.AuthInfo;
+import com.weapon.joker.lib.middleware.utils.Constants;
 import com.weapon.joker.lib.middleware.utils.LogUtils;
 
 /**
@@ -20,5 +23,10 @@ public class BaseApplication extends Application{
 
     private void init() {
         LogUtils.logInit(true);
+        WbSdk.install(this, new AuthInfo(
+                this,
+                Constants.WEIBO_APP_KEY,
+                Constants.WEIBO_REDIRECT_URL,
+                Constants.WEIBO_SCOPE));  //微博初始化
     }
 }

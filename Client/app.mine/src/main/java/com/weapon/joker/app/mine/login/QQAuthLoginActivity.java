@@ -29,6 +29,7 @@ import okhttp3.ResponseBody;
 /**
  * author : yueyang
  * date : 2017/10/11
+ * email : hi.yangyue1993@gmail.com
  */
 public class QQAuthLoginActivity extends Activity {
 
@@ -55,7 +56,7 @@ public class QQAuthLoginActivity extends Activity {
             encodeUrl = URLEncoder.encode(Constants.QQ_REDIRECT_URL, "utf-8");
             url = Constants.QQ_URL_OAUTH2_AUTHORIZATION_CODE;
             url = url.replace("[YOUR_APPID]", Constants.QQ_APP_ID);
-            url = url.replace("[YOUR_REDIRECT_URI]", encodeUrl);//简书重定向链接
+            url = url.replace("[YOUR_REDIRECT_URI]", encodeUrl);
             url = url.replace("[THE_SCOPE]", Constants.QQ_SCOPE);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
