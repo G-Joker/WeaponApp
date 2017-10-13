@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+./shelldir/sh3.sh
+if test "$1"=="q";then
+   if test "$2"=="d";then
+       ./shelldir/sh4.sh q d
+   else
+       ./shelldir/sh4.sh q
+   fi
+else
+    if test "$1"=="d";then
+         if test "$2"=="q";then
+             ./shelldir/sh4.sh q d
+         else
+             ./shelldir/sh4.sh d
+         fi
+    else
+        ./shelldir/sh4.sh
+    fi
+fi
