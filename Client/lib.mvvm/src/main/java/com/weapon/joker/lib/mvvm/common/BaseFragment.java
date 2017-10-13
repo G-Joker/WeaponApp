@@ -99,7 +99,7 @@ public abstract class BaseFragment<VM extends BaseViewModel<? extends BaseView, 
 
     @Override
     public void finish() {
-        getActivity().finish();
+
     }
 
     @Override

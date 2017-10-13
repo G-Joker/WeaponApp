@@ -1,6 +1,8 @@
 package com.weapon.joker.app.mine;
 
 import com.weapon.joker.app.mine.login.LoginActivity;
+import com.weapon.joker.app.mine.login.RegisterActivity;
+import com.weapon.joker.app.mine.person.PersonCenterActivity;
 
 /**
  * class：   WeaponApp
@@ -14,6 +16,7 @@ interface Function {
     /**
      * {@link MineActivity 我的界面}
      * {@link LoginActivity 登录界面}
+     * {@link RegisterActivity 注册界面}
      */
     void activity();
 
