@@ -10,6 +10,7 @@ import com.sina.weibo.sdk.api.WeiboMultiMessage;
 import com.sina.weibo.sdk.share.WbShareCallback;
 import com.sina.weibo.sdk.share.WbShareHandler;
 import com.weapon.joker.lib.middleware.utils.LogUtils;
+import com.weapon.joker.lib.middleware.utils.ToastUtil;
 
 /**
  * 添加微博客户端分享
@@ -64,16 +65,19 @@ public class WBShareActivity extends Activity implements WbShareCallback {
     @Override
     public void onWbShareSuccess() {
         LogUtils.logd(TAG + "onWbShareSuccess");
+        ToastUtil.show(R.string.share_success);
     }
 
     @Override
     public void onWbShareFail() {
         LogUtils.logd(TAG + "onWbShareFail");
+        ToastUtil.show(R.string.share_error);
     }
 
     @Override
     public void onWbShareCancel() {
         LogUtils.logd(TAG + "onWbShareCancel");
+        ToastUtil.show(R.string.share_cancel);
     }
 
     private TextObject getTextObj() {

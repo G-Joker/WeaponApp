@@ -167,7 +167,7 @@
         android:paddingBottom="12dp"
         android:background="@drawable/bg_share_cancel"
         android:gravity="center"
-        android:text="@string/share_cancel"
+        android:text="@string/cancel"
         android:textColor="#de000000"
         android:textSize="16sp"/>
 
