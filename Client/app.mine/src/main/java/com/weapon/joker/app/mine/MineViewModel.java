@@ -17,6 +17,7 @@ import com.weapon.joker.app.stub.share.ShareParams;
 import com.weapon.joker.app.stub.share.ShareType;
 import com.weapon.joker.lib.middleware.utils.LogUtils;
 import com.weapon.joker.lib.middleware.utils.share.ShareView;
+import com.weapon.joker.lib.mvvm.common.PublicActivity;
 import com.weapon.joker.lib.net.bean.UserBean;
 import com.weapon.joker.lib.net.data.UserData;
 
@@ -29,12 +30,19 @@ import com.weapon.joker.lib.net.data.UserData;
  */
 public class MineViewModel extends MineContact.ViewModel implements IShareListener, IUiListener {
 
+    /** 分享 view */
     private ShareView mShareView;
-
+    /** 用户名 */
     private String userName;
+    /** 是否登录 */
     private boolean hasLogin = false;
+    /** 用户 bean */
     private UserBean mUserBean;
 
+    /**
+     * 设置用户名
+     * @param userName
+     */
     public void setUserName(String userName) {
         this.userName = userName;
         notifyPropertyChanged(BR.userName);
@@ -45,6 +53,10 @@ public class MineViewModel extends MineContact.ViewModel implements IShareListen
         return userName;
     }
 
+    /**
+     * 设置是否登录
+     * @param hasLogin
+     */
     public void setHasLogin(boolean hasLogin) {
         this.hasLogin = hasLogin;
     }
@@ -74,6 +86,7 @@ public class MineViewModel extends MineContact.ViewModel implements IShareListen
      * 初始化分享
      */
     public void initShare() {
+        // 创建分享的参数
         ShareParams params = new ShareParams.Builder().setTitle(getContext().getResources().getString(R.string.share_name))
                 .setDescription(getContext().getResources().getString(R.string.share_desc))
                 .setAppUrl(getContext().getResources().getString(R.string.share_url))
@@ -94,9 +107,11 @@ public class MineViewModel extends MineContact.ViewModel implements IShareListen
 
     public void loginOnClick(View view) {
         if (getHasLogin()) {
-            Toast.makeText(getContext().getApplicationContext(), "已经登录", Toast.LENGTH_SHORT).show();
-            // TODO: 2017/10/13 跳转到个人中心界面
+            // 如果已经登录则跳转到个人中心界面
+            MobclickAgent.onEvent(getContext(), "mine_person_center");
+            PublicActivity.startActivity((Activity) getContext(), "com.weapon.joker.app.mine.person.PersonCenterFragment");
         } else {
+            // 如果没有登录则跳转到登录界面
             Intent intent = new Intent(getContext(), LoginActivity.class);
             getContext().startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(((Activity) getContext())).toBundle());
 //            PublicActivity.startActivity((Activity) getContext(), "com.weapon.joker.app.mine.login.LoginRegisterFragment");

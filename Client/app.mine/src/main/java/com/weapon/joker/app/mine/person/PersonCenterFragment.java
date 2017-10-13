@@ -28,6 +28,6 @@ public class PersonCenterFragment extends BaseFragment<PersonCenterViewModel, Pe
 
     @Override
     public int getBR() {
-        return BR.model;
+        return BR.personModel;
     }
 }

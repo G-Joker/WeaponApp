@@ -1,5 +1,7 @@
 package com.weapon.joker.app.mine.person;
 
+import android.databinding.Bindable;
+
 /**
  * <pre>
  *     author : xiaweizi
@@ -11,5 +13,8 @@ package com.weapon.joker.app.mine.person;
  */
 
 public class PersonCenterViewModel extends PersonCenterContact.ViewModel {
+
+    @Bindable
+    public String testString = "个人中心";
 
 }

@@ -3,14 +3,21 @@
 
     <data>
         <variable
-            name="model"
+            name="personModel"
             type="com.weapon.joker.app.mine.person.PersonCenterViewModel"/>
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center"
         android:orientation="vertical">
+
+        <TextView
+            android:textSize="40sp"
+            android:text="@{personModel.testString}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 </layout>
