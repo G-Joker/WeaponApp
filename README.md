@@ -13,11 +13,17 @@ gradlew buildBundle -q -Dbundle.arch=x86
 -Dbundle.arch 中，如果是模拟器调试，则是`x86`，如果是真机调试则是`armeabi`
 
 脚本打包方式：
+
 ```
+windows:
 buildAll.bat      全量打包
 buildBundle.bat   只打包Bundle，Lib没改变
 buildAll.bat q d  相当于加-q 和 -Dbundle.arch=x86
 buildBundle.bat q d  相当于加-q 和 -Dbundle.arch=x86
+
+Linux/mac:
+buildAll      全量打包
+buildAll q d  相当于加-q 和 -Dbundle.arch=x86
 ```
 
 详细打包指令参数请参考`Small`文档:[Small文档](http://code.wequick.net/Small/cn/compile-options)
