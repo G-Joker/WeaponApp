@@ -1,11 +1,9 @@
 package com.weapon.joker.lib.net;
 
 import com.weapon.joker.lib.middleware.utils.LogUtils;
-import com.weapon.joker.lib.middleware.utils.NetWorkUtils;
 
 import java.io.IOException;
 
-import okhttp3.CacheControl;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -64,34 +62,34 @@ public class InterceptorUtil {
 
 
     /** 云端响应头拦截器，用来配置缓存策略 */
-    static Interceptor CacheInterceptor(){
-        return new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                /** 添加统一的请求头缓存策略 */
-                Request request = chain.request();
-                request = request.newBuilder()
-                        .cacheControl(NetWorkUtils.isNetConnected(BaseApplication.getAppContext()) ? CacheControl.FORCE_NETWORK : CacheControl.FORCE_CACHE)
-                        .build();
-
-                /** Response 缓存配置 */
-                Response originalResponse = chain.proceed(request);
-                if (NetWorkUtils.isNetConnected(BaseApplication.getAppContext())) {
-                    //有网的时候读接口上的@Headers里的配置，你可以在这里进行统一的设置
-
-                    return originalResponse.newBuilder()
-                            .header("Cache-Control", CACHE_CONTROL_AGE)
-                            .removeHeader("Pragma")
-                            .build();
-                } else {
-                    return originalResponse.newBuilder()
-                            .header("Cache-Control", "public, " + CACHE_CONTROL_CACHE)
-                            .removeHeader("Pragma")
-                            .build();
-                }
-            }
-        };
-    }
+//    static Interceptor CacheInterceptor(){
+//        return new Interceptor() {
+//            @Override
+//            public Response intercept(Chain chain) throws IOException {
+//                /** 添加统一的请求头缓存策略 */
+//                Request request = chain.request();
+//                request = request.newBuilder()
+//                        .cacheControl(NetWorkUtils.isNetConnected(BaseApplication.getAppContext()) ? CacheControl.FORCE_NETWORK : CacheControl.FORCE_CACHE)
+//                        .build();
+//
+//                /** Response 缓存配置 */
+//                Response originalResponse = chain.proceed(request);
+//                if (NetWorkUtils.isNetConnected(BaseApplication.getAppContext())) {
+//                    //有网的时候读接口上的@Headers里的配置，你可以在这里进行统一的设置
+//
+//                    return originalResponse.newBuilder()
+//                            .header("Cache-Control", CACHE_CONTROL_AGE)
+//                            .removeHeader("Pragma")
+//                            .build();
+//                } else {
+//                    return originalResponse.newBuilder()
+//                            .header("Cache-Control", "public, " + CACHE_CONTROL_CACHE)
+//                            .removeHeader("Pragma")
+//                            .build();
+//                }
+//            }
+//        };
+//    }
 
 
 

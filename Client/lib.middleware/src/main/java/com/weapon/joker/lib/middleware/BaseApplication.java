@@ -24,7 +24,6 @@ public class BaseApplication extends Application{
     }
 
     private void init() {
-        LogUtils.logInit(true);
         WbSdk.install(this, new AuthInfo(
                 this,
                 Constants.WEIBO_APP_KEY,

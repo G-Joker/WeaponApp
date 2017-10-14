@@ -2,8 +2,5 @@
 
           package="com.weapon.joker.lib.net">
 
-    <application android:name=".BaseApplication">
-
-    </application>
 
 </manifest>

@@ -5,10 +5,8 @@ import android.util.SparseArray;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.io.File;
 import java.util.concurrent.TimeUnit;
 
-import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -59,18 +57,18 @@ public class Api {
      */
     private Api(int hostType) {
 
-        /** 缓存100MB */
-        File cacheFile = new File(BaseApplication.getAppContext().getCacheDir(), "cache");
-        Cache cache = new Cache(cacheFile, 1024 * 1024 * 100);
+//        /** 缓存100MB */
+//        File cacheFile = new File(BaseApplication.getAppContext().getCacheDir(), "cache");
+//        Cache cache = new Cache(cacheFile, 1024 * 1024 * 100);
 
         mOkHttpClient = new OkHttpClient.Builder()
                 .readTimeout(NET_TIME_OUT, TimeUnit.MILLISECONDS)
                 .connectTimeout(CONNECT_TIME_OUT, TimeUnit.MILLISECONDS)
-                .addInterceptor(InterceptorUtil.CacheInterceptor())//缓存拦截器
-                .addNetworkInterceptor(InterceptorUtil.CacheInterceptor())//缓存拦截器
+//                .addInterceptor(InterceptorUtil.CacheInterceptor())//缓存拦截器
+//                .addNetworkInterceptor(InterceptorUtil.CacheInterceptor())//缓存拦截器
                 .addInterceptor(InterceptorUtil.HeadInterceptor())//头部信息拦截器
                 .addInterceptor(InterceptorUtil.LogInterceptor())//日志拦截器
-                .cache(cache)
+//                .cache(cache)
                 .build();
 
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").serializeNulls().create();

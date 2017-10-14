@@ -1,8 +1,8 @@
 package com.weapon.joker.lib.middleware.utils;
 
 
-import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
+
 
 /**
  * 如果用于android平台，将信息记录到“LogCat”。如果用于java平台，将信息记录到“Console”
@@ -10,14 +10,6 @@ import com.orhanobut.logger.Logger;
  */
 public class LogUtils {
     public static boolean DEBUG_ENABLE = true;// 是否调试模式
-
-    /**
-     * 在application调用初始化
-     */
-    public static void logInit(boolean debug) {
-        DEBUG_ENABLE = debug;
-        Logger.addLogAdapter(new AndroidLogAdapter());
-    }
 
     public static void logd(String tag, String message) {
         if (DEBUG_ENABLE) {
