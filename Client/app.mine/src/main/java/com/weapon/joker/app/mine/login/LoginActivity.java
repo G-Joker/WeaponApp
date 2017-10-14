@@ -168,7 +168,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         /** 统计用户点击登录事件 */
         MobclickAgent.onEvent(getApplicationContext(), "mine_login", data.user);
         /** 保存用户信息到缓存 */
-        UserData.getInstance(getApplicationContext()).setUserBean(data);
+        UserData.getInstance().setUserBean(this,data);
 
         mPbLoading.setVisibility(View.GONE);
         mBtLogin.setVisibility(View.VISIBLE);

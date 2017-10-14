@@ -58,7 +58,7 @@ public class MineViewModel extends MineContact.ViewModel implements IShareListen
      * 设置用户信息
      */
     public void setUserBean() {
-        mUserBean = UserData.getInstance(getContext().getApplicationContext()).getUserBean();
+        mUserBean = UserData.getInstance().getUserBean(getContext());
         if (TextUtils.isEmpty(mUserBean.token)) {
             // 未登录
             setUserName("我的");
