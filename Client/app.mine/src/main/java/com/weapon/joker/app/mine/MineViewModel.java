@@ -1,9 +1,7 @@
 package com.weapon.joker.app.mine;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.databinding.Bindable;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
@@ -11,12 +9,12 @@ import android.widget.Toast;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.UiError;
 import com.umeng.analytics.MobclickAgent;
-import com.weapon.joker.app.mine.login.LoginActivity;
 import com.weapon.joker.app.stub.share.IShareListener;
 import com.weapon.joker.app.stub.share.ShareParams;
 import com.weapon.joker.app.stub.share.ShareType;
 import com.weapon.joker.lib.middleware.utils.LogUtils;
 import com.weapon.joker.lib.middleware.utils.share.ShareView;
+import com.weapon.joker.lib.mvvm.common.PublicActivity;
 import com.weapon.joker.lib.net.bean.UserBean;
 import com.weapon.joker.lib.net.data.UserData;
 
@@ -55,9 +53,9 @@ public class MineViewModel extends MineContact.ViewModel implements IShareListen
     }
 
     /**
-     * 设置用户信息
+     * 更新用户信息
      */
-    public void setUserBean() {
+    public void updateUserInfo() {
         mUserBean = UserData.getInstance().getUserBean(getContext());
         if (TextUtils.isEmpty(mUserBean.token)) {
             // 未登录
@@ -97,8 +95,9 @@ public class MineViewModel extends MineContact.ViewModel implements IShareListen
             Toast.makeText(getContext().getApplicationContext(), "已经登录", Toast.LENGTH_SHORT).show();
             // TODO: 2017/10/13 跳转到个人中心界面
         } else {
-            Intent intent = new Intent(getContext(), LoginActivity.class);
-            getContext().startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(((Activity) getContext())).toBundle());
+//            Intent intent = new Intent(getContext(), LoginActivity.class);
+//            getContext().startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(((Activity) getContext())).toBundle());
+            PublicActivity.startActivity((Activity) getContext(), "com.weapon.joker.app.mine.login.LoginRegisterFragment");
         }
     }
 

@@ -38,6 +38,6 @@ public class MainFragment extends BaseFragment<MineViewModel, MineModel> impleme
     @Override
     public void onResume() {
         super.onResume();
-        getViewModel().setUserBean();
+        getViewModel().updateUserInfo();
     }
 }
