@@ -45,7 +45,7 @@ buildBundle q d 相当于加-q 和 -Dbundle.arch=x86
 - [x] Small 插件化框架
 - [x] **Databinding**
 - [x] **自建服务器**
-- [ ] **自定义 Gradle 插件**
+- [x] **自定义 Gradle 插件**
 - [ ] **集成QQ、微信、微博官方分享**
 - [x] **全平台推送服务**
 - [x] **友盟统计**
@@ -66,6 +66,7 @@ buildBundle q d 相当于加-q 和 -Dbundle.arch=x86
 * **[chore] do sth**：build相关的修改
 * **[test] do sth**：添加测试代码
 * **[optimize] do sth**: 优化部分代码
+* **[style] do sth**: 格式化上的格式化、删除空白行等，无关功能
 
 ### 代码规范
 待补充
