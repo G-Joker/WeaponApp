@@ -1,12 +1,15 @@
 package com.weapon.joker.lib.net;
 
-import com.weapon.joker.lib.net.model.LoginModel;
 import com.weapon.joker.lib.net.bean.MessageBean;
+import com.weapon.joker.lib.net.model.LoginModel;
 import com.weapon.joker.lib.net.model.RegisterModel;
+
+import java.util.Map;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 /**
  * ApiManager 管理 Api 请求
@@ -21,13 +24,11 @@ public interface ApiManager {
 
     /**
      * 登陆
-     * @param name      用户名
-     * @param password  用户密码
+     * params : name->用户名, password->密码
+     * 在有多个字段的情况下，推荐使用这种方式
      */
     @GET ("user/login")
-    Observable<LoginModel> login(
-            @Query ("name") String name,
-            @Query ("password") String password);
+    Observable<LoginModel> login(@QueryMap Map<String, Object> params);
 
 
     /**

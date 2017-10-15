@@ -19,11 +19,13 @@ import com.umeng.analytics.MobclickAgent;
 import com.weapon.joker.app.mine.R;
 import com.weapon.joker.lib.mvvm.common.BaseActivity;
 import com.weapon.joker.lib.net.Api;
+import com.weapon.joker.lib.net.ApiConvertUtil;
 import com.weapon.joker.lib.net.BaseObserver;
 import com.weapon.joker.lib.net.HostType;
 import com.weapon.joker.lib.net.bean.UserBean;
 import com.weapon.joker.lib.net.data.UserData;
 import com.weapon.joker.lib.net.model.LoginModel;
+import com.weapon.joker.lib.net.model.LoginRequestModel;
 import com.weapon.joker.lib.net.rx.RxSchedulers;
 
 import io.reactivex.schedulers.Schedulers;
@@ -121,8 +123,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
      * @param password 密码
      */
     private void loginRequest(String userName, String password) {
+        LoginRequestModel loginRequestModel = new LoginRequestModel();
+        loginRequestModel.name = userName;
+        loginRequestModel.password = password;
         Api.getDefault(HostType.MINE)
-           .login(userName, password)
+                .login(ApiConvertUtil.beanToMap(loginRequestModel))
            .subscribeOn(Schedulers.io())
            .compose(RxSchedulers.<LoginModel>io_main())
            .subscribe(new BaseObserver<LoginModel>() {
