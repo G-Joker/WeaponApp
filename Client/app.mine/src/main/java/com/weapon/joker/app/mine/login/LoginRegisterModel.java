@@ -1,8 +1,10 @@
 package com.weapon.joker.app.mine.login;
 
 import com.weapon.joker.lib.net.Api;
+import com.weapon.joker.lib.net.ApiConvertUtil;
 import com.weapon.joker.lib.net.HostType;
 import com.weapon.joker.lib.net.model.LoginModel;
+import com.weapon.joker.lib.net.model.LoginRequestModel;
 import com.weapon.joker.lib.net.model.RegisterModel;
 import com.weapon.joker.lib.net.rx.RxSchedulers;
 
@@ -20,8 +22,11 @@ public class LoginRegisterModel extends LoginRegisterContact.Model {
 
     @Override
     Observable<LoginModel> login(String userName, String password) {
+        LoginRequestModel loginRequestModel = new LoginRequestModel();
+        loginRequestModel.name = userName;
+        loginRequestModel.password = password;
         return Api.getDefault(HostType.MINE)
-                .login(userName, password)
+                .login(ApiConvertUtil.beanToMap(loginRequestModel))
                 .compose(RxSchedulers.<LoginModel>io_main());
     }
 
