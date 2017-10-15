@@ -5,12 +5,14 @@ import android.content.Context;
 
 import com.weapon.joker.lib.middleware.utils.LogUtils;
 
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
+
 import java.net.ConnectException;
 import java.net.UnknownHostException;
 import java.util.concurrent.TimeoutException;
 
 import io.reactivex.Observer;
-import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 
 /**
@@ -21,19 +23,34 @@ import io.reactivex.disposables.Disposable;
  */
 
 public abstract class BaseObserver<T> implements Observer<T> {
-    protected Context mContext;
+
+    private Context ctx;
+    /** dialog 上显示的文字 */
+    private String message;
+
+    public BaseObserver(Context ctx, String message){
+        this.ctx = ctx;
+        this.message = message;
+    }
 
     public BaseObserver(Context ctx) {
-        mContext = ctx;
+        this(ctx,"请稍候");
     }
 
     public BaseObserver() {
+        this(null,"请稍候");
+    }
 
+
+
+    @Override
+    public void onSubscribe(Disposable d) {
+        //dialog 开启
     }
 
     @Override
-    public void onSubscribe(@NonNull Disposable d) {
-
+    public void onComplete() {
+        //dialog 关闭
     }
 
     @Override
@@ -62,10 +79,6 @@ public abstract class BaseObserver<T> implements Observer<T> {
         }
     }
 
-    @Override
-    public void onComplete() {
-
-    }
 
     /**
      * 返回成功
