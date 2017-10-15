@@ -2,9 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.weapon.joker.app.mine">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-`
+
 
     <application
         android:allowBackup="true"
@@ -12,30 +12,29 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:name="com.weapon.joker.lib.net.BaseApplication"
         android:theme="@style/AppTheme.Base">
         <activity android:name=".MineActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <activity
-            android:theme="@style/MyDialog"
-            android:name=".login.LoginActivity"/>
+            android:name=".login.LoginActivity"
+            android:theme="@style/MyDialog" />
 
-        <activity android:name=".login.QQAuthLoginActivity"/>
+        <activity android:name=".login.QQAuthLoginActivity" />
         <activity
-            android:theme="@style/MyDialog"
-            android:name=".login.RegisterActivity"/>
-        <activity
-            android:name="com.weapon.joker.lib.mvvm.common.PublicActivity"/>
+            android:name=".login.RegisterActivity"
+            android:theme="@style/MyDialog" />
+        <activity android:name="com.weapon.joker.lib.mvvm.common.PublicActivity" />
 
-        <activity android:name=".WBShareActivity"
-                  android:configChanges="keyboardHidden|orientation"
-                  android:screenOrientation="portrait">
+        <activity
+            android:name=".WBShareActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait">
 
             <intent-filter>
                 <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />

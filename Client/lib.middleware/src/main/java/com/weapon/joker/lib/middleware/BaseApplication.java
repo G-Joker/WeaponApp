@@ -7,7 +7,6 @@ import com.sina.weibo.sdk.WbSdk;
 import com.sina.weibo.sdk.auth.AuthInfo;
 import com.weapon.joker.lib.middleware.utils.AppContextHolder;
 import com.weapon.joker.lib.middleware.utils.Constants;
-import com.weapon.joker.lib.middleware.utils.LogUtils;
 
 /**
  * BaseApplication 初始化

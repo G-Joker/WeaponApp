@@ -3,6 +3,10 @@ package com.weapon.joker.app.mine.login;
 import com.weapon.joker.lib.mvvm.common.BaseModel;
 import com.weapon.joker.lib.mvvm.common.BaseView;
 import com.weapon.joker.lib.mvvm.common.BaseViewModel;
+import com.weapon.joker.lib.net.model.LoginModel;
+import com.weapon.joker.lib.net.model.RegisterModel;
+
+import io.reactivex.Observable;
 
 /**
  * class：   Client
@@ -18,10 +22,12 @@ interface LoginRegisterContact {
     }
 
     abstract class ViewModel extends BaseViewModel<View, Model>{
-
+        abstract void requestLogin(String userName, String password);
+        abstract void requestRegister(String userName, String password);
     }
 
     abstract class Model extends BaseModel<ViewModel> {
-
+        abstract Observable<LoginModel> login(String userName, String password);
+        abstract Observable<RegisterModel> register(String userName, String password);
     }
 }
