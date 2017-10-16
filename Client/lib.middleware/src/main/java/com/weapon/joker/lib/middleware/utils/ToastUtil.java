@@ -4,6 +4,8 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import com.weapon.joker.AppContextHolder;
+
 /**
  * Toast工具类
  * author : yueyang

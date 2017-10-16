@@ -1,6 +1,7 @@
 package com.weapon.joker;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.umeng.analytics.MobclickAgent;
 
@@ -38,5 +39,11 @@ public class WeaponApplication extends Application{
 
     public static WeaponApplication getInstance(){
         return sApplication;
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        AppContextHolder.setContext(base); //设置全局的Context
     }
 }

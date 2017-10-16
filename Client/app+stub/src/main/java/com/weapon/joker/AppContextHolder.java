@@ -1,4 +1,4 @@
-package com.weapon.joker.lib.middleware.utils;
+package com.weapon.joker;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

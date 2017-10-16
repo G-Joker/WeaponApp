@@ -1,12 +1,6 @@
 package com.weapon.joker.lib.middleware;
 
 import android.app.Application;
-import android.content.Context;
-
-import com.sina.weibo.sdk.WbSdk;
-import com.sina.weibo.sdk.auth.AuthInfo;
-import com.weapon.joker.lib.middleware.utils.AppContextHolder;
-import com.weapon.joker.lib.middleware.utils.Constants;
 
 /**
  * BaseApplication 初始化
@@ -23,16 +17,11 @@ public class BaseApplication extends Application{
     }
 
     private void init() {
-        WbSdk.install(this, new AuthInfo(
-                this,
-                Constants.WEIBO_APP_KEY,
-                Constants.WEIBO_REDIRECT_URL,
-                Constants.WEIBO_SCOPE));  //微博初始化
+//        WbSdk.install(this, new AuthInfo(
+//                this,
+//                Constants.WEIBO_APP_KEY,
+//                Constants.WEIBO_REDIRECT_URL,
+//                Constants.WEIBO_SCOPE));  //微博初始化
     }
 
-    @Override
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
-        AppContextHolder.setContext(base); //设置全局的Context
-    }
 }
