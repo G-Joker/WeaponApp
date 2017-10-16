@@ -1,34 +1,33 @@
 package com.weapon.joker.app.mine.login;
 
-import android.graphics.Paint;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 
 import com.weapon.joker.app.mine.BR;
 import com.weapon.joker.app.mine.R;
-import com.weapon.joker.app.mine.databinding.FragmentLoginBinding;
+import com.weapon.joker.app.mine.databinding.FragmentRegisterBinding;
 import com.weapon.joker.lib.mvvm.common.BaseFragment;
 
 /**
- * class：   com.weapon.joker.app.mine.login.LoginRegisterFragment
+ * class：   com.weapon.joker.app.mine.login.RegisterFragment
  * author：  xiaweizi
  * date：    2017/10/14 20:54
  * e-mail:   1012126908@qq.com
- * desc:     登录和注册界面
+ * desc:     注册界面
  */
-public class LoginRegisterFragment extends BaseFragment<LoginRegisterViewModel, LoginRegisterModel> implements LoginRegisterContact.View{
+public class RegisterFragment extends BaseFragment<RegisterViewModel, LoginRegisterModel> implements LoginRegisterContact.View{
 
-    private FragmentLoginBinding mDataBinding;
+    private FragmentRegisterBinding mDataBinding;
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_login;
+        return R.layout.fragment_register;
     }
 
     @Override
     public void initView() {
-        mDataBinding = (FragmentLoginBinding) getViewDataBinding();
+        mDataBinding = (FragmentRegisterBinding) getViewDataBinding();
         setToolbar();
     }
 
@@ -46,12 +45,11 @@ public class LoginRegisterFragment extends BaseFragment<LoginRegisterViewModel, 
                 getActivity().finish();
             }
         });
-        mDataBinding.tvRegisterNow.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
     }
 
     @Override
     public int getBR() {
-        return BR.loginModel;
+        return BR.registerModel;
     }
 
     /**
@@ -63,13 +61,19 @@ public class LoginRegisterFragment extends BaseFragment<LoginRegisterViewModel, 
         // 充值输入框错误状态
         mDataBinding.tilUserName.setErrorEnabled(false);
         mDataBinding.tilPassword.setErrorEnabled(false);
-
+        // 判断用户名是否为空
         if (TextUtils.isEmpty(getViewModel().userName)) {
             mDataBinding.tilUserName.setError(getString(R.string.mine_username_null));
             return false;
         }
+        // 判断密码是否为空
         if (TextUtils.isEmpty(getViewModel().password)) {
             mDataBinding.tilPassword.setError(getString(R.string.mine_password_null));
+            return false;
+        }
+        // 判断两次输入的密码是否相同
+        if (!TextUtils.equals(getViewModel().passwordAgain, getViewModel().password)) {
+            mDataBinding.tilPasswordAgain.setError(getString(R.string.mine_password_different));
             return false;
         }
 

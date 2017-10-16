@@ -74,7 +74,7 @@
                         android:layout_toRightOf="@+id/iv_mine_avatar"
                         android:text="@{model.userName}"
                         android:textColor="@color/material_text_color_black_text"
-                        android:textSize="13sp"
+                        android:textSize="23sp"
                         app:visibility="@{model.hasLogin}"/>
 
 

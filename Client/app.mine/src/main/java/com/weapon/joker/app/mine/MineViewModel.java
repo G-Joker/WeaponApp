@@ -56,6 +56,7 @@ public class MineViewModel extends MineContact.ViewModel implements IShareListen
      */
     public void setHasLogin(boolean hasLogin) {
         this.hasLogin = hasLogin;
+        notifyPropertyChanged(BR.hasLogin);
     }
 
     @Bindable

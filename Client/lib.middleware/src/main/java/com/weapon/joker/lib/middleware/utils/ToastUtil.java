@@ -31,7 +31,7 @@ public class ToastUtil {
     public static void showLong(String message) {
         Context context = AppContextHolder.getContext();
         printErrorIfNeeded(message);
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
     }
 
     public static void showLong(int resId) {

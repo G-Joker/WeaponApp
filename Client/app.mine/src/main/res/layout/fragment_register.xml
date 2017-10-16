@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="loginModel"
-            type="com.weapon.joker.app.mine.login.LoginRegisterViewModel"/>
+            name="registerModel"
+            type="com.weapon.joker.app.mine.login.RegisterViewModel"/>
     </data>
 
     <RelativeLayout
@@ -20,7 +20,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:title="@string/mine_login"/>
+            app:title="@string/mine_register"/>
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
@@ -48,7 +48,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="50dp"
-                        android:text="@string/mine_login"
+                        android:text="@string/mine_register"
                         android:textColor="@color/material_color_teal_700"
                         android:textSize="18sp"
                         android:textStyle="bold"/>
@@ -77,7 +77,7 @@
                             android:inputType="textPersonName"
                             android:paddingBottom="10dp"
                             android:paddingTop="10dp"
-                            android:text="@={loginModel.userName}"
+                            android:text="@={registerModel.userName}"
                             android:textSize="13sp"/>
                     </com.weapon.joker.lib.middleware.view.CustomTextInputLayout>
                 </LinearLayout>
@@ -104,17 +104,46 @@
                             android:hint="@string/mine_password"
                             android:imeOptions="actionUnspecified"
                             android:inputType="textPassword"
-                            android:text="@={loginModel.password}"
+                            android:text="@={registerModel.password}"
                             android:textSize="13sp"/>
                     </com.weapon.joker.lib.middleware.view.CustomTextInputLayout>
 
                 </LinearLayout>
 
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal"
+                    android:paddingEnd="30dp"
+                    android:paddingStart="50dp">
+
+                    <com.weapon.joker.lib.middleware.view.CustomTextInputLayout
+                        android:id="@+id/til_password_again"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="?attr/colorAccent"
+                        app:passwordToggleEnabled="true">
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/et_mine_bg"
+                            android:hint="@string/mine_password_again"
+                            android:imeOptions="actionUnspecified"
+                            android:inputType="textPassword"
+                            android:text="@={registerModel.passwordAgain}"
+                            android:textSize="13sp"/>
+                    </com.weapon.joker.lib.middleware.view.CustomTextInputLayout>
+
+                </LinearLayout>
+
                 <android.support.v7.widget.CardView
                     android:layout_width="200dp"
                     android:layout_height="50dp"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="40dp"
                     android:layout_marginTop="20dp"
                     app:cardBackgroundColor="#00000000"
                     app:cardCornerRadius="2dp"
@@ -126,25 +155,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/public_click_bg"
-                        android:onClick="@{loginModel::onLoginClick}"
-                        android:text="@string/mine_login"
+                        android:onClick="@{registerModel::onRegisterClick}"
+                        android:text="@string/mine_register"
                         android:textColor="?attr/colorAccent"/>
                 </android.support.v7.widget.CardView>
 
-                <TextView
-                    android:id="@+id/tv_register_now"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_marginBottom="30dp"
-                    android:layout_marginEnd="30dp"
-                    android:layout_marginTop="25dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:onClick="@{loginModel::onRegisterClick}"
-                    android:text="@string/mine_register_now"
-                    android:textColor="@color/material_color_blue_grey_800"
-                    android:textSize="12sp"/>
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
