@@ -13,6 +13,7 @@
     <string name="mine_password">密码:</string>
     <string name="mine_forget_password">忘记密码？</string>
     <string name="mine_register">注册</string>
+    <string name="mine_register_now">立即注册</string>
     <string name="mine_password_again">重输密码</string>
     <string name="mine_username_null">用户名不能为空</string>
     <string name="mine_password_null">密码不能为空</string>

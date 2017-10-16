@@ -2,11 +2,9 @@ package com.weapon.joker.lib.net;
 
 import android.accounts.NetworkErrorException;
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 import com.weapon.joker.lib.middleware.utils.LogUtils;
-
-import org.reactivestreams.Subscriber;
-import org.reactivestreams.Subscription;
 
 import java.net.ConnectException;
 import java.net.UnknownHostException;

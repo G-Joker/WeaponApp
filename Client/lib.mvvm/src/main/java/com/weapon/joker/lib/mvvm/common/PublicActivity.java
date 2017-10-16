@@ -65,13 +65,6 @@ public class PublicActivity extends AppCompatActivity {
         return mFragment;
     }
 
-    @Override
-    public void finish() {
-        if (mFragment != null && mFragment instanceof BaseFragment) {
-            ((BaseFragment) mFragment).finish();
-        }
-        super.finish();
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

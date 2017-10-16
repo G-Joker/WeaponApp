@@ -18,7 +18,7 @@ import io.reactivex.Observable;
 interface LoginRegisterContact {
 
     interface View extends BaseView{
-
+        boolean checkInputContent();
     }
 
     abstract class ViewModel extends BaseViewModel<View, Model>{

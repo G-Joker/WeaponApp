@@ -33,5 +33,4 @@ dependencies {
     compile 'com.android.support:design:25.1.0'
     compile 'com.orhanobut:logger:1.13'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.1.1'
-    compile 'com.sina.weibo.sdk:core:4.1.0:openDefaultRelease@aar'
 }

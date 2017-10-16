@@ -11,6 +11,9 @@ package com.weapon.joker.lib.net.model;
  */
 
 public class BaseResModel {
+
+    public static final int REQUEST_SUCCESS = 1000;
+
     public int status;
     public String desc = "";
 
