@@ -14,6 +14,7 @@ import com.weapon.joker.lib.net.data.UserData;
 import com.weapon.joker.lib.net.model.BaseResModel;
 import com.weapon.joker.lib.net.model.LoginModel;
 
+import cn.jpush.android.api.JPushInterface;
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.api.BasicCallback;
 
@@ -116,13 +117,16 @@ public class LoginRegisterViewModel extends LoginRegisterContact.ViewModel {
      */
     private void loginSuccess(LoginModel entry) {
         Toast.makeText(getContext(), R.string.mine_login_success, Toast.LENGTH_SHORT).show();
+        // 登录到 JMessage
         loginJMessage();
-        /** 统计用户信息 */
+        // 统计用户信息
         MobclickAgent.onProfileSignIn(entry.data.uid);
-        /** 统计用户点击登录事件 */
+        // 统计用户点击登录事件
         MobclickAgent.onEvent(getContext().getApplicationContext(), "mine_login", entry.data.user);
-        /** 保存用户信息到缓存 */
+        // 保存用户信息到缓存
         UserData.getInstance().setUserBean(getContext().getApplicationContext(), entry.data);
+        // JPush 设置 alias
+        JPushInterface.setAlias(getContext().getApplicationContext(), 12, entry.data.uid);
         getView().finish();
     }
 

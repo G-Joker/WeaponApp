@@ -6,8 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 
+import com.orhanobut.logger.Logger;
 import com.weapon.joker.lib.middleware.utils.LogUtils;
 import com.weapon.joker.lib.middleware.utils.NotificationUtil;
+import com.weapon.joker.lib.middleware.utils.PreferencesUtils;
+import com.weapon.joker.lib.net.GsonUtil;
+import com.weapon.joker.lib.net.bean.PushNewsBean;
+import com.weapon.joker.lib.net.model.PushNewsModel;
 
 import net.wequick.small.Small;
 
@@ -28,6 +33,13 @@ import cn.jpush.android.api.JPushInterface;
  * </pre>
  */
 public class MyReceiver extends BroadcastReceiver {
+
+
+    /**
+     * 通用跳转的通知
+     * 作为消息 tab 的数据源显示，不会弹出通知
+     */
+    private static final int NEWS_TYPE_COMMOM_JUMP = 1000;
 
     @Override
     public void onReceive(final Context context, Intent intent) {
@@ -78,13 +90,26 @@ public class MyReceiver extends BroadcastReceiver {
             return;
         }
         try {
-            JSONObject jsonObject = new JSONObject(extra);
-            String     title      = jsonObject.getString("title");
-            Intent     intent     = new Intent(context, MainActivity.class);
-            Small.wrapIntent(intent);
-            NotificationUtil.commonNotfication(intent, context, title, 12, R.mipmap.ic_launcher);
-        } catch (JSONException e) {
-            e.printStackTrace();
+            PushNewsBean pushNewsBean = GsonUtil.getInstance().fromJson(extra, PushNewsBean.class);
+            if (pushNewsBean.type == NEWS_TYPE_COMMOM_JUMP) {
+                //
+                String        pushNews = PreferencesUtils.getString(context, "push_news", "");
+                PushNewsModel model    = null;
+                if (TextUtils.isEmpty(pushNews)) {
+                    model = new PushNewsModel();
+                } else {
+                    model = GsonUtil.getInstance().fromJson(pushNews, PushNewsModel.class);
+                }
+                model.data.add(pushNewsBean);
+                PreferencesUtils.putString(context, "push_news", GsonUtil.getInstance().toJson(model));
+                Logger.i("dealCustomPush success! desc: " + GsonUtil.getInstance().toJson(model));
+            } else {
+                Intent intent = new Intent(context, MainActivity.class);
+                Small.wrapIntent(intent);
+                NotificationUtil.commonNotfication(intent, context, pushNewsBean.title, pushNewsBean.content, 12, R.mipmap.ic_launcher);
+            }
+        } catch (Exception e) {
+            Logger.e("dealCustomPush error! desc: " + e.getMessage());
         }
 
     }
@@ -114,8 +139,7 @@ public class MyReceiver extends BroadcastReceiver {
 
                     while (it.hasNext()) {
                         String myKey = it.next().toString();
-                        sb.append("\nkey:" + key + ", value: [" +
-                                  myKey + " - " + json.optString(myKey) + "]");
+                        sb.append("\nkey:" + key + ", value: [" + myKey + " - " + json.optString(myKey) + "]");
                     }
                 } catch (JSONException e) {
                     LogUtils.logi("Get message extra JSON error!");

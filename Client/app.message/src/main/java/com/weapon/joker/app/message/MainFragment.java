@@ -1,7 +1,6 @@
 package com.weapon.joker.app.message;
 
 import com.weapon.joker.lib.mvvm.common.BaseFragment;
-import com.weapon.joker.lib.net.bean.MessageBean;
 
 /**
  * MessageFragment 消息 Fragment
@@ -14,21 +13,16 @@ public class MainFragment extends BaseFragment<MessageViewModel,MessageModel> im
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_message;
+        return R.layout.fragment_message;
     }
 
     @Override
     public void initView() {
-        getViewModel().requestData();
+        getViewModel().getPostNews();
     }
 
     @Override
     public int getBR() {
-        return com.weapon.joker.app.message.BR.model;
-    }
-
-    @Override
-    public void loadSuccess(MessageBean bean) {
-        bean.show();
+        return BR.messageModel;
     }
 }

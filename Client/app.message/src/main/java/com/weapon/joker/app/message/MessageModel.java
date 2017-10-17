@@ -16,10 +16,5 @@ import io.reactivex.Observable;
 
 public class MessageModel extends MessageContact.Model{
 
-    @Override
-    Observable<MessageBean> loadData() {
-        return  Api.getDefault(HostType.MESSAGE)
-                .getCall()
-                .compose(RxSchedulers.<MessageBean>io_main());
-    }
+
 }

@@ -53,6 +53,6 @@ public class UserData{
      * 清除用户缓存数据
      */
     public void clearUserData(Context context) {
-        PreferencesUtils.clear(context);
+        PreferencesUtils.remove(context, USER_DATA);
     }
 }

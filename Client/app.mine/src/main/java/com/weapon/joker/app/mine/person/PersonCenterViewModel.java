@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.weapon.joker.app.mine.BR;
 import com.weapon.joker.lib.net.data.UserData;
 
+import cn.jpush.android.api.JPushInterface;
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.callback.GetUserInfoCallback;
 import cn.jpush.im.android.api.model.UserInfo;
@@ -99,6 +100,8 @@ public class PersonCenterViewModel extends PersonCenterContact.ViewModel {
         UserData.getInstance().clearUserData(getContext());
         // JMessage 的登出
         JMessageClient.logout();
+        // JPush ailas 置为空
+        JPushInterface.setAlias(getContext(), 2, "");
         getView().finish();
     }
 
