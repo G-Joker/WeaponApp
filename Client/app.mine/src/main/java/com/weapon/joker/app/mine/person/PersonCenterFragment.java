@@ -22,6 +22,8 @@ public class PersonCenterFragment extends BaseFragment<PersonCenterViewModel, Pe
 
     private FragmentPersonCenterBinding mDataBinding;
 
+    private static final String EXTRA_USER_NAME = "user_name";
+
     @Override
     public int getLayoutId() {
         return R.layout.fragment_person_center;
@@ -30,8 +32,11 @@ public class PersonCenterFragment extends BaseFragment<PersonCenterViewModel, Pe
     @Override
     public void initView() {
         mDataBinding = ((FragmentPersonCenterBinding) getViewDataBinding());
+        if (getActivity().getIntent() == null || getActivity().getIntent().getStringExtra(EXTRA_USER_NAME) == null) {
+            finish();
+        }
         setToolbar();
-        getViewModel().setHeaderData();
+        getViewModel().getUserInfo(getActivity().getIntent().getStringExtra(EXTRA_USER_NAME));
     }
 
     /**

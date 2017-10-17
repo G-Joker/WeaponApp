@@ -1,6 +1,7 @@
 package com.weapon.joker.app.mine;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.databinding.Bindable;
 import android.text.TextUtils;
 import android.view.View;
@@ -107,7 +108,9 @@ public class MineViewModel extends MineContact.ViewModel implements IShareListen
         if (getHasLogin()) {
             // 如果已经登录则跳转到个人中心界面
             MobclickAgent.onEvent(getContext(), "mine_person_center");
-            PublicActivity.startActivity((Activity) getContext(), "com.weapon.joker.app.mine.person.PersonCenterFragment");
+            Intent intent = new Intent(getContext(), PublicActivity.class);
+            intent.putExtra("user_name", userName);
+            PublicActivity.startActivity((Activity) getContext(), "com.weapon.joker.app.mine.person.PersonCenterFragment", intent);
         } else {
             // 如果没有登录则跳转到登录界面
 //            Intent intent = new Intent(getContext(), LoginActivity.class);

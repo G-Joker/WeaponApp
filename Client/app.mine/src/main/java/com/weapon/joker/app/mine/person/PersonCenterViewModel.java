@@ -5,9 +5,14 @@ import android.databinding.Bindable;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Toast;
 
 import com.weapon.joker.app.mine.BR;
 import com.weapon.joker.lib.net.data.UserData;
+
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.callback.GetUserInfoCallback;
+import cn.jpush.im.android.api.model.UserInfo;
 
 /**
  * <pre>
@@ -29,15 +34,42 @@ public class PersonCenterViewModel extends PersonCenterContact.ViewModel {
         notifyPropertyChanged(BR.userName);
     }
 
+
     /**
-     * 设置个人中心头部数据
+     * 获取用户信息
      */
-    public void setHeaderData() {
-        String userName = UserData.getInstance().getUserBean(getContext().getApplicationContext()).user;
+    public void getUserInfo(String userName) {
+        JMessageClient.getUserInfo(userName, new GetUserInfoCallback() {
+            @Override
+            public void gotResult(int status, String desc, UserInfo userInfo) {
+                if (status == 0) {
+                    getUserInfoSuccess(userInfo);
+                } else {
+                    getUserInfoFailed(desc);
+                }
+            }
+        });
+    }
+
+    /**
+     * 成功获取用户信息
+     * @param userInfo 用户信息
+     */
+    private void getUserInfoSuccess(UserInfo userInfo) {
+        String userName = userInfo.getUserName();
         if (!TextUtils.isEmpty(userName)) {
             setUserName(userName);
         }
     }
+
+    /**
+     * 获取用户信息失败
+     * @param desc 失败描述
+     */
+    private void getUserInfoFailed(String desc) {
+        Toast.makeText(getContext(), desc, Toast.LENGTH_SHORT).show();
+    }
+
 
     /**
      * 注销登录点击处理
@@ -51,14 +83,23 @@ public class PersonCenterViewModel extends PersonCenterContact.ViewModel {
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // 清楚本地数据
-                        UserData.getInstance().clearUserData(getContext());
-                        getView().finish();
+                        logout();
                     }
                 })
                 .setNegativeButton("取消", null)
                 .show();
 
+    }
+
+    /**
+     * 退出登录相关操作
+     */
+    private void logout() {
+        // 清楚本地的用户数据
+        UserData.getInstance().clearUserData(getContext());
+        // JMessage 的登出
+        JMessageClient.logout();
+        getView().finish();
     }
 
 }

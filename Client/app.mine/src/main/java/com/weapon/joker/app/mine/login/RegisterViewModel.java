@@ -10,6 +10,9 @@ import com.weapon.joker.lib.net.BaseObserver;
 import com.weapon.joker.lib.net.model.BaseResModel;
 import com.weapon.joker.lib.net.model.RegisterModel;
 
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.api.BasicCallback;
+
 /**
  * <pre>
  *     author : xiaweizi
@@ -28,6 +31,7 @@ public class RegisterViewModel extends LoginRegisterViewModel {
     @Bindable
     public String passwordAgain;
 
+    @Override
     public void onRegisterClick(View view) {
         if (!getView().checkInputContent()) {
             return;
@@ -76,6 +80,24 @@ public class RegisterViewModel extends LoginRegisterViewModel {
     private void registerSuccess(RegisterModel entry) {
         Toast.makeText(getContext(), R.string.mine_register_repeat, Toast.LENGTH_SHORT).show();
         MobclickAgent.onEvent(getContext().getApplicationContext(), "mine_register", entry.data.user);
+        registerJMessage();
         getView().finish();
+    }
+
+    /**
+     * JMessage 账号的注册
+     */
+    private void registerJMessage() {
+        JMessageClient.register(userName, password, new BasicCallback() {
+            @Override
+            public void gotResult(int status, String desc) {
+                if (status == 0) {
+                    // 注册成功
+                } else {
+                    // 聊天账号注册失败
+                    Toast.makeText(getContext(), desc, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }

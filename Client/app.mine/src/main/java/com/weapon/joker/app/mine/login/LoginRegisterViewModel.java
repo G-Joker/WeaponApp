@@ -5,6 +5,7 @@ import android.databinding.Bindable;
 import android.view.View;
 import android.widget.Toast;
 
+import com.orhanobut.logger.Logger;
 import com.umeng.analytics.MobclickAgent;
 import com.weapon.joker.app.mine.R;
 import com.weapon.joker.lib.mvvm.common.PublicActivity;
@@ -12,6 +13,9 @@ import com.weapon.joker.lib.net.BaseObserver;
 import com.weapon.joker.lib.net.data.UserData;
 import com.weapon.joker.lib.net.model.BaseResModel;
 import com.weapon.joker.lib.net.model.LoginModel;
+
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.api.BasicCallback;
 
 /**
  * class：   Client
@@ -112,6 +116,7 @@ public class LoginRegisterViewModel extends LoginRegisterContact.ViewModel {
      */
     private void loginSuccess(LoginModel entry) {
         Toast.makeText(getContext(), R.string.mine_login_success, Toast.LENGTH_SHORT).show();
+        loginJMessage();
         /** 统计用户信息 */
         MobclickAgent.onProfileSignIn(entry.data.uid);
         /** 统计用户点击登录事件 */
@@ -119,5 +124,22 @@ public class LoginRegisterViewModel extends LoginRegisterContact.ViewModel {
         /** 保存用户信息到缓存 */
         UserData.getInstance().setUserBean(getContext().getApplicationContext(), entry.data);
         getView().finish();
+    }
+
+    /**
+     * 登录到 JMessage
+     */
+    private void loginJMessage() {
+        JMessageClient.login(userName, password, new BasicCallback() {
+            @Override
+            public void gotResult(int status, String desc) {
+                if (status == 0) {
+                    // 登录成功
+                    Logger.i("JMessage:\t登录成功！" + desc);
+                } else {
+                    Toast.makeText(getContext(), desc, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }

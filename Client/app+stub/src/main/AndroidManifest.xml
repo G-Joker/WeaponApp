@@ -48,6 +48,7 @@
         <!-- 可配置android:process参数将PushService放在其他进程中 -->
         <service
             android:name="cn.jpush.android.service.PushService"
+            android:enabled="true"
             android:exported="false"
             android:process=":mult">
             <intent-filter>
@@ -110,10 +111,23 @@
             android:name="cn.jpush.android.service.AlarmReceiver"
             android:exported="false"/>
 
+        <!-- Required JMessage SDK核心功能-->
+        <receiver
+            android:name="cn.jpush.im.android.helpers.IMReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter android:priority="1000">
+                <action android:name="cn.jpush.im.android.action.IM_RESPONSE" />
+                <action android:name="cn.jpush.im.android.action.NOTIFICATION_CLICK_PROXY" />
+
+                <category android:name="com.weapon.joker" />
+            </intent-filter>
+        </receiver>
+
         <!-- Required  . Enable it you can get statistics data with channel -->
         <meta-data
             android:name="JPUSH_CHANNEL"
-            android:value="developer-default"/>
+            android:value="office"/>
         <meta-data
             android:name="JPUSH_APPKEY"
             android:value="505a6c2fd4058902bbd76fb8"/> <!--  </>值来自开发者平台取得的AppKey-->
