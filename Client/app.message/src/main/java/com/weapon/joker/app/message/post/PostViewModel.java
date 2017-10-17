@@ -7,12 +7,11 @@ import android.widget.Toast;
 
 import com.weapon.joker.app.message.BR;
 import com.weapon.joker.app.message.R;
-import com.weapon.joker.lib.middleware.utils.PreferencesUtils;
 import com.weapon.joker.lib.mvvm.command.Action0;
 import com.weapon.joker.lib.mvvm.command.ReplyCommand;
 import com.weapon.joker.lib.mvvm.pullrefreshload.PullToRefreshLayout;
-import com.weapon.joker.lib.net.GsonUtil;
 import com.weapon.joker.lib.net.bean.PushNewsBean;
+import com.weapon.joker.lib.net.data.PushNewsData;
 import com.weapon.joker.lib.net.model.PushNewsModel;
 
 import me.tatarka.bindingcollectionadapter2.BindingRecyclerViewAdapter;
@@ -39,7 +38,7 @@ public class PostViewModel extends PostContact.ViewModel {
      * 是否可以下拉刷新
      */
     @Bindable
-    public boolean canRefresh  = true;
+    public boolean canRefresh = true;
 
     /**
      * 获取公告数据
@@ -58,10 +57,9 @@ public class PostViewModel extends PostContact.ViewModel {
 //            items.add(model);
 //        }
 
-        String        pushNews = PreferencesUtils.getString(getContext(), "push_news", "");
-        PushNewsModel model    = GsonUtil.getInstance().fromJson(pushNews, PushNewsModel.class);
+        PushNewsModel model = PushNewsData.getInstance().getPushNewsData(getContext().getApplicationContext());
         for (PushNewsBean bean : model.data) {
-            PostItemViewModel itemViewModel = new PostItemViewModel();
+            PostItemViewModel itemViewModel = new PostItemViewModel(getContext().getApplicationContext());
             itemViewModel.content = bean.content;
             itemViewModel.title = bean.title;
             itemViewModel.url = bean.url;
@@ -77,11 +75,11 @@ public class PostViewModel extends PostContact.ViewModel {
         }
     });
 
-    public final ItemBinding<PostItemViewModel>                        singleItem = ItemBinding.of(BR.postItemModel,
-                                                                                                   R.layout.item_message_post);
-    public final ObservableList<PostItemViewModel>                     items      = new ObservableArrayList<>();
+    public final ItemBinding<PostItemViewModel> singleItem = ItemBinding.of(BR.postItemModel,
+            R.layout.item_message_post);
+    public final ObservableList<PostItemViewModel> items = new ObservableArrayList<>();
     public final BindingRecyclerViewAdapter.ItemIds<PostItemViewModel> itemIds
-                                                                                  = new BindingRecyclerViewAdapter.ItemIds<PostItemViewModel>() {
+            = new BindingRecyclerViewAdapter.ItemIds<PostItemViewModel>() {
         @Override
         public long getItemId(int position, PostItemViewModel item) {
             return position;

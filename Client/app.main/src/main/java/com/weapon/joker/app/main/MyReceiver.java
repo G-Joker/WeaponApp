@@ -9,10 +9,9 @@ import android.text.TextUtils;
 import com.orhanobut.logger.Logger;
 import com.weapon.joker.lib.middleware.utils.LogUtils;
 import com.weapon.joker.lib.middleware.utils.NotificationUtil;
-import com.weapon.joker.lib.middleware.utils.PreferencesUtils;
 import com.weapon.joker.lib.net.GsonUtil;
 import com.weapon.joker.lib.net.bean.PushNewsBean;
-import com.weapon.joker.lib.net.model.PushNewsModel;
+import com.weapon.joker.lib.net.data.PushNewsData;
 
 import net.wequick.small.Small;
 
@@ -92,17 +91,8 @@ public class MyReceiver extends BroadcastReceiver {
         try {
             PushNewsBean pushNewsBean = GsonUtil.getInstance().fromJson(extra, PushNewsBean.class);
             if (pushNewsBean.type == NEWS_TYPE_COMMOM_JUMP) {
-                //
-                String        pushNews = PreferencesUtils.getString(context, "push_news", "");
-                PushNewsModel model    = null;
-                if (TextUtils.isEmpty(pushNews)) {
-                    model = new PushNewsModel();
-                } else {
-                    model = GsonUtil.getInstance().fromJson(pushNews, PushNewsModel.class);
-                }
-                model.data.add(pushNewsBean);
-                PreferencesUtils.putString(context, "push_news", GsonUtil.getInstance().toJson(model));
-                Logger.i("dealCustomPush success! desc: " + GsonUtil.getInstance().toJson(model));
+                // 将收到的消息保存到本地
+                PushNewsData.getInstance().addPushNewsModel(context, pushNewsBean);
             } else {
                 Intent intent = new Intent(context, MainActivity.class);
                 Small.wrapIntent(intent);
@@ -134,8 +124,8 @@ public class MyReceiver extends BroadcastReceiver {
                 }
 
                 try {
-                    JSONObject       json = new JSONObject(bundle.getString(JPushInterface.EXTRA_EXTRA));
-                    Iterator<String> it   = json.keys();
+                    JSONObject json = new JSONObject(bundle.getString(JPushInterface.EXTRA_EXTRA));
+                    Iterator<String> it = json.keys();
 
                     while (it.hasNext()) {
                         String myKey = it.next().toString();

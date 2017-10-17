@@ -2,13 +2,11 @@ package com.weapon.joker.app.message;
 
 import android.app.Activity;
 import android.databinding.Bindable;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
 
-import com.weapon.joker.lib.middleware.utils.PreferencesUtils;
 import com.weapon.joker.lib.mvvm.common.PublicActivity;
-import com.weapon.joker.lib.net.GsonUtil;
+import com.weapon.joker.lib.net.data.PushNewsData;
 import com.weapon.joker.lib.net.model.PushNewsModel;
 
 /**
@@ -24,17 +22,17 @@ public class MessageViewModel extends MessageContact.ViewModel {
      * 公告通知数量
      */
     @Bindable
-    public int    postNum;
+    public int postNum;
     /**
      * 公告红点是否可见
      */
     @Bindable
-    public int    postRedVisible;
+    public int postRedVisible;
     /**
      * 官方服务红点是否可见
      */
     @Bindable
-    public int    serviceRedVisible;
+    public int serviceRedVisible;
     /**
      * 公告内容
      */
@@ -43,17 +41,17 @@ public class MessageViewModel extends MessageContact.ViewModel {
 
     public void setPostNum(int postNum) {
         this.postNum = postNum;
-        notifyPropertyChanged(BR.postNum);
+        notifyPropertyChanged(com.weapon.joker.app.message.BR.postNum);
     }
 
     public void setPostRedVisible(int postRedVisible) {
         this.postRedVisible = postRedVisible;
-        notifyPropertyChanged(BR.postRedVisible);
+        notifyPropertyChanged(com.weapon.joker.app.message.BR.postRedVisible);
     }
 
     public void setServiceRedVisible(int serviceRedVisible) {
         this.serviceRedVisible = serviceRedVisible;
-        notifyPropertyChanged(BR.serviceRedVisible);
+        notifyPropertyChanged(com.weapon.joker.app.message.BR.serviceRedVisible);
     }
 
     public void setPostContent(String postContent) {
@@ -65,14 +63,7 @@ public class MessageViewModel extends MessageContact.ViewModel {
      */
     @Override
     public void getPostNews() {
-        String pushNews = PreferencesUtils.getString(getContext(), "push_news", "");
-        if (TextUtils.isEmpty(pushNews)) {
-            setPostRedVisible(View.GONE);
-            setServiceRedVisible(View.GONE);
-            setPostContent("暂无公告");
-            return;
-        }
-        PushNewsModel model = GsonUtil.getInstance().fromJson(pushNews, PushNewsModel.class);
+        PushNewsModel model = PushNewsData.getInstance().getPushNewsData(getContext().getApplicationContext());
         if (model == null || model.data == null || model.data.size() <= 0) {
             setPostRedVisible(View.GONE);
             setServiceRedVisible(View.GONE);

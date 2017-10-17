@@ -1,7 +1,10 @@
 package com.weapon.joker.app.message.post;
 
+import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.view.View;
+import android.widget.Toast;
 
 /**
  * <pre>
@@ -21,4 +24,17 @@ public class PostItemViewModel extends BaseObservable {
     public String content = "content";
     @Bindable
     public String url = "url";
+
+    private Context mContext;
+
+    public PostItemViewModel(Context context) {
+        mContext = context;
+    }
+
+    /**
+     * 公告item点击事件处理
+     */
+    public void onPostItemClick(View view){
+        Toast.makeText(mContext, "点击了" + url, Toast.LENGTH_SHORT).show();
+    }
 }
