@@ -210,14 +210,14 @@ public class PullToRefreshLayout extends RelativeLayout {
                 // 刷新成功
                 refreshStateImageView.setVisibility(View.VISIBLE);
                 refreshStateTextView.setText(R.string.refresh_succeed);
-                refreshStateImageView.setBackgroundResource(R.drawable.refresh_succeed);
+                refreshStateImageView.setBackgroundResource(R.drawable.ic_refresh_success);
                 break;
             case FAIL:
             default:
                 // 刷新失败
                 refreshStateImageView.setVisibility(View.VISIBLE);
                 refreshStateTextView.setText(R.string.refresh_fail);
-                refreshStateImageView.setBackgroundResource(R.drawable.refresh_failed);
+                refreshStateImageView.setBackgroundResource(R.drawable.ic_refresh_failed);
                 break;
         }
         if (pullDownY > 0) {
@@ -248,14 +248,14 @@ public class PullToRefreshLayout extends RelativeLayout {
                 // 加载成功
                 loadStateImageView.setVisibility(View.VISIBLE);
                 loadStateTextView.setText(R.string.load_succeed);
-                loadStateImageView.setBackgroundResource(R.drawable.load_succeed);
+                loadStateImageView.setBackgroundResource(R.drawable.ic_refresh_success);
                 break;
             case FAIL:
             default:
                 // 加载失败
                 loadStateImageView.setVisibility(View.VISIBLE);
                 loadStateTextView.setText(R.string.load_fail);
-                loadStateImageView.setBackgroundResource(R.drawable.load_failed);
+                loadStateImageView.setBackgroundResource(R.drawable.ic_refresh_failed);
                 break;
         }
         if (pullUpY < 0) {

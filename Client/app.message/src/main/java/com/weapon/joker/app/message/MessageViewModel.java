@@ -1,11 +1,13 @@
 package com.weapon.joker.app.message;
 
+import android.app.Activity;
 import android.databinding.Bindable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
 
 import com.weapon.joker.lib.middleware.utils.PreferencesUtils;
+import com.weapon.joker.lib.mvvm.common.PublicActivity;
 import com.weapon.joker.lib.net.GsonUtil;
 import com.weapon.joker.lib.net.model.PushNewsModel;
 
@@ -61,9 +63,13 @@ public class MessageViewModel extends MessageContact.ViewModel {
     /**
      * 获取公告消息
      */
+    @Override
     public void getPostNews() {
         String pushNews = PreferencesUtils.getString(getContext(), "push_news", "");
         if (TextUtils.isEmpty(pushNews)) {
+            setPostRedVisible(View.GONE);
+            setServiceRedVisible(View.GONE);
+            setPostContent("暂无公告");
             return;
         }
         PushNewsModel model = GsonUtil.getInstance().fromJson(pushNews, PushNewsModel.class);
@@ -74,7 +80,6 @@ public class MessageViewModel extends MessageContact.ViewModel {
         } else {
             setPostNum(model.data.size());
             setPostRedVisible(View.VISIBLE);
-            setServiceRedVisible(View.VISIBLE);
             setPostContent(model.data.get(0).content);
         }
     }
@@ -86,7 +91,7 @@ public class MessageViewModel extends MessageContact.ViewModel {
      */
     public void onPostClick(View view) {
         if (postRedVisible == View.VISIBLE) {
-            Toast.makeText(getContext(), "进入公告界面", Toast.LENGTH_SHORT).show();
+            PublicActivity.startActivity((Activity) getContext(), "com.weapon.joker.app.message.post.PostFragment");
         }
     }
 

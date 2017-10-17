@@ -17,6 +17,15 @@ import android.util.AttributeSet;
 
 public class PullToRefreshRecyclerView extends RecyclerView implements Pullable {
 
+    /**
+     * 是否可以上拉加载
+     */
+    private boolean isCanLoadMore = true;
+    /**
+     * 是否可以下拉刷新
+     */
+    private boolean isCanRefresh  = true;
+
     public PullToRefreshRecyclerView(Context context) {
         this(context, null);
     }
@@ -39,11 +48,11 @@ public class PullToRefreshRecyclerView extends RecyclerView implements Pullable 
         LayoutManager layoutManager = getLayoutManager();
 
         if (layoutManager.getItemCount() == 0) {
-            return true;
+            return isCanRefresh;
         } else if (layoutManager instanceof LinearLayoutManager) {
-            int firstVisibleItemPosition           = ((LinearLayoutManager) layoutManager).findFirstCompletelyVisibleItemPosition();
+            int firstVisibleItemPosition = ((LinearLayoutManager) layoutManager).findFirstCompletelyVisibleItemPosition();
             if (firstVisibleItemPosition <= 0) {
-                return true;
+                return isCanRefresh;
             } else {
                 return false;
             }
@@ -57,11 +66,11 @@ public class PullToRefreshRecyclerView extends RecyclerView implements Pullable 
         LayoutManager layoutManager = getLayoutManager();
 
         if (layoutManager.getItemCount() == 0) {
-            return true;
+            return isCanLoadMore;
         } else if (layoutManager instanceof LinearLayoutManager) {
-            int lastVisibleItemPosition           = ((LinearLayoutManager) layoutManager).findLastCompletelyVisibleItemPosition();
-            if (lastVisibleItemPosition >= (layoutManager.getItemCount()-1)) {
-                return true;
+            int lastVisibleItemPosition = ((LinearLayoutManager) layoutManager).findLastCompletelyVisibleItemPosition();
+            if (lastVisibleItemPosition >= (layoutManager.getItemCount() - 1)) {
+                return isCanLoadMore;
             } else {
                 return false;
             }
@@ -69,4 +78,13 @@ public class PullToRefreshRecyclerView extends RecyclerView implements Pullable 
 
         return false;
     }
+
+    public void setCanLoadMore(boolean canLoadMore) {
+        isCanLoadMore = canLoadMore;
+    }
+
+    public void setCanRefresh(boolean canRefresh) {
+        isCanRefresh = canRefresh;
+    }
+
 }

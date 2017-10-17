@@ -17,7 +17,7 @@ interface MessageContact {
     }
 
     abstract class ViewModel extends BaseViewModel<View,Model>{
-
+        abstract void getPostNews();
     }
 
     abstract class Model extends BaseModel<ViewModel>{

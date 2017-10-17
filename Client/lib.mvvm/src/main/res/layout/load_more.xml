@@ -8,8 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:paddingBottom="20dp"
-        android:paddingTop="20dp" >
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp" >
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -18,8 +18,8 @@
 
             <ImageView
                 android:id="@+id/pullup_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="20dp"
+                android:layout_height="30dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="60dp"
                 android:background="@drawable/pullup_icon_big" />
@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="60dp"
-                android:background="@drawable/loading"
+                android:background="@drawable/ic_loading"
                 android:visibility="gone" />
 
             <TextView

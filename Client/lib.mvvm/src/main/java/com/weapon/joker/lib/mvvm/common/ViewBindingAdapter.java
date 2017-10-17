@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.weapon.joker.lib.mvvm.command.ReplyCommand;
 import com.weapon.joker.lib.mvvm.pullrefreshload.PullToRefreshLayout;
+import com.weapon.joker.lib.mvvm.pullrefreshload.PullToRefreshRecyclerView;
 
 /**
  * ViewBindingAdapter 放置一些公用的 @BindingAdapter
@@ -20,11 +21,12 @@ public final class ViewBindingAdapter {
 
     /**
      * pullToRefreshLayout 上拉加载和下拉刷新的控制 adapter
+     *
      * @param pullToRefreshLayout
      * @param onRefreshCommand
      * @param onLoadCommand
      */
-    @BindingAdapter (value = {"onRefreshLoadCommand", "onLoadCommand"}, requireAll = false)
+    @BindingAdapter (value = {"onRefreshCommand", "onLoadCommand"}, requireAll = false)
     public static void onRefreshLoadCommand(
             final PullToRefreshLayout pullToRefreshLayout, final ReplyCommand onRefreshCommand, final ReplyCommand onLoadCommand) {
 
@@ -46,7 +48,7 @@ public final class ViewBindingAdapter {
     }
 
     @BindingAdapter ("onOffsetChanged")
-    public static void setOnOffsetChanged(AppBarLayout appBarLayout, AppBarLayout.OnOffsetChangedListener listener){
+    public static void setOnOffsetChanged(AppBarLayout appBarLayout, AppBarLayout.OnOffsetChangedListener listener) {
         if (listener != null) {
             appBarLayout.addOnOffsetChangedListener(listener);
         }
@@ -55,8 +57,15 @@ public final class ViewBindingAdapter {
     /**
      * 设置 view 是否可见
      */
-    @BindingAdapter("visibility")
+    @BindingAdapter ("visibility")
     public static void setVisibility(View view, boolean isVisible) {
         view.setVisibility(isVisible ? View.VISIBLE : View.GONE);
     }
+
+    @BindingAdapter (value = {"canLoadMore", "canRefresh"}, requireAll = false)
+    public static void setisLoadAndRefresh(PullToRefreshRecyclerView recyclerView, boolean canLoadMore, boolean canRefresh) {
+        recyclerView.setCanLoadMore(canLoadMore);
+        recyclerView.setCanRefresh(canRefresh);
+    }
+
 }

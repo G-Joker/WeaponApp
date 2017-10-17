@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.weapon.joker.app.mine.BR;
-import com.weapon.joker.lib.net.data.UserData;
+import com.weapon.joker.lib.middleware.utils.PreferencesUtils;
 
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.im.android.api.JMessageClient;
@@ -97,7 +97,7 @@ public class PersonCenterViewModel extends PersonCenterContact.ViewModel {
      */
     private void logout() {
         // 清楚本地的用户数据
-        UserData.getInstance().clearUserData(getContext());
+        PreferencesUtils.clear(getContext());
         // JMessage 的登出
         JMessageClient.logout();
         // JPush ailas 置为空
