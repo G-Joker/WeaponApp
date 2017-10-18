@@ -1,6 +1,5 @@
 package com.weapon.joker.app.message.post;
 
-import android.databinding.Bindable;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
 import android.widget.Toast;
@@ -29,16 +28,6 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding;
 
 public class PostViewModel extends PostContact.ViewModel {
 
-    /**
-     * 是否可以上拉加载更多
-     */
-    @Bindable
-    public boolean canLoadMore = false;
-    /**
-     * 是否可以下拉刷新
-     */
-    @Bindable
-    public boolean canRefresh = true;
 
     /**
      * 获取公告数据

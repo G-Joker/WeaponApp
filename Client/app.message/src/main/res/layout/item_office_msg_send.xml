@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="msgModel"
+            type="com.weapon.joker.app.message.office.MessageItemViewModel"/>
+    </data>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
+
+        <ImageView
+            android:id="@+id/iv_send_avatar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/ic_share_zone"
+            android:scaleType="centerCrop"
+            app:url="@{msgModel.avatarUrl}"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@id/iv_send_avatar"
+            android:background="@drawable/ic_message_right"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="30dp"
+            android:text='@{msgModel.content, default="dadafdafadfad"}'
+            android:textColor="@color/material_text_color_black_secondary_text"
+            android:textSize="16sp"/>
+    </RelativeLayout>
+
+
+</layout>
