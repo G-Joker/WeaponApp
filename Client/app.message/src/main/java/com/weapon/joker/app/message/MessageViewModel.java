@@ -22,17 +22,17 @@ public class MessageViewModel extends MessageContact.ViewModel {
      * 公告通知数量
      */
     @Bindable
-    public int postNum;
+    public int    postNum;
     /**
      * 公告红点是否可见
      */
     @Bindable
-    public int postRedVisible;
+    public int    postRedVisible;
     /**
      * 官方服务红点是否可见
      */
     @Bindable
-    public int serviceRedVisible;
+    public int    serviceRedVisible;
     /**
      * 公告内容
      */
@@ -72,7 +72,7 @@ public class MessageViewModel extends MessageContact.ViewModel {
         } else {
             setPostNum(model.data.size());
             setPostRedVisible(View.VISIBLE);
-            setPostContent(model.data.get(model.data.size()-1).content);
+            setPostContent(model.data.get(model.data.size() - 1).content);
         }
     }
 
@@ -95,9 +95,7 @@ public class MessageViewModel extends MessageContact.ViewModel {
      * @param view
      */
     public void onServiceClick(View view) {
-        if (serviceRedVisible == View.VISIBLE) {
-            Toast.makeText(getContext(), "进入官方服务聊天界面", Toast.LENGTH_SHORT).show();
-        }
+        PublicActivity.startActivity((Activity) getContext(), "com.weapon.joker.app.message.office.OfficeFragment");
     }
 
 }
