@@ -1,6 +1,9 @@
 package com.weapon.joker.app.message;
 
 import com.weapon.joker.lib.mvvm.common.BaseFragment;
+import com.weapon.joker.lib.net.event.PushNewsEvent;
+
+import cn.jpush.im.android.eventbus.EventBus;
 
 /**
  * MessageFragment 消息 Fragment
@@ -9,7 +12,7 @@ import com.weapon.joker.lib.mvvm.common.BaseFragment;
  * e-mail: guanzhi.zhang@sojex.cn
  */
 
-public class MainFragment extends BaseFragment<MessageViewModel,MessageModel> implements MessageContact.View{
+public class MainFragment extends BaseFragment<MessageViewModel, MessageModel> implements MessageContact.View {
 
     @Override
     public int getLayoutId() {
@@ -24,5 +27,29 @@ public class MainFragment extends BaseFragment<MessageViewModel,MessageModel> im
     @Override
     public int getBR() {
         return BR.messageModel;
+    }
+
+    public void onEvent(PushNewsEvent event) {
+        if (event != null && isAdded() && getViewModel() != null) {
+            getViewModel().getPostNews();
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getViewModel().getPostNews();
     }
 }

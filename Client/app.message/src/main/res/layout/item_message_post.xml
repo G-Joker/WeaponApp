@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
             name="postItemModel"
-            type="com.weapon.joker.app.message.post.PostItemViewModel" />
+            type="com.weapon.joker.app.message.post.PostItemViewModel"/>
     </data>
 
     <android.support.v7.widget.CardView
@@ -16,35 +16,54 @@
         app:cardElevation="1dp"
         app:cardUseCompatPadding="true">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/public_click_bg"
             android:clickable="true"
             android:gravity="center_vertical"
             android:onClick="@{postItemModel::onPostItemClick}"
-            android:orientation="vertical"
-            android:paddingBottom="10dp"
-            android:paddingTop="20dp">
+            android:paddingBottom="12dp"
+            android:paddingTop="15dp">
 
             <TextView
+                android:id="@+id/tv_post_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
+                android:layout_marginLeft="15dp"
                 android:text='@{postItemModel.title, default="这是标题"}'
                 android:textColor="@color/material_text_color_black_text"
-                android:textSize="@dimen/public_main_text_size" />
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/tv_post_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_post_title"
+                android:layout_marginLeft="15dp"
+                android:text='@{postItemModel.content, default="这是内容"}'
+                android:textColor="@color/material_text_color_black_secondary_text"
+                android:textSize="16dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginRight="30dp"
-                android:text='@{postItemModel.content, default="这是内容"}'
+                android:layout_below="@id/tv_post_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="4dp"
+                android:text='@{postItemModel.time, default="2017-12-12"}'
                 android:textColor="@color/material_text_color_black_secondary_text"
-                android:textSize="@dimen/public_sub_text_size" />
+                android:textSize="@dimen/public_sub_text_size"/>
 
-        </LinearLayout>
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                app:url="@{postItemModel.imageUrl}"/>
+
+        </RelativeLayout>
 
     </android.support.v7.widget.CardView>
 

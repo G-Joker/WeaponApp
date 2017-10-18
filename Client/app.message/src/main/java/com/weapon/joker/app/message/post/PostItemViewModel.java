@@ -3,8 +3,10 @@ package com.weapon.joker.app.message.post;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.text.TextUtils;
 import android.view.View;
-import android.widget.Toast;
+
+import com.weapon.joker.lib.middleware.WebViewActivity;
 
 /**
  * <pre>
@@ -24,6 +26,14 @@ public class PostItemViewModel extends BaseObservable {
     public String content = "content";
     @Bindable
     public String url = "url";
+    @Bindable
+    public String action = "action";
+    @Bindable
+    public String time = "";
+    @Bindable
+    public int messageId = 1;
+    @Bindable
+    public String imageUrl = "";
 
     private Context mContext;
 
@@ -35,6 +45,8 @@ public class PostItemViewModel extends BaseObservable {
      * 公告item点击事件处理
      */
     public void onPostItemClick(View view){
-        Toast.makeText(mContext, "点击了" + url, Toast.LENGTH_SHORT).show();
+        if (TextUtils.equals(action, "web")) {
+            WebViewActivity.startUrl(mContext, url);
+        }
     }
 }

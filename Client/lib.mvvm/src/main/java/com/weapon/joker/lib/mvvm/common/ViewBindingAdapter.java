@@ -2,8 +2,14 @@ package com.weapon.joker.lib.mvvm.common;
 
 import android.databinding.BindingAdapter;
 import android.support.design.widget.AppBarLayout;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.request.RequestOptions;
+import com.weapon.joker.lib.mvvm.R;
 import com.weapon.joker.lib.mvvm.command.ReplyCommand;
 import com.weapon.joker.lib.mvvm.pullrefreshload.PullToRefreshLayout;
 import com.weapon.joker.lib.mvvm.pullrefreshload.PullToRefreshRecyclerView;
@@ -62,10 +68,29 @@ public final class ViewBindingAdapter {
         view.setVisibility(isVisible ? View.VISIBLE : View.GONE);
     }
 
+    /**
+     * 设置 RecyclerView 是否可以下拉刷新和上拉加载更多
+     *
+     * @param recyclerView
+     * @param canLoadMore
+     * @param canRefresh
+     */
     @BindingAdapter (value = {"canLoadMore", "canRefresh"}, requireAll = false)
     public static void setisLoadAndRefresh(PullToRefreshRecyclerView recyclerView, boolean canLoadMore, boolean canRefresh) {
         recyclerView.setCanLoadMore(canLoadMore);
         recyclerView.setCanRefresh(canRefresh);
+    }
+
+    @BindingAdapter ("url")
+    public static void setImageViewUrl(ImageView imageView, String url) {
+        if (TextUtils.isEmpty(url)) {
+            return;
+        }
+        Glide.with(imageView.getContext())
+             .load(url)
+             .transition(new DrawableTransitionOptions().crossFade())
+             .apply(new RequestOptions().placeholder(R.mipmap.ic_launcher_round))
+             .into(imageView);
     }
 
 }

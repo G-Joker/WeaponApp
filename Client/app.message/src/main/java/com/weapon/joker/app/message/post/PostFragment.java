@@ -1,16 +1,18 @@
 package com.weapon.joker.app.message.post;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.weapon.joker.app.message.BR;
 import com.weapon.joker.app.message.R;
 import com.weapon.joker.app.message.databinding.FragmentPostBinding;
 import com.weapon.joker.lib.mvvm.common.BaseFragment;
+import com.weapon.joker.lib.net.data.PushNewsData;
 
 /**
  * <pre>
@@ -22,7 +24,7 @@ import com.weapon.joker.lib.mvvm.common.BaseFragment;
  * </pre>
  */
 
-public class PostFragment extends BaseFragment<PostViewModel, PostModel> implements PostContact.View{
+public class PostFragment extends BaseFragment<PostViewModel, PostModel> implements PostContact.View {
 
     private FragmentPostBinding mDataBinding;
 
@@ -68,12 +70,23 @@ public class PostFragment extends BaseFragment<PostViewModel, PostModel> impleme
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Toast.makeText(mContext, "清除公告", Toast.LENGTH_SHORT).show();
+        new AlertDialog.Builder(getActivity()).setTitle("提示")
+                                              .setMessage("确认清空公告？")
+                                              .setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                                                  @Override
+                                                  public void onClick(DialogInterface dialog, int which) {
+                                                      PushNewsData.getInstance().clearAllPushNews(getActivity().getApplicationContext());
+                                                      finish();
+                                                  }
+                                              })
+                                              .setNegativeButton("取消", null)
+                                              .show();
         return true;
     }
 
     /**
      * 更新刷新状态
+     *
      * @param state
      */
     @Override

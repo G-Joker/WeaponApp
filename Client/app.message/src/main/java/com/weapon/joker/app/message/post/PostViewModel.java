@@ -59,10 +59,14 @@ public class PostViewModel extends PostContact.ViewModel {
 
         PushNewsModel model = PushNewsData.getInstance().getPushNewsData(getContext().getApplicationContext());
         for (PushNewsBean bean : model.data) {
-            PostItemViewModel itemViewModel = new PostItemViewModel(getContext().getApplicationContext());
+            PostItemViewModel itemViewModel = new PostItemViewModel(getContext());
             itemViewModel.content = bean.content;
             itemViewModel.title = bean.title;
             itemViewModel.url = bean.url;
+            itemViewModel.action = bean.action;
+            itemViewModel.time = bean.time;
+            itemViewModel.messageId = bean.messageId;
+            itemViewModel.imageUrl = bean.imageUrl;
             items.add(itemViewModel);
         }
     }

@@ -56,6 +56,7 @@ public class MessageViewModel extends MessageContact.ViewModel {
 
     public void setPostContent(String postContent) {
         this.postContent = postContent;
+        notifyPropertyChanged(BR.postContent);
     }
 
     /**
@@ -71,7 +72,7 @@ public class MessageViewModel extends MessageContact.ViewModel {
         } else {
             setPostNum(model.data.size());
             setPostRedVisible(View.VISIBLE);
-            setPostContent(model.data.get(0).content);
+            setPostContent(model.data.get(model.data.size()-1).content);
         }
     }
 
@@ -83,6 +84,8 @@ public class MessageViewModel extends MessageContact.ViewModel {
     public void onPostClick(View view) {
         if (postRedVisible == View.VISIBLE) {
             PublicActivity.startActivity((Activity) getContext(), "com.weapon.joker.app.message.post.PostFragment");
+        } else {
+            Toast.makeText(getContext(), "暂无公告", Toast.LENGTH_SHORT).show();
         }
     }
 

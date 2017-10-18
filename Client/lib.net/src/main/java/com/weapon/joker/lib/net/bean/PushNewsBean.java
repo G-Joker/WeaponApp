@@ -16,6 +16,14 @@ public class PushNewsBean {
      */
     public int type;
     /**
+     * 消息 ID
+     */
+    public int messageId;
+    /**
+     * 消息时间
+     */
+    public String time;
+    /**
      * 推送标题
      */
     public String title;
@@ -31,4 +39,8 @@ public class PushNewsBean {
      * 推送跳转的链接 url
      */
     public String url;
+    /**
+     * 图片 Url
+     */
+    public String imageUrl;
 }

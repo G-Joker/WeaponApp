@@ -9,9 +9,11 @@ import android.text.TextUtils;
 import com.orhanobut.logger.Logger;
 import com.weapon.joker.lib.middleware.utils.LogUtils;
 import com.weapon.joker.lib.middleware.utils.NotificationUtil;
+import com.weapon.joker.lib.mvvm.common.PublicActivity;
 import com.weapon.joker.lib.net.GsonUtil;
 import com.weapon.joker.lib.net.bean.PushNewsBean;
 import com.weapon.joker.lib.net.data.PushNewsData;
+import com.weapon.joker.lib.net.event.PushNewsEvent;
 
 import net.wequick.small.Small;
 
@@ -21,6 +23,7 @@ import org.json.JSONObject;
 import java.util.Iterator;
 
 import cn.jpush.android.api.JPushInterface;
+import cn.jpush.im.android.eventbus.EventBus;
 
 /**
  * <pre>
@@ -93,6 +96,11 @@ public class MyReceiver extends BroadcastReceiver {
             if (pushNewsBean.type == NEWS_TYPE_COMMOM_JUMP) {
                 // 将收到的消息保存到本地
                 PushNewsData.getInstance().addPushNewsModel(context, pushNewsBean);
+                Intent intent = new Intent(context, PublicActivity.class);
+                intent.putExtra("fragment_name", "com.weapon.joker.app.message.post.PostFragment");
+                Small.wrapIntent(intent);
+                NotificationUtil.commonNotfication(intent, context, pushNewsBean.title, pushNewsBean.content, 12, R.mipmap.ic_launcher);
+                EventBus.getDefault().post(new PushNewsEvent());
             } else {
                 Intent intent = new Intent(context, MainActivity.class);
                 Small.wrapIntent(intent);
