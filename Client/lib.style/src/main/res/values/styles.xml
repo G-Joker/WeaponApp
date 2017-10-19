@@ -1,12 +1,28 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
+    <style name="AppTheme.Base" parent="BaseMaterial">
+        <item name="colorControlNormal">@color/grey500</item>
+        <item name="colorControlActivated">@color/white</item>
+        <item name="colorControlHighlight">@color/white</item>
+        <item name="android:textColorHint">@color/grey500</item>
+        <item name="colorButtonNormal">@color/colorPrimary</item>
+        <item name="android:colorButtonNormal">@color/colorPrimary</item>
+    </style>
+
+    <style name="BaseMaterial" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+        <!--<item name="android:windowAnimationStyle">@style/ActivityInOutAnimation</item>-->
     </style>
+
+    <style name="ActivityInOutAnimation" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/zoom_in</item>
+        <item name="android:activityCloseExitAnimation">@anim/right_slide_out</item>
+        <item name="android:fragmentOpenEnterAnimation">@anim/zoom_in</item>
+        <item name="android:fragmentCloseExitAnimation">@anim/right_slide_out</item>
+    </style>
+
     <style name="AppTheme.NoActionBar" parent="AppTheme.Base">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
