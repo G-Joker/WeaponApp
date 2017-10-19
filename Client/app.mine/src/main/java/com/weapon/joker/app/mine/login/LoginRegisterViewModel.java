@@ -5,18 +5,15 @@ import android.databinding.Bindable;
 import android.view.View;
 import android.widget.Toast;
 
-import com.orhanobut.logger.Logger;
 import com.umeng.analytics.MobclickAgent;
+import com.weapon.joker.app.mine.BR;
 import com.weapon.joker.app.mine.R;
 import com.weapon.joker.lib.mvvm.common.PublicActivity;
-import com.weapon.joker.lib.net.BaseObserver;
-import com.weapon.joker.lib.net.data.UserData;
-import com.weapon.joker.lib.net.model.BaseResModel;
-import com.weapon.joker.lib.net.model.LoginModel;
+import com.weapon.joker.lib.net.JMessageCallBack;
 
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.im.android.api.JMessageClient;
-import cn.jpush.im.api.BasicCallback;
+import cn.jpush.im.android.api.model.UserInfo;
 
 /**
  * class：   Client
@@ -38,7 +35,16 @@ public class LoginRegisterViewModel extends LoginRegisterContact.ViewModel {
     @Bindable
     public String password;
 
+    /**
+     * progressBar 是否可见
+     */
+    @Bindable
+    public boolean pbVisible = false;
 
+    public void setPbVisible(boolean pbVisible) {
+        this.pbVisible = pbVisible;
+        notifyPropertyChanged(BR.pbVisible);
+    }
 
     /*============================== 事件点击 ===================================*/
     /**
@@ -49,6 +55,7 @@ public class LoginRegisterViewModel extends LoginRegisterContact.ViewModel {
         if (!getView().checkInputContent()) {
             return;
         }
+        setPbVisible(true);
         requestLogin(userName, password);
     }
 
@@ -69,26 +76,18 @@ public class LoginRegisterViewModel extends LoginRegisterContact.ViewModel {
      */
     @Override
     void requestLogin(String userName, String password) {
-        getModel().login(userName, password)
-                  .subscribe(new BaseObserver<LoginModel>() {
-                      @Override
-                      protected void onSuccess(LoginModel entry) throws Exception {
-                          if (entry != null) {
-                              if (entry.status == BaseResModel.REQUEST_SUCCESS && entry.data != null) {
-                                  loginSuccess(entry);
-                              } else {
-                                  loginFailed(entry.desc);
-                              }
-                          } else {
-                              loginFailed(getContext().getString(R.string.public_net_error));
-                          }
-                      }
+        // 使用 JMessage 提供的登录接口
+        JMessageClient.login(userName, password, new JMessageCallBack() {
+            @Override
+            public void onSuccess() {
+                loginSuccess();
+            }
 
-                      @Override
-                      protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                          loginFailed(getContext().getString(R.string.public_net_error));
-                      }
-                  });
+            @Override
+            public void onFailed(int status, String desc) {
+                loginFailed(desc);
+            }
+        });
     }
 
     /**
@@ -109,41 +108,23 @@ public class LoginRegisterViewModel extends LoginRegisterContact.ViewModel {
      */
     private void loginFailed(String desc) {
         Toast.makeText(getContext(), desc, Toast.LENGTH_SHORT).show();
+        setPbVisible(false);
     }
 
     /**
      * 登录成功
-     * @param entry 登录成功返回的实体 bean
      */
-    private void loginSuccess(LoginModel entry) {
+    private void loginSuccess() {
         Toast.makeText(getContext(), R.string.mine_login_success, Toast.LENGTH_SHORT).show();
-        // 登录到 JMessage
-        loginJMessage();
+        // 获取本地用户信息
+        UserInfo myInfo = JMessageClient.getMyInfo();
         // 统计用户信息
-        MobclickAgent.onProfileSignIn(entry.data.uid);
+        MobclickAgent.onProfileSignIn(userName);
         // 统计用户点击登录事件
-        MobclickAgent.onEvent(getContext().getApplicationContext(), "mine_login", entry.data.user);
-        // 保存用户信息到缓存
-        UserData.getInstance().setUserBean(getContext().getApplicationContext(), entry.data);
+        MobclickAgent.onEvent(getContext().getApplicationContext(), "mine_login", userName);
         // JPush 设置 alias
-        JPushInterface.setAlias(getContext().getApplicationContext(), 12, entry.data.uid);
+        JPushInterface.setAlias(getContext().getApplicationContext(), 12, String.valueOf(myInfo.getUserID()));
         getView().finish();
     }
 
-    /**
-     * 登录到 JMessage
-     */
-    private void loginJMessage() {
-        JMessageClient.login(userName, password, new BasicCallback() {
-            @Override
-            public void gotResult(int status, String desc) {
-                if (status == 0) {
-                    // 登录成功
-                    Logger.i("JMessage:\t登录成功！" + desc);
-                } else {
-                    Toast.makeText(getContext(), desc, Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
 }

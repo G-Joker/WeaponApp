@@ -23,6 +23,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:title="公告"/>
 
         <com.weapon.joker.lib.mvvm.pullrefreshload.PullToRefreshLayout

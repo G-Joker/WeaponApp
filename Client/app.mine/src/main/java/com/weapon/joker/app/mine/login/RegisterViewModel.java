@@ -6,12 +6,9 @@ import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
 import com.weapon.joker.app.mine.R;
-import com.weapon.joker.lib.net.BaseObserver;
-import com.weapon.joker.lib.net.model.BaseResModel;
-import com.weapon.joker.lib.net.model.RegisterModel;
+import com.weapon.joker.lib.net.JMessageCallBack;
 
 import cn.jpush.im.android.api.JMessageClient;
-import cn.jpush.im.api.BasicCallback;
 
 /**
  * <pre>
@@ -42,23 +39,17 @@ public class RegisterViewModel extends LoginRegisterViewModel {
     /*============================== 网络请求 ===================================*/
     @Override
     void requestRegister(String userName, String password) {
-        getModel().register(userName, password).subscribe(new BaseObserver<RegisterModel>() {
+        // 使用 JMessage 的接口进行登录
+        setPbVisible(true);
+        JMessageClient.register(userName, password, new JMessageCallBack() {
             @Override
-            protected void onSuccess(RegisterModel entry) throws Exception {
-                if (entry != null) {
-                    if (entry.status == BaseResModel.REQUEST_SUCCESS && entry.data != null) {
-                        registerSuccess(entry);
-                    } else {
-                        registerFailed(entry.desc);
-                    }
-                } else {
-                    registerFailed(getContext().getString(R.string.public_net_error));
-                }
+            public void onSuccess() {
+                registerSuccess();
             }
 
             @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                registerFailed(getContext().getString(R.string.public_net_error));
+            public void onFailed(int status, String desc) {
+                registerFailed(desc);
             }
         });
     }
@@ -71,33 +62,16 @@ public class RegisterViewModel extends LoginRegisterViewModel {
      */
     private void registerFailed(String desc) {
         Toast.makeText(getContext(), desc, Toast.LENGTH_SHORT).show();
+        setPbVisible(false);
     }
 
     /**
      * 注册成功
-     * @param entry 注册成功返回的实体 bean
      */
-    private void registerSuccess(RegisterModel entry) {
+    private void registerSuccess() {
         Toast.makeText(getContext(), R.string.mine_register_repeat, Toast.LENGTH_SHORT).show();
-        MobclickAgent.onEvent(getContext().getApplicationContext(), "mine_register", entry.data.user);
-        registerJMessage();
+        MobclickAgent.onEvent(getContext().getApplicationContext(), "mine_register", userName);
         getView().finish();
     }
 
-    /**
-     * JMessage 账号的注册
-     */
-    private void registerJMessage() {
-        JMessageClient.register(userName, password, new BasicCallback() {
-            @Override
-            public void gotResult(int status, String desc) {
-                if (status == 0) {
-                    // 注册成功
-                } else {
-                    // 聊天账号注册失败
-                    Toast.makeText(getContext(), desc, Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
 }

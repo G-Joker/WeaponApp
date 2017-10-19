@@ -3,7 +3,6 @@ package com.weapon.joker.app.mine;
 import android.app.Activity;
 import android.content.Intent;
 import android.databinding.Bindable;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
 
@@ -16,8 +15,9 @@ import com.weapon.joker.app.stub.share.ShareType;
 import com.weapon.joker.lib.middleware.utils.LogUtils;
 import com.weapon.joker.lib.middleware.utils.share.ShareView;
 import com.weapon.joker.lib.mvvm.common.PublicActivity;
-import com.weapon.joker.lib.net.bean.UserBean;
-import com.weapon.joker.lib.net.data.UserData;
+
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.model.UserInfo;
 
 /**
  * class：   WeaponApp
@@ -34,8 +34,8 @@ public class MineViewModel extends MineContact.ViewModel implements IShareListen
     private String userName;
     /** 是否登录 */
     private boolean hasLogin = false;
-    /** 用户 bean */
-    private UserBean mUserBean;
+    /** 用户信息 */
+    private UserInfo mUserInfo;
 
     /**
      * 设置用户名
@@ -69,14 +69,14 @@ public class MineViewModel extends MineContact.ViewModel implements IShareListen
      * 更新用户信息
      */
     public void updateUserInfo() {
-        mUserBean = UserData.getInstance().getUserBean(getContext());
-        if (TextUtils.isEmpty(mUserBean.token)) {
+        mUserInfo = JMessageClient.getMyInfo();
+        if (mUserInfo == null) {
             // 未登录
             setUserName("我的");
             setHasLogin(false);
         } else {
             // 已经登录
-            setUserName(mUserBean.user);
+            setUserName(mUserInfo.getUserName());
             setHasLogin(true);
         }
     }
