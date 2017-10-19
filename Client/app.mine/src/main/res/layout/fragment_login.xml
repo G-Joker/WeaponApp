@@ -50,8 +50,8 @@
                 android:inputType="textPersonName"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
-                android:textColor="@color/material_text_color_white_text"
                 android:text="@={loginModel.userName}"
+                android:textColor="@color/material_text_color_white_text"
                 android:textSize="13sp"/>
         </com.weapon.joker.lib.middleware.view.CustomTextInputLayout>
 
@@ -67,39 +67,39 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/mine_password"
-                android:textColor="@color/material_text_color_white_text"
                 android:imeOptions="actionUnspecified"
                 android:inputType="textPassword"
                 android:text="@={loginModel.password}"
+                android:textColor="@color/material_text_color_white_text"
                 android:textSize="13sp"/>
         </com.weapon.joker.lib.middleware.view.CustomTextInputLayout>
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/bt_login"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="@{loginModel::onLoginClick}"
-            android:text="@string/mine_login"
+            android:layout_gravity="center_horizontal"
             android:layout_marginLeft="24dp"
             android:layout_marginRight="24dp"
             android:layout_marginTop="24dp"
             android:gravity="center"
-            android:layout_gravity="center_horizontal"
-            style="@style/Widget.AppCompat.Button.Colored"/>
+            android:onClick="@{loginModel::onLoginClick}"
+            android:text="@string/mine_login"/>
 
         <TextView
             android:id="@+id/tv_register_now"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginBottom="30dp"
             android:layout_marginTop="25dp"
             android:clickable="true"
             android:focusable="true"
             android:gravity="center"
-            android:textColor="@color/grey500"
-            android:layout_gravity="center_horizontal"
             android:onClick="@{loginModel::onRegisterClick}"
             android:text="@string/mine_register_now"
+            android:textColor="@color/grey500"
             android:textSize="12sp"/>
     </LinearLayout>
 </layout>
