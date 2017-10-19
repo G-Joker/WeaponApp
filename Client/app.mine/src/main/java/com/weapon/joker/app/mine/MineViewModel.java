@@ -76,7 +76,7 @@ public class MineViewModel extends MineContact.ViewModel implements IShareListen
             setHasLogin(false);
         } else {
             // 已经登录
-            setUserName(mUserInfo.getUserName());
+            setUserName(mUserInfo.getNickname());
             setHasLogin(true);
         }
     }
@@ -109,7 +109,7 @@ public class MineViewModel extends MineContact.ViewModel implements IShareListen
             // 如果已经登录则跳转到个人中心界面
             MobclickAgent.onEvent(getContext(), "mine_person_center");
             Intent intent = new Intent(getContext(), PublicActivity.class);
-            intent.putExtra("user_name", userName);
+            intent.putExtra("user_name", mUserInfo.getUserName());
             PublicActivity.startActivity((Activity) getContext(), "com.weapon.joker.app.mine.person.PersonCenterFragment", intent);
         } else {
             // 如果没有登录则跳转到登录界面

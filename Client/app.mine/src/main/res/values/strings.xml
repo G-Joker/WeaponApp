@@ -13,4 +13,10 @@
     <string name="version_update">版本更新</string>
     <string name="mine_nick_name">昵称</string>
     <string name="mine_signature">个性签名</string>
+
+    <!--个人中心-->
+    <string name="person_logout">注销登录</string>
+    <string name="person_nickname">昵称:  </string>
+    <string name="person_signature">个性签名:  </string>
+
 </resources>
