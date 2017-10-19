@@ -38,11 +38,14 @@
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp">
 
-                    <ImageView
+                    <com.weapon.joker.lib.middleware.view.roundimaegview.RoundedImageView
                         android:id="@+id/iv_mine_avatar"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_marginLeft="20dp"
+                        android:layout_marginStart="20dp"
+                        app:oval="true"
+                        app:border_width="0.3dp"
                         android:padding="10dp"
                         android:src="@mipmap/ic_avatar_default"/>
 
@@ -52,6 +55,8 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="20dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_toEndOf="@+id/iv_mine_avatar"
                         android:layout_toRightOf="@+id/iv_mine_avatar"
                         android:text="@string/unlogin"
                         android:textColor="@color/material_text_color_black_text"
