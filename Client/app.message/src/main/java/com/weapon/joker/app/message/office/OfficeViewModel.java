@@ -12,8 +12,14 @@ import com.weapon.joker.app.message.R;
 import com.weapon.joker.lib.middleware.utils.LogUtils;
 import com.weapon.joker.lib.mvvm.command.Action0;
 import com.weapon.joker.lib.mvvm.command.ReplyCommand;
+import com.weapon.joker.lib.mvvm.pullrefreshload.PullToRefreshLayout;
+
+import java.util.Collections;
+import java.util.List;
 
 import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.content.TextContent;
+import cn.jpush.im.android.api.enums.MessageDirect;
 import cn.jpush.im.android.api.model.Conversation;
 import cn.jpush.im.android.api.model.Message;
 import cn.jpush.im.api.BasicCallback;
@@ -34,11 +40,27 @@ import me.tatarka.bindingcollectionadapter2.OnItemBind;
 public class OfficeViewModel extends OfficeContact.ViewModel {
 
     /**
+     * 每次获取聊天记录的数量
+     */
+    private static final int LIM_COUNT = 5;
+    /**
      * 消息发送的内容
      */
     @Bindable
     public String sendContent;
+    /**
+     * 当前回话
+     */
     private Conversation mConversation;
+    /**
+     * 消息总数
+     */
+    private int msgCount;
+    /**
+     * 当前消息的数量
+     */
+    private int curCount = 0;
+
 
     public void setSendContent(String sendContent) {
         this.sendContent = sendContent;
@@ -47,6 +69,24 @@ public class OfficeViewModel extends OfficeContact.ViewModel {
 
     public void init(String userName) {
         mConversation = Conversation.createSingleConversation(userName);
+        msgCount = mConversation.getAllMessage().size();
+        List<Message> messagesFromNewest = mConversation.getMessagesFromNewest(curCount, LIM_COUNT);
+        curCount = messagesFromNewest.size();
+        Collections.reverse(messagesFromNewest);
+        for (Message message : messagesFromNewest) {
+            MessageDirect direct = message.getDirect();
+            if (direct == MessageDirect.send) {
+                MessageItemViewModel send = new MessageItemViewModel();
+                send.type = MessageItemViewModel.MSG_SEND;
+                send.content = ((TextContent) message.getContent()).getText();
+                items.add(send);
+            } else {
+                MessageItemViewModel receiver = new MessageItemViewModel();
+                receiver.type = MessageItemViewModel.MSG_RECEIVER;
+                receiver.content = ((TextContent) message.getContent()).getText();
+                items.add(receiver);
+            }
+        }
     }
 
     /**
@@ -83,7 +123,30 @@ public class OfficeViewModel extends OfficeContact.ViewModel {
     public final ReplyCommand onRefreshCommand = new ReplyCommand(new Action0() {
         @Override
         public void call() {
-            // 下拉刷新
+            List<Message> messagesFromNewest = mConversation.getMessagesFromNewest(curCount, LIM_COUNT);
+            int size = messagesFromNewest.size();
+            if (size == 0) {
+                Toast.makeText(getContext(), "没有更多消息了", Toast.LENGTH_SHORT).show();
+                getView().refreshFinish(PullToRefreshLayout.FAIL);
+            } else {
+                for (Message message : messagesFromNewest) {
+                    MessageDirect direct = message.getDirect();
+                    if (direct == MessageDirect.send) {
+                        MessageItemViewModel send = new MessageItemViewModel();
+                        send.type = MessageItemViewModel.MSG_SEND;
+                        send.content = ((TextContent) message.getContent()).getText();
+                        items.add(0, send);
+                    } else {
+                        MessageItemViewModel receiver = new MessageItemViewModel();
+                        receiver.type = MessageItemViewModel.MSG_RECEIVER;
+                        receiver.content = ((TextContent) message.getContent()).getText();
+                        items.add(0, receiver);
+                    }
+                }
+                curCount += LIM_COUNT;
+                getView().scrollToPosition(0);
+                getView().refreshFinish(PullToRefreshLayout.SUCCEED);
+            }
         }
     });
 

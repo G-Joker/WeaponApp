@@ -68,6 +68,7 @@ public class OfficeFragment extends BaseFragment<OfficeViewModel, OfficeModel> i
     @Override
     public void scrollToPosition(int position) {
         mDataBinding.recyclerView.scrollToPosition(position);
+        mDataBinding.executePendingBindings();
     }
 
     @Override
