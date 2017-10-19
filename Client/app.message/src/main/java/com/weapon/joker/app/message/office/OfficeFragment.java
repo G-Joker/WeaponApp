@@ -4,10 +4,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 
-import com.orhanobut.logger.Logger;
 import com.weapon.joker.app.message.BR;
 import com.weapon.joker.app.message.R;
 import com.weapon.joker.app.message.databinding.FragmentOfficeBinding;
+import com.weapon.joker.lib.middleware.utils.LogUtils;
 import com.weapon.joker.lib.mvvm.common.BaseFragment;
 
 import cn.jpush.im.android.api.JMessageClient;
@@ -92,14 +92,14 @@ public class OfficeFragment extends BaseFragment<OfficeViewModel, OfficeModel> i
                 // 处理文字消息
                 TextContent textContent = (TextContent) message.getContent();
                 String text = textContent.getText();
-                Logger.t("Office").i(text);
+                LogUtils.i("office", text);
             default:
-                Logger.t("Office").i(message.getFromType());
+                LogUtils.i("office", message.getFromType());
                 break;
         }
     }
 
     public void onEvent(NotificationClickEvent event) {
-        Logger.t("Office").i("消息被点击");
+        LogUtils.i("office", "消息被点击了");
     }
 }

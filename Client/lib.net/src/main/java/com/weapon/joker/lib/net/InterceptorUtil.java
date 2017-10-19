@@ -54,7 +54,7 @@ public class InterceptorUtil {
 
             @Override
             public void log(String message) {
-                LogUtils.logw(message);
+                LogUtils.w(message);
             }
         }).setLevel(HttpLoggingInterceptor.Level.BODY);//设置打印数据的级别
     }

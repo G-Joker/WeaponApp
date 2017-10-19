@@ -7,9 +7,9 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
 
-import com.orhanobut.logger.Logger;
 import com.weapon.joker.app.message.BR;
 import com.weapon.joker.app.message.R;
+import com.weapon.joker.lib.middleware.utils.LogUtils;
 import com.weapon.joker.lib.mvvm.command.Action0;
 import com.weapon.joker.lib.mvvm.command.ReplyCommand;
 
@@ -69,7 +69,7 @@ public class OfficeViewModel extends OfficeContact.ViewModel {
             Toast.makeText(getContext(), "发送的内容不能为空", Toast.LENGTH_SHORT).show();
             return;
         }
-        Logger.t("Office").i("content:\t" + sendContent);
+        LogUtils.i("Office", "content:\t" + sendContent);
         MessageItemViewModel send = new MessageItemViewModel();
         send.type = MessageItemViewModel.MSG_SEND;
         send.content = sendContent;

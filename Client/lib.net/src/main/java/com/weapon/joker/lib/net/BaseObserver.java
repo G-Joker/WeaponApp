@@ -62,7 +62,7 @@ public abstract class BaseObserver<T> implements Observer<T> {
 
     @Override
     public void onError(@NonNull Throwable e) {
-        LogUtils.logw("onError", e.toString());
+        LogUtils.w("onError", e.toString());
         try {
             if (e instanceof ConnectException
                     || e instanceof TimeoutException

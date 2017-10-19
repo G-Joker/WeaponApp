@@ -127,24 +127,24 @@ public class MineViewModel extends MineContact.ViewModel implements IShareListen
     /*************************** 分享事件相关的回调 ***************************/
     @Override public void onShareSuccess(ShareType shareType, String s) {
         Toast.makeText(getContext(), shareType.toString() + ":\t分享成功", Toast.LENGTH_SHORT).show();
-        LogUtils.logi("Share result:\t" + "type:\t" + shareType.toString() + "desc:\t" + s);
+        LogUtils.i("Share result:\t" + "type:\t" + shareType.toString() + "desc:\t" + s);
     }
 
     @Override public void onShareFailed(ShareType shareType, String s) {
         Toast.makeText(getContext(), shareType.toString() + ":\t分享失败", Toast.LENGTH_SHORT).show();
-        LogUtils.logi("Share result:\t" + "type:\t" + shareType.toString() + "desc:\t" + s);
+        LogUtils.i("Share result:\t" + "type:\t" + shareType.toString() + "desc:\t" + s);
 
     }
 
     @Override public void onShareCancel(ShareType shareType) {
         Toast.makeText(getContext(), shareType.toString() + ":\t分享取消", Toast.LENGTH_SHORT).show();
-        LogUtils.logi("Share result:\t" + "type:\t" + shareType.toString());
+        LogUtils.i("Share result:\t" + "type:\t" + shareType.toString());
 
     }
 
-    @Override public void onComplete(Object o) {LogUtils.logi("QQ Share result:\tonComplete!" + o.toString());}
-    @Override public void onError(UiError uiError) {LogUtils.logi("QQ Share result:\tonError!" + uiError.errorMessage);}
-    @Override public void onCancel() {LogUtils.logi("QQ Share result:\tonCancel!");}
+    @Override public void onComplete(Object o) {LogUtils.i("QQ Share result:\tonComplete!" + o.toString());}
+    @Override public void onError(UiError uiError) {LogUtils.i("QQ Share result:\tonError!" + uiError.errorMessage);}
+    @Override public void onCancel() {LogUtils.i("QQ Share result:\tonCancel!");}
     /************************************************************************/
 
 

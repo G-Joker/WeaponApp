@@ -43,7 +43,7 @@ public class ToastUtil {
 
     private static void printErrorIfNeeded(String message) {
         if (TextUtils.isEmpty(message)) {
-            LogUtils.logd(TAG + "message cannot be null");
+            LogUtils.d(TAG + "message cannot be null");
         }
     }
 

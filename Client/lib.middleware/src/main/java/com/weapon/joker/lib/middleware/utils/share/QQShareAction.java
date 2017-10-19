@@ -47,7 +47,7 @@ public class QQShareAction implements IShareAction {
                 shareToQZone(shareParams, iShareListener);
             }
         } catch (Exception e) {
-            LogUtils.logi("Share:\t" + e.getMessage());
+            LogUtils.i("Share:\t" + e.getMessage());
             iShareListener.onShareFailed(shareParams.getShareType(), mActivity.getResources().getString(R.string.share_error_toast));
         }
     }

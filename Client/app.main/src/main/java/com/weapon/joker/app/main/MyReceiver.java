@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 
-import com.orhanobut.logger.Logger;
 import com.weapon.joker.lib.middleware.utils.LogUtils;
 import com.weapon.joker.lib.middleware.utils.NotificationUtil;
 import com.weapon.joker.lib.mvvm.common.PublicActivity;
@@ -47,37 +46,37 @@ public class MyReceiver extends BroadcastReceiver {
     public void onReceive(final Context context, Intent intent) {
         try {
             Bundle bundle = intent.getExtras();
-            LogUtils.logi("action:" + intent.getAction() + ", extras: " + printBundle(bundle));
+            LogUtils.i("action:" + intent.getAction() + ", extras: " + printBundle(bundle));
             if (JPushInterface.ACTION_REGISTRATION_ID.equals(intent.getAction())) {
                 String regId = bundle.getString(JPushInterface.EXTRA_REGISTRATION_ID);
-                LogUtils.logi("Registration Id : " + regId);
+                LogUtils.i("Registration Id : " + regId);
 
             } else if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(intent.getAction())) {
-                LogUtils.logi("Custom message : " + bundle.getString(JPushInterface.EXTRA_MESSAGE));
+                LogUtils.i("Custom message : " + bundle.getString(JPushInterface.EXTRA_MESSAGE));
                 dealCustomPush(context, bundle.getString(JPushInterface.EXTRA_MESSAGE));
             } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {
-                LogUtils.logi("Get push message!");
+                LogUtils.i("Get push message!");
                 int notification = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
-                LogUtils.logi("Push message notification Id : " + notification);
+                LogUtils.i("Push message notification Id : " + notification);
 
             } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
-                LogUtils.logi("User has clicked the notification!");
+                LogUtils.i("User has clicked the notification!");
 
                 //打开自定义的Activity
 
 
             } else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent.getAction())) {
                 //在这里根据 JPushInterface.EXTRA_EXTRA 的内容处理代码，比如打开新的Activity， 打开一个网页等..
-                LogUtils.logi("Rich push callback : " + bundle.getString(JPushInterface.EXTRA_EXTRA));
+                LogUtils.i("Rich push callback : " + bundle.getString(JPushInterface.EXTRA_EXTRA));
 
             } else if (JPushInterface.ACTION_CONNECTION_CHANGE.equals(intent.getAction())) {
                 boolean connected = intent.getBooleanExtra(JPushInterface.EXTRA_CONNECTION_CHANGE, false);
-                LogUtils.logi("connected state change to " + connected);
+                LogUtils.i("connected state change to " + connected);
             } else {
-                LogUtils.logi("Unhandled intent - " + intent.getAction());
+                LogUtils.i("Unhandled intent - " + intent.getAction());
             }
         } catch (Exception e) {
-            LogUtils.loge("Push has occurs some error! error message : " + e.getMessage());
+            LogUtils.e("Push has occurs some error! error message : " + e.getMessage());
         }
 
     }
@@ -107,7 +106,7 @@ public class MyReceiver extends BroadcastReceiver {
                 NotificationUtil.commonNotfication(intent, context, pushNewsBean.title, pushNewsBean.content, 12, R.mipmap.ic_launcher);
             }
         } catch (Exception e) {
-            Logger.e("dealCustomPush error! desc: " + e.getMessage());
+            LogUtils.e("MyReceiver", "dealCustomPush error! desc: " + e.getMessage());
         }
 
     }
@@ -127,7 +126,7 @@ public class MyReceiver extends BroadcastReceiver {
                 sb.append("\nkey:" + key + ", value:" + bundle.getBoolean(key));
             } else if (key.equals(JPushInterface.EXTRA_EXTRA)) {
                 if (TextUtils.isEmpty(bundle.getString(JPushInterface.EXTRA_EXTRA))) {
-                    LogUtils.logi("This message has no Extra data");
+                    LogUtils.i("This message has no Extra data");
                     continue;
                 }
 
@@ -140,7 +139,7 @@ public class MyReceiver extends BroadcastReceiver {
                         sb.append("\nkey:" + key + ", value: [" + myKey + " - " + json.optString(myKey) + "]");
                     }
                 } catch (JSONException e) {
-                    LogUtils.logi("Get message extra JSON error!");
+                    LogUtils.i("Get message extra JSON error!");
                 }
 
             } else {

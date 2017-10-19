@@ -69,7 +69,7 @@ public class ShareUtils {
             wxIntent.putExtra(SHARE_PARAM, shareParams);
             mActivity.startActivity(wxIntent);
         } catch (Exception e) {
-            LogUtils.logi("Share:\t" + e.getMessage());
+            LogUtils.i("Share:\t" + e.getMessage());
             mShareListener.onShareFailed(shareParams.getShareType(), mActivity.getResources().getString(R.string.share_error_toast));
         }
     }
