@@ -2,12 +2,13 @@ package com.weapon.joker.app.mine.login;
 
 import android.app.Activity;
 import android.databinding.Bindable;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
-import com.weapon.joker.app.mine.BR;
 import com.weapon.joker.app.mine.R;
+import com.weapon.joker.lib.middleware.utils.AlerDialogFactory;
 import com.weapon.joker.lib.mvvm.common.PublicActivity;
 import com.weapon.joker.lib.net.JMessageCallBack;
 
@@ -36,31 +37,27 @@ public class LoginRegisterViewModel extends LoginRegisterContact.ViewModel {
     public String password;
 
     /**
-     * progressBar 是否可见
+     * 正在加载对话框
      */
-    @Bindable
-    public boolean pbVisible = false;
-
-    public void setPbVisible(boolean pbVisible) {
-        this.pbVisible = pbVisible;
-        notifyPropertyChanged(BR.pbVisible);
-    }
+    protected AlertDialog mLoadingDialog;
 
     /*============================== 事件点击 ===================================*/
+
     /**
      * 登录按钮点击处理
+     *
      * @param view
      */
     public void onLoginClick(View view) {
         if (!getView().checkInputContent()) {
             return;
         }
-        setPbVisible(true);
         requestLogin(userName, password);
     }
 
     /**
      * 注册按钮点击处理
+     *
      * @param view
      */
     public void onRegisterClick(View view) {
@@ -69,13 +66,19 @@ public class LoginRegisterViewModel extends LoginRegisterContact.ViewModel {
 
 
     /*============================== 网络请求 ===================================*/
+
     /**
      * 请求登录接口
+     *
      * @param userName 用户名
      * @param password 登录密码
      */
     @Override
     void requestLogin(String userName, String password) {
+        if (mLoadingDialog == null) {
+            mLoadingDialog = AlerDialogFactory.createLoadingDialog(getContext(), "正在登录");
+        }
+        mLoadingDialog.show();
         // 使用 JMessage 提供的登录接口
         JMessageClient.login(userName, password, new JMessageCallBack() {
             @Override
@@ -92,6 +95,7 @@ public class LoginRegisterViewModel extends LoginRegisterContact.ViewModel {
 
     /**
      * 请求注册接口
+     *
      * @param userName 用户名
      * @param password 登录密码
      */
@@ -102,19 +106,22 @@ public class LoginRegisterViewModel extends LoginRegisterContact.ViewModel {
 
 
     /*============================== 网络请求回调处理 ===================================*/
+
     /**
      * 登录失败
+     *
      * @param desc 失败描述
      */
     private void loginFailed(String desc) {
+        dismissDialog();
         Toast.makeText(getContext(), desc, Toast.LENGTH_SHORT).show();
-        setPbVisible(false);
     }
 
     /**
      * 登录成功
      */
     private void loginSuccess() {
+        dismissDialog();
         Toast.makeText(getContext(), R.string.mine_login_success, Toast.LENGTH_SHORT).show();
         // 获取本地用户信息
         UserInfo myInfo = JMessageClient.getMyInfo();
@@ -125,6 +132,12 @@ public class LoginRegisterViewModel extends LoginRegisterContact.ViewModel {
         // JPush 设置 alias
         JPushInterface.setAlias(getContext().getApplicationContext(), 12, String.valueOf(myInfo.getUserID()));
         getView().finish();
+    }
+
+    protected void dismissDialog() {
+        if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
+            mLoadingDialog.dismiss();
+        }
     }
 
 }

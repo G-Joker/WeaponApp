@@ -139,11 +139,15 @@
                             android:layout_height="30dp"
                             android:background="@mipmap/ic_message_service"/>
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                        <TextView
+                            android:layout_width="14dp"
+                            android:layout_height="10dp"
                             android:layout_alignRight="@id/iv_service"
-                            android:background="@drawable/shape_red_point"
+                            android:background="@drawable/shape_red_num"
+                            android:gravity="center"
+                            android:text='@{messageModel.officeNum+""}'
+                            android:textColor="#fff"
+                            android:textSize="7sp"
                             android:visibility="@{messageModel.serviceRedVisible}"/>
 
                     </RelativeLayout>

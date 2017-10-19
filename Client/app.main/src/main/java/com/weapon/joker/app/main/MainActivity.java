@@ -10,6 +10,9 @@ import com.weapon.joker.lib.mvvm.common.BaseActivity;
 
 import net.wequick.small.Small;
 
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.event.NotificationClickEvent;
+
 /**
  * MainActivity 创建首页所有的 fragment，以及
  * 启动模式 singleTask
@@ -88,5 +91,23 @@ public class MainActivity extends BaseActivity {
         public int getCount() {
             return sUris.length;
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // 注册消息接收事件
+        JMessageClient.registerEventReceiver(this, 20);
+    }
+
+    @Override
+    public void onDestroy() {
+        // 取消消息接收事件的注册
+        JMessageClient.unRegisterEventReceiver(this);
+        super.onDestroy();
+    }
+
+    public void onEventMainThread(NotificationClickEvent event) {
+        mViewPager.setCurrentItem(1, true);
     }
 }

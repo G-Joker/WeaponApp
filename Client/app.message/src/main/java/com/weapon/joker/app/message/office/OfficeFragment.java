@@ -28,6 +28,11 @@ import cn.jpush.im.android.api.model.Message;
 
 public class OfficeFragment extends BaseFragment<OfficeViewModel, OfficeModel> implements OfficeContact.View {
 
+    /**
+     * WeaponApp 官方客服账号
+     */
+    private static final String OFFICE_SERVICE = "WeaponApp";
+
     private FragmentOfficeBinding mDataBinding;
 
     @Override
@@ -40,7 +45,8 @@ public class OfficeFragment extends BaseFragment<OfficeViewModel, OfficeModel> i
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         mDataBinding = ((FragmentOfficeBinding) getViewDataBinding());
         setToolbar();
-        getViewModel().init();
+//        String userName = getActivity().getIntent().getStringExtra("user_name");
+        getViewModel().init(OFFICE_SERVICE);
     }
 
     /**
@@ -57,6 +63,16 @@ public class OfficeFragment extends BaseFragment<OfficeViewModel, OfficeModel> i
                 getActivity().finish();
             }
         });
+    }
+
+    @Override
+    public void scrollToPosition(int position) {
+        mDataBinding.recyclerView.scrollToPosition(position);
+    }
+
+    @Override
+    public void refreshFinish(int refreshResult) {
+        mDataBinding.pullRefreshLayout.refreshFinish(refreshResult);
     }
 
     @Override
@@ -85,14 +101,14 @@ public class OfficeFragment extends BaseFragment<OfficeViewModel, OfficeModel> i
      *
      * @param event 消息事件
      */
-    public void onEvent(MessageEvent event) {
+    public void onEventMainThread(MessageEvent event) {
         Message message = event.getMessage();
         switch (message.getContentType()) {
             case text:
                 // 处理文字消息
                 TextContent textContent = (TextContent) message.getContent();
                 String text = textContent.getText();
-                LogUtils.i("office", text);
+                getViewModel().receiveMessage(text);
             default:
                 LogUtils.i("office", message.getFromType());
                 break;
@@ -100,6 +116,5 @@ public class OfficeFragment extends BaseFragment<OfficeViewModel, OfficeModel> i
     }
 
     public void onEvent(NotificationClickEvent event) {
-        LogUtils.i("office", "消息被点击了");
     }
 }

@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
 import com.weapon.joker.app.mine.R;
+import com.weapon.joker.lib.middleware.utils.AlerDialogFactory;
 import com.weapon.joker.lib.net.JMessageCallBack;
 
 import cn.jpush.im.android.api.JMessageClient;
@@ -39,8 +40,11 @@ public class RegisterViewModel extends LoginRegisterViewModel {
     /*============================== 网络请求 ===================================*/
     @Override
     void requestRegister(String userName, String password) {
+        if (mLoadingDialog == null) {
+            mLoadingDialog = AlerDialogFactory.createLoadingDialog(getContext(), "正在注册");
+        }
+        mLoadingDialog.show();
         // 使用 JMessage 的接口进行登录
-        setPbVisible(true);
         JMessageClient.register(userName, password, new JMessageCallBack() {
             @Override
             public void onSuccess() {
@@ -61,14 +65,15 @@ public class RegisterViewModel extends LoginRegisterViewModel {
      * @param desc 注册失败描述
      */
     private void registerFailed(String desc) {
+        dismissDialog();
         Toast.makeText(getContext(), desc, Toast.LENGTH_SHORT).show();
-        setPbVisible(false);
     }
 
     /**
      * 注册成功
      */
     private void registerSuccess() {
+        dismissDialog();
         Toast.makeText(getContext(), R.string.mine_register_repeat, Toast.LENGTH_SHORT).show();
         MobclickAgent.onEvent(getContext().getApplicationContext(), "mine_register", userName);
         getView().finish();

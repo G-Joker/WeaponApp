@@ -22,17 +22,22 @@ public class MessageViewModel extends MessageContact.ViewModel {
      * 公告通知数量
      */
     @Bindable
-    public int    postNum;
+    public int postNum;
+    /**
+     * 官方消息数量
+     */
+    @Bindable
+    public int officeNum = 0;
     /**
      * 公告红点是否可见
      */
     @Bindable
-    public int    postRedVisible;
+    public int postRedVisible;
     /**
      * 官方服务红点是否可见
      */
     @Bindable
-    public int    serviceRedVisible;
+    public int serviceRedVisible;
     /**
      * 公告内容
      */
@@ -42,6 +47,11 @@ public class MessageViewModel extends MessageContact.ViewModel {
     public void setPostNum(int postNum) {
         this.postNum = postNum;
         notifyPropertyChanged(com.weapon.joker.app.message.BR.postNum);
+    }
+
+    public void setOfficeNum(int officeNum) {
+        this.officeNum = officeNum;
+        notifyPropertyChanged(BR.officeNum);
     }
 
     public void setPostRedVisible(int postRedVisible) {
@@ -76,6 +86,11 @@ public class MessageViewModel extends MessageContact.ViewModel {
         }
     }
 
+    public void updateOfficeData() {
+        setServiceRedVisible(View.VISIBLE);
+        setOfficeNum(++officeNum);
+    }
+
     /**
      * 公告点击事件处理
      *
@@ -95,6 +110,8 @@ public class MessageViewModel extends MessageContact.ViewModel {
      * @param view
      */
     public void onServiceClick(View view) {
+        setOfficeNum(0);
+        setServiceRedVisible(View.GONE);
         PublicActivity.startActivity((Activity) getContext(), "com.weapon.joker.app.message.office.OfficeFragment");
     }
 

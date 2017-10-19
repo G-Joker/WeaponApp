@@ -13,6 +13,10 @@ import com.weapon.joker.lib.middleware.utils.LogUtils;
 import com.weapon.joker.lib.mvvm.command.Action0;
 import com.weapon.joker.lib.mvvm.command.ReplyCommand;
 
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.model.Conversation;
+import cn.jpush.im.android.api.model.Message;
+import cn.jpush.im.api.BasicCallback;
 import me.tatarka.bindingcollectionadapter2.BindingRecyclerViewAdapter;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 import me.tatarka.bindingcollectionadapter2.OnItemBind;
@@ -30,36 +34,20 @@ import me.tatarka.bindingcollectionadapter2.OnItemBind;
 public class OfficeViewModel extends OfficeContact.ViewModel {
 
     /**
-     * WeaponApp 官方客服账号
-     */
-    private static final String OFFICE_SERVICE = "WeaponApp";
-    /**
      * 消息发送的内容
      */
     @Bindable
     public String sendContent;
+    private Conversation mConversation;
 
     public void setSendContent(String sendContent) {
         this.sendContent = sendContent;
         notifyPropertyChanged(BR.sendContent);
     }
 
-    public void init() {
-        for (int i = 0; i < 4; i++) {
-            MessageItemViewModel send = new MessageItemViewModel();
-            send.type = MessageItemViewModel.MSG_SEND;
-            send.content = "send:\t" + i;
-            items.add(send);
-        }
-
-        for (int i = 0; i < 2; i++) {
-            MessageItemViewModel receiver = new MessageItemViewModel();
-            receiver.type = MessageItemViewModel.MSG_RECEIVER;
-            receiver.content = "receiver:\t" + i;
-            items.add(receiver);
-        }
+    public void init(String userName) {
+        mConversation = Conversation.createSingleConversation(userName);
     }
-
 
     /**
      * 给官方客服发送文本消息
@@ -70,25 +58,25 @@ public class OfficeViewModel extends OfficeContact.ViewModel {
             return;
         }
         LogUtils.i("Office", "content:\t" + sendContent);
-        MessageItemViewModel send = new MessageItemViewModel();
-        send.type = MessageItemViewModel.MSG_SEND;
-        send.content = sendContent;
-        items.add(send);
-        setSendContent("");
-//        Conversation conversation = Conversation.createSingleConversation(OFFICE_SERVICE);
-//        Message      message      = conversation.createSendTextMessage(sendContent);
-//        message.setOnSendCompleteCallback(new BasicCallback() {
-//            @Override
-//            public void gotResult(int status, String desc) {
-//                if (status == 0) {
-//                    // 消息发送成功
-//                } else {
-//                    // 消息发送失败
-//                    Toast.makeText(getContext(), desc, Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
-//        JMessageClient.sendMessage(message);
+        Message message = mConversation.createSendTextMessage(sendContent);
+        message.setOnSendCompleteCallback(new BasicCallback() {
+            @Override
+            public void gotResult(int status, String desc) {
+                if (status == 0) {
+                    // 消息发送成功
+                    MessageItemViewModel send = new MessageItemViewModel();
+                    send.type = MessageItemViewModel.MSG_SEND;
+                    send.content = sendContent;
+                    items.add(send);
+                    setSendContent("");
+                    getView().scrollToPosition(items.size() - 1);
+                } else {
+                    // 消息发送失败
+                    Toast.makeText(getContext(), desc, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        JMessageClient.sendMessage(message);
     }
 
 
@@ -100,7 +88,7 @@ public class OfficeViewModel extends OfficeContact.ViewModel {
     });
 
 
-    public final ObservableList<MessageItemViewModel>                     items      = new ObservableArrayList<>();
+    public final ObservableList<MessageItemViewModel> items = new ObservableArrayList<>();
     public final BindingRecyclerViewAdapter.ItemIds<MessageItemViewModel> itemIds
             = new BindingRecyclerViewAdapter.ItemIds<MessageItemViewModel>() {
         @Override
@@ -119,4 +107,17 @@ public class OfficeViewModel extends OfficeContact.ViewModel {
             }
         }
     };
+
+    /**
+     * 接收到消息
+     *
+     * @param content 消息
+     */
+    public void receiveMessage(String content) {
+        MessageItemViewModel send = new MessageItemViewModel();
+        send.type = MessageItemViewModel.MSG_RECEIVER;
+        send.content = content;
+        items.add(send);
+        getView().scrollToPosition(items.size() - 1);
+    }
 }
