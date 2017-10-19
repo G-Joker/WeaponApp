@@ -10,10 +10,10 @@
     </data>
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimary">
+        android:background="@color/colorPrimary"
+        android:orientation="vertical">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -23,147 +23,86 @@
             android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"
             app:title="@string/mine_register"/>
 
-        <android.support.v7.widget.CardView
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="72dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="24dp"
+            android:src="@mipmap/ic_launcher_round"/>
+
+        <com.weapon.joker.lib.middleware.view.CustomTextInputLayout
+            android:id="@+id/til_user_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            app:cardBackgroundColor="#00000000"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="3dp"
-            app:cardUseCompatPadding="false">
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginTop="8dp">
 
-            <LinearLayout
+            <EditText
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:layout_marginTop="40dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="50dp"
-                        android:text="@string/mine_register"
-                        android:textColor="@color/material_color_teal_700"
-                        android:textSize="18sp"
-                        android:textStyle="bold"/>
-                </RelativeLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:orientation="horizontal"
-                    android:paddingEnd="30dp"
-                    android:paddingStart="50dp">
-
-                    <com.weapon.joker.lib.middleware.view.CustomTextInputLayout
-                        android:id="@+id/til_user_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColorHint="?attr/colorAccent">
-
-                        <EditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/et_mine_bg"
-                            android:hint="@string/mine_user_name"
-                            android:imeOptions="actionNext"
-                            android:inputType="textPersonName"
-                            android:paddingBottom="10dp"
-                            android:paddingTop="10dp"
-                            android:text="@={registerModel.userName}"
-                            android:textSize="13sp"/>
-                    </com.weapon.joker.lib.middleware.view.CustomTextInputLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:orientation="horizontal"
-                    android:paddingEnd="30dp"
-                    android:paddingStart="50dp">
-
-                    <com.weapon.joker.lib.middleware.view.CustomTextInputLayout
-                        android:id="@+id/til_password"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColorHint="?attr/colorAccent"
-                        app:passwordToggleEnabled="true">
-
-                        <EditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/et_mine_bg"
-                            android:hint="@string/mine_password"
-                            android:imeOptions="actionUnspecified"
-                            android:inputType="textPassword"
-                            android:text="@={registerModel.password}"
-                            android:textSize="13sp"/>
-                    </com.weapon.joker.lib.middleware.view.CustomTextInputLayout>
-
-                </LinearLayout>
+                android:layout_height="wrap_content"
+                android:hint="@string/mine_user_name"
+                android:imeOptions="actionNext"
+                android:inputType="textPersonName"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="@={registerModel.userName}"
+                android:textColor="@color/material_text_color_white_text"
+                android:textSize="13sp"/>
+        </com.weapon.joker.lib.middleware.view.CustomTextInputLayout>
 
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:orientation="horizontal"
-                    android:paddingEnd="30dp"
-                    android:paddingStart="50dp">
+        <com.weapon.joker.lib.middleware.view.CustomTextInputLayout
+            android:id="@+id/til_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginTop="8dp"
+            app:passwordToggleEnabled="true">
 
-                    <com.weapon.joker.lib.middleware.view.CustomTextInputLayout
-                        android:id="@+id/til_password_again"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColorHint="?attr/colorAccent"
-                        app:passwordToggleEnabled="true">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/et_mine_bg"
+                android:hint="@string/mine_password"
+                android:imeOptions="actionUnspecified"
+                android:inputType="textPassword"
+                android:text="@={registerModel.password}"
+                android:textSize="13sp"/>
+        </com.weapon.joker.lib.middleware.view.CustomTextInputLayout>
 
-                        <EditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/et_mine_bg"
-                            android:hint="@string/mine_password_again"
-                            android:imeOptions="actionUnspecified"
-                            android:inputType="textPassword"
-                            android:text="@={registerModel.passwordAgain}"
-                            android:textSize="13sp"/>
-                    </com.weapon.joker.lib.middleware.view.CustomTextInputLayout>
 
-                </LinearLayout>
+        <com.weapon.joker.lib.middleware.view.CustomTextInputLayout
+            android:id="@+id/til_password_again"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginTop="8dp"
+            app:passwordToggleEnabled="true">
 
-                <android.support.v7.widget.CardView
-                    android:layout_width="200dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="40dp"
-                    android:layout_marginTop="20dp"
-                    app:cardBackgroundColor="#00000000"
-                    app:cardCornerRadius="2dp"
-                    app:cardElevation="1dp"
-                    app:cardUseCompatPadding="false">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/et_mine_bg"
+                android:hint="@string/mine_password_again"
+                android:imeOptions="actionUnspecified"
+                android:inputType="textPassword"
+                android:text="@={registerModel.passwordAgain}"
+                android:textSize="13sp"/>
+        </com.weapon.joker.lib.middleware.view.CustomTextInputLayout>
 
-                    <Button
-                        android:id="@+id/bt_login"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/public_click_bg"
-                        android:onClick="@{registerModel::onRegisterClick}"
-                        android:text="@string/mine_register"
-                        android:textColor="?attr/colorAccent"/>
-                </android.support.v7.widget.CardView>
-
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
-
+        <Button
+            android:id="@+id/bt_login"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:onClick="@{registerModel::onRegisterClick}"
+            android:text="@string/mine_register"
+            android:textColor="?attr/colorAccent"/>
 
     </LinearLayout>
+
+
 </layout>
