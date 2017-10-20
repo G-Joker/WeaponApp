@@ -14,6 +14,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Util 常用工具类
@@ -25,12 +27,11 @@ import java.net.URL;
 public class Util {
 
 
-    @TargetApi(Build.VERSION_CODES.KITKAT)
+    @TargetApi (Build.VERSION_CODES.KITKAT)
     public static Activity getTopActivity() {
         try {
             Class activityThreadClass = Class.forName("android.app.ActivityThread");
-            Object activityThread = activityThreadClass.getMethod("currentActivityThread")
-                    .invoke(null);
+            Object activityThread = activityThreadClass.getMethod("currentActivityThread").invoke(null);
             Field activitiesField = activityThreadClass.getDeclaredField("mActivities");
             activitiesField.setAccessible(true);
             ArrayMap activities = (ArrayMap) activitiesField.get(activityThread);
@@ -86,12 +87,26 @@ public class Util {
         }
     }
 
-    private static void copy(InputStream in, OutputStream out)
-            throws IOException {
+    private static void copy(InputStream in, OutputStream out) throws IOException {
         byte[] b = new byte[1024];
         int read;
         while ((read = in.read(b)) != -1) {
             out.write(b, 0, read);
         }
+    }
+
+    /**
+     * 将时间戳转为字符串
+     *
+     * @param time  时间戳
+     * @param style 时间格式 (类似于"yyyy-MM-dd HH:mm")
+     * @return
+     */
+    public static String getStrTime(long time, String style) {
+        String re_StrTime = null;
+        SimpleDateFormat sdf = new SimpleDateFormat(style);
+        re_StrTime = sdf.format(new Date(time));
+        return re_StrTime;
+
     }
 }

@@ -82,9 +82,9 @@ public class MainFragment extends BaseFragment<MessageViewModel, MessageModel> i
      * @param event
      */
     public void onEvent(NotificationClickEvent event) {
-        // String userName = event.getMessage().getFromUser().getUserName();
-        // Intent intent = new Intent(getContext(), PublicActivity.class);
-        // intent.putExtra("user_name", userName);
+//         String userName = event.getMessage().getFromUser().getUserName();
+//         Intent intent = new Intent(getContext(), PublicActivity.class);
+//         intent.putExtra("user_name", userName);
         PublicActivity.startActivity(getActivity(), "com.weapon.joker.app.message.office.OfficeFragment");
     }
 }
