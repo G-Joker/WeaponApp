@@ -76,7 +76,7 @@ public class MineViewModel extends MineContact.ViewModel implements IShareListen
             setHasLogin(false);
         } else {
             // 已经登录
-            setUserName(mUserInfo.getNickname());
+            setUserName(mUserInfo.getDisplayName());
             setHasLogin(true);
         }
     }

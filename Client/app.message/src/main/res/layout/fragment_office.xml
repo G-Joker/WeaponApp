@@ -22,6 +22,7 @@
             android:layout_height="?actionBarSize"
             android:background="?colorPrimary"
             android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:title="小之"/>
 
         <com.weapon.joker.lib.mvvm.pullrefreshload.PullToRefreshLayout

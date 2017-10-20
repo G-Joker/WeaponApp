@@ -5,6 +5,7 @@ import com.weapon.joker.lib.mvvm.common.PublicActivity;
 import com.weapon.joker.lib.net.event.PushNewsEvent;
 
 import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.content.TextContent;
 import cn.jpush.im.android.api.event.MessageEvent;
 import cn.jpush.im.android.api.event.NotificationClickEvent;
 import cn.jpush.im.android.eventbus.EventBus;
@@ -73,7 +74,7 @@ public class MainFragment extends BaseFragment<MessageViewModel, MessageModel> i
      * @param event 消息事件
      */
     public void onEventMainThread(MessageEvent event) {
-        getViewModel().updateOfficeData();
+        getViewModel().updateOfficeData(((TextContent) event.getMessage().getContent()).getText());
     }
 
     /**

@@ -108,6 +108,7 @@ public class OfficeViewModel extends OfficeContact.ViewModel {
                     send.type = MessageItemViewModel.MSG_SEND;
                     send.content = sendContent;
                     items.add(send);
+                    ++curCount;
                     setSendContent("");
                     getView().scrollToPosition(items.size() - 1);
                 } else {
@@ -182,5 +183,13 @@ public class OfficeViewModel extends OfficeContact.ViewModel {
         send.content = content;
         items.add(send);
         getView().scrollToPosition(items.size() - 1);
+    }
+
+    /**
+     * 清除所有消息
+     */
+    public void deleteAllMessage() {
+        mConversation.deleteAllMessage();
+        items.clear();
     }
 }

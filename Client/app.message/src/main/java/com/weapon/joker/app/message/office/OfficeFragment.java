@@ -1,6 +1,11 @@
 package com.weapon.joker.app.message.office;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -79,6 +84,28 @@ public class OfficeFragment extends BaseFragment<OfficeViewModel, OfficeModel> i
     @Override
     public int getBR() {
         return BR.officeModel;
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.menu_office_clear, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        new AlertDialog.Builder(getActivity()).setTitle("提示")
+                                              .setMessage("确认清空聊天记录？")
+                                              .setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                                                  @Override
+                                                  public void onClick(DialogInterface dialog, int which) {
+                                                        getViewModel().deleteAllMessage();
+                                                  }
+                                              })
+                                              .setNegativeButton("取消", null)
+                                              .show();
+        return true;
     }
 
     @Override

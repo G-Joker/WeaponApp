@@ -9,6 +9,8 @@ import com.weapon.joker.lib.mvvm.common.PublicActivity;
 import com.weapon.joker.lib.net.data.PushNewsData;
 import com.weapon.joker.lib.net.model.PushNewsModel;
 
+import cn.jpush.im.android.api.JMessageClient;
+
 /**
  * MessageViewModel 消息的VM
  * author:张冠之
@@ -37,12 +39,17 @@ public class MessageViewModel extends MessageContact.ViewModel {
      * 官方服务红点是否可见
      */
     @Bindable
-    public int serviceRedVisible;
+    public int serviceRedVisible = View.GONE;
     /**
      * 公告内容
      */
     @Bindable
     public String postContent;
+    /**
+     * 官方消息内容
+     */
+    @Bindable
+    public String serviceContent = "暂无官方消息";
 
     public void setPostNum(int postNum) {
         this.postNum = postNum;
@@ -69,6 +76,11 @@ public class MessageViewModel extends MessageContact.ViewModel {
         notifyPropertyChanged(BR.postContent);
     }
 
+    public void setServiceContent(String serviceContent) {
+        this.serviceContent = serviceContent;
+        notifyPropertyChanged(BR.serviceContent);
+    }
+
     /**
      * 获取公告消息
      */
@@ -86,9 +98,10 @@ public class MessageViewModel extends MessageContact.ViewModel {
         }
     }
 
-    public void updateOfficeData() {
+    public void updateOfficeData(String content) {
         setServiceRedVisible(View.VISIBLE);
         setOfficeNum(++officeNum);
+        setServiceContent(content);
     }
 
     /**
@@ -110,9 +123,16 @@ public class MessageViewModel extends MessageContact.ViewModel {
      * @param view
      */
     public void onServiceClick(View view) {
+        // 重置官方消息提醒数量
         setOfficeNum(0);
         setServiceRedVisible(View.GONE);
-        PublicActivity.startActivity((Activity) getContext(), "com.weapon.joker.app.message.office.OfficeFragment");
+        setServiceContent("暂无官方消息");
+        // 如果未登录跳转到登录界面
+        if (JMessageClient.getMyInfo() == null) {
+            PublicActivity.startActivity((Activity) getContext(), "com.weapon.joker.app.mine.login.LoginRegisterFragment");
+        } else {
+            PublicActivity.startActivity((Activity) getContext(), "com.weapon.joker.app.message.office.OfficeFragment");
+        }
     }
 
 }
