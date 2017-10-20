@@ -37,7 +37,8 @@ public class AlerDialogFactory {
      * @return 正在加载的对话框
      */
     public static AlertDialog createLoadingDialog(Context context, String desc) {
-        return new AlertDialog.Builder(context).setView(new ProgressBar(context)).setTitle(desc).create();
+        View view = View.inflate(context, R.layout.dialog_loading, null);
+        return new AlertDialog.Builder(context).setView(view).setTitle(desc).create();
     }
 
 

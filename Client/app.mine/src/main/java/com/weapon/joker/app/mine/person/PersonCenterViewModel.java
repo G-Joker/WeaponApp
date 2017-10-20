@@ -14,7 +14,6 @@ import com.weapon.joker.lib.net.JMessageCallBack;
 
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.im.android.api.JMessageClient;
-import cn.jpush.im.android.api.callback.GetUserInfoCallback;
 import cn.jpush.im.android.api.model.UserInfo;
 
 /**
@@ -65,16 +64,17 @@ public class PersonCenterViewModel extends PersonCenterContact.ViewModel {
      */
     public void getUserInfo(String userName) {
         mUserInfo = JMessageClient.getMyInfo();
-        JMessageClient.getUserInfo(userName, new GetUserInfoCallback() {
-            @Override
-            public void gotResult(int status, String desc, UserInfo userInfo) {
-                if (status == 0) {
-                    getUserInfoSuccess(userInfo);
-                } else {
-                    getUserInfoFailed(desc);
-                }
-            }
-        });
+        getUserInfoSuccess(mUserInfo);
+//        JMessageClient.getUserInfo(userName, new GetUserInfoCallback() {
+//            @Override
+//            public void gotResult(int status, String desc, UserInfo userInfo) {
+//                if (status == 0) {
+//                    getUserInfoSuccess(userInfo);
+//                } else {
+//                    getUserInfoFailed(desc);
+//                }
+//            }
+//        });
 
     }
 
@@ -84,10 +84,8 @@ public class PersonCenterViewModel extends PersonCenterContact.ViewModel {
      * @param userInfo 用户信息
      */
     private void getUserInfoSuccess(UserInfo userInfo) {
-        String userName = userInfo.getNickname();
-        if (!TextUtils.isEmpty(userName)) {
-            setUserName(userName);
-        }
+        // 设置显示名称
+        setUserName(userInfo.getDisplayName());
         // 设置个性签名
         setSignature(TextUtils.isEmpty(userInfo.getSignature()) ? "暂无个性签名" : userInfo.getSignature());
     }

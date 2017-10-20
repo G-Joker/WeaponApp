@@ -130,7 +130,7 @@ public class LoginRegisterViewModel extends LoginRegisterContact.ViewModel {
         // 统计用户点击登录事件
         MobclickAgent.onEvent(getContext().getApplicationContext(), "mine_login", userName);
         // JPush 设置 alias
-        JPushInterface.setAlias(getContext().getApplicationContext(), 12, String.valueOf(myInfo.getUserID()));
+        JPushInterface.setAlias(getContext().getApplicationContext(), 12, userName);
         getView().finish();
     }
 
