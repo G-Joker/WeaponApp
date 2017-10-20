@@ -40,4 +40,8 @@
         <attr name="android:scaleType"/>
     </declare-styleable>
 
+    <style name="PersonEditTextStyle" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorControlActivated">#1565C0</item>
+    </style>
+
 </resources>

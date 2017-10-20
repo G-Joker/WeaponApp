@@ -104,7 +104,6 @@ public class PersonCenterViewModel extends PersonCenterContact.ViewModel {
 
 
     /*===============================按钮点击事件的处理========================================*/
-
     /**
      * 注销登录点击处理
      *
@@ -141,13 +140,14 @@ public class PersonCenterViewModel extends PersonCenterContact.ViewModel {
                     @Override
                     public void onSuccess() {
                         setUserName(etContent);
-                        loadingDialog.dismiss();
+                        dismissDialog();
+                        Toast.makeText(getContext(), "更新昵称成功", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onFailed(int status, String desc) {
                         Toast.makeText(getContext(), desc, Toast.LENGTH_SHORT).show();
-                        loadingDialog.dismiss();
+                        dismissDialog();
                     }
                 });
             }
@@ -171,13 +171,14 @@ public class PersonCenterViewModel extends PersonCenterContact.ViewModel {
                     @Override
                     public void onSuccess() {
                         setSignature(etContent);
-                        loadingDialog.dismiss();
+                        dismissDialog();
+                        Toast.makeText(getContext(), "更新个性签名成功", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onFailed(int status, String desc) {
                         Toast.makeText(getContext(), desc, Toast.LENGTH_SHORT).show();
-                        loadingDialog.dismiss();
+                        dismissDialog();
                     }
                 });
             }
@@ -195,6 +196,12 @@ public class PersonCenterViewModel extends PersonCenterContact.ViewModel {
         // JPush alias 置为空
         JPushInterface.setAlias(getContext(), 2, "");
         getView().finish();
+    }
+
+    private void dismissDialog() {
+        if (loadingDialog != null && loadingDialog.isShowing()) {
+            loadingDialog.dismiss();
+        }
     }
 
 }

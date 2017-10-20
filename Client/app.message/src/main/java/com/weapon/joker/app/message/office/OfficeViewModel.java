@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
 
+import com.umeng.analytics.MobclickAgent;
 import com.weapon.joker.app.message.BR;
 import com.weapon.joker.app.message.R;
 import com.weapon.joker.lib.middleware.utils.LogUtils;
@@ -67,24 +68,26 @@ public class OfficeViewModel extends OfficeContact.ViewModel {
         notifyPropertyChanged(BR.sendContent);
     }
 
+    /**
+     * 进入界面初始，获取消息记录
+     * @param userName
+     */
     public void init(String userName) {
         mConversation = Conversation.createSingleConversation(userName);
+        if (mConversation == null) {
+            getView().finish();
+        }
         msgCount = mConversation.getAllMessage().size();
         List<Message> messagesFromNewest = mConversation.getMessagesFromNewest(curCount, LIM_COUNT);
         curCount = messagesFromNewest.size();
         Collections.reverse(messagesFromNewest);
         for (Message message : messagesFromNewest) {
             MessageDirect direct = message.getDirect();
+            String text = ((TextContent) message.getContent()).getText();
             if (direct == MessageDirect.send) {
-                MessageItemViewModel send = new MessageItemViewModel();
-                send.type = MessageItemViewModel.MSG_SEND;
-                send.content = ((TextContent) message.getContent()).getText();
-                items.add(send);
+                addSendMessage(text);
             } else {
-                MessageItemViewModel receiver = new MessageItemViewModel();
-                receiver.type = MessageItemViewModel.MSG_RECEIVER;
-                receiver.content = ((TextContent) message.getContent()).getText();
-                items.add(receiver);
+                addReceiverMessage(text);
             }
         }
     }
@@ -104,10 +107,8 @@ public class OfficeViewModel extends OfficeContact.ViewModel {
             public void gotResult(int status, String desc) {
                 if (status == 0) {
                     // 消息发送成功
-                    MessageItemViewModel send = new MessageItemViewModel();
-                    send.type = MessageItemViewModel.MSG_SEND;
-                    send.content = sendContent;
-                    items.add(send);
+                    MobclickAgent.onEvent(getContext().getApplicationContext(), "send_message", sendContent);
+                    addSendMessage(sendContent);
                     ++curCount;
                     setSendContent("");
                     getView().scrollToPosition(items.size() - 1);
@@ -120,7 +121,7 @@ public class OfficeViewModel extends OfficeContact.ViewModel {
         JMessageClient.sendMessage(message);
     }
 
-
+    /**===========================RecyclerView相关的初始化=====================================*/
     public final ReplyCommand onRefreshCommand = new ReplyCommand(new Action0() {
         @Override
         public void call() {
@@ -132,16 +133,11 @@ public class OfficeViewModel extends OfficeContact.ViewModel {
             } else {
                 for (Message message : messagesFromNewest) {
                     MessageDirect direct = message.getDirect();
+                    String text = ((TextContent) message.getContent()).getText();
                     if (direct == MessageDirect.send) {
-                        MessageItemViewModel send = new MessageItemViewModel();
-                        send.type = MessageItemViewModel.MSG_SEND;
-                        send.content = ((TextContent) message.getContent()).getText();
-                        items.add(0, send);
+                        addSendMessage(0, text);
                     } else {
-                        MessageItemViewModel receiver = new MessageItemViewModel();
-                        receiver.type = MessageItemViewModel.MSG_RECEIVER;
-                        receiver.content = ((TextContent) message.getContent()).getText();
-                        items.add(0, receiver);
+                        addReceiverMessage(0, text);
                     }
                 }
                 curCount += LIM_COUNT;
@@ -150,7 +146,6 @@ public class OfficeViewModel extends OfficeContact.ViewModel {
             }
         }
     });
-
 
     public final ObservableList<MessageItemViewModel> items = new ObservableArrayList<>();
     public final BindingRecyclerViewAdapter.ItemIds<MessageItemViewModel> itemIds
@@ -173,15 +168,58 @@ public class OfficeViewModel extends OfficeContact.ViewModel {
     };
 
     /**
+     * 添加发送消息
+     * @param sendContent 发送的消息内容
+     */
+    private void addSendMessage(String sendContent) {
+        MessageItemViewModel sendMessage = new MessageItemViewModel();
+        sendMessage.type = MessageItemViewModel.MSG_SEND;
+        sendMessage.content = sendContent;
+        items.add(sendMessage);
+    }
+
+    /**
+     * 添加发送消息到指定的下标
+     * @param index 下标
+     * @param sendContent 发送的消息内容
+     */
+    private void addSendMessage(int index, String sendContent) {
+        MessageItemViewModel sendMessage = new MessageItemViewModel();
+        sendMessage.type = MessageItemViewModel.MSG_SEND;
+        sendMessage.content = sendContent;
+        items.add(index, sendMessage);
+    }
+
+    /**
+     *  添加接收消息
+     * @param receiverContent 接收的消息内容
+     */
+    private void addReceiverMessage(String receiverContent) {
+        MessageItemViewModel receiverMessage = new MessageItemViewModel();
+        receiverMessage.type = MessageItemViewModel.MSG_RECEIVER;
+        receiverMessage.content = receiverContent;
+        items.add(receiverMessage);
+    }
+
+    /**
+     * 添加接收消息到指定的下标
+     * @param index  下标
+     * @param receiverContent 接收的消息内容
+     */
+    private void addReceiverMessage(int index, String receiverContent) {
+        MessageItemViewModel receiverMessage = new MessageItemViewModel();
+        receiverMessage.type = MessageItemViewModel.MSG_RECEIVER;
+        receiverMessage.content = receiverContent;
+        items.add(index, receiverMessage);
+    }
+
+    /**
      * 接收到消息
      *
      * @param content 消息
      */
     public void receiveMessage(String content) {
-        MessageItemViewModel send = new MessageItemViewModel();
-        send.type = MessageItemViewModel.MSG_RECEIVER;
-        send.content = content;
-        items.add(send);
+        addReceiverMessage(content);
         getView().scrollToPosition(items.size() - 1);
     }
 

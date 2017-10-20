@@ -6,6 +6,7 @@ import android.databinding.Bindable;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.umeng.analytics.MobclickAgent;
 import com.weapon.joker.lib.middleware.WebViewActivity;
 
 /**
@@ -45,6 +46,7 @@ public class PostItemViewModel extends BaseObservable {
      * 公告item点击事件处理
      */
     public void onPostItemClick(View view){
+        MobclickAgent.onEvent(mContext.getApplicationContext(), "post_item_click");
         if (TextUtils.equals(action, "web")) {
             WebViewActivity.startUrl(mContext, url);
         }
