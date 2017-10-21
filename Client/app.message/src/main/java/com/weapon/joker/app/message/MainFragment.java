@@ -1,5 +1,7 @@
 package com.weapon.joker.app.message;
 
+import android.content.Intent;
+
 import com.weapon.joker.lib.mvvm.common.BaseFragment;
 import com.weapon.joker.lib.mvvm.common.PublicActivity;
 import com.weapon.joker.lib.net.event.PushNewsEvent;
@@ -79,12 +81,15 @@ public class MainFragment extends BaseFragment<MessageViewModel, MessageModel> i
 
     /**
      * 点击通知
+     *
      * @param event
      */
     public void onEvent(NotificationClickEvent event) {
-//         String userName = event.getMessage().getFromUser().getUserName();
-//         Intent intent = new Intent(getContext(), PublicActivity.class);
-//         intent.putExtra("user_name", userName);
-        PublicActivity.startActivity(getActivity(), "com.weapon.joker.app.message.office.OfficeFragment");
+        String userName = event.getMessage().getFromUser().getUserName();
+        String displayName = event.getMessage().getFromUser().getDisplayName();
+        Intent intent = new Intent(getContext(), PublicActivity.class);
+        intent.putExtra("user_name", userName);
+        intent.putExtra("display_name", displayName);
+        PublicActivity.startActivity(getActivity(), "com.weapon.joker.app.message.office.OfficeFragment", intent);
     }
 }

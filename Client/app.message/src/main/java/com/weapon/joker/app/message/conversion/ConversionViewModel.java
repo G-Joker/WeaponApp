@@ -2,15 +2,13 @@ package com.weapon.joker.app.message.conversion;
 
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
+import android.text.TextUtils;
 
 import com.weapon.joker.app.message.BR;
 import com.weapon.joker.app.message.R;
-import com.weapon.joker.lib.middleware.utils.Util;
 
 import cn.jpush.im.android.api.JMessageClient;
-import cn.jpush.im.android.api.content.TextContent;
 import cn.jpush.im.android.api.model.Conversation;
-import cn.jpush.im.android.api.model.Message;
 import cn.jpush.im.android.api.model.UserInfo;
 import me.tatarka.bindingcollectionadapter2.BindingRecyclerViewAdapter;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
@@ -28,16 +26,16 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding;
 public class ConversionViewModel extends ConversionContact.ViewModel {
 
     public void init() {
+        // 遍历消息列表，获取本地所有的历史消息列表
+        items.clear();
         for (Conversation conversation : JMessageClient.getConversationList()) {
-            int unReadMsgCnt = conversation.getUnReadMsgCnt();
-            Message latestMessage = conversation.getLatestMessage();
-            ConversionItemViewModel model = new ConversionItemViewModel(getContext());
-            model.displayName = ((UserInfo) latestMessage.getTargetInfo()).getDisplayName();
-            model.userName = ((UserInfo) latestMessage.getTargetInfo()).getUserName();
-            model.lastContent = ((TextContent) latestMessage.getContent()).getText();
-            model.unReadNum = unReadMsgCnt;
-            model.lastTime = Util.getStrTime(latestMessage.getCreateTime(), "yyyy-MM-dd HH:mm");
-            items.add(model);
+            String myUserName = JMessageClient.getMyInfo().getUserName();
+            String userName = ((UserInfo) conversation.getTargetInfo()).getUserName();
+            if (!TextUtils.equals(userName, myUserName)) {
+                // 如果收到的消息通知，是本人的话，就不添加到列表中
+                ConversionItemViewModel model = new ConversionItemViewModel(getContext(), conversation);
+                items.add(model);
+            }
         }
     }
 

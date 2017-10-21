@@ -1,8 +1,10 @@
 package com.weapon.joker.app.message.office;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -14,12 +16,14 @@ import com.weapon.joker.app.message.R;
 import com.weapon.joker.app.message.databinding.FragmentOfficeBinding;
 import com.weapon.joker.lib.middleware.utils.LogUtils;
 import com.weapon.joker.lib.mvvm.common.BaseFragment;
+import com.weapon.joker.lib.mvvm.common.PublicActivity;
 
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.content.TextContent;
 import cn.jpush.im.android.api.event.MessageEvent;
 import cn.jpush.im.android.api.event.NotificationClickEvent;
 import cn.jpush.im.android.api.model.Message;
+import cn.jpush.im.android.api.model.UserInfo;
 
 /**
  * <pre>
@@ -37,6 +41,11 @@ public class OfficeFragment extends BaseFragment<OfficeViewModel, OfficeModel> i
      * WeaponApp 官方客服账号
      */
     private static final String OFFICE_SERVICE = "WeaponApp";
+    /**
+     * 当前正在聊天的 username
+     */
+    private String mUserName = OFFICE_SERVICE;
+    private String mDisplayName = "小之";
 
     private FragmentOfficeBinding mDataBinding;
 
@@ -49,9 +58,18 @@ public class OfficeFragment extends BaseFragment<OfficeViewModel, OfficeModel> i
     public void initView() {
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         mDataBinding = ((FragmentOfficeBinding) getViewDataBinding());
+        if (getActivity().getIntent() != null) {
+            Intent intent = getActivity().getIntent();
+            if (!TextUtils.isEmpty(intent.getStringExtra("user_name"))) {
+                mUserName = intent.getStringExtra("user_name");
+                LogUtils.i("office", "当前聊天的 name:" + mUserName);
+            }
+            if (!TextUtils.isEmpty(intent.getStringExtra("display_name"))) {
+                mDisplayName = intent.getStringExtra("display_name");
+            }
+        }
         setToolbar();
-//        String userName = getActivity().getIntent().getStringExtra("user_name");
-        getViewModel().init(OFFICE_SERVICE);
+        getViewModel().init(mUserName);
     }
 
     /**
@@ -62,6 +80,7 @@ public class OfficeFragment extends BaseFragment<OfficeViewModel, OfficeModel> i
         // 设置 toolbar 具有返回按钮
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setHasOptionsMenu(true);
+        mDataBinding.toolbar.setTitle(mDisplayName);
         mDataBinding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -96,15 +115,15 @@ public class OfficeFragment extends BaseFragment<OfficeViewModel, OfficeModel> i
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         new AlertDialog.Builder(getActivity()).setTitle("提示")
-                                              .setMessage("确认清空聊天记录？")
-                                              .setPositiveButton("确认", new DialogInterface.OnClickListener() {
-                                                  @Override
-                                                  public void onClick(DialogInterface dialog, int which) {
-                                                        getViewModel().deleteAllMessage();
-                                                  }
-                                              })
-                                              .setNegativeButton("取消", null)
-                                              .show();
+                .setMessage("确认清空聊天记录？")
+                .setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        getViewModel().deleteAllMessage();
+                    }
+                })
+                .setNegativeButton("取消", null)
+                .show();
         return true;
     }
 
@@ -136,13 +155,35 @@ public class OfficeFragment extends BaseFragment<OfficeViewModel, OfficeModel> i
                 // 处理文字消息
                 TextContent textContent = (TextContent) message.getContent();
                 String text = textContent.getText();
-                getViewModel().receiveMessage(text);
+                String userName = ((UserInfo) message.getTargetInfo()).getUserName();
+                if (TextUtils.equals(userName, mUserName)) {
+                    // 当收到的消息是官方消息才进行更新UI
+                    getViewModel().receiveMessage(text);
+                }
             default:
                 LogUtils.i("office", message.getFromType());
                 break;
         }
     }
 
-    public void onEvent(NotificationClickEvent event) {
+    /**
+     * 点击通知消息的事件处理
+     * @param event 收到的点击通知消息事件
+     */
+    public void onEventMainThread(NotificationClickEvent event) {
+        if (event == null) {
+            return;
+        }
+        Message message = event.getMessage();
+        String userName = ((UserInfo) message.getTargetInfo()).getUserName();
+        String displayName = ((UserInfo) message.getTargetInfo()).getDisplayName();
+        if (!TextUtils.equals(userName, mUserName)) {
+            // 如果不是官方消息，才会跳转到跟别的用户聊天
+            Intent intent = new Intent(getContext(), PublicActivity.class);
+            intent.putExtra("user_name", userName);
+            intent.putExtra("display_name", displayName);
+            PublicActivity.startActivity(getActivity(), "com.weapon.joker.app.message.office.OfficeFragment", intent);
+
+        }
     }
 }
