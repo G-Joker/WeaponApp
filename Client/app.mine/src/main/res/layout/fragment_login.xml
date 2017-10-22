@@ -31,9 +31,9 @@
             android:layout_marginLeft="24dp"
             android:layout_marginRight="24dp"
             android:layout_marginTop="56dp"
-            android:src="@mipmap/ic_launcher_round"/>
+            android:src="@mipmap/round"/>
 
-        <com.weapon.joker.lib.middleware.view.CustomTextInputLayout
+        <com.weapon.joker.lib.view.CustomTextInputLayout
             android:id="@+id/til_user_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -53,9 +53,9 @@
                 android:text="@={loginModel.userName}"
                 android:textColor="@color/material_text_color_white_text"
                 android:textSize="13sp"/>
-        </com.weapon.joker.lib.middleware.view.CustomTextInputLayout>
+        </com.weapon.joker.lib.view.CustomTextInputLayout>
 
-        <com.weapon.joker.lib.middleware.view.CustomTextInputLayout
+        <com.weapon.joker.lib.view.CustomTextInputLayout
             android:id="@+id/til_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -72,7 +72,7 @@
                 android:text="@={loginModel.password}"
                 android:textColor="@color/material_text_color_white_text"
                 android:textSize="13sp"/>
-        </com.weapon.joker.lib.middleware.view.CustomTextInputLayout>
+        </com.weapon.joker.lib.view.CustomTextInputLayout>
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/bt_login"

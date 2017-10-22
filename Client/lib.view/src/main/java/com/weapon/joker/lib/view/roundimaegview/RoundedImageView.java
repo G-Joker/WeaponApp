@@ -1,4 +1,4 @@
-package com.weapon.joker.lib.middleware.view.roundimaegview;
+package com.weapon.joker.lib.view.roundimaegview;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -12,7 +12,8 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.ImageView;
 
-import com.weapon.joker.lib.middleware.R;
+import com.weapon.joker.lib.view.R;
+
 
 /**
  * 圆角头像

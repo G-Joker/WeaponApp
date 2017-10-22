@@ -9,10 +9,10 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
-import com.weapon.joker.lib.middleware.view.pullrefreshload.PullToRefreshLayout;
-import com.weapon.joker.lib.middleware.view.pullrefreshload.PullToRefreshRecyclerView;
 import com.weapon.joker.lib.mvvm.R;
 import com.weapon.joker.lib.mvvm.command.ReplyCommand;
+import com.weapon.joker.lib.view.pullrefreshload.PullToRefreshLayout;
+import com.weapon.joker.lib.view.pullrefreshload.PullToRefreshRecyclerView;
 
 /**
  * ViewBindingAdapter 放置一些公用的 @BindingAdapter
@@ -89,7 +89,7 @@ public final class ViewBindingAdapter {
         Glide.with(imageView.getContext())
              .load(url)
              .transition(new DrawableTransitionOptions().crossFade())
-             .apply(new RequestOptions().placeholder(R.mipmap.ic_launcher_round))
+             .apply(new RequestOptions().placeholder(R.mipmap.round))
              .into(imageView);
     }
 

@@ -1,6 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.weapon.joker.lib.middleware">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <application>
-        <activity android:name=".PublicActivity"/>
+        <activity android:name=".PublicActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
     </application>
 </manifest>

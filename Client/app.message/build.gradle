@@ -32,4 +32,6 @@ dependencies {
     compile project(':lib.style')
     compile project(':lib.net')
     compile project(':lib.middleware')
+    compile project(':lib.mvvm')
+    compile project(':lib.view')
 }

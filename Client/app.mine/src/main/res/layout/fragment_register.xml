@@ -29,9 +29,9 @@
             android:layout_height="72dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="24dp"
-            android:src="@mipmap/ic_launcher_round"/>
+            android:src="@mipmap/round"/>
 
-        <com.weapon.joker.lib.middleware.view.CustomTextInputLayout
+        <com.weapon.joker.lib.view.CustomTextInputLayout
             android:id="@+id/til_user_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -50,10 +50,10 @@
                 android:text="@={registerModel.userName}"
                 android:textColor="@color/material_text_color_white_text"
                 android:textSize="13sp"/>
-        </com.weapon.joker.lib.middleware.view.CustomTextInputLayout>
+        </com.weapon.joker.lib.view.CustomTextInputLayout>
 
 
-        <com.weapon.joker.lib.middleware.view.CustomTextInputLayout
+        <com.weapon.joker.lib.view.CustomTextInputLayout
             android:id="@+id/til_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -71,10 +71,10 @@
                 android:inputType="textPassword"
                 android:text="@={registerModel.password}"
                 android:textSize="13sp"/>
-        </com.weapon.joker.lib.middleware.view.CustomTextInputLayout>
+        </com.weapon.joker.lib.view.CustomTextInputLayout>
 
 
-        <com.weapon.joker.lib.middleware.view.CustomTextInputLayout
+        <com.weapon.joker.lib.view.CustomTextInputLayout
             android:id="@+id/til_password_again"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -92,7 +92,7 @@
                 android:textColor="@color/material_text_color_white_text"
                 android:text="@={registerModel.passwordAgain}"
                 android:textSize="13sp"/>
-        </com.weapon.joker.lib.middleware.view.CustomTextInputLayout>
+        </com.weapon.joker.lib.view.CustomTextInputLayout>
 
         <Button
             android:id="@+id/bt_login"

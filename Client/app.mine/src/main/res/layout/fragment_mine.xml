@@ -38,7 +38,7 @@
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp">
 
-                    <com.weapon.joker.lib.middleware.view.roundimaegview.RoundedImageView
+                    <com.weapon.joker.lib.view.roundimaegview.RoundedImageView
                         android:id="@+id/iv_mine_avatar"
                         android:layout_width="80dp"
                         android:layout_height="80dp"

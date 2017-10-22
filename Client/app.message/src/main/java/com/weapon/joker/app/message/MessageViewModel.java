@@ -58,7 +58,7 @@ public class MessageViewModel extends MessageContact.ViewModel {
 
     public void setOfficeNum(int officeNum) {
         this.officeNum = officeNum;
-        notifyPropertyChanged(BR.officeNum);
+        notifyPropertyChanged(com.weapon.joker.app.message.BR.officeNum);
     }
 
     public void setPostRedVisible(int postRedVisible) {
@@ -73,12 +73,12 @@ public class MessageViewModel extends MessageContact.ViewModel {
 
     public void setPostContent(String postContent) {
         this.postContent = postContent;
-        notifyPropertyChanged(BR.postContent);
+        notifyPropertyChanged(com.weapon.joker.app.message.BR.postContent);
     }
 
     public void setServiceContent(String serviceContent) {
         this.serviceContent = serviceContent;
-        notifyPropertyChanged(BR.serviceContent);
+        notifyPropertyChanged(com.weapon.joker.app.message.BR.serviceContent);
     }
 
     /**

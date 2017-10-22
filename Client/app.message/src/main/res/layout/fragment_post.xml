@@ -26,7 +26,7 @@
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:title="公告"/>
 
-        <com.weapon.joker.lib.middleware.view.pullrefreshload.PullToRefreshLayout
+        <com.weapon.joker.lib.view.pullrefreshload.PullToRefreshLayout
             android:id="@+id/pull_refresh_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -34,7 +34,7 @@
 
             <include layout="@layout/refresh_head"/>
 
-            <com.weapon.joker.lib.middleware.view.pullrefreshload.PullToRefreshRecyclerView
+            <com.weapon.joker.lib.view.pullrefreshload.PullToRefreshRecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -46,7 +46,7 @@
                 app:layoutManager="@{LayoutManagers.linear()}"/>
 
             <include layout="@layout/load_more"/>
-        </com.weapon.joker.lib.middleware.view.pullrefreshload.PullToRefreshLayout>
+        </com.weapon.joker.lib.view.pullrefreshload.PullToRefreshLayout>
 
     </LinearLayout>
 </layout>

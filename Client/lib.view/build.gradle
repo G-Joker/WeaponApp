@@ -1,15 +1,20 @@
 apply plugin: 'com.android.library'
 
 android {
+    compileSdkVersion 26
+    buildToolsVersion "26.0.2"
+
+
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -17,15 +22,9 @@ android {
         }
     }
 
-    dataBinding {
-        enabled = true
-    }
-
 }
 
 dependencies {
-    //databinding adapter 框架，适用于 ListView,RecyclerView,ViewPager
-    compile 'me.tatarka.bindingcollectionadapter2:bindingcollectionadapter:2.2.0'
-    compile 'me.tatarka.bindingcollectionadapter2:bindingcollectionadapter-recyclerview:2.2.0'
-    compile project(':lib.view')
+
+
 }

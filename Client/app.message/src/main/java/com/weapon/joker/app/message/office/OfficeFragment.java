@@ -14,9 +14,9 @@ import android.view.WindowManager;
 import com.weapon.joker.app.message.BR;
 import com.weapon.joker.app.message.R;
 import com.weapon.joker.app.message.databinding.FragmentOfficeBinding;
+import com.weapon.joker.lib.middleware.PublicActivity;
 import com.weapon.joker.lib.middleware.utils.LogUtils;
 import com.weapon.joker.lib.mvvm.common.BaseFragment;
-import com.weapon.joker.lib.middleware.PublicActivity;
 
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.content.TextContent;

@@ -90,7 +90,7 @@ public class MineViewModel extends MineContact.ViewModel implements IShareListen
                 .setDescription(getContext().getResources().getString(R.string.share_desc))
                 .setAppUrl(getContext().getResources().getString(R.string.share_url))
                 .setImgUrl(getContext().getResources().getString(R.string.share_img_url))
-                .setResId(R.mipmap.ic_launcher_round)
+                .setResId(R.mipmap.round)
                 .build();
         mShareView = new ShareView(getContext(), params, this);
     }

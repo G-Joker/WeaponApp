@@ -1,4 +1,4 @@
-package com.weapon.joker.lib.middleware.view.pullrefreshload;
+package com.weapon.joker.lib.view.pullrefreshload;
 
 /**
  * <pre>

@@ -1,4 +1,4 @@
-package com.weapon.joker.lib.middleware.view.roundimaegview;
+package com.weapon.joker.lib.view.roundimaegview;
 
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;

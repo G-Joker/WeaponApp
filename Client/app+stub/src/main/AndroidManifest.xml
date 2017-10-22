@@ -117,10 +117,10 @@
             android:enabled="true"
             android:exported="false">
             <intent-filter android:priority="1000">
-                <action android:name="cn.jpush.im.android.action.IM_RESPONSE" />
-                <action android:name="cn.jpush.im.android.action.NOTIFICATION_CLICK_PROXY" />
+                <action android:name="cn.jpush.im.android.action.IM_RESPONSE"/>
+                <action android:name="cn.jpush.im.android.action.NOTIFICATION_CLICK_PROXY"/>
 
-                <category android:name="com.weapon.joker" />
+                <category android:name="com.weapon.joker"/>
             </intent-filter>
         </receiver>
 
@@ -153,9 +153,9 @@
 
         <activity
             android:name="com.weapon.joker.wxapi.WXEntryActivity"
-            android:theme="@style/NoTitleTranslucentTheme"
+            android:exported="true"
             android:launchMode="singleTask"
-            android:exported="true"></activity>
+            android:theme="@style/NoTitleTranslucentTheme"></activity>
 
         <!-- 友盟统计 appKey -->
         <meta-data
