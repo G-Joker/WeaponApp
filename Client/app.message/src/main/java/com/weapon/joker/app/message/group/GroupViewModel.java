@@ -13,7 +13,7 @@ import com.weapon.joker.app.message.single.MessageItemViewModel;
 import com.weapon.joker.lib.middleware.utils.LogUtils;
 import com.weapon.joker.lib.mvvm.command.Action0;
 import com.weapon.joker.lib.mvvm.command.ReplyCommand;
-import com.weapon.joker.lib.mvvm.pullrefreshload.PullToRefreshLayout;
+import com.weapon.joker.lib.view.pullrefreshload.PullToRefreshLayout;
 
 import java.util.Collections;
 import java.util.List;

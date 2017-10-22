@@ -70,7 +70,7 @@
                     android:layout_height="?actionBarSize"
                     app:contentInsetLeft="0dp"
                     app:contentInsetStart="0dp"
-                    app:layout_collapseMode="parallax"/>
+                    app:layout_collapseMode="pin"/>
 
             </android.support.design.widget.CollapsingToolbarLayout>
 

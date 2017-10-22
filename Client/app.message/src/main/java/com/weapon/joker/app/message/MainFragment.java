@@ -2,8 +2,8 @@ package com.weapon.joker.app.message;
 
 import android.content.Intent;
 
-import com.weapon.joker.lib.mvvm.common.BaseFragment;
 import com.weapon.joker.lib.middleware.PublicActivity;
+import com.weapon.joker.lib.mvvm.common.BaseFragment;
 import com.weapon.joker.lib.net.event.PushNewsEvent;
 
 import java.util.List;
@@ -38,7 +38,7 @@ public class MainFragment extends BaseFragment<MessageViewModel, MessageModel> i
 
     @Override
     public int getBR() {
-        return BR.messageModel;
+        return com.weapon.joker.app.message.BR.messageModel;
     }
 
     public void onEvent(PushNewsEvent event) {
