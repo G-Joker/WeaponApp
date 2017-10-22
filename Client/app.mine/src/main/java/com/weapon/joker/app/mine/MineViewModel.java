@@ -14,7 +14,7 @@ import com.weapon.joker.app.stub.share.ShareParams;
 import com.weapon.joker.app.stub.share.ShareType;
 import com.weapon.joker.lib.middleware.utils.LogUtils;
 import com.weapon.joker.lib.middleware.utils.share.ShareView;
-import com.weapon.joker.lib.mvvm.common.PublicActivity;
+import com.weapon.joker.lib.middleware.PublicActivity;
 
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.model.UserInfo;

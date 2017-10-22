@@ -1,4 +1,4 @@
-package com.weapon.joker.lib.mvvm.common;
+package com.weapon.joker.lib.middleware;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 
 import com.umeng.analytics.MobclickAgent;
-import com.weapon.joker.lib.mvvm.R;
 
 /**
  * <pre>

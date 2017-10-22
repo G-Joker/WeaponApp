@@ -29,7 +29,6 @@
         <activity
             android:name=".login.RegisterActivity"
             android:theme="@style/MyDialog" />
-        <activity android:name="com.weapon.joker.lib.mvvm.common.PublicActivity" />
 
     </application>
 

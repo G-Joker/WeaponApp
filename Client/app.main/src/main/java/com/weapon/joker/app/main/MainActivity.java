@@ -10,7 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 
 import com.weapon.joker.lib.mvvm.common.BaseActivity;
-import com.weapon.joker.lib.mvvm.common.PublicActivity;
+import com.weapon.joker.lib.middleware.PublicActivity;
 
 import net.wequick.small.Small;
 

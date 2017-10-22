@@ -9,7 +9,7 @@ import android.widget.Toast;
 import com.umeng.analytics.MobclickAgent;
 import com.weapon.joker.app.mine.R;
 import com.weapon.joker.lib.middleware.utils.AlerDialogFactory;
-import com.weapon.joker.lib.mvvm.common.PublicActivity;
+import com.weapon.joker.lib.middleware.PublicActivity;
 import com.weapon.joker.lib.net.JMessageCallBack;
 
 import cn.jpush.android.api.JPushInterface;

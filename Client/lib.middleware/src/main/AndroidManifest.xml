@@ -1,3 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.weapon.joker.lib.middleware">
+    <application>
+        <activity android:name=".PublicActivity"/>
+    </application>
 </manifest>

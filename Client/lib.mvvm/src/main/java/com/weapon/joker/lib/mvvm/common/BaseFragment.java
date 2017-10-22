@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.umeng.analytics.MobclickAgent;
+import com.weapon.joker.lib.mvvm.util.TUtil;
 
 import java.lang.reflect.Method;
 

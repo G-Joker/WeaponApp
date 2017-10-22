@@ -3,7 +3,7 @@ package com.weapon.joker.app.message;
 import android.content.Intent;
 
 import com.weapon.joker.lib.mvvm.common.BaseFragment;
-import com.weapon.joker.lib.mvvm.common.PublicActivity;
+import com.weapon.joker.lib.middleware.PublicActivity;
 import com.weapon.joker.lib.net.event.PushNewsEvent;
 
 import cn.jpush.im.android.api.JMessageClient;

@@ -1,4 +1,4 @@
-package com.weapon.joker.lib.mvvm.common;
+package com.weapon.joker.lib.mvvm.util;
 
 import java.lang.reflect.ParameterizedType;
 

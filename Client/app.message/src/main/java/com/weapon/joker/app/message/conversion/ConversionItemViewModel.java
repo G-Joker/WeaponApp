@@ -9,7 +9,7 @@ import android.view.View;
 
 import com.weapon.joker.app.message.BR;
 import com.weapon.joker.lib.middleware.utils.Util;
-import com.weapon.joker.lib.mvvm.common.PublicActivity;
+import com.weapon.joker.lib.middleware.PublicActivity;
 
 import cn.jpush.im.android.api.content.TextContent;
 import cn.jpush.im.android.api.model.Conversation;

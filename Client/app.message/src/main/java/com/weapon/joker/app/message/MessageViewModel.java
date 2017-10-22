@@ -5,7 +5,7 @@ import android.databinding.Bindable;
 import android.view.View;
 import android.widget.Toast;
 
-import com.weapon.joker.lib.mvvm.common.PublicActivity;
+import com.weapon.joker.lib.middleware.PublicActivity;
 import com.weapon.joker.lib.net.data.PushNewsData;
 import com.weapon.joker.lib.net.model.PushNewsModel;
 

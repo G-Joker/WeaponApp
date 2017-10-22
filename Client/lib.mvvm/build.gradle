@@ -32,4 +32,5 @@ dependencies {
     compile 'me.tatarka.bindingcollectionadapter2:bindingcollectionadapter:2.2.0'
     compile 'me.tatarka.bindingcollectionadapter2:bindingcollectionadapter-recyclerview:2.2.0'
     testCompile 'junit:junit:4.12'
+    compile project(path: ':lib.middleware')
 }
