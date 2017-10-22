@@ -90,8 +90,10 @@ public class ConversionFragment extends BaseFragment<ConversionViewModel, Conver
             return;
         }
         String userName = event.getMessage().getFromUser().getUserName();
+        String displayName = event.getMessage().getFromUser().getDisplayName();
         Intent intent = new Intent(getContext(), PublicActivity.class);
         intent.putExtra("user_name", userName);
-        PublicActivity.startActivity(getActivity(), "com.weapon.joker.app.message.office.OfficeFragment", intent);
+        intent.putExtra("display_name", displayName);
+        PublicActivity.startActivity(getActivity(), "com.weapon.joker.app.message.office.SingleFragment", intent);
     }
 }

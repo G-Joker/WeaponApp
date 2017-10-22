@@ -1,4 +1,4 @@
-package com.weapon.joker.app.message.office;
+package com.weapon.joker.app.message.single;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;

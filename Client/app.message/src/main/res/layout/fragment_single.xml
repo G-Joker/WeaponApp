@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="officeModel"
-            type="com.weapon.joker.app.message.office.OfficeViewModel"/>
+            name="singleModel"
+            type="com.weapon.joker.app.message.single.SingleViewModel"/>
 
         <import type="me.tatarka.bindingcollectionadapter2.LayoutManagers"/>
     </data>
@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            app:onRefreshCommand="@{officeModel.onRefreshCommand}">
+            app:onRefreshCommand="@{singleModel.onRefreshCommand}">
 
             <include layout="@layout/refresh_head"/>
 
@@ -40,9 +40,9 @@
                 android:layout_height="match_parent"
                 app:canLoadMore="@{false}"
                 app:canRefresh="@{true}"
-                app:itemBinding="@{officeModel.multiItems}"
-                app:itemIds="@{officeModel.itemIds}"
-                app:items="@{officeModel.items}"
+                app:itemBinding="@{singleModel.multiItems}"
+                app:itemIds="@{singleModel.itemIds}"
+                app:items="@{singleModel.items}"
                 app:layoutManager="@{LayoutManagers.linear()}"/>
 
             <include layout="@layout/load_more"/>
@@ -59,14 +59,14 @@
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"
                 android:layout_weight="1"
-                android:text="@={officeModel.sendContent}"/>
+                android:text="@={singleModel.sendContent}"/>
 
             <Button
                 android:layout_width="60dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center_vertical|right"
                 android:layout_marginRight="12dp"
-                android:onClick="@{officeModel::sendMessageToOffice}"
+                android:onClick="@{singleModel::sendMessageToOffice}"
                 android:text="发送"/>
 
         </LinearLayout>

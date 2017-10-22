@@ -6,10 +6,15 @@ import com.weapon.joker.lib.mvvm.common.BaseFragment;
 import com.weapon.joker.lib.middleware.PublicActivity;
 import com.weapon.joker.lib.net.event.PushNewsEvent;
 
+import java.util.List;
+
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.content.TextContent;
 import cn.jpush.im.android.api.event.MessageEvent;
 import cn.jpush.im.android.api.event.NotificationClickEvent;
+import cn.jpush.im.android.api.event.OfflineMessageEvent;
+import cn.jpush.im.android.api.model.Conversation;
+import cn.jpush.im.android.api.model.Message;
 import cn.jpush.im.android.eventbus.EventBus;
 
 /**
@@ -76,7 +81,7 @@ public class MainFragment extends BaseFragment<MessageViewModel, MessageModel> i
      * @param event 消息事件
      */
     public void onEventMainThread(MessageEvent event) {
-        getViewModel().updateOfficeData(((TextContent) event.getMessage().getContent()).getText());
+        getViewModel().updateOfficeData(((TextContent) event.getMessage().getContent()).getText(), 1);
     }
 
     /**
@@ -90,6 +95,20 @@ public class MainFragment extends BaseFragment<MessageViewModel, MessageModel> i
         Intent intent = new Intent(getContext(), PublicActivity.class);
         intent.putExtra("user_name", userName);
         intent.putExtra("display_name", displayName);
-        PublicActivity.startActivity(getActivity(), "com.weapon.joker.app.message.office.OfficeFragment", intent);
+        PublicActivity.startActivity(getActivity(), "com.weapon.joker.app.message.office.SingleFragment", intent);
+    }
+
+    /**
+     类似MessageEvent事件的接收，上层在需要的地方增加OfflineMessageEvent事件的接收
+     即可实现离线消息的接收。
+     **/
+    public void onEventMainThread(OfflineMessageEvent event) {
+        //获取事件发生的会话对象
+        Conversation conversation = event.getConversation();
+        List<Message> newMessageList = event.getOfflineMessageList();//获取此次离线期间会话收到的新消息列表
+        if (newMessageList != null && newMessageList.size() > 0) {
+            String content = ((TextContent) newMessageList.get(0).getContent()).getText();
+            getViewModel().updateOfficeData(content, newMessageList.size());
+        }
     }
 }

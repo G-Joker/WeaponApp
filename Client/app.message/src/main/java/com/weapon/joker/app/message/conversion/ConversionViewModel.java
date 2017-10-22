@@ -9,6 +9,7 @@ import com.weapon.joker.app.message.R;
 
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.model.Conversation;
+import cn.jpush.im.android.api.model.GroupInfo;
 import cn.jpush.im.android.api.model.UserInfo;
 import me.tatarka.bindingcollectionadapter2.BindingRecyclerViewAdapter;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
@@ -30,12 +31,19 @@ public class ConversionViewModel extends ConversionContact.ViewModel {
         items.clear();
         for (Conversation conversation : JMessageClient.getConversationList()) {
             String myUserName = JMessageClient.getMyInfo().getUserName();
-            String userName = ((UserInfo) conversation.getTargetInfo()).getUserName();
-            if (!TextUtils.equals(userName, myUserName)) {
-                // 如果收到的消息通知，是本人的话，就不添加到列表中
+            Object targetInfo = conversation.getTargetInfo();
+            if (targetInfo instanceof UserInfo) {
+                String userName = ((UserInfo) conversation.getTargetInfo()).getUserName();
+                if (!TextUtils.equals(userName, myUserName)) {
+                    // 如果收到的消息通知，是本人的话，就不添加到列表中
+                    ConversionItemViewModel model = new ConversionItemViewModel(getContext(), conversation);
+                    items.add(model);
+                }
+            } else if (targetInfo instanceof GroupInfo) {
                 ConversionItemViewModel model = new ConversionItemViewModel(getContext(), conversation);
                 items.add(model);
             }
+
         }
     }
 

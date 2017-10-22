@@ -98,9 +98,15 @@ public class MessageViewModel extends MessageContact.ViewModel {
         }
     }
 
-    public void updateOfficeData(String content) {
+    /**
+     * 更新官方消息内容和数量
+     *
+     * @param content   内容
+     * @param officeNum 数量
+     */
+    public void updateOfficeData(String content, int officeNum) {
         setServiceRedVisible(View.VISIBLE);
-        setOfficeNum(++officeNum);
+        setOfficeNum(this.officeNum += officeNum);
         setServiceContent(content);
     }
 
@@ -131,8 +137,7 @@ public class MessageViewModel extends MessageContact.ViewModel {
         if (JMessageClient.getMyInfo() == null) {
             PublicActivity.startActivity((Activity) getContext(), "com.weapon.joker.app.mine.login.LoginRegisterFragment");
         } else {
-            PublicActivity.startActivity((Activity) getContext(), "com.weapon.joker.app.message.office.OfficeFragment");
-//            PublicActivity.startActivity((Activity) getContext(), "com.weapon.joker.app.message.conversion.ConversionFragment");
+            PublicActivity.startActivity((Activity) getContext(), "com.weapon.joker.app.message.single.SingleFragment");
         }
     }
 

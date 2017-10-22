@@ -6,7 +6,7 @@
 
         <variable
             name="msgModel"
-            type="com.weapon.joker.app.message.office.MessageItemViewModel"/>
+            type="com.weapon.joker.app.message.single.MessageItemViewModel"/>
     </data>
 
 

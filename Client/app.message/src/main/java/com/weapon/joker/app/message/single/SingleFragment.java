@@ -1,4 +1,4 @@
-package com.weapon.joker.app.message.office;
+package com.weapon.joker.app.message.single;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,7 +13,7 @@ import android.view.WindowManager;
 
 import com.weapon.joker.app.message.BR;
 import com.weapon.joker.app.message.R;
-import com.weapon.joker.app.message.databinding.FragmentOfficeBinding;
+import com.weapon.joker.app.message.databinding.FragmentSingleBinding;
 import com.weapon.joker.lib.middleware.PublicActivity;
 import com.weapon.joker.lib.middleware.utils.LogUtils;
 import com.weapon.joker.lib.mvvm.common.BaseFragment;
@@ -28,14 +28,14 @@ import cn.jpush.im.android.api.model.UserInfo;
 /**
  * <pre>
  *     author : xiaweizi
- *     class  : com.weapon.joker.app.message.office.OfficeFragment
+ *     class  : com.weapon.joker.app.message.office.SingleFragment
  *     e-mail : 1012126908@qq.com
  *     time   : 2017/10/18
  *     desc   : 官方消息界面
  * </pre>
  */
 
-public class OfficeFragment extends BaseFragment<OfficeViewModel, OfficeModel> implements OfficeContact.View {
+public class SingleFragment extends BaseFragment<SingleViewModel, SingleModel> implements SingleContact.View {
 
     /**
      * WeaponApp 官方客服账号
@@ -47,17 +47,17 @@ public class OfficeFragment extends BaseFragment<OfficeViewModel, OfficeModel> i
     private String mUserName = OFFICE_SERVICE;
     private String mDisplayName = "小之";
 
-    private FragmentOfficeBinding mDataBinding;
+    private FragmentSingleBinding mDataBinding;
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_office;
+        return R.layout.fragment_single;
     }
 
     @Override
     public void initView() {
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-        mDataBinding = ((FragmentOfficeBinding) getViewDataBinding());
+        mDataBinding = ((FragmentSingleBinding) getViewDataBinding());
         if (getActivity().getIntent() != null) {
             Intent intent = getActivity().getIntent();
             if (!TextUtils.isEmpty(intent.getStringExtra("user_name"))) {
@@ -102,7 +102,7 @@ public class OfficeFragment extends BaseFragment<OfficeViewModel, OfficeModel> i
 
     @Override
     public int getBR() {
-        return BR.officeModel;
+        return BR.singleModel;
     }
 
 
@@ -182,7 +182,7 @@ public class OfficeFragment extends BaseFragment<OfficeViewModel, OfficeModel> i
             Intent intent = new Intent(getContext(), PublicActivity.class);
             intent.putExtra("user_name", userName);
             intent.putExtra("display_name", displayName);
-            PublicActivity.startActivity(getActivity(), "com.weapon.joker.app.message.office.OfficeFragment", intent);
+            PublicActivity.startActivity(getActivity(), "com.weapon.joker.app.message.office.SingleFragment", intent);
 
         }
     }

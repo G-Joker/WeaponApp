@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.weapon.joker.app.message.BR;
@@ -13,6 +14,7 @@ import com.weapon.joker.lib.middleware.PublicActivity;
 
 import cn.jpush.im.android.api.content.TextContent;
 import cn.jpush.im.android.api.model.Conversation;
+import cn.jpush.im.android.api.model.GroupInfo;
 import cn.jpush.im.android.api.model.Message;
 import cn.jpush.im.android.api.model.UserInfo;
 
@@ -22,7 +24,7 @@ import cn.jpush.im.android.api.model.UserInfo;
  *     class  : com.weapon.joker.app.message.conversion.ConversionItemViewModel
  *     e-mail : 1012126908@qq.com
  *     time   : 2017/10/20
- *     desc   :
+ *     desc   : 单独聊天界面和群聊
  * </pre>
  */
 
@@ -82,9 +84,16 @@ public class ConversionItemViewModel extends BaseObservable {
         if (latestMessage == null) {
             return;
         }
-        displayName = ((UserInfo) latestMessage.getTargetInfo()).getDisplayName();
-        userName = ((UserInfo) latestMessage.getTargetInfo()).getUserName();
-        lastContent = ((TextContent) latestMessage.getContent()).getText();
+        Object targetInfo = latestMessage.getTargetInfo();
+        if (targetInfo instanceof UserInfo) {
+            displayName = ((UserInfo) targetInfo).getDisplayName();
+            userName = ((UserInfo) targetInfo).getUserName();
+            lastContent = ((TextContent) latestMessage.getContent()).getText();
+        } else if (targetInfo instanceof GroupInfo) {
+            GroupInfo groupInfo = (GroupInfo) targetInfo;
+            displayName = groupInfo.getGroupName();
+        }
+
         unReadNum = unReadMsgCnt;
         lastTime = Util.getStrTime(latestMessage.getCreateTime(), "yyyy-MM-dd HH:mm");
         redVisible = unReadMsgCnt > 0;
@@ -100,7 +109,13 @@ public class ConversionItemViewModel extends BaseObservable {
         Intent intent = new Intent(mContext, PublicActivity.class);
         intent.putExtra("user_name", userName);
         intent.putExtra("display_name", displayName);
-        PublicActivity.startActivity((Activity) mContext, "com.weapon.joker.app.message.office.OfficeFragment", intent);
+        if (TextUtils.isEmpty(userName)) {
+            // 如果用户名为空的时候，就跳转到群组界面
+            PublicActivity.startActivity((Activity) mContext, "com.weapon.joker.app.message.group.GroupFragment", intent);
+        } else {
+            // 如果用户名不为空的时候，就跳转到单聊界面
+            PublicActivity.startActivity((Activity) mContext, "com.weapon.joker.app.message.office.SingleFragment", intent);
+        }
     }
 
 }
