@@ -89,7 +89,7 @@ public class GroupViewModel extends GroupContact.ViewModel {
                     addReceiverMessage(text, displayName);
                 }
             } else {
-                EventNotificationContent notificationContent = (EventNotificationContent) content;
+//                EventNotificationContent notificationContent = (EventNotificationContent) content;
             }
         }
     }
@@ -180,6 +180,14 @@ public class GroupViewModel extends GroupContact.ViewModel {
     public void receiveMessage(String content, String displayName) {
         addReceiverMessage(content, displayName);
         getView().scrollToPosition(items.size() - 1);
+    }
+
+    /**
+     * 清除所有消息
+     */
+    public void deleteAllMessage() {
+        mConversation.deleteAllMessage();
+        items.clear();
     }
 
     /**

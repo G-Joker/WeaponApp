@@ -111,8 +111,11 @@
 
                     <TextView
                         style="@style/MineStyle"
+                        android:layout_height="wrap_content"
                         android:onClick="@{personModel::updateSignature}"
-                        android:text='@{@string/person_signature + personModel.signature}'/>
+                        android:paddingBottom="@dimen/public_text_padding"
+                        android:paddingTop="@dimen/public_text_padding"
+                        android:text='@{@string/person_signature + personModel.signature, default="dfafa"}'/>
 
                     <View
                         android:layout_width="match_parent"

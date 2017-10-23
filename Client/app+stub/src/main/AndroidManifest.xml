@@ -29,6 +29,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true">
 
+        <activity android:name="com.weapon.joker.lib.middleware.PublicActivity"/>
 
         <!-- Required SDK核心功能-->
         <activity

@@ -89,12 +89,17 @@ public class ConversionItemViewModel extends BaseObservable {
         } else if (targetInfo instanceof GroupInfo) {
             GroupInfo groupInfo = (GroupInfo) targetInfo;
             displayName = groupInfo.getGroupName();
+            if (latestMessage != null && latestMessage.getContent() instanceof TextContent) {
+                String name = latestMessage.getFromUser().getDisplayName();
+                String content = ((TextContent) latestMessage.getContent()).getText();
+                lastContent = name + ": " + content;
+            }
+
         }
 
         unReadNum = unReadMsgCnt;
         lastTime = latestMessage == null ? "" : Util.getStrTime(latestMessage.getCreateTime(), "yyyy-MM-dd HH:mm");
         redVisible = unReadMsgCnt > 0;
-
     }
 
 

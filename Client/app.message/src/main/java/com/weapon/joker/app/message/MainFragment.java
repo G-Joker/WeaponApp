@@ -1,8 +1,5 @@
 package com.weapon.joker.app.message;
 
-import android.content.Intent;
-
-import com.weapon.joker.lib.middleware.PublicActivity;
 import com.weapon.joker.lib.mvvm.common.BaseFragment;
 import com.weapon.joker.lib.net.event.PushNewsEvent;
 
@@ -11,7 +8,6 @@ import java.util.List;
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.content.TextContent;
 import cn.jpush.im.android.api.event.MessageEvent;
-import cn.jpush.im.android.api.event.NotificationClickEvent;
 import cn.jpush.im.android.api.event.OfflineMessageEvent;
 import cn.jpush.im.android.api.model.Conversation;
 import cn.jpush.im.android.api.model.Message;
@@ -84,19 +80,6 @@ public class MainFragment extends BaseFragment<MessageViewModel, MessageModel> i
         getViewModel().updateOfficeData(((TextContent) event.getMessage().getContent()).getText(), 1);
     }
 
-    /**
-     * 点击通知
-     *
-     * @param event
-     */
-    public void onEvent(NotificationClickEvent event) {
-        String userName = event.getMessage().getFromUser().getUserName();
-        String displayName = event.getMessage().getFromUser().getDisplayName();
-        Intent intent = new Intent(getContext(), PublicActivity.class);
-        intent.putExtra("user_name", userName);
-        intent.putExtra("display_name", displayName);
-        PublicActivity.startActivity(getActivity(), "com.weapon.joker.app.message.single.SingleFragment", intent);
-    }
 
     /**
      类似MessageEvent事件的接收，上层在需要的地方增加OfflineMessageEvent事件的接收

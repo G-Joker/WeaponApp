@@ -1,6 +1,5 @@
 package com.weapon.joker.app.message.conversion;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
@@ -8,11 +7,9 @@ import com.weapon.joker.app.message.BR;
 import com.weapon.joker.app.message.R;
 import com.weapon.joker.app.message.databinding.FragmentConversionBinding;
 import com.weapon.joker.lib.mvvm.common.BaseFragment;
-import com.weapon.joker.lib.middleware.PublicActivity;
 
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.event.MessageEvent;
-import cn.jpush.im.android.api.event.NotificationClickEvent;
 
 /**
  * <pre>
@@ -38,6 +35,11 @@ public class ConversionFragment extends BaseFragment<ConversionViewModel, Conver
         JMessageClient.registerEventReceiver(this);
         mDataBinding = ((FragmentConversionBinding) getViewDataBinding());
         setToolbar();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         getViewModel().init();
     }
 
@@ -81,19 +83,5 @@ public class ConversionFragment extends BaseFragment<ConversionViewModel, Conver
         getViewModel().init();
     }
 
-    /**
-     * 点击通知消息的事件处理
-     * @param event 收到的点击通知消息事件
-     */
-    public void onEvent(NotificationClickEvent event) {
-        if (event == null) {
-            return;
-        }
-        String userName = event.getMessage().getFromUser().getUserName();
-        String displayName = event.getMessage().getFromUser().getDisplayName();
-        Intent intent = new Intent(getContext(), PublicActivity.class);
-        intent.putExtra("user_name", userName);
-        intent.putExtra("display_name", displayName);
-        PublicActivity.startActivity(getActivity(), "com.weapon.joker.app.message.single.SingleFragment", intent);
-    }
+
 }

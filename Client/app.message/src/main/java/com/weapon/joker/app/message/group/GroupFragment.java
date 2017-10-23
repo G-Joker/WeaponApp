@@ -1,6 +1,11 @@
 package com.weapon.joker.app.message.group;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.weapon.joker.app.message.BR;
@@ -9,6 +14,7 @@ import com.weapon.joker.app.message.databinding.FragmentGroupBinding;
 import com.weapon.joker.lib.middleware.utils.LogUtils;
 import com.weapon.joker.lib.mvvm.common.BaseFragment;
 
+import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.content.TextContent;
 import cn.jpush.im.android.api.event.MessageEvent;
 import cn.jpush.im.android.api.event.NotificationClickEvent;
@@ -37,6 +43,7 @@ public class GroupFragment extends BaseFragment<GroupViewModel, GroupModel> impl
 
     @Override
     public void initView() {
+        JMessageClient.registerEventReceiver(this);
         mDataBinding = ((FragmentGroupBinding) getViewDataBinding());
         setToolbar();
         getViewModel().init();
@@ -70,8 +77,35 @@ public class GroupFragment extends BaseFragment<GroupViewModel, GroupModel> impl
     }
 
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.menu_office_clear, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        new AlertDialog.Builder(getActivity()).setTitle("提示")
+                                              .setMessage("确认清空聊天记录？")
+                                              .setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                                                  @Override
+                                                  public void onClick(DialogInterface dialog, int which) {
+                                                      getViewModel().deleteAllMessage();
+                                                  }
+                                              })
+                                              .setNegativeButton("取消", null)
+                                              .show();
+        return true;
+    }
+
+    @Override
     public void refreshFinish(int refreshResult) {
         mDataBinding.pullRefreshLayout.refreshFinish(refreshResult);
+    }
+
+    @Override
+    public void onDestroy() {
+        JMessageClient.unRegisterEventReceiver(this);
+        super.onDestroy();
     }
 
     /**

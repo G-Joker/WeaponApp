@@ -23,7 +23,7 @@
             android:background="?colorPrimary"
             android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:title="小之"/>
+            app:title="WeaponApp官方交流群"/>
 
         <com.weapon.joker.lib.view.pullrefreshload.PullToRefreshLayout
             android:id="@+id/pull_refresh_layout"

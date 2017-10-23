@@ -137,7 +137,7 @@ public class MessageViewModel extends MessageContact.ViewModel {
         if (JMessageClient.getMyInfo() == null) {
             PublicActivity.startActivity((Activity) getContext(), "com.weapon.joker.app.mine.login.LoginRegisterFragment");
         } else {
-            PublicActivity.startActivity((Activity) getContext(), "com.weapon.joker.app.message.single.SingleFragment");
+            PublicActivity.startActivity((Activity) getContext(), "com.weapon.joker.app.message.conversion.ConversionFragment");
         }
     }
 

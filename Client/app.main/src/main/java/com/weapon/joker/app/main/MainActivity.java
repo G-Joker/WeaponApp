@@ -9,13 +9,16 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 
-import com.weapon.joker.lib.mvvm.common.BaseActivity;
 import com.weapon.joker.lib.middleware.PublicActivity;
+import com.weapon.joker.lib.mvvm.common.BaseActivity;
 
 import net.wequick.small.Small;
 
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.event.LoginStateChangeEvent;
+import cn.jpush.im.android.api.event.NotificationClickEvent;
+import cn.jpush.im.android.api.model.GroupInfo;
+import cn.jpush.im.android.api.model.Message;
 import cn.jpush.im.android.api.model.UserInfo;
 
 /**
@@ -141,6 +144,28 @@ public class MainActivity extends BaseActivity {
                                                                           "com.weapon.joker.app.mine.login" + ".LoginRegisterFragment");
                                          }
                                      }).show();
+    }
+
+    /**
+     * 点击通知消息的事件处理
+     * @param event 收到的点击通知消息事件
+     */
+    public void onEvent(NotificationClickEvent event) {
+        if (event == null) {
+            return;
+        }
+        Message message = event.getMessage();
+        Object targetInfo = message.getTargetInfo();
+        if (targetInfo instanceof UserInfo) {
+            String userName = message.getFromUser().getUserName();
+            String displayName = message.getFromUser().getDisplayName();
+            Intent intent = new Intent(this, PublicActivity.class);
+            intent.putExtra("user_name", userName);
+            intent.putExtra("display_name", displayName);
+            PublicActivity.startActivity(this, "com.weapon.joker.app.message.single.SingleFragment", intent);
+        } else if (targetInfo instanceof GroupInfo) {
+            PublicActivity.startActivity(this, "com.weapon.joker.app.message.group.GroupFragment");
+        }
     }
 
 }
