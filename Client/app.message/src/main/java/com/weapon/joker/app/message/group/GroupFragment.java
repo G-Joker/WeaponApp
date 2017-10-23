@@ -88,10 +88,11 @@ public class GroupFragment extends BaseFragment<GroupViewModel, GroupModel> impl
                 TextContent textContent = (TextContent) message.getContent();
                 String text = textContent.getText();
                 Object targetInfo = message.getTargetInfo();
+                String displayName = message.getFromUser().getDisplayName();
                 if (targetInfo instanceof GroupInfo) {
                     GroupInfo groupInfo = (GroupInfo) targetInfo;
                     if (groupInfo.getGroupID() == GROUP_ID) {
-                        getViewModel().receiveMessage(text);
+                        getViewModel().receiveMessage(text, displayName);
                     }
                 }
             default:

@@ -160,9 +160,9 @@ public class SingleViewModel extends SingleContact.ViewModel {
         @Override
         public void onItemBind(ItemBinding itemBinding, int position, MessageItemViewModel item) {
             if (item.type == MessageItemViewModel.MSG_SEND) {
-                itemBinding.set(BR.msgModel, R.layout.item_office_msg_send);
+                itemBinding.set(BR.msgModel, R.layout.item_single_msg_send);
             } else {
-                itemBinding.set(BR.msgModel, R.layout.item_office_msg_receiver);
+                itemBinding.set(BR.msgModel, R.layout.item_single_msg_receiver);
             }
         }
     };

@@ -24,7 +24,9 @@ import cn.jpush.im.android.api.content.MessageContent;
 import cn.jpush.im.android.api.content.TextContent;
 import cn.jpush.im.android.api.enums.MessageDirect;
 import cn.jpush.im.android.api.model.Conversation;
+import cn.jpush.im.android.api.model.GroupInfo;
 import cn.jpush.im.android.api.model.Message;
+import cn.jpush.im.android.api.model.UserInfo;
 import cn.jpush.im.api.BasicCallback;
 import me.tatarka.bindingcollectionadapter2.BindingRecyclerViewAdapter;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
@@ -78,12 +80,13 @@ public class GroupViewModel extends GroupContact.ViewModel {
         for (Message message : messagesFromNewest) {
             MessageDirect direct = message.getDirect();
             MessageContent content = message.getContent();
+            String displayName = message.getFromUser().getDisplayName();
             if (content instanceof TextContent) {
                 String text = ((TextContent) content).getText();
                 if (direct == MessageDirect.send) {
-                    addSendMessage(text);
+                    addSendMessage(text, displayName);
                 } else {
-                    addReceiverMessage(text);
+                    addReceiverMessage(text, displayName);
                 }
             } else {
                 EventNotificationContent notificationContent = (EventNotificationContent) content;
@@ -102,9 +105,10 @@ public class GroupViewModel extends GroupContact.ViewModel {
             @Override
             public void gotResult(int status, String desc) {
                 if (status == 0) {
-                    addSendMessage(sendContent);
+                    addSendMessage(sendContent, JMessageClient.getMyInfo().getDisplayName());
                     ++curCount;
                     setSendContent("");
+                    getView().scrollToPosition(items.size() - 1);
                 } else {
                     // 消息发送失败
                     Toast.makeText(getContext(), desc, Toast.LENGTH_SHORT).show();
@@ -119,10 +123,11 @@ public class GroupViewModel extends GroupContact.ViewModel {
      *
      * @param sendContent 发送的消息内容
      */
-    private void addSendMessage(String sendContent) {
+    private void addSendMessage(String sendContent, String displayName) {
         MessageItemViewModel sendMessage = new MessageItemViewModel();
         sendMessage.type = MessageItemViewModel.MSG_SEND;
         sendMessage.content = sendContent;
+        sendMessage.diaplayName = displayName;
         items.add(sendMessage);
     }
 
@@ -132,10 +137,11 @@ public class GroupViewModel extends GroupContact.ViewModel {
      * @param index       下标
      * @param sendContent 发送的消息内容
      */
-    private void addSendMessage(int index, String sendContent) {
+    private void addSendMessage(int index, String sendContent, String displayName) {
         MessageItemViewModel sendMessage = new MessageItemViewModel();
         sendMessage.type = MessageItemViewModel.MSG_SEND;
         sendMessage.content = sendContent;
+        sendMessage.diaplayName = displayName;
         items.add(index, sendMessage);
     }
 
@@ -144,10 +150,11 @@ public class GroupViewModel extends GroupContact.ViewModel {
      *
      * @param receiverContent 接收的消息内容
      */
-    private void addReceiverMessage(String receiverContent) {
+    private void addReceiverMessage(String receiverContent, String displayName) {
         MessageItemViewModel receiverMessage = new MessageItemViewModel();
         receiverMessage.type = MessageItemViewModel.MSG_RECEIVER;
         receiverMessage.content = receiverContent;
+        receiverMessage.diaplayName = displayName;
         items.add(receiverMessage);
     }
 
@@ -157,10 +164,11 @@ public class GroupViewModel extends GroupContact.ViewModel {
      * @param index           下标
      * @param receiverContent 接收的消息内容
      */
-    private void addReceiverMessage(int index, String receiverContent) {
+    private void addReceiverMessage(int index, String receiverContent, String displayName) {
         MessageItemViewModel receiverMessage = new MessageItemViewModel();
         receiverMessage.type = MessageItemViewModel.MSG_RECEIVER;
         receiverMessage.content = receiverContent;
+        receiverMessage.diaplayName = displayName;
         items.add(index, receiverMessage);
     }
 
@@ -169,8 +177,8 @@ public class GroupViewModel extends GroupContact.ViewModel {
      *
      * @param content 消息
      */
-    public void receiveMessage(String content) {
-        addReceiverMessage(content);
+    public void receiveMessage(String content, String displayName) {
+        addReceiverMessage(content, displayName);
         getView().scrollToPosition(items.size() - 1);
     }
 
@@ -189,12 +197,19 @@ public class GroupViewModel extends GroupContact.ViewModel {
                 for (Message message : messagesFromNewest) {
                     MessageDirect direct = message.getDirect();
                     MessageContent messageContent = message.getContent();
+                    Object targetInfo = message.getTargetInfo();
+                    String displayName = "";
+                    if (targetInfo instanceof UserInfo) {
+                        displayName = ((UserInfo) targetInfo).getDisplayName();
+                    } else if (targetInfo instanceof GroupInfo) {
+                        displayName = ((GroupInfo) targetInfo).getGroupName();
+                    }
                     if (messageContent instanceof TextContent) {
                         String text = ((TextContent) messageContent).getText();
                         if (direct == MessageDirect.send) {
-                            addSendMessage(0, text);
+                            addSendMessage(0, text, displayName);
                         } else {
-                            addReceiverMessage(0, text);
+                            addReceiverMessage(0, text, displayName);
                         }
                     } else if (messageContent instanceof EventNotificationContent) {
                         EventNotificationContent notificationContent = (EventNotificationContent) messageContent;
@@ -220,9 +235,9 @@ public class GroupViewModel extends GroupContact.ViewModel {
         @Override
         public void onItemBind(ItemBinding itemBinding, int position, MessageItemViewModel item) {
             if (item.type == MessageItemViewModel.MSG_SEND) {
-                itemBinding.set(BR.msgModel, R.layout.item_office_msg_send);
+                itemBinding.set(BR.msgModel, R.layout.item_group_msg_send);
             } else {
-                itemBinding.set(BR.msgModel, R.layout.item_office_msg_receiver);
+                itemBinding.set(BR.msgModel, R.layout.item_group_msg_receiver);
             }
         }
     };

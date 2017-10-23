@@ -81,21 +81,18 @@ public class ConversionItemViewModel extends BaseObservable {
         // 获取未读消息数量
         int unReadMsgCnt = conversation.getUnReadMsgCnt();
         Message latestMessage = conversation.getLatestMessage();
-        if (latestMessage == null) {
-            return;
-        }
-        Object targetInfo = latestMessage.getTargetInfo();
+        Object targetInfo = conversation.getTargetInfo();
         if (targetInfo instanceof UserInfo) {
             displayName = ((UserInfo) targetInfo).getDisplayName();
             userName = ((UserInfo) targetInfo).getUserName();
-            lastContent = ((TextContent) latestMessage.getContent()).getText();
+            lastContent = latestMessage == null ? "d" : ((TextContent) latestMessage.getContent()).getText();
         } else if (targetInfo instanceof GroupInfo) {
             GroupInfo groupInfo = (GroupInfo) targetInfo;
             displayName = groupInfo.getGroupName();
         }
 
         unReadNum = unReadMsgCnt;
-        lastTime = Util.getStrTime(latestMessage.getCreateTime(), "yyyy-MM-dd HH:mm");
+        lastTime = latestMessage == null ? "" : Util.getStrTime(latestMessage.getCreateTime(), "yyyy-MM-dd HH:mm");
         redVisible = unReadMsgCnt > 0;
 
     }
@@ -114,7 +111,7 @@ public class ConversionItemViewModel extends BaseObservable {
             PublicActivity.startActivity((Activity) mContext, "com.weapon.joker.app.message.group.GroupFragment", intent);
         } else {
             // 如果用户名不为空的时候，就跳转到单聊界面
-            PublicActivity.startActivity((Activity) mContext, "com.weapon.joker.app.message.office.SingleFragment", intent);
+            PublicActivity.startActivity((Activity) mContext, "com.weapon.joker.app.message.single.SingleFragment", intent);
         }
     }
 

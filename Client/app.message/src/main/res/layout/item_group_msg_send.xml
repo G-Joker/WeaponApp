@@ -22,25 +22,41 @@
             android:layout_height="40dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/ic_share_zone"
+            android:layout_marginRight="12dp"
+            android:background="@drawable/ic_share_qq"
             android:scaleType="centerCrop"
             app:url="@{msgModel.avatarUrl}"/>
 
-
         <TextView
+            android:id="@+id/tv_send_display_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:layout_toLeftOf="@id/iv_send_avatar"
+            android:layout_toRightOf="@id/iv_receiver_avatar"
+            android:text='@{msgModel.diaplayName, default="sjfajifjqea"}'
+            android:textColor="@color/material_text_color_black_secondary_text"/>
+
+        <com.weapon.joker.lib.view.bubble.BubbleTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_send_display_name"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@id/iv_send_avatar"
-            android:background="@drawable/ic_message_right"
-            android:gravity="center"
-            android:paddingLeft="20dp"
-            android:paddingRight="30dp"
+            android:padding="10dp"
             android:text='@{msgModel.content, default="dadafdafadfad"}'
             android:textColor="@color/material_text_color_black_secondary_text"
-            android:textSize="16sp"/>
+            android:textSize="16sp"
+            app:angle="8dp"
+            app:arrowCenter="false"
+            app:arrowHeight="10dp"
+            app:arrowLocation="right"
+            app:arrowPosition="10dp"
+            app:arrowWidth="8dp"
+            app:bubbleColor="#7EC0EE"/>
+
+
     </RelativeLayout>
 
 

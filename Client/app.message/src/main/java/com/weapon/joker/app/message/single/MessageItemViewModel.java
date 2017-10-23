@@ -38,4 +38,9 @@ public class MessageItemViewModel extends BaseObservable{
      */
     @Bindable
     public String avatarUrl;
+    /**
+     * 展示的名称
+     */
+    @Bindable
+    public String diaplayName;
 }

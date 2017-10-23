@@ -95,7 +95,7 @@ public class MainFragment extends BaseFragment<MessageViewModel, MessageModel> i
         Intent intent = new Intent(getContext(), PublicActivity.class);
         intent.putExtra("user_name", userName);
         intent.putExtra("display_name", displayName);
-        PublicActivity.startActivity(getActivity(), "com.weapon.joker.app.message.office.SingleFragment", intent);
+        PublicActivity.startActivity(getActivity(), "com.weapon.joker.app.message.single.SingleFragment", intent);
     }
 
     /**

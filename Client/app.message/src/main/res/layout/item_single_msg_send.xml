@@ -11,34 +11,40 @@
 
 
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="10dp"
         android:paddingTop="10dp">
 
         <ImageView
-            android:id="@+id/iv_receiver_avatar"
+            android:id="@+id/iv_send_avatar"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
-            android:background="@drawable/ic_share_zone"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/ic_share_qq"
             android:scaleType="centerCrop"
             app:url="@{msgModel.avatarUrl}"/>
 
-        <TextView
+        <com.weapon.joker.lib.view.bubble.BubbleTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="40dp"
-            android:paddingLeft="30dp"
-            android:paddingRight="20dp"
-            android:layout_toRightOf="@id/iv_receiver_avatar"
-            android:background="@drawable/ic_message_left"
-            android:gravity="center"
-            android:text='@{msgModel.content, default="dafadgdddadadadaddadadafadfdafdafadfadadgadgadgadgdage"}'
+            android:layout_marginLeft="40dp"
+            android:layout_toLeftOf="@id/iv_send_avatar"
+            android:padding="10dp"
+            android:text='@{msgModel.content, default="dadafdafadfad"}'
             android:textColor="@color/material_text_color_black_secondary_text"
-            android:textSize="16sp"/>
+            android:textSize="16sp"
+            app:angle="8dp"
+            app:arrowCenter="true"
+            app:arrowHeight="10dp"
+            app:arrowLocation="right"
+            app:arrowPosition="14dp"
+            app:arrowWidth="8dp"
+            app:bubbleColor="#7EC0EE"/>
+
+
     </RelativeLayout>
 
 
