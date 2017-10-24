@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
             name="conversionItemModel"
-            type="com.weapon.joker.app.message.conversion.ConversionItemViewModel" />
+            type="com.weapon.joker.app.message.conversion.ConversionItemViewModel"/>
     </data>
 
     <android.support.v7.widget.CardView
@@ -22,6 +22,7 @@
             android:background="@drawable/public_click_bg"
             android:clickable="true"
             android:onClick="@{conversionItemModel::onConversionItemClick}"
+            android:onLongClick="@{conversionItemModel::onConversionItemLongClick}"
             android:orientation="horizontal">
 
             <RelativeLayout
@@ -38,7 +39,7 @@
                     android:layout_marginLeft="15dp"
                     android:text='@{conversionItemModel.displayName, default="这是标题"}'
                     android:textColor="@color/material_text_color_black_text"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"/>
 
                 <TextView
                     android:id="@+id/tv_post_content"
@@ -48,7 +49,7 @@
                     android:layout_marginLeft="15dp"
                     android:text='@{conversionItemModel.lastContent, default="这是内容"}'
                     android:textColor="@color/material_text_color_black_secondary_text"
-                    android:textSize="16dp" />
+                    android:textSize="16dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -58,8 +59,8 @@
                     android:layout_marginRight="20dp"
                     android:layout_marginTop="4dp"
                     android:text='@{conversionItemModel.lastTime, default="2017-12-12"}'
-                    android:textColor= "@color/material_text_color_black_secondary_text"
-                    android:textSize="@dimen/public_sub_text_size" />
+                    android:textColor="@color/material_text_color_black_secondary_text"
+                    android:textSize="@dimen/public_sub_text_size"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -73,8 +74,8 @@
                     android:paddingRight="6dp"
                     android:text='@{conversionItemModel.unReadNum+"", default=12}'
                     android:textColor="#fff"
-                    app:visibility="@{conversionItemModel.redVisible}"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    app:visibility="@{conversionItemModel.redVisible}"/>
             </RelativeLayout>
 
 

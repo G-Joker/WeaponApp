@@ -36,16 +36,22 @@ public class ConversionViewModel extends ConversionContact.ViewModel {
                 String userName = ((UserInfo) conversation.getTargetInfo()).getUserName();
                 if (!TextUtils.equals(userName, myUserName)) {
                     // 如果收到的消息通知，是本人的话，就不添加到列表中
-                    ConversionItemViewModel model = new ConversionItemViewModel(getContext(), conversation);
+                    ConversionItemViewModel model = new ConversionItemViewModel(getContext(), conversation, mListener);
                     items.add(model);
                 }
             } else if (targetInfo instanceof GroupInfo) {
-                ConversionItemViewModel model = new ConversionItemViewModel(getContext(), conversation);
+                ConversionItemViewModel model = new ConversionItemViewModel(getContext(), conversation, mListener);
                 items.add(model);
             }
 
         }
     }
+    private ConversionItemViewModel.OnDeleteConversionListener mListener = new ConversionItemViewModel.OnDeleteConversionListener() {
+        @Override
+        public void onDeleteSuccess() {
+            init();
+        }
+    };
 
     public final ItemBinding<ConversionItemViewModel> singleItem = ItemBinding.of(BR.conversionItemModel, R.layout.item_message_conversion);
     public final ObservableList<ConversionItemViewModel> items = new ObservableArrayList<>();

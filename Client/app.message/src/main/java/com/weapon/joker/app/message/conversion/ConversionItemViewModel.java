@@ -6,12 +6,17 @@ import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.weapon.joker.app.message.BR;
-import com.weapon.joker.lib.middleware.utils.Util;
 import com.weapon.joker.lib.middleware.PublicActivity;
+import com.weapon.joker.lib.middleware.utils.Util;
+import com.weapon.joker.lib.view.CustomPopWindow;
 
+import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.content.TextContent;
 import cn.jpush.im.android.api.model.Conversation;
 import cn.jpush.im.android.api.model.GroupInfo;
@@ -75,9 +80,10 @@ public class ConversionItemViewModel extends BaseObservable {
         notifyPropertyChanged(BR.unReadNum);
     }
 
-    public ConversionItemViewModel(Context context, Conversation conversation) {
+    public ConversionItemViewModel(Context context, Conversation conversation, OnDeleteConversionListener listener) {
         mContext = context;
         mConversion = conversation;
+        mListener = listener;
         // 获取未读消息数量
         int unReadMsgCnt = conversation.getUnReadMsgCnt();
         Message latestMessage = conversation.getLatestMessage();
@@ -96,13 +102,16 @@ public class ConversionItemViewModel extends BaseObservable {
             }
 
         }
-
         unReadNum = unReadMsgCnt;
         lastTime = latestMessage == null ? "" : Util.getStrTime(latestMessage.getCreateTime(), "yyyy-MM-dd HH:mm");
         redVisible = unReadMsgCnt > 0;
     }
 
 
+    /**
+     * 点击最近聊天消息 item 的事件处理
+     * @param view
+     */
     public void onConversionItemClick(View view) {
         // 当点击进入聊天时，未读消息置为0
         mConversion.setUnReadMessageCnt(0);
@@ -118,6 +127,59 @@ public class ConversionItemViewModel extends BaseObservable {
             // 如果用户名不为空的时候，就跳转到单聊界面
             PublicActivity.startActivity((Activity) mContext, "com.weapon.joker.app.message.single.SingleFragment", intent);
         }
+    }
+
+
+    /**
+     * 长按最近消息列表事件处理
+     * @param view
+     * @return
+     */
+    public boolean onConversionItemLongClick(View view) {
+        Button button = new Button(view.getContext());
+        button.setText("删除此会话");
+        final CustomPopWindow popWindow = new CustomPopWindow.PopupWindowBuilder(view.getContext())
+                .setView(button)
+                .setFocusable(true)
+                .setOutsideTouchable(true)
+                .create();
+        popWindow.showAsDropDown(view, view.getHeight(), -view.getHeight()/2, Gravity.TOP);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (popWindow != null && popWindow.getPopupWindow().isShowing()) {
+                    popWindow.dissmiss();
+                }
+                deleteConversion();
+            }
+        });
+        return true;
+    }
+
+    /**
+     * 删除当前会话
+     */
+    private void deleteConversion() {
+        Object targetInfo = mConversion.getTargetInfo();
+        if (targetInfo instanceof UserInfo) {
+            UserInfo userInfo = (UserInfo) targetInfo;
+            JMessageClient.deleteSingleConversation(userInfo.getUserName());
+        } else if (targetInfo instanceof GroupInfo) {
+            GroupInfo groupInfo = (GroupInfo) targetInfo;
+            JMessageClient.deleteGroupConversation(groupInfo.getGroupID());
+        }
+        if (mListener != null) {
+            mListener.onDeleteSuccess();
+        }
+        Toast.makeText(mContext, "删除「" + displayName + "」会话成功!", Toast.LENGTH_SHORT).show();
+    }
+
+    private OnDeleteConversionListener mListener;
+    /**
+     * 删除当前会话成功后的回调接口
+     */
+    public interface OnDeleteConversionListener{
+        void onDeleteSuccess();
     }
 
 }
