@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.weapon.joker.app.message.BR;
 import com.weapon.joker.app.message.R;
@@ -43,6 +44,7 @@ public class GroupFragment extends BaseFragment<GroupViewModel, GroupModel> impl
 
     @Override
     public void initView() {
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         JMessageClient.registerEventReceiver(this);
         mDataBinding = ((FragmentGroupBinding) getViewDataBinding());
         setToolbar();
