@@ -3,6 +3,7 @@ package com.weapon.joker.app.message.single;
 import android.databinding.Bindable;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
+import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
@@ -19,10 +20,12 @@ import java.util.Collections;
 import java.util.List;
 
 import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.callback.GetAvatarBitmapCallback;
 import cn.jpush.im.android.api.content.TextContent;
 import cn.jpush.im.android.api.enums.MessageDirect;
 import cn.jpush.im.android.api.model.Conversation;
 import cn.jpush.im.android.api.model.Message;
+import cn.jpush.im.android.api.model.UserInfo;
 import cn.jpush.im.api.BasicCallback;
 import me.tatarka.bindingcollectionadapter2.BindingRecyclerViewAdapter;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
@@ -61,6 +64,14 @@ public class SingleViewModel extends SingleContact.ViewModel {
      * 当前消息的数量
      */
     private int curCount = 0;
+    /**
+     * 发送的头像
+     */
+    private Bitmap sendBitmap;
+    /**
+     * 接收的头像
+     */
+    private Bitmap receiverBitmap;
 
 
     public void setSendContent(String sendContent) {
@@ -77,6 +88,8 @@ public class SingleViewModel extends SingleContact.ViewModel {
         if (mConversation == null) {
             getView().finish();
         }
+        setAvatarBitmap();
+        // 获取本地所有的消息
         msgCount = mConversation.getAllMessage().size();
         List<Message> messagesFromNewest = mConversation.getMessagesFromNewest(curCount, LIM_COUNT);
         curCount = messagesFromNewest.size();
@@ -90,6 +103,28 @@ public class SingleViewModel extends SingleContact.ViewModel {
                 addReceiverMessage(text);
             }
         }
+    }
+
+    /**
+     * 设置头像 bitmap
+     */
+    private void setAvatarBitmap() {
+        JMessageClient.getMyInfo().getAvatarBitmap(new GetAvatarBitmapCallback() {
+            @Override
+            public void gotResult(int i, String s, Bitmap bitmap) {
+                if (i == 0) {
+                    sendBitmap = bitmap;
+                }
+            }
+        });
+        ((UserInfo) mConversation.getTargetInfo()).getAvatarBitmap(new GetAvatarBitmapCallback() {
+            @Override
+            public void gotResult(int i, String s, Bitmap bitmap) {
+                if (i == 0) {
+                    receiverBitmap = bitmap;
+                }
+            }
+        });
     }
 
     /**
@@ -175,6 +210,7 @@ public class SingleViewModel extends SingleContact.ViewModel {
         MessageItemViewModel sendMessage = new MessageItemViewModel();
         sendMessage.type = MessageItemViewModel.MSG_SEND;
         sendMessage.content = sendContent;
+        sendMessage.avatarBitmap = sendBitmap;
         items.add(sendMessage);
     }
 
@@ -187,6 +223,7 @@ public class SingleViewModel extends SingleContact.ViewModel {
         MessageItemViewModel sendMessage = new MessageItemViewModel();
         sendMessage.type = MessageItemViewModel.MSG_SEND;
         sendMessage.content = sendContent;
+        sendMessage.avatarBitmap = sendBitmap;
         items.add(index, sendMessage);
     }
 
@@ -198,6 +235,7 @@ public class SingleViewModel extends SingleContact.ViewModel {
         MessageItemViewModel receiverMessage = new MessageItemViewModel();
         receiverMessage.type = MessageItemViewModel.MSG_RECEIVER;
         receiverMessage.content = receiverContent;
+        receiverMessage.avatarBitmap = receiverBitmap;
         items.add(receiverMessage);
     }
 
@@ -210,6 +248,7 @@ public class SingleViewModel extends SingleContact.ViewModel {
         MessageItemViewModel receiverMessage = new MessageItemViewModel();
         receiverMessage.type = MessageItemViewModel.MSG_RECEIVER;
         receiverMessage.content = receiverContent;
+        receiverMessage.avatarBitmap = receiverBitmap;
         items.add(index, receiverMessage);
     }
 

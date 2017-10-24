@@ -2,6 +2,7 @@ package com.weapon.joker.app.message.single;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.graphics.Bitmap;
 
 /**
  * <pre>
@@ -37,7 +38,7 @@ public class MessageItemViewModel extends BaseObservable{
      * 头像地址
      */
     @Bindable
-    public String avatarUrl;
+    public Bitmap avatarBitmap;
     /**
      * 展示的名称
      */

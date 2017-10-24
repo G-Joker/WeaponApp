@@ -42,13 +42,17 @@
                         android:layout_height="match_parent"
                         android:background="@mipmap/bg_mine_login"/>
 
-                    <ImageView
+                    <com.weapon.joker.lib.view.roundimaegview.RoundedImageView
                         android:id="@+id/iv_person_avatar"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="60dp"
-                        android:background="@mipmap/ic_avatar_default"/>
+                        android:background="@mipmap/ic_avatar_default"
+                        android:onClick="@{personModel::onChangeAvatar}"
+                        app:bitmap="@{personModel.bitmap}"
+                        app:border_width="0dp"
+                        app:oval="true"/>
 
                     <TextView
                         android:layout_width="wrap_content"

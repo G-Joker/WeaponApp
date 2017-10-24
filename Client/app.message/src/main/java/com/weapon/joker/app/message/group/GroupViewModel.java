@@ -3,6 +3,7 @@ package com.weapon.joker.app.message.group;
 import android.databinding.Bindable;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
+import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
@@ -19,6 +20,7 @@ import java.util.Collections;
 import java.util.List;
 
 import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.callback.GetAvatarBitmapCallback;
 import cn.jpush.im.android.api.content.EventNotificationContent;
 import cn.jpush.im.android.api.content.MessageContent;
 import cn.jpush.im.android.api.content.TextContent;
@@ -62,6 +64,14 @@ public class GroupViewModel extends GroupContact.ViewModel {
      */
     @Bindable
     public String sendContent;
+    /**
+     * 发送方的头像
+     */
+    private Bitmap sendBitmap;
+    /**
+     * 接收方的头像
+     */
+    private Bitmap receiverBitmap;
 
     public void setSendContent(String sendContent) {
         this.sendContent = sendContent;
@@ -74,6 +84,15 @@ public class GroupViewModel extends GroupContact.ViewModel {
             getView().finish();
             return;
         }
+        // 设置发送方的头像
+        JMessageClient.getMyInfo().getAvatarBitmap(new GetAvatarBitmapCallback() {
+            @Override
+            public void gotResult(int i, String s, Bitmap bitmap) {
+                if (i == 0) {
+                    sendBitmap = bitmap;
+                }
+            }
+        });
         List<Message> messagesFromNewest = mConversation.getMessagesFromNewest(curCount, LIM_COUNT);
         curCount = messagesFromNewest.size();
         Collections.reverse(messagesFromNewest);
@@ -128,6 +147,7 @@ public class GroupViewModel extends GroupContact.ViewModel {
         sendMessage.type = MessageItemViewModel.MSG_SEND;
         sendMessage.content = sendContent;
         sendMessage.diaplayName = displayName;
+        sendMessage.avatarBitmap = sendBitmap;
         items.add(sendMessage);
     }
 
@@ -142,6 +162,7 @@ public class GroupViewModel extends GroupContact.ViewModel {
         sendMessage.type = MessageItemViewModel.MSG_SEND;
         sendMessage.content = sendContent;
         sendMessage.diaplayName = displayName;
+        sendMessage.avatarBitmap = sendBitmap;
         items.add(index, sendMessage);
     }
 

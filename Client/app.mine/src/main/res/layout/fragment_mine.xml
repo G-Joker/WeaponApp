@@ -40,14 +40,14 @@
 
                     <com.weapon.joker.lib.view.roundimaegview.RoundedImageView
                         android:id="@+id/iv_mine_avatar"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginStart="20dp"
-                        app:oval="true"
+                        android:background="@mipmap/ic_avatar_default"
+                        app:bitmap="@{model.bitmap}"
                         app:border_width="0.3dp"
-                        android:padding="10dp"
-                        android:src="@mipmap/ic_avatar_default"/>
+                        app:oval="true"/>
 
                     <TextView
                         android:id="@+id/tv_mine_login_info"

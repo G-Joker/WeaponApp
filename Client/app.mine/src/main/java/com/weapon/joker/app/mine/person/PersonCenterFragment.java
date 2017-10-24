@@ -1,12 +1,22 @@
 package com.weapon.joker.app.mine.person;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.weapon.joker.app.mine.BR;
 import com.weapon.joker.app.mine.R;
 import com.weapon.joker.app.mine.databinding.FragmentPersonCenterBinding;
+import com.weapon.joker.lib.middleware.utils.ImageUtil;
 import com.weapon.joker.lib.mvvm.common.BaseFragment;
+
+import java.io.File;
+
+import static android.app.Activity.RESULT_OK;
+import static com.weapon.joker.app.mine.person.PersonCenterViewModel.RESULT_ALBUM;
+import static com.weapon.joker.app.mine.person.PersonCenterViewModel.RESULT_PHOTO;
+import static com.weapon.joker.app.mine.person.PersonCenterViewModel.RESULT_ZOOM;
 
 /**
  * <pre>
@@ -36,7 +46,7 @@ public class PersonCenterFragment extends BaseFragment<PersonCenterViewModel, Pe
             finish();
         }
         setToolbar();
-        getViewModel().getUserInfo(getActivity().getIntent().getStringExtra(EXTRA_USER_NAME));
+        getViewModel().getUserInfo();
     }
 
     /**
@@ -57,5 +67,29 @@ public class PersonCenterFragment extends BaseFragment<PersonCenterViewModel, Pe
     @Override
     public int getBR() {
         return BR.personModel;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case RESULT_PHOTO:
+                    File temp = new File(PersonCenterViewModel.IMAGE_FILE_NAME);
+                    getViewModel().startPhotoZoom(Uri.fromFile(temp));
+                    break;
+                case RESULT_ALBUM:
+                    File temp1 = new File(ImageUtil.getPathFromKitKatAlbum(getActivity(), data.getData()));
+                    getViewModel().startPhotoZoom(Uri.fromFile(temp1));
+                    break;
+                case RESULT_ZOOM:
+                    if (data != null) {
+                        getViewModel().uploadAvatar(data);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

@@ -1,19 +1,34 @@
 package com.weapon.joker.app.mine.person;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.databinding.Bindable;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.weapon.joker.app.mine.BR;
+import com.weapon.joker.app.mine.R;
 import com.weapon.joker.lib.middleware.utils.AlerDialogFactory;
+import com.weapon.joker.lib.middleware.utils.ImageUtil;
+import com.weapon.joker.lib.middleware.utils.LogUtils;
 import com.weapon.joker.lib.middleware.utils.PreferencesUtils;
 import com.weapon.joker.lib.net.JMessageCallBack;
 
+import java.io.File;
+
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.callback.GetAvatarBitmapCallback;
 import cn.jpush.im.android.api.model.UserInfo;
 
 /**
@@ -28,6 +43,32 @@ import cn.jpush.im.android.api.model.UserInfo;
 
 public class PersonCenterViewModel extends PersonCenterContact.ViewModel {
 
+    /**
+     * 图片存储路径
+     */
+    public static final String IMAGE_PATH = Environment.getExternalStorageDirectory().getPath() + "/WeaponApp/image_cache";
+    /**
+     * 图片文件完整名称
+     */
+    public static final String IMAGE_FILE_NAME = IMAGE_PATH + "/avatar.jpg";
+    /**
+     * 图片存储路径 Uri
+     */
+    private static final String IMAGE_PATH_URI = "file://" + IMAGE_FILE_NAME;
+
+    /**
+     * 拍摄
+     */
+    public static final int RESULT_PHOTO = 999;
+    /**
+     * 本地相册
+     */
+    public static final int RESULT_ALBUM = 1001;
+    /**
+     * 照片裁剪
+     */
+    public static final int RESULT_ZOOM = 1002;
+
     @Bindable
     public String userName;
     /**
@@ -36,11 +77,15 @@ public class PersonCenterViewModel extends PersonCenterContact.ViewModel {
     @Bindable
     public String signature;
 
+    @Bindable
+    public Bitmap bitmap;
+
     /**
      * 当前用户信息
      */
     private UserInfo mUserInfo;
     private AlertDialog loadingDialog;
+    private BottomSheetDialog mChangeAvatarDialog;
 
     public void setUserName(String userName) {
         this.userName = userName;
@@ -50,6 +95,11 @@ public class PersonCenterViewModel extends PersonCenterContact.ViewModel {
     public void setSignature(String signature) {
         this.signature = signature;
         notifyPropertyChanged(BR.signature);
+    }
+
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
+        notifyPropertyChanged(BR.bitmap);
     }
 
     @Override
@@ -62,20 +112,9 @@ public class PersonCenterViewModel extends PersonCenterContact.ViewModel {
     /**
      * 获取用户信息
      */
-    public void getUserInfo(String userName) {
+    public void getUserInfo() {
         mUserInfo = JMessageClient.getMyInfo();
         getUserInfoSuccess(mUserInfo);
-//        JMessageClient.getUserInfo(userName, new GetUserInfoCallback() {
-//            @Override
-//            public void gotResult(int status, String desc, UserInfo userInfo) {
-//                if (status == 0) {
-//                    getUserInfoSuccess(userInfo);
-//                } else {
-//                    getUserInfoFailed(desc);
-//                }
-//            }
-//        });
-
     }
 
     /**
@@ -88,20 +127,22 @@ public class PersonCenterViewModel extends PersonCenterContact.ViewModel {
         setUserName(userInfo.getDisplayName());
         // 设置个性签名
         setSignature(TextUtils.isEmpty(userInfo.getSignature()) ? "暂无个性签名" : userInfo.getSignature());
+        // 设置图片
+        userInfo.getAvatarBitmap(new GetAvatarBitmapCallback() {
+            @Override
+            public void gotResult(int i, String s, Bitmap bitmap) {
+                if (i == 0) {
+                    setBitmap(bitmap);
+                } else {
+                    LogUtils.i("avatar", "获取图片失败" + s);
+                }
+            }
+        });
     }
-
-    /**
-     * 获取用户信息失败
-     *
-     * @param desc 失败描述
-     */
-    private void getUserInfoFailed(String desc) {
-        Toast.makeText(getContext(), desc, Toast.LENGTH_SHORT).show();
-    }
-
 
 
     /*===============================按钮点击事件的处理========================================*/
+
     /**
      * 注销登录点击处理
      *
@@ -181,6 +222,104 @@ public class PersonCenterViewModel extends PersonCenterContact.ViewModel {
                 });
             }
         }).show();
+    }
+
+    /**
+     * 更换头像点击事件处理
+     *
+     * @param view
+     */
+    public void onChangeAvatar(View view) {
+        mChangeAvatarDialog = new BottomSheetDialog(getContext());
+        View changeAvatarView = View.inflate(getContext(), R.layout.dialog_mine_change_avatar, null);
+        mChangeAvatarDialog.setContentView(changeAvatarView);
+        mChangeAvatarDialog.show();
+        TextView tvPhoto = changeAvatarView.findViewById(R.id.tv_mine_photo);
+        // 打开手机拍摄
+        tvPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismissAvatarDialog();
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                File dir = new File(IMAGE_PATH);
+                if (!dir.exists()) {
+                    dir.mkdirs();
+                }
+                // 指定调用相机拍照后照片的储存路径
+                Uri imageUri = Uri.parse(IMAGE_PATH_URI);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                ((AppCompatActivity) getContext()).startActivityForResult(intent, RESULT_PHOTO);
+            }
+        });
+        // 调用本地相册
+        TextView tvAlbum = changeAvatarView.findViewById(R.id.tv_mine_album);
+        tvAlbum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismissAvatarDialog();
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                ((AppCompatActivity) getContext()).startActivityForResult(intent, RESULT_ALBUM);
+            }
+        });
+    }
+
+    private void dismissAvatarDialog() {
+        if (mChangeAvatarDialog != null && mChangeAvatarDialog.isShowing()) {
+            mChangeAvatarDialog.dismiss();
+        }
+    }
+
+    /**
+     * 上传头像
+     */
+    public void uploadAvatar(Intent intent) {
+        Bundle extras = intent.getExtras();
+        if (extras != null) {
+            final Bitmap bmp = extras.getParcelable("data");
+            File file = ImageUtil.bitmapToFile(getContext(), bmp, mUserInfo.getUserName());
+            LogUtils.i("avatar", "upload:" + file.getName());
+            JMessageClient.updateUserAvatar(file, new JMessageCallBack() {
+                @Override
+                public void onSuccess() {
+                    Toast.makeText(getContext(), "更新头像成功", Toast.LENGTH_SHORT).show();
+                    setBitmap(bmp);
+                }
+
+                @Override
+                public void onFailed(int status, String desc) {
+                    Toast.makeText(getContext(), "更新头像失败：" + desc, Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
+    /**
+     * 对图片进行裁剪
+     *
+     * @param uri
+     */
+    public void startPhotoZoom(Uri uri) {
+        try {
+            Intent intent = new Intent("com.android.camera.action.CROP");
+            intent.setDataAndType(uri, "image/*");
+            // crop为true是设置在开启的intent中设置显示的view可以剪裁
+            intent.putExtra("crop", "true");
+
+            // aspectX aspectY 是宽高的比例
+            intent.putExtra("aspectX", 1);
+            intent.putExtra("aspectY", 1);
+
+            // outputX,outputY 是剪裁图片的宽高
+            intent.putExtra("outputX", 100);
+            intent.putExtra("outputY", 100);
+            intent.putExtra("return-data", true);
+            intent.putExtra("noFaceDetection", true);
+            ((AppCompatActivity) getContext()).startActivityForResult(intent, RESULT_ZOOM);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**

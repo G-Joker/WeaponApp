@@ -3,6 +3,7 @@ package com.weapon.joker.app.mine;
 import android.app.Activity;
 import android.content.Intent;
 import android.databinding.Bindable;
+import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.Toast;
 
@@ -12,11 +13,12 @@ import com.umeng.analytics.MobclickAgent;
 import com.weapon.joker.app.stub.share.IShareListener;
 import com.weapon.joker.app.stub.share.ShareParams;
 import com.weapon.joker.app.stub.share.ShareType;
+import com.weapon.joker.lib.middleware.PublicActivity;
 import com.weapon.joker.lib.middleware.utils.LogUtils;
 import com.weapon.joker.lib.middleware.utils.share.ShareView;
-import com.weapon.joker.lib.middleware.PublicActivity;
 
 import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.callback.GetAvatarBitmapCallback;
 import cn.jpush.im.android.api.model.UserInfo;
 
 /**
@@ -28,22 +30,40 @@ import cn.jpush.im.android.api.model.UserInfo;
  */
 public class MineViewModel extends MineContact.ViewModel implements IShareListener, IUiListener {
 
-    /** 分享 view */
+    /**
+     * 分享 view
+     */
     private ShareView mShareView;
-    /** 用户名 */
+    /**
+     * 用户名
+     */
     private String userName;
-    /** 是否登录 */
+    /**
+     * 是否登录
+     */
     private boolean hasLogin = false;
-    /** 用户信息 */
+    /**
+     * 用户信息
+     */
     private UserInfo mUserInfo;
+
+    /**
+     * 用户头像
+     */
+    @Bindable
+    public Bitmap bitmap;
+
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
+        notifyPropertyChanged(com.weapon.joker.app.mine.BR.bitmap);
+    }
 
     /**
      * 设置用户名
      * @param userName
-     */
-    public void setUserName(String userName) {
+     */ public void setUserName(String userName) {
         this.userName = userName;
-        notifyPropertyChanged(BR.userName);
+        notifyPropertyChanged(com.weapon.joker.app.mine.BR.userName);
     }
 
     @Bindable
@@ -53,11 +73,12 @@ public class MineViewModel extends MineContact.ViewModel implements IShareListen
 
     /**
      * 设置是否登录
+     *
      * @param hasLogin
      */
     public void setHasLogin(boolean hasLogin) {
         this.hasLogin = hasLogin;
-        notifyPropertyChanged(BR.hasLogin);
+        notifyPropertyChanged(com.weapon.joker.app.mine.BR.hasLogin);
     }
 
     @Bindable
@@ -74,10 +95,21 @@ public class MineViewModel extends MineContact.ViewModel implements IShareListen
             // 未登录
             setUserName("我的");
             setHasLogin(false);
+            setBitmap(null);
         } else {
             // 已经登录
             setUserName(mUserInfo.getDisplayName());
             setHasLogin(true);
+            mUserInfo.getAvatarBitmap(new GetAvatarBitmapCallback() {
+                @Override
+                public void gotResult(int i, String s, Bitmap bitmap) {
+                    if (i == 0) {
+                        setBitmap(bitmap);
+                    } else {
+                        LogUtils.i("avatar", "获取头像失败" + i + s);
+                    }
+                }
+            });
         }
     }
 

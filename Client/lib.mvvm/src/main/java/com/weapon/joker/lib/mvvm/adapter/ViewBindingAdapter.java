@@ -1,6 +1,7 @@
 package com.weapon.joker.lib.mvvm.adapter;
 
 import android.databinding.BindingAdapter;
+import android.graphics.Bitmap;
 import android.support.design.widget.AppBarLayout;
 import android.text.TextUtils;
 import android.view.View;
@@ -81,16 +82,31 @@ public final class ViewBindingAdapter {
         recyclerView.setCanRefresh(canRefresh);
     }
 
-    @BindingAdapter ("url")
-    public static void setImageViewUrl(ImageView imageView, String url) {
-        if (TextUtils.isEmpty(url)) {
-            return;
+    @BindingAdapter (value = {"url", "bitmap", "type"}, requireAll = false)
+    public static void setImageViewUrl(ImageView imageView, String url, Bitmap bitmap, int type) {
+        if (!TextUtils.isEmpty(url)) {
+            Glide.with(imageView.getContext())
+                 .load(url)
+                 .transition(new DrawableTransitionOptions().crossFade())
+                 .apply(new RequestOptions().placeholder(R.mipmap.round))
+                 .into(imageView);
         }
-        Glide.with(imageView.getContext())
-             .load(url)
-             .transition(new DrawableTransitionOptions().crossFade())
-             .apply(new RequestOptions().placeholder(R.mipmap.round))
-             .into(imageView);
+        if (bitmap != null) {
+            imageView.setImageBitmap(bitmap);
+        } else {
+            switch (type) {
+                case 1:
+                    imageView.setBackgroundResource(R.drawable.ic_single_default);
+                    break;
+                case 2:
+                    imageView.setBackgroundResource(R.drawable.ic_group_default);
+                    break;
+                default:
+                    imageView.setBackgroundResource(R.mipmap.ic_avatar_default);
+                    break;
+            }
+        }
+
     }
 
 }

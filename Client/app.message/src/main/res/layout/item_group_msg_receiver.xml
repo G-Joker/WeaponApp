@@ -16,7 +16,7 @@
         android:paddingBottom="10dp"
         android:paddingTop="10dp">
 
-        <ImageView
+        <com.weapon.joker.lib.view.roundimaegview.RoundedImageView
             android:id="@+id/iv_receiver_avatar"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -24,7 +24,9 @@
             android:layout_marginLeft="12dp"
             android:background="@drawable/ic_share_wechat"
             android:scaleType="centerCrop"
-            app:url="@{msgModel.avatarUrl}"/>
+            app:bitmap="@{msgModel.avatarBitmap}"
+            app:border_width="0dp"
+            app:oval="true"/>
 
         <TextView
             android:id="@+id/tv_receiver_display_name"
