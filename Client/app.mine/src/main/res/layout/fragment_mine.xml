@@ -99,9 +99,10 @@
                         android:layout_height="match_parent"
                         android:background="?attr/colorPrimary"
                         android:gravity="center"
-                        android:text='@{model.userName}'
-                        android:textColor="@color/material_text_color_white_text"
-                        android:textSize="@dimen/public_main_text_size"/>
+                        android:text='@{model.userName, default="Weapon"}'
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:textStyle="bold"/>
                 </android.support.v7.widget.Toolbar>
 
 

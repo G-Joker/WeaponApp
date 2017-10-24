@@ -49,7 +49,7 @@ public class MessageViewModel extends MessageContact.ViewModel {
      * 官方消息内容
      */
     @Bindable
-    public String serviceContent = "暂无官方消息";
+    public String serviceContent = "暂无最新消息";
 
     public void setPostNum(int postNum) {
         this.postNum = postNum;
@@ -132,7 +132,7 @@ public class MessageViewModel extends MessageContact.ViewModel {
         // 重置官方消息提醒数量
         setOfficeNum(0);
         setServiceRedVisible(View.GONE);
-        setServiceContent("暂无官方消息");
+        setServiceContent("暂无最新消息");
         // 如果未登录跳转到登录界面
         if (JMessageClient.getMyInfo() == null) {
             PublicActivity.startActivity((Activity) getContext(), "com.weapon.joker.app.mine.login.LoginRegisterFragment");

@@ -28,7 +28,7 @@ import cn.jpush.im.android.api.model.UserInfo;
 /**
  * <pre>
  *     author : xiaweizi
- *     class  : com.weapon.joker.app.message.office.SingleFragment
+ *     class  : com.weapon.joker.app.message.single.SingleFragment
  *     e-mail : 1012126908@qq.com
  *     time   : 2017/10/18
  *     desc   : 官方消息界面

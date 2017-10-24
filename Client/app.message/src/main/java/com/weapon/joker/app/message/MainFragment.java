@@ -1,5 +1,13 @@
 package com.weapon.joker.app.message;
 
+import android.app.Activity;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+
+import com.weapon.joker.app.message.databinding.FragmentMessageBinding;
+import com.weapon.joker.lib.middleware.PublicActivity;
 import com.weapon.joker.lib.mvvm.common.BaseFragment;
 import com.weapon.joker.lib.net.event.PushNewsEvent;
 
@@ -22,6 +30,8 @@ import cn.jpush.im.android.eventbus.EventBus;
 
 public class MainFragment extends BaseFragment<MessageViewModel, MessageModel> implements MessageContact.View {
 
+    private FragmentMessageBinding mDataBinding;
+
     @Override
     public int getLayoutId() {
         return R.layout.fragment_message;
@@ -29,7 +39,9 @@ public class MainFragment extends BaseFragment<MessageViewModel, MessageModel> i
 
     @Override
     public void initView() {
+        mDataBinding = ((FragmentMessageBinding) getViewDataBinding());
         getViewModel().getPostNews();
+        setToolbar();
     }
 
     @Override
@@ -37,10 +49,13 @@ public class MainFragment extends BaseFragment<MessageViewModel, MessageModel> i
         return com.weapon.joker.app.message.BR.messageModel;
     }
 
-    public void onEvent(PushNewsEvent event) {
-        if (event != null && isAdded() && getViewModel() != null) {
-            getViewModel().getPostNews();
-        }
+    /**
+     * Toolbar 相关设置
+     */
+    private void setToolbar() {
+        ((AppCompatActivity) getActivity()).setSupportActionBar(mDataBinding.toolbar);
+        // 设置是否有菜单个功能
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -70,6 +85,40 @@ public class MainFragment extends BaseFragment<MessageViewModel, MessageModel> i
         super.onDestroy();
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.menu_message, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.item_office_service:
+                // 官方客服
+                PublicActivity.startActivity((Activity) getContext(), "com.weapon.joker.app.message.single.SingleFragment");
+                break;
+            case R.id.item_office_group:
+                // 官方群
+                PublicActivity.startActivity((Activity) getContext(), "com.weapon.joker.app.message.group.GroupFragment");
+                break;
+            default:
+                break;
+        }
+        return true;
+    }
+
+    /**
+     * 当接收到推送会发送 {@link PushNewsEvent}
+     * @param event 收到推送的事件
+     */
+    public void onEvent(PushNewsEvent event) {
+        if (event != null && isAdded() && getViewModel() != null) {
+            getViewModel().getPostNews();
+        }
+    }
+
+
     /**
      * 接收消息事件
      * 目前只支持文字消息，后面再进行优化
@@ -82,8 +131,8 @@ public class MainFragment extends BaseFragment<MessageViewModel, MessageModel> i
 
 
     /**
-     类似MessageEvent事件的接收，上层在需要的地方增加OfflineMessageEvent事件的接收
-     即可实现离线消息的接收。
+     * 类似MessageEvent事件的接收，上层在需要的地方增加OfflineMessageEvent事件的接收
+     * 即可实现离线消息的接收。
      **/
     public void onEventMainThread(OfflineMessageEvent event) {
         //获取事件发生的会话对象
