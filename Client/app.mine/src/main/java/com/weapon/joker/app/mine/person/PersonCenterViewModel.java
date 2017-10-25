@@ -1,5 +1,6 @@
 package com.weapon.joker.app.mine.person;
 
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.Bindable;
@@ -13,6 +14,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,9 +24,11 @@ import com.weapon.joker.lib.middleware.utils.AlerDialogFactory;
 import com.weapon.joker.lib.middleware.utils.ImageUtil;
 import com.weapon.joker.lib.middleware.utils.LogUtils;
 import com.weapon.joker.lib.middleware.utils.PreferencesUtils;
+import com.weapon.joker.lib.middleware.utils.Util;
 import com.weapon.joker.lib.net.JMessageCallBack;
 
 import java.io.File;
+import java.util.Calendar;
 
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.im.android.api.JMessageClient;
@@ -79,6 +83,16 @@ public class PersonCenterViewModel extends PersonCenterContact.ViewModel {
 
     @Bindable
     public Bitmap bitmap;
+    /**
+     * 生日
+     */
+    @Bindable
+    public String birthday;
+    /**
+     * 性别
+     */
+    @Bindable
+    public String gender;
 
     /**
      * 当前用户信息
@@ -108,6 +122,16 @@ public class PersonCenterViewModel extends PersonCenterContact.ViewModel {
         notifyPropertyChanged(BR.bitmap);
     }
 
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+        notifyPropertyChanged(BR.birthday);
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+        notifyPropertyChanged(BR.gender);
+    }
+
     @Override
     public void attachView(PersonCenterContact.View view) {
         super.attachView(view);
@@ -133,7 +157,11 @@ public class PersonCenterViewModel extends PersonCenterContact.ViewModel {
         setUserName(userInfo.getDisplayName());
         // 设置个性签名
         setSignature(TextUtils.isEmpty(userInfo.getSignature()) ? "暂无个性签名" : userInfo.getSignature());
-        // 设置图片
+        // 设置生日
+        setBirthday(Util.getStrTime(userInfo.getBirthday(), "yyyy-MM-dd"));
+        // 设置性别
+        setGender(getGender(userInfo.getGender()));
+        // 设置头像
         userInfo.getAvatarBitmap(new GetAvatarBitmapCallback() {
             @Override
             public void gotResult(int i, String s, Bitmap bitmap) {
@@ -172,7 +200,7 @@ public class PersonCenterViewModel extends PersonCenterContact.ViewModel {
      *
      * @param view
      */
-    public void updateUserName(View view) {
+    public void onUpdateUserNameClick(View view) {
         AlerDialogFactory.createOneEditDialog(getContext(), "更新昵称", new AlerDialogFactory.OnOneEditDialogConfirmListener() {
             @Override
             public void onOneEditDialogConfirm(final String etContent) {
@@ -203,7 +231,7 @@ public class PersonCenterViewModel extends PersonCenterContact.ViewModel {
      *
      * @param view
      */
-    public void updateSignature(View view) {
+    public void onUpdateSignatureClick(View view) {
         AlerDialogFactory.createOneEditDialog(getContext(), "更新个性签名", new AlerDialogFactory.OnOneEditDialogConfirmListener() {
             @Override
             public void onOneEditDialogConfirm(final String etContent) {
@@ -230,11 +258,63 @@ public class PersonCenterViewModel extends PersonCenterContact.ViewModel {
     }
 
     /**
+     * 点击更新生日事件处理
+     * @param view
+     */
+    public void onUpdateBirthDayClick(View view) {
+        DatePickerDialog datePickerDialog =
+                new DatePickerDialog(getContext(),
+                                     new DatePickerDialog.OnDateSetListener() {
+                                         @Override
+                                         public void onDateSet(
+                                                 DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                             // 获取DatePicker设置的数据
+                                             StringBuilder sb = new StringBuilder();
+                                             sb.append(year).append("-").append(monthOfYear + 1).append("-").append(dayOfMonth);
+                                             long time = Util.getTime(sb.toString(), "yyyy-MM-dd");
+                                             long curTime = System.currentTimeMillis();
+                                             // 设置日期不能超过当前日期
+                                             if (time < curTime) {
+                                                 mUserInfo.setBirthday(time);
+                                                 updateBirthDay(sb.toString());
+                                             } else {
+                                                 Toast.makeText(getContext(), "日期不能大于当前日期", Toast.LENGTH_SHORT).show();
+                                             }
+                                         }
+                                     },
+                                     Calendar.getInstance().get(Calendar.YEAR),
+                                     Calendar.getInstance().get(Calendar.MONTH),
+                                     Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+        datePickerDialog.show();
+
+    }
+
+    /**
+     * 更新服务器中的生日
+     */
+    private void updateBirthDay(final String time) {
+        JMessageClient.updateMyInfo(UserInfo.Field.birthday, mUserInfo, new JMessageCallBack() {
+            @Override
+            public void onSuccess() {
+                setBirthday(time);
+                dismissDialog();
+                Toast.makeText(getContext(), "更新生日成功", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(int status, String desc) {
+                Toast.makeText(getContext(), desc, Toast.LENGTH_SHORT).show();
+                dismissDialog();
+            }
+        });
+    }
+
+    /**
      * 更换头像点击事件处理
      *
      * @param view
      */
-    public void onChangeAvatar(View view) {
+    public void onChangeAvatarClick(View view) {
         mChangeAvatarDialog = new BottomSheetDialog(getContext());
         View changeAvatarView = View.inflate(getContext(), R.layout.dialog_mine_change_avatar, null);
         mChangeAvatarDialog.setContentView(changeAvatarView);
@@ -268,6 +348,48 @@ public class PersonCenterViewModel extends PersonCenterContact.ViewModel {
                 ((AppCompatActivity) getContext()).startActivityForResult(intent, RESULT_ALBUM);
             }
         });
+    }
+
+    /**
+     * 更新性别点击事件的处理
+     * @param view
+     */
+    public void onUpdateGenderClick(View view) {
+        AlerDialogFactory.createThreeRadioDialog(getContext(), "更新性别", new AlerDialogFactory.OnGenderChooseListener() {
+            @Override
+            public void onGenderChoose(final UserInfo.Gender gender) {
+                mUserInfo.setGender(gender);
+                JMessageClient.updateMyInfo(UserInfo.Field.gender, mUserInfo, new JMessageCallBack() {
+                    @Override
+                    public void onSuccess() {
+                        dismissDialog();
+                        setGender(getGender(gender));
+                        Toast.makeText(getContext(), "更新性别成功", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailed(int status, String desc) {
+                        Toast.makeText(getContext(), desc, Toast.LENGTH_SHORT).show();
+                        dismissDialog();
+                    }
+                });
+            }
+        }).show();
+    }
+
+    /**
+     * 根据 {@link cn.jpush.im.android.api.model.UserInfo.Gender} 获取字符串 性别
+     * @param gender
+     * @return
+     */
+    private String getGender(UserInfo.Gender gender) {
+        if (UserInfo.Gender.female == gender) {
+            return "女";
+        } else if (UserInfo.Gender.male == gender) {
+            return "男";
+        } else {
+            return "未知";
+        }
     }
 
     private void dismissAvatarDialog() {

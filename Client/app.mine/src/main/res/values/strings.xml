@@ -18,5 +18,7 @@
     <string name="person_logout">注销登录</string>
     <string name="person_nickname">昵称:  </string>
     <string name="person_signature">个性签名:  </string>
+    <string name="person_birthday">生日:  </string>
+    <string name="person_gender">性别:  </string>
 
 </resources>

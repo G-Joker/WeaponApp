@@ -14,6 +14,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.net.URL;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -108,7 +109,23 @@ public class Util {
         SimpleDateFormat sdf = new SimpleDateFormat(style);
         re_StrTime = sdf.format(new Date(time));
         return re_StrTime;
+    }
 
+    /**
+     * 将时间格式转换成时间戳
+     * @param date
+     * @param style
+     * @return
+     */
+    public static long getTime(String date, String style) {
+        long time = 0;
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat(style);
+            time = sdf.parse(date).getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return time;
     }
 
     /**
@@ -142,8 +159,7 @@ public class Util {
         if (nowYear == receiveYear) {
             Calendar today = Calendar.getInstance();
             //获取今天过的毫秒数
-            long todayMs = 1000 * (today.get(Calendar.HOUR_OF_DAY) * 3600
-                                   + today.get(Calendar.MINUTE) * 60 + today.get(Calendar.SECOND));
+            long todayMs = 1000 * (today.get(Calendar.HOUR_OF_DAY) * 3600 + today.get(Calendar.MINUTE) * 60 + today.get(Calendar.SECOND));
             //获取从1970到此刻的毫秒数
             long todayMsTotal = today.getTimeInMillis();
 

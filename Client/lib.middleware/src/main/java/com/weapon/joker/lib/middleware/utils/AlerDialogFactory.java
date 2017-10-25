@@ -7,10 +7,13 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.weapon.joker.lib.middleware.R;
+
+import cn.jpush.im.android.api.model.UserInfo;
 
 /**
  * <pre>
@@ -23,6 +26,7 @@ import com.weapon.joker.lib.middleware.R;
  */
 
 public class AlerDialogFactory {
+
 
     private AlerDialogFactory() {
         throw new AssertionError();
@@ -54,11 +58,12 @@ public class AlerDialogFactory {
     public static AlertDialog createOneEditDialog(final Context context, String title, final OnOneEditDialogConfirmListener listener) {
         View view = View.inflate(context, R.layout.dialog_one_edit, null);
         final EditText etCotent = view.findViewById(R.id.et_content);
-        final AlertDialog alertDialog = new AlertDialog.Builder(context).setView(view)
-                                                                        .setPositiveButton("确认", null)
-                                                                        .setNegativeButton("取消", null)
-                                                                        .setTitle(title)
-                                                                        .create();
+        final AlertDialog alertDialog =
+                new AlertDialog.Builder(context).setView(view)
+                                                .setPositiveButton("确认", null)
+                                                .setNegativeButton("取消", null)
+                                                .setTitle(title)
+                                                .create();
         alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
@@ -88,9 +93,58 @@ public class AlerDialogFactory {
     }
 
     /**
+     * 创建设置系性别 的dialog
+     * @param context
+     * @param title
+     * @return
+     */
+    public static AlertDialog createThreeRadioDialog(final Context context, String title, final OnGenderChooseListener listener) {
+        final View view = View.inflate(context, R.layout.dialog_three_radio, null);
+        RadioGroup rgDialog = view.findViewById(R.id.rg_dialog);
+        final StringBuilder sb = new StringBuilder();
+        rgDialog.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                sb.delete(0, sb.length());
+                sb.append(((RadioButton) view.findViewById(checkedId)).getText());
+            }
+        });
+        AlertDialog alertDialog =
+                new AlertDialog.Builder(context)
+                        .setView(view)
+                        .setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                String gender = sb.toString();
+                                if (listener != null) {
+                                    if (TextUtils.equals(gender, "男")) {
+                                        listener.onGenderChoose(UserInfo.Gender.male);
+                                    } else if (TextUtils.equals(gender, "女")) {
+                                        listener.onGenderChoose(UserInfo.Gender.female);
+                                    } else {
+                                        listener.onGenderChoose(UserInfo.Gender.unknown);
+                                    }
+                                }
+                            }
+                        })
+                        .setNegativeButton("取消", null)
+                        .setTitle(title)
+                        .create();
+
+        return alertDialog;
+    }
+
+    /**
      * 一个编辑框点击确认事件回调
      */
     public interface OnOneEditDialogConfirmListener {
         void onOneEditDialogConfirm(String etContent);
+    }
+
+    /**
+     * 选择性别点击确认事件回调
+     */
+    public interface OnGenderChooseListener {
+        void onGenderChoose(UserInfo.Gender gender);
     }
 }

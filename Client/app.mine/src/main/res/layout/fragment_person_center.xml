@@ -49,7 +49,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="60dp"
                         android:background="@mipmap/ic_avatar_default"
-                        android:onClick="@{personModel::onChangeAvatar}"
+                        android:onClick="@{personModel::onChangeAvatarClick}"
                         app:bitmap="@{personModel.bitmap}"
                         app:border_width="0dp"
                         app:oval="true"/>
@@ -61,7 +61,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="15dp"
                         android:clickable="true"
-                        android:onClick="@{personModel::updateUserName}"
+                        android:onClick="@{personModel::onUpdateUserNameClick}"
                         android:text="@{personModel.userName}"
                         android:textColor="@color/material_text_color_black_secondary_text"
                         android:textSize="26sp"/>
@@ -104,7 +104,7 @@
 
                     <TextView
                         style="@style/MineStyle"
-                        android:onClick="@{personModel::updateUserName}"
+                        android:onClick="@{personModel::onUpdateUserNameClick}"
                         android:text='@{@string/person_nickname + personModel.userName}'/>
 
                     <View
@@ -116,7 +116,7 @@
                     <TextView
                         style="@style/MineStyle"
                         android:layout_height="wrap_content"
-                        android:onClick="@{personModel::updateSignature}"
+                        android:onClick="@{personModel::onUpdateSignatureClick}"
                         android:paddingBottom="@dimen/public_text_padding"
                         android:paddingTop="@dimen/public_text_padding"
                         android:text='@{@string/person_signature + personModel.signature, default="dfafa"}'/>
@@ -129,14 +129,30 @@
 
                     <TextView
                         style="@style/MineStyle"
-                        android:onClick="@{personModel::onLogoutClick}"
-                        android:text="@string/person_logout"/>
+                        android:onClick="@{personModel::onUpdateBirthDayClick}"
+                        android:text='@{@string/person_birthday + personModel.birthday, default="dfafa"}'/>
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="0.5dp"
                         android:layout_marginLeft="@dimen/public_text_padding"
                         android:background="@color/material_text_color_black_divider"/>
+
+                    <TextView
+                        style="@style/MineStyle"
+                        android:onClick="@{personModel::onUpdateGenderClick}"
+                        android:text='@{@string/person_gender + personModel.gender, default=""}'/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginLeft="@dimen/public_text_padding"
+                        android:background="@color/material_text_color_black_divider"/>
+
+                    <TextView
+                        style="@style/MineStyle"
+                        android:onClick="@{personModel::onLogoutClick}"
+                        android:text="@string/person_logout"/>
 
 
                 </LinearLayout>
