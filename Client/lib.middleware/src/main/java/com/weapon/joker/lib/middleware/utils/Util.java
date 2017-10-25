@@ -15,6 +15,7 @@ import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -108,5 +109,64 @@ public class Util {
         re_StrTime = sdf.format(new Date(time));
         return re_StrTime;
 
+    }
+
+    /**
+     * 消息界面时间展示
+     * 今年 {
+     * 今天，则显示时分
+     * 昨天，显示昨天
+     * 前天，显示前天
+     * 更早，显示月-日
+     * } 往年 {
+     * 显示 年/月/日
+     * }
+     * orz
+     *
+     * @return 返回时间
+     */
+    public static String getTimeForShow(long receiveTime) {
+        String strDate = "";
+        //今年
+        Calendar now = Calendar.getInstance();
+        int nowYear = now.get(Calendar.YEAR);
+
+        //传进来的日期的年份
+        now.setTimeInMillis(receiveTime);
+        Date receiveDate = now.getTime();
+        int receiveYear = now.get(Calendar.YEAR);
+
+        /**
+         * 判断是否是同一年
+         */
+        if (nowYear == receiveYear) {
+            Calendar today = Calendar.getInstance();
+            //获取今天过的毫秒数
+            long todayMs = 1000 * (today.get(Calendar.HOUR_OF_DAY) * 3600
+                                   + today.get(Calendar.MINUTE) * 60 + today.get(Calendar.SECOND));
+            //获取从1970到此刻的毫秒数
+            long todayMsTotal = today.getTimeInMillis();
+
+            if (todayMsTotal - receiveTime < todayMs) {
+                //今天，使用 时:分
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+                strDate = sdf.format(receiveDate);
+            } else if (todayMsTotal - receiveTime < (todayMs + 24 * 3600 * 1000)) {
+                //昨天
+                strDate = "昨天";
+            } else if (todayMsTotal - receiveTime < (todayMs + 24 * 3600 * 1000 * 2)) {
+                //前天
+                strDate = "前天";
+            } else {
+                //今年的更早，使用月-日
+                SimpleDateFormat sdf = new SimpleDateFormat("MM-dd");
+                strDate = sdf.format(receiveDate);
+            }
+        } else {
+            //往年，使用年-月-日
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            strDate = sdf.format(receiveDate);
+        }
+        return strDate;
     }
 }

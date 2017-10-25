@@ -84,7 +84,13 @@ public class PersonCenterViewModel extends PersonCenterContact.ViewModel {
      * 当前用户信息
      */
     private UserInfo mUserInfo;
+    /**
+     * 正在加载对话框
+     */
     private AlertDialog loadingDialog;
+    /**
+     * 更改头像 dialog
+     */
     private BottomSheetDialog mChangeAvatarDialog;
 
     public void setUserName(String userName) {
@@ -159,7 +165,6 @@ public class PersonCenterViewModel extends PersonCenterContact.ViewModel {
                                              })
                                              .setNegativeButton("取消", null)
                                              .show();
-
     }
 
     /**
@@ -277,6 +282,9 @@ public class PersonCenterViewModel extends PersonCenterContact.ViewModel {
     public void uploadAvatar(Intent intent) {
         Bundle extras = intent.getExtras();
         if (extras != null) {
+            if (!loadingDialog.isShowing()) {
+                loadingDialog.show();
+            }
             final Bitmap bmp = extras.getParcelable("data");
             File file = ImageUtil.bitmapToFile(getContext(), bmp, mUserInfo.getUserName());
             LogUtils.i("avatar", "upload:" + file.getName());
@@ -285,11 +293,13 @@ public class PersonCenterViewModel extends PersonCenterContact.ViewModel {
                 public void onSuccess() {
                     Toast.makeText(getContext(), "更新头像成功", Toast.LENGTH_SHORT).show();
                     setBitmap(bmp);
+                    dismissDialog();
                 }
 
                 @Override
                 public void onFailed(int status, String desc) {
                     Toast.makeText(getContext(), "更新头像失败：" + desc, Toast.LENGTH_SHORT).show();
+                    dismissDialog();
                 }
             });
         }

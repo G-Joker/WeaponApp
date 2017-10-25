@@ -97,7 +97,7 @@
                         android:layout_alignLeft="@id/tv_announcement_title"
                         android:layout_below="@id/tv_announcement_title"
                         android:layout_marginRight="12dp"
-                        android:maxLines="2"
+                        android:maxLines="1"
                         android:text="@{messageModel.postContent}"
                         android:textColor="@color/material_text_color_black_secondary_text"
                         android:textSize="@dimen/public_sub_text_size"/>

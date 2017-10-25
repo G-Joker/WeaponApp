@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
@@ -13,10 +14,12 @@ import android.widget.Toast;
 
 import com.weapon.joker.app.message.BR;
 import com.weapon.joker.lib.middleware.PublicActivity;
+import com.weapon.joker.lib.middleware.utils.LogUtils;
 import com.weapon.joker.lib.middleware.utils.Util;
 import com.weapon.joker.lib.view.CustomPopWindow;
 
 import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.callback.GetAvatarBitmapCallback;
 import cn.jpush.im.android.api.content.TextContent;
 import cn.jpush.im.android.api.model.Conversation;
 import cn.jpush.im.android.api.model.GroupInfo;
@@ -35,6 +38,14 @@ import cn.jpush.im.android.api.model.UserInfo;
 
 public class ConversionItemViewModel extends BaseObservable {
 
+    /**
+     * 单聊类型
+     */
+    private static final int TYPE_SINGLE = 1;
+    /**
+     * 群聊类型
+     */
+    private static final int TYPE_GROUP = 2;
     /**
      * 显示的 name
      */
@@ -66,6 +77,18 @@ public class ConversionItemViewModel extends BaseObservable {
      */
     @Bindable
     public boolean redVisible = false;
+    /**
+     * 头像
+     */
+    @Bindable
+    public Bitmap avatarBitmap;
+    /**
+     * 图片的类型
+     * {@link #TYPE_SINGLE}
+     * {@link #TYPE_GROUP}
+     */
+    @Bindable
+    public int type;
 
     private Context mContext;
     private Conversation mConversion;
@@ -80,6 +103,16 @@ public class ConversionItemViewModel extends BaseObservable {
         notifyPropertyChanged(BR.unReadNum);
     }
 
+    public void setAvatarBitmap(Bitmap avatarBitmap) {
+        this.avatarBitmap = avatarBitmap;
+        notifyPropertyChanged(BR.avatarBitmap);
+    }
+
+    public void setType(int type) {
+        this.type = type;
+        notifyPropertyChanged(BR.type);
+    }
+
     public ConversionItemViewModel(Context context, Conversation conversation, OnDeleteConversionListener listener) {
         mContext = context;
         mConversion = conversation;
@@ -89,27 +122,47 @@ public class ConversionItemViewModel extends BaseObservable {
         Message latestMessage = conversation.getLatestMessage();
         Object targetInfo = conversation.getTargetInfo();
         if (targetInfo instanceof UserInfo) {
-            displayName = ((UserInfo) targetInfo).getDisplayName();
-            userName = ((UserInfo) targetInfo).getUserName();
+            UserInfo userInfo = (UserInfo) targetInfo;
+            displayName = userInfo.getDisplayName();
+            userName = userInfo.getUserName();
             lastContent = latestMessage == null ? "d" : ((TextContent) latestMessage.getContent()).getText();
+            setType(TYPE_SINGLE);
+            userInfo.getAvatarBitmap(new GetAvatarBitmapCallback() {
+                @Override
+                public void gotResult(int i, String s, Bitmap bitmap) {
+                    if (i == 0) {
+                        setAvatarBitmap(bitmap);
+                    }
+                }
+            });
         } else if (targetInfo instanceof GroupInfo) {
             GroupInfo groupInfo = (GroupInfo) targetInfo;
             displayName = groupInfo.getGroupName();
+            setType(TYPE_GROUP);
             if (latestMessage != null && latestMessage.getContent() instanceof TextContent) {
                 String name = latestMessage.getFromUser().getDisplayName();
                 String content = ((TextContent) latestMessage.getContent()).getText();
                 lastContent = name + ": " + content;
             }
-
+            groupInfo.getAvatarBitmap(new GetAvatarBitmapCallback() {
+                @Override
+                public void gotResult(int i, String s, Bitmap bitmap) {
+                    if (i == 0) {
+                        LogUtils.i("avatar", "获取群头像成功");
+                        setAvatarBitmap(bitmap);
+                    }
+                }
+            });
         }
         unReadNum = unReadMsgCnt;
-        lastTime = latestMessage == null ? "" : Util.getStrTime(latestMessage.getCreateTime(), "yyyy-MM-dd HH:mm");
+        lastTime = latestMessage == null ? "" : Util.getTimeForShow(latestMessage.getCreateTime());
         redVisible = unReadMsgCnt > 0;
     }
 
 
     /**
      * 点击最近聊天消息 item 的事件处理
+     *
      * @param view
      */
     public void onConversionItemClick(View view) {
@@ -132,18 +185,18 @@ public class ConversionItemViewModel extends BaseObservable {
 
     /**
      * 长按最近消息列表事件处理
+     *
      * @param view
      * @return
      */
     public boolean onConversionItemLongClick(View view) {
         Button button = new Button(view.getContext());
         button.setText("删除此会话");
-        final CustomPopWindow popWindow = new CustomPopWindow.PopupWindowBuilder(view.getContext())
-                .setView(button)
-                .setFocusable(true)
-                .setOutsideTouchable(true)
-                .create();
-        popWindow.showAsDropDown(view, view.getHeight(), -view.getHeight()/2, Gravity.TOP);
+        final CustomPopWindow popWindow = new CustomPopWindow.PopupWindowBuilder(view.getContext()).setView(button)
+                                                                                                   .setFocusable(true)
+                                                                                                   .setOutsideTouchable(true)
+                                                                                                   .create();
+        popWindow.showAsDropDown(view, view.getHeight(), -view.getHeight() / 2, Gravity.TOP);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -175,10 +228,11 @@ public class ConversionItemViewModel extends BaseObservable {
     }
 
     private OnDeleteConversionListener mListener;
+
     /**
      * 删除当前会话成功后的回调接口
      */
-    public interface OnDeleteConversionListener{
+    public interface OnDeleteConversionListener {
         void onDeleteSuccess();
     }
 
