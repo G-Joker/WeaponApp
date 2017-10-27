@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
@@ -14,12 +13,12 @@ import android.widget.Toast;
 
 import com.weapon.joker.app.message.BR;
 import com.weapon.joker.lib.middleware.PublicActivity;
-import com.weapon.joker.lib.middleware.utils.LogUtils;
 import com.weapon.joker.lib.middleware.utils.Util;
 import com.weapon.joker.lib.view.CustomPopWindow;
 
+import java.io.File;
+
 import cn.jpush.im.android.api.JMessageClient;
-import cn.jpush.im.android.api.callback.GetAvatarBitmapCallback;
 import cn.jpush.im.android.api.content.TextContent;
 import cn.jpush.im.android.api.model.Conversation;
 import cn.jpush.im.android.api.model.GroupInfo;
@@ -81,7 +80,7 @@ public class ConversionItemViewModel extends BaseObservable {
      * 头像
      */
     @Bindable
-    public Bitmap avatarBitmap;
+    public File avatarFile;
     /**
      * 图片的类型
      * {@link #TYPE_SINGLE}
@@ -103,9 +102,9 @@ public class ConversionItemViewModel extends BaseObservable {
         notifyPropertyChanged(BR.unReadNum);
     }
 
-    public void setAvatarBitmap(Bitmap avatarBitmap) {
-        this.avatarBitmap = avatarBitmap;
-        notifyPropertyChanged(BR.avatarBitmap);
+    public void setAvatarFile(File avatarFile) {
+        this.avatarFile = avatarFile;
+        notifyPropertyChanged(BR.avatarFile);
     }
 
     public void setType(int type) {
@@ -127,14 +126,7 @@ public class ConversionItemViewModel extends BaseObservable {
             userName = userInfo.getUserName();
             lastContent = latestMessage == null ? "d" : ((TextContent) latestMessage.getContent()).getText();
             setType(TYPE_SINGLE);
-            userInfo.getAvatarBitmap(new GetAvatarBitmapCallback() {
-                @Override
-                public void gotResult(int i, String s, Bitmap bitmap) {
-                    if (i == 0) {
-                        setAvatarBitmap(bitmap);
-                    }
-                }
-            });
+            setAvatarFile(userInfo.getAvatarFile());
         } else if (targetInfo instanceof GroupInfo) {
             GroupInfo groupInfo = (GroupInfo) targetInfo;
             displayName = groupInfo.getGroupName();
@@ -144,15 +136,7 @@ public class ConversionItemViewModel extends BaseObservable {
                 String content = ((TextContent) latestMessage.getContent()).getText();
                 lastContent = name + ": " + content;
             }
-            groupInfo.getAvatarBitmap(new GetAvatarBitmapCallback() {
-                @Override
-                public void gotResult(int i, String s, Bitmap bitmap) {
-                    if (i == 0) {
-                        LogUtils.i("avatar", "获取群头像成功");
-                        setAvatarBitmap(bitmap);
-                    }
-                }
-            });
+            setAvatarFile(groupInfo.getAvatarFile());
         }
         unReadNum = unReadMsgCnt;
         lastTime = latestMessage == null ? "" : Util.getTimeForShow(latestMessage.getCreateTime());

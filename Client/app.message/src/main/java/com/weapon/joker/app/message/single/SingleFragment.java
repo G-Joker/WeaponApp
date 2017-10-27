@@ -19,7 +19,6 @@ import com.weapon.joker.lib.middleware.utils.LogUtils;
 import com.weapon.joker.lib.mvvm.common.BaseFragment;
 
 import cn.jpush.im.android.api.JMessageClient;
-import cn.jpush.im.android.api.content.TextContent;
 import cn.jpush.im.android.api.event.MessageEvent;
 import cn.jpush.im.android.api.event.NotificationClickEvent;
 import cn.jpush.im.android.api.model.Message;
@@ -70,6 +69,7 @@ public class SingleFragment extends BaseFragment<SingleViewModel, SingleModel> i
         }
         setToolbar();
         getViewModel().init(mUserName);
+        mDataBinding.recyclerView.setItemAnimator(null);
     }
 
     /**
@@ -153,12 +153,10 @@ public class SingleFragment extends BaseFragment<SingleViewModel, SingleModel> i
         switch (message.getContentType()) {
             case text:
                 // 处理文字消息
-                TextContent textContent = (TextContent) message.getContent();
-                String text = textContent.getText();
                 String userName = ((UserInfo) message.getTargetInfo()).getUserName();
                 if (TextUtils.equals(userName, mUserName)) {
                     // 当收到的消息是官方消息才进行更新UI
-                    getViewModel().receiveMessage(text);
+                    getViewModel().receiveMessage(message);
                 }
             default:
                 LogUtils.i("office", message.getFromType());

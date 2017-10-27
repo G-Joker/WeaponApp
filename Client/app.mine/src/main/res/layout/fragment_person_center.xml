@@ -50,7 +50,7 @@
                         android:layout_marginTop="60dp"
                         android:background="@mipmap/ic_avatar_default"
                         android:onClick="@{personModel::onChangeAvatarClick}"
-                        app:bitmap="@{personModel.bitmap}"
+                        app:file="@{personModel.avatarFile}"
                         app:border_width="0dp"
                         app:oval="true"/>
 

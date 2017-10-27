@@ -8,7 +8,7 @@ import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
 import com.weapon.joker.app.mine.R;
-import com.weapon.joker.lib.middleware.utils.AlerDialogFactory;
+import com.weapon.joker.lib.middleware.utils.AlertDialogFactory;
 import com.weapon.joker.lib.middleware.PublicActivity;
 import com.weapon.joker.lib.net.JMessageCallBack;
 
@@ -76,7 +76,7 @@ public class LoginRegisterViewModel extends LoginRegisterContact.ViewModel {
     @Override
     void requestLogin(String userName, String password) {
         if (mLoadingDialog == null) {
-            mLoadingDialog = AlerDialogFactory.createLoadingDialog(getContext(), "正在登录");
+            mLoadingDialog = AlertDialogFactory.createLoadingDialog(getContext(), "正在登录");
         }
         mLoadingDialog.show();
         // 使用 JMessage 提供的登录接口

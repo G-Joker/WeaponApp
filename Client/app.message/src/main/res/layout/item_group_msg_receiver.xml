@@ -22,11 +22,11 @@
             android:layout_height="40dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="12dp"
-            android:background="@drawable/ic_share_wechat"
             android:scaleType="centerCrop"
-            app:bitmap="@{msgModel.avatarBitmap}"
             app:border_width="0dp"
-            app:oval="true"/>
+            app:file="@{msgModel.avatarFile}"
+            app:oval="true"
+            app:type="@{1}"/>
 
         <TextView
             android:id="@+id/tv_receiver_display_name"
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_toRightOf="@id/iv_receiver_avatar"
-            android:text='@{msgModel.diaplayName, default="sjfajifjqea"}'
+            android:text='@{msgModel.displayName, default="sjfajifjqea"}'
             android:textColor="@color/material_text_color_black_secondary_text"/>
 
         <com.weapon.joker.lib.view.bubble.BubbleTextView

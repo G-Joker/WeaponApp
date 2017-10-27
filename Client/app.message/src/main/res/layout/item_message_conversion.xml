@@ -33,8 +33,7 @@
                 android:layout_height="50dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="12dp"
-                android:background="@drawable/ic_single_default"
-                app:bitmap="@{conversionItemModel.avatarBitmap}"
+                app:file="@{conversionItemModel.avatarFile}"
                 app:type="@{conversionItemModel.type}"
                 app:border_width="0dp"
                 app:oval="true"/>

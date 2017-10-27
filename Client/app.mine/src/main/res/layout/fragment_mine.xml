@@ -45,8 +45,8 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginStart="20dp"
                         android:background="@mipmap/ic_avatar_default"
-                        app:bitmap="@{model.bitmap}"
                         app:border_width="0.3dp"
+                        app:file="@{model.avatarFile}"
                         app:oval="true"/>
 
                     <TextView

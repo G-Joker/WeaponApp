@@ -17,8 +17,9 @@ import com.weapon.joker.lib.middleware.PublicActivity;
 import com.weapon.joker.lib.middleware.utils.LogUtils;
 import com.weapon.joker.lib.middleware.utils.share.ShareView;
 
+import java.io.File;
+
 import cn.jpush.im.android.api.JMessageClient;
-import cn.jpush.im.android.api.callback.GetAvatarBitmapCallback;
 import cn.jpush.im.android.api.model.UserInfo;
 
 /**
@@ -46,16 +47,15 @@ public class MineViewModel extends MineContact.ViewModel implements IShareListen
      * 用户信息
      */
     private UserInfo mUserInfo;
-
     /**
      * 用户头像
      */
     @Bindable
-    public Bitmap bitmap;
+    public File avatarFile;
 
-    public void setBitmap(Bitmap bitmap) {
-        this.bitmap = bitmap;
-        notifyPropertyChanged(com.weapon.joker.app.mine.BR.bitmap);
+    public void setAvatarFile(File avatarFile) {
+        this.avatarFile = avatarFile;
+        notifyPropertyChanged(com.weapon.joker.app.mine.BR.avatarFile);
     }
 
     /**
@@ -95,21 +95,12 @@ public class MineViewModel extends MineContact.ViewModel implements IShareListen
             // 未登录
             setUserName("我的");
             setHasLogin(false);
-            setBitmap(null);
+            setAvatarFile(null);
         } else {
             // 已经登录
             setUserName(mUserInfo.getDisplayName());
             setHasLogin(true);
-            mUserInfo.getAvatarBitmap(new GetAvatarBitmapCallback() {
-                @Override
-                public void gotResult(int i, String s, Bitmap bitmap) {
-                    if (i == 0) {
-                        setBitmap(bitmap);
-                    } else {
-                        LogUtils.i("avatar", "获取头像失败" + i + s);
-                    }
-                }
-            });
+            setAvatarFile(mUserInfo.getAvatarFile());
         }
     }
 

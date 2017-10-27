@@ -18,17 +18,17 @@ import cn.jpush.im.android.api.model.UserInfo;
 /**
  * <pre>
  *     author : xiaweizi
- *     class  : com.weapon.joker.lib.middleware.utils.AlerDialogFactory
+ *     class  : com.weapon.joker.lib.middleware.utils.AlertDialogFactory
  *     e-mail : 1012126908@qq.com
  *     time   : 2017/10/19
  *     desc   :
  * </pre>
  */
 
-public class AlerDialogFactory {
+public class AlertDialogFactory {
 
 
-    private AlerDialogFactory() {
+    private AlertDialogFactory() {
         throw new AssertionError();
     }
 
@@ -42,7 +42,9 @@ public class AlerDialogFactory {
      */
     public static AlertDialog createLoadingDialog(Context context, String desc) {
         View view = View.inflate(context, R.layout.dialog_loading, null);
-        return new AlertDialog.Builder(context).setView(view).setTitle(desc).create();
+        AlertDialog alertDialog = new AlertDialog.Builder(context).setView(view).setTitle(desc).create();
+        alertDialog.setCanceledOnTouchOutside(false);
+        return alertDialog;
     }
 
 
@@ -102,6 +104,7 @@ public class AlerDialogFactory {
         final View view = View.inflate(context, R.layout.dialog_three_radio, null);
         RadioGroup rgDialog = view.findViewById(R.id.rg_dialog);
         final StringBuilder sb = new StringBuilder();
+        sb.append("男");
         rgDialog.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {

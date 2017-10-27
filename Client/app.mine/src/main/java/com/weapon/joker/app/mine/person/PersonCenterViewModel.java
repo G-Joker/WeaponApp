@@ -20,7 +20,7 @@ import android.widget.Toast;
 
 import com.weapon.joker.app.mine.BR;
 import com.weapon.joker.app.mine.R;
-import com.weapon.joker.lib.middleware.utils.AlerDialogFactory;
+import com.weapon.joker.lib.middleware.utils.AlertDialogFactory;
 import com.weapon.joker.lib.middleware.utils.ImageUtil;
 import com.weapon.joker.lib.middleware.utils.LogUtils;
 import com.weapon.joker.lib.middleware.utils.PreferencesUtils;
@@ -32,7 +32,6 @@ import java.util.Calendar;
 
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.im.android.api.JMessageClient;
-import cn.jpush.im.android.api.callback.GetAvatarBitmapCallback;
 import cn.jpush.im.android.api.model.UserInfo;
 
 /**
@@ -83,6 +82,8 @@ public class PersonCenterViewModel extends PersonCenterContact.ViewModel {
 
     @Bindable
     public Bitmap bitmap;
+    @Bindable
+    public File avatarFile;
     /**
      * 生日
      */
@@ -132,11 +133,15 @@ public class PersonCenterViewModel extends PersonCenterContact.ViewModel {
         notifyPropertyChanged(BR.gender);
     }
 
+    public void setAvatarFile(File avatarFile) {
+        this.avatarFile = avatarFile;
+        notifyPropertyChanged(BR.avatarFile);
+    }
+
     @Override
     public void attachView(PersonCenterContact.View view) {
         super.attachView(view);
-        loadingDialog = AlerDialogFactory.createLoadingDialog(getContext(), "正在更新...");
-        loadingDialog.setCancelable(false);
+        loadingDialog = AlertDialogFactory.createLoadingDialog(getContext(), "正在更新...");
     }
 
     /**
@@ -162,16 +167,7 @@ public class PersonCenterViewModel extends PersonCenterContact.ViewModel {
         // 设置性别
         setGender(getGender(userInfo.getGender()));
         // 设置头像
-        userInfo.getAvatarBitmap(new GetAvatarBitmapCallback() {
-            @Override
-            public void gotResult(int i, String s, Bitmap bitmap) {
-                if (i == 0) {
-                    setBitmap(bitmap);
-                } else {
-                    LogUtils.i("avatar", "获取图片失败" + s);
-                }
-            }
-        });
+        setAvatarFile(userInfo.getAvatarFile());
     }
 
 
@@ -201,7 +197,7 @@ public class PersonCenterViewModel extends PersonCenterContact.ViewModel {
      * @param view
      */
     public void onUpdateUserNameClick(View view) {
-        AlerDialogFactory.createOneEditDialog(getContext(), "更新昵称", new AlerDialogFactory.OnOneEditDialogConfirmListener() {
+        AlertDialogFactory.createOneEditDialog(getContext(), "更新昵称", new AlertDialogFactory.OnOneEditDialogConfirmListener() {
             @Override
             public void onOneEditDialogConfirm(final String etContent) {
                 if (!loadingDialog.isShowing()) {
@@ -232,7 +228,7 @@ public class PersonCenterViewModel extends PersonCenterContact.ViewModel {
      * @param view
      */
     public void onUpdateSignatureClick(View view) {
-        AlerDialogFactory.createOneEditDialog(getContext(), "更新个性签名", new AlerDialogFactory.OnOneEditDialogConfirmListener() {
+        AlertDialogFactory.createOneEditDialog(getContext(), "更新个性签名", new AlertDialogFactory.OnOneEditDialogConfirmListener() {
             @Override
             public void onOneEditDialogConfirm(final String etContent) {
                 if (!loadingDialog.isShowing()) {
@@ -293,6 +289,9 @@ public class PersonCenterViewModel extends PersonCenterContact.ViewModel {
      * 更新服务器中的生日
      */
     private void updateBirthDay(final String time) {
+        if (!loadingDialog.isShowing()) {
+            loadingDialog.show();
+        }
         JMessageClient.updateMyInfo(UserInfo.Field.birthday, mUserInfo, new JMessageCallBack() {
             @Override
             public void onSuccess() {
@@ -355,9 +354,12 @@ public class PersonCenterViewModel extends PersonCenterContact.ViewModel {
      * @param view
      */
     public void onUpdateGenderClick(View view) {
-        AlerDialogFactory.createThreeRadioDialog(getContext(), "更新性别", new AlerDialogFactory.OnGenderChooseListener() {
+        AlertDialogFactory.createThreeRadioDialog(getContext(), "更新性别", new AlertDialogFactory.OnGenderChooseListener() {
             @Override
             public void onGenderChoose(final UserInfo.Gender gender) {
+                if (!loadingDialog.isShowing()) {
+                    loadingDialog.show();
+                }
                 mUserInfo.setGender(gender);
                 JMessageClient.updateMyInfo(UserInfo.Field.gender, mUserInfo, new JMessageCallBack() {
                     @Override
@@ -408,13 +410,13 @@ public class PersonCenterViewModel extends PersonCenterContact.ViewModel {
                 loadingDialog.show();
             }
             final Bitmap bmp = extras.getParcelable("data");
-            File file = ImageUtil.bitmapToFile(getContext(), bmp, mUserInfo.getUserName());
+            final File file = ImageUtil.bitmapToFile(getContext(), bmp, mUserInfo.getUserName());
             LogUtils.i("avatar", "upload:" + file.getName());
             JMessageClient.updateUserAvatar(file, new JMessageCallBack() {
                 @Override
                 public void onSuccess() {
                     Toast.makeText(getContext(), "更新头像成功", Toast.LENGTH_SHORT).show();
-                    setBitmap(bmp);
+                    setAvatarFile(file);
                     dismissDialog();
                 }
 

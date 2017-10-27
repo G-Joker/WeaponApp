@@ -23,16 +23,18 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
             android:scaleType="centerCrop"
-            app:bitmap="@{msgModel.avatarBitmap}"
             app:border_width="0dp"
-            app:oval="true"/>
+            app:file="@{msgModel.avatarFile}"
+            app:oval="true"
+            app:type="@{1}"/>
 
         <com.weapon.joker.lib.view.bubble.BubbleTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="40dp"
             android:layout_toRightOf="@id/iv_receiver_avatar"
             android:padding="10dp"
-            android:layout_marginRight="40dp"
             android:text='@{msgModel.content, default="dafadgdddadadadaddadadafadfdafdafadfadadgadgadgadgdage"}'
             android:textColor="@color/material_text_color_black_secondary_text"
             android:textSize="16sp"

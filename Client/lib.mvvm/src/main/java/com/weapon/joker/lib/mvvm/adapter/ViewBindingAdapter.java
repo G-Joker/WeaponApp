@@ -1,7 +1,6 @@
 package com.weapon.joker.lib.mvvm.adapter;
 
 import android.databinding.BindingAdapter;
-import android.graphics.Bitmap;
 import android.support.design.widget.AppBarLayout;
 import android.text.TextUtils;
 import android.view.View;
@@ -12,8 +11,11 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.weapon.joker.lib.mvvm.R;
 import com.weapon.joker.lib.mvvm.command.ReplyCommand;
+import com.weapon.joker.lib.mvvm.transform.GlideCircleTransform;
 import com.weapon.joker.lib.view.pullrefreshload.PullToRefreshLayout;
 import com.weapon.joker.lib.view.pullrefreshload.PullToRefreshRecyclerView;
+
+import java.io.File;
 
 /**
  * ViewBindingAdapter 放置一些公用的 @BindingAdapter
@@ -82,8 +84,19 @@ public final class ViewBindingAdapter {
         recyclerView.setCanRefresh(canRefresh);
     }
 
-    @BindingAdapter (value = {"url", "bitmap", "type"}, requireAll = false)
-    public static void setImageViewUrl(ImageView imageView, String url, Bitmap bitmap, int type) {
+    /**
+     * 给 ImageView 设置图片
+     *
+     * @param imageView 需要被设置的 ImageView
+     * @param url       图片的 url
+     * @param file      图片的文件
+     * @param type      图片的类型
+     *                  1 - 单聊默认头像
+     *                  2 - 群聊默认头像
+     *                  3 - 其他默认头像
+     */
+    @BindingAdapter (value = {"url", "file", "type"}, requireAll = false)
+    public static void setImageViewUrl(ImageView imageView, String url, File file, int type) {
         if (!TextUtils.isEmpty(url)) {
             Glide.with(imageView.getContext())
                  .load(url)
@@ -91,21 +104,24 @@ public final class ViewBindingAdapter {
                  .apply(new RequestOptions().placeholder(R.mipmap.round))
                  .into(imageView);
         }
-        if (bitmap != null) {
-            imageView.setImageBitmap(bitmap);
-        } else {
-            switch (type) {
-                case 1:
-                    imageView.setBackgroundResource(R.drawable.ic_single_default);
-                    break;
-                case 2:
-                    imageView.setBackgroundResource(R.drawable.ic_group_default);
-                    break;
-                default:
-                    imageView.setBackgroundResource(R.mipmap.ic_avatar_default);
-                    break;
-            }
+
+        RequestOptions requestOptions = new RequestOptions().transform(new GlideCircleTransform());
+        switch (type) {
+            case 1:
+                requestOptions.placeholder(R.drawable.ic_single_default);
+                break;
+            case 2:
+                requestOptions.placeholder(R.drawable.ic_group_default);
+                break;
+            default:
+                requestOptions.placeholder(R.mipmap.ic_avatar_default);
+                break;
         }
+        Glide.with(imageView.getContext())
+             .load(file)
+             .transition(new DrawableTransitionOptions().crossFade())
+             .apply(requestOptions)
+             .into(imageView);
 
     }
 

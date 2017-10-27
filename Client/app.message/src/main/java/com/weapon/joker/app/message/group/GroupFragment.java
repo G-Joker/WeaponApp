@@ -16,7 +16,6 @@ import com.weapon.joker.lib.middleware.utils.LogUtils;
 import com.weapon.joker.lib.mvvm.common.BaseFragment;
 
 import cn.jpush.im.android.api.JMessageClient;
-import cn.jpush.im.android.api.content.TextContent;
 import cn.jpush.im.android.api.event.MessageEvent;
 import cn.jpush.im.android.api.event.NotificationClickEvent;
 import cn.jpush.im.android.api.model.GroupInfo;
@@ -121,14 +120,11 @@ public class GroupFragment extends BaseFragment<GroupViewModel, GroupModel> impl
         switch (message.getContentType()) {
             case text:
                 // 处理文字消息
-                TextContent textContent = (TextContent) message.getContent();
-                String text = textContent.getText();
                 Object targetInfo = message.getTargetInfo();
-                String displayName = message.getFromUser().getDisplayName();
                 if (targetInfo instanceof GroupInfo) {
                     GroupInfo groupInfo = (GroupInfo) targetInfo;
                     if (groupInfo.getGroupID() == GROUP_ID) {
-                        getViewModel().receiveMessage(text, displayName);
+                        getViewModel().receiveMessage(message);
                     }
                 }
             default:
