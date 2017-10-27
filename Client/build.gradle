@@ -56,3 +56,10 @@ task checkstyle(type: Checkstyle) {
     configFile = new File(rootDir, "google_checks.xml")
     classpath = files()
 }
+
+task cleanBuild(type: Delete){
+    delete buildDir
+    delete "$rootDir/build-small"
+    delete "$rootDir/app/smallLibs"
+
+}
