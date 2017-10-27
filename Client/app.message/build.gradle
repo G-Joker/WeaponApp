@@ -4,7 +4,7 @@ android {
     defaultConfig {
         applicationId "com.weapon.joker.app.message"
         minSdkVersion 21
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
 
