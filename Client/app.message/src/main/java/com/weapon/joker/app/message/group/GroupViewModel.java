@@ -25,6 +25,7 @@ import cn.jpush.im.android.api.content.TextContent;
 import cn.jpush.im.android.api.enums.MessageDirect;
 import cn.jpush.im.android.api.model.Conversation;
 import cn.jpush.im.android.api.model.Message;
+import cn.jpush.im.android.api.model.UserInfo;
 import cn.jpush.im.api.BasicCallback;
 import me.tatarka.bindingcollectionadapter2.BindingRecyclerViewAdapter;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
@@ -135,6 +136,7 @@ public class GroupViewModel extends GroupContact.ViewModel {
             sendMessage.content = content;
             sendMessage.displayName = sendMsg.getFromUser().getDisplayName();
             sendMessage.avatarFile = sendFile;
+            sendMessage.userName = ((UserInfo) sendMsg.getTargetInfo()).getUserName();
             items.add(sendMessage);
         }
     }
@@ -150,6 +152,7 @@ public class GroupViewModel extends GroupContact.ViewModel {
             sendMessage.content = content;
             sendMessage.avatarFile = sendFile;
             sendMessage.displayName = sendMsg.getFromUser().getDisplayName();
+            sendMessage.userName = ((UserInfo) sendMsg.getTargetInfo()).getUserName();
             List<MessageItemViewModel> temp = new ObservableArrayList<>();
             temp.add(sendMessage);
             temp.addAll(items);
@@ -171,6 +174,7 @@ public class GroupViewModel extends GroupContact.ViewModel {
             receiverMessage.content = content;
             receiverMessage.avatarFile = receiverMsg.getFromUser().getAvatarFile();
             receiverMessage.displayName = receiverMsg.getFromUser().getDisplayName();
+            receiverMessage.userName = ((UserInfo) receiverMsg.getTargetInfo()).getUserName();
             items.add(receiverMessage);
         }
     }
@@ -186,6 +190,7 @@ public class GroupViewModel extends GroupContact.ViewModel {
             receiverMessage.content = content;
             receiverMessage.avatarFile = receiverMsg.getFromUser().getAvatarFile();
             receiverMessage.displayName = receiverMsg.getFromUser().getDisplayName();
+            receiverMessage.userName = ((UserInfo) receiverMsg.getTargetInfo()).getUserName();
             List<MessageItemViewModel> temp = new ObservableArrayList<>();
             temp.add(receiverMessage);
             temp.addAll(items);

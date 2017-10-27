@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="default_collapsed_padding">72dp</dimen>
+    <dimen name="default_expanded_padding">16dp</dimen>
+    <dimen name="default_collapsed_image_size">40dp</dimen>
+    <dimen name="default_expanded_image_size">73.5dp</dimen>
+    <dimen name="default_collapsed_text_size">18sp</dimen>
+    <dimen name="default_expanded_text_size">19sp</dimen>
+</resources>

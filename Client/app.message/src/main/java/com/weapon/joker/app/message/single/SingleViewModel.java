@@ -164,6 +164,7 @@ public class SingleViewModel extends SingleContact.ViewModel {
             sendMessage.type = MessageItemViewModel.MSG_SEND;
             sendMessage.content = content;
             sendMessage.avatarFile = sendFile;
+            sendMessage.userName = ((UserInfo) sendMsg.getTargetInfo()).getUserName();
             items.add(sendMessage);
         }
     }
@@ -178,6 +179,7 @@ public class SingleViewModel extends SingleContact.ViewModel {
             sendMessage.type = MessageItemViewModel.MSG_SEND;
             sendMessage.content = content;
             sendMessage.avatarFile = sendFile;
+            sendMessage.userName = ((UserInfo) sendMsg.getTargetInfo()).getUserName();
             List<MessageItemViewModel> temp = new ObservableArrayList<>();
             temp.add(sendMessage);
             temp.addAll(items);
@@ -201,6 +203,7 @@ public class SingleViewModel extends SingleContact.ViewModel {
             receiverMessage.type = MessageItemViewModel.MSG_RECEIVER;
             receiverMessage.content = content;
             receiverMessage.avatarFile = receiverFile;
+            receiverMessage.userName = ((UserInfo) receiverMsg.getTargetInfo()).getUserName();
             items.add(receiverMessage);
         }
     }
@@ -215,6 +218,7 @@ public class SingleViewModel extends SingleContact.ViewModel {
             receiverMessage.type = MessageItemViewModel.MSG_RECEIVER;
             receiverMessage.content = content;
             receiverMessage.avatarFile = receiverFile;
+            receiverMessage.userName = ((UserInfo) receiverMsg.getTargetInfo()).getUserName();
             List<MessageItemViewModel> temp = new ObservableArrayList<>();
             temp.add(receiverMessage);
             temp.addAll(items);
@@ -227,6 +231,7 @@ public class SingleViewModel extends SingleContact.ViewModel {
 
     /**
      * 检测是否要添加时间轴数据
+     *
      * @param sendMsg
      * @param isFirst 是否插入到数据之前
      */
@@ -241,7 +246,7 @@ public class SingleViewModel extends SingleContact.ViewModel {
     /**
      * 添加发送消息时间
      *
-     * @param time 消息发送时间
+     * @param time    消息发送时间
      * @param isFirst 是否从头插入
      */
     private void addMsgData(long time, boolean isFirst) {

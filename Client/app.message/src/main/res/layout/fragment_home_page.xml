@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="homePageModel"
+            type="com.weapon.joker.app.message.homepage.HomePageViewModel"/>
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="true"
+        android:fitsSystemWindows="true">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="225dp">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize"
+                    app:contentInsetLeft="0dp"
+                    app:contentInsetStart="0dp"
+                    app:layout_collapseMode="pin"/>
+
+                <com.weapon.joker.lib.view.SlideView
+                    android:id="@+id/stuff_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:collapsedPadding="52dp">
+
+                    <ImageView
+                        android:id="@+id/profile"
+                        android:layout_width="@dimen/default_expanded_image_size"
+                        android:layout_height="@dimen/default_expanded_image_size"
+                        android:layout_gravity="center"
+                        android:background="@drawable/ic_share_qq"
+                        android:fitsSystemWindows="true"/>
+                </com.weapon.joker.lib.view.SlideView>
+
+                <com.weapon.joker.lib.view.SlideView
+                    android:id="@+id/stuff_container1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:collapsedPadding="100dp">
+
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center"
+                        android:text="houlucky"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"/>
+                </com.weapon.joker.lib.view.SlideView>
+
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:text="@{homePageModel.homePage}"/>
+
+        </android.support.v4.widget.NestedScrollView>
+
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:textSize="30sp"
+            app:layout_anchor="@id/app_bar"
+            app:layout_anchorGravity="bottom|end"
+            app:srcCompat="@android:drawable/ic_dialog_email"/>
+
+    </android.support.design.widget.CoordinatorLayout>
+</layout>

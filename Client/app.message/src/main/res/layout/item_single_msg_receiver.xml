@@ -22,6 +22,7 @@
             android:layout_height="40dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
+            android:onClick="@{msgModel::onAvatarClick}"
             android:scaleType="centerCrop"
             app:border_width="0dp"
             app:file="@{msgModel.avatarFile}"

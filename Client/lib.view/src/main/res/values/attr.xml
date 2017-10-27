@@ -23,4 +23,12 @@
             <enum name="bottom" value="0x03" />
         </attr>
     </declare-styleable>
+
+    <declare-styleable name="AvatarView">
+        <attr name="collapsedPadding" format="dimension" />
+        <attr name="expandedPadding" format="dimension" />
+
+        <attr name="collapsedImageSize" format="dimension" />
+        <attr name="expandedImageSize" format="dimension" />
+    </declare-styleable>
 </resources>

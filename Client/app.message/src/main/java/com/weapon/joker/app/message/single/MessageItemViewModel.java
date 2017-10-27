@@ -1,7 +1,12 @@
 package com.weapon.joker.app.message.single;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.view.View;
+
+import com.weapon.joker.lib.middleware.PublicActivity;
 
 import java.io.File;
 
@@ -15,7 +20,7 @@ import java.io.File;
  * </pre>
  */
 
-public class MessageItemViewModel extends BaseObservable{
+public class MessageItemViewModel extends BaseObservable {
 
     /**
      * 消息类型: 发送
@@ -54,4 +59,21 @@ public class MessageItemViewModel extends BaseObservable{
      */
     @Bindable
     public File avatarFile;
+    /**
+     * 用户名
+     */
+    @Bindable
+    public String userName;
+
+    /**
+     * 头像点击事件处理
+     *
+     * @param view
+     */
+    public void onAvatarClick(View view) {
+        Intent intent = new Intent(view.getContext(), PublicActivity.class);
+        intent.putExtra("user_name", userName);
+        intent.putExtra("display_name", displayName);
+        PublicActivity.startActivity((Activity) view.getContext(), "com.weapon.joker.app.message.homepage.HomePageFragment");
+    }
 }
