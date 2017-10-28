@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.UiError;
 import com.umeng.analytics.MobclickAgent;
+import com.weapon.joker.app.mine.about.AboutActivity;
 import com.weapon.joker.app.stub.share.IShareListener;
 import com.weapon.joker.app.stub.share.ShareParams;
 import com.weapon.joker.app.stub.share.ShareType;
@@ -140,6 +141,15 @@ public class MineViewModel extends MineContact.ViewModel implements IShareListen
 //            getContext().startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(((Activity) getContext())).toBundle());
             PublicActivity.startActivity((Activity) getContext(), "com.weapon.joker.app.mine.login.LoginRegisterFragment");
         }
+    }
+
+    /**
+     *
+     *  跳转到关于界面
+     * author: yueyang
+     **/
+    public void jumpToAboutPage(View view) {
+        AboutActivity.launch(getContext());
     }
 
     public IUiListener getIUiListener() {
