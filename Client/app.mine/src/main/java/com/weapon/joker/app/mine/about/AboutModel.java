@@ -27,4 +27,3 @@ class AboutModel extends BaseObservable {
         };
     }
 }
-
