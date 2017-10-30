@@ -9,7 +9,7 @@ import android.view.View;
  * date : 2017/10/28
  * e-mail: hi.yangyue1993@gmail.com
  */
-class AboutModel extends BaseObservable {
+public class AboutModel extends BaseObservable {
 
     private Context mContext;
     private static final String URL_PROJECT = "https://github.com/G-Joker/WeaponApp";

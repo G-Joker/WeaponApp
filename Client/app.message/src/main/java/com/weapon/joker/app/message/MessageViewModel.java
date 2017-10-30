@@ -124,7 +124,7 @@ public class MessageViewModel extends MessageContact.ViewModel {
     }
 
     /**
-     * 官方服务点击事件处理
+     * 最新消息点击事件处理
      *
      * @param view
      */
@@ -139,6 +139,26 @@ public class MessageViewModel extends MessageContact.ViewModel {
         } else {
             PublicActivity.startActivity((Activity) getContext(), "com.weapon.joker.app.message.conversion.ConversionFragment");
         }
+    }
+
+    /**
+     * 跳转到官方客服聊天界面
+     *
+     * @param view
+     */
+    public void onOfficeSingleClick(View view) {
+        PublicActivity.startActivity((Activity) getContext(), "com.weapon.joker.app.message.single.SingleFragment");
+        getView().toggleFloatingMenu();
+    }
+
+    /**
+     * 跳转到官方群聊天界面
+     *
+     * @param view
+     */
+    public void onOfficeGroupClick(View view) {
+        PublicActivity.startActivity((Activity) getContext(), "com.weapon.joker.app.message.group.GroupFragment");
+        getView().toggleFloatingMenu();
     }
 
 }

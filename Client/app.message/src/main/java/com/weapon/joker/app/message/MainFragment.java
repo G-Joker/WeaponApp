@@ -1,13 +1,8 @@
 package com.weapon.joker.app.message;
 
-import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 
 import com.weapon.joker.app.message.databinding.FragmentMessageBinding;
-import com.weapon.joker.lib.middleware.PublicActivity;
 import com.weapon.joker.lib.mvvm.common.BaseFragment;
 import com.weapon.joker.lib.net.event.PushNewsEvent;
 
@@ -54,8 +49,6 @@ public class MainFragment extends BaseFragment<MessageViewModel, MessageModel> i
      */
     private void setToolbar() {
         ((AppCompatActivity) getActivity()).setSupportActionBar(mDataBinding.toolbar);
-        // 设置是否有菜单个功能
-        setHasOptionsMenu(true);
     }
 
     @Override
@@ -85,27 +78,12 @@ public class MainFragment extends BaseFragment<MessageViewModel, MessageModel> i
         super.onDestroy();
     }
 
+    /**
+     * 切换悬浮菜单按钮
+     */
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        menu.clear();
-        inflater.inflate(R.menu.menu_message, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.item_office_service:
-                // 官方客服
-                PublicActivity.startActivity((Activity) getContext(), "com.weapon.joker.app.message.single.SingleFragment");
-                break;
-            case R.id.item_office_group:
-                // 官方群
-                PublicActivity.startActivity((Activity) getContext(), "com.weapon.joker.app.message.group.GroupFragment");
-                break;
-            default:
-                break;
-        }
-        return true;
+    public void toggleFloatingMenu() {
+        mDataBinding.famStartChat.toggle();
     }
 
     /**

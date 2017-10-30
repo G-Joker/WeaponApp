@@ -25,7 +25,6 @@ import cn.jpush.im.android.api.content.TextContent;
 import cn.jpush.im.android.api.enums.MessageDirect;
 import cn.jpush.im.android.api.model.Conversation;
 import cn.jpush.im.android.api.model.Message;
-import cn.jpush.im.android.api.model.UserInfo;
 import cn.jpush.im.api.BasicCallback;
 import me.tatarka.bindingcollectionadapter2.BindingRecyclerViewAdapter;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
@@ -136,7 +135,7 @@ public class GroupViewModel extends GroupContact.ViewModel {
             sendMessage.content = content;
             sendMessage.displayName = sendMsg.getFromUser().getDisplayName();
             sendMessage.avatarFile = sendFile;
-            sendMessage.userName = ((UserInfo) sendMsg.getTargetInfo()).getUserName();
+            sendMessage.userName = sendMsg.getFromUser().getUserName();
             items.add(sendMessage);
         }
     }
@@ -152,7 +151,7 @@ public class GroupViewModel extends GroupContact.ViewModel {
             sendMessage.content = content;
             sendMessage.avatarFile = sendFile;
             sendMessage.displayName = sendMsg.getFromUser().getDisplayName();
-            sendMessage.userName = ((UserInfo) sendMsg.getTargetInfo()).getUserName();
+            sendMessage.userName = sendMsg.getFromUser().getUserName();
             List<MessageItemViewModel> temp = new ObservableArrayList<>();
             temp.add(sendMessage);
             temp.addAll(items);
@@ -174,7 +173,7 @@ public class GroupViewModel extends GroupContact.ViewModel {
             receiverMessage.content = content;
             receiverMessage.avatarFile = receiverMsg.getFromUser().getAvatarFile();
             receiverMessage.displayName = receiverMsg.getFromUser().getDisplayName();
-            receiverMessage.userName = ((UserInfo) receiverMsg.getTargetInfo()).getUserName();
+            receiverMessage.userName = receiverMsg.getFromUser().getUserName();
             items.add(receiverMessage);
         }
     }
@@ -190,7 +189,7 @@ public class GroupViewModel extends GroupContact.ViewModel {
             receiverMessage.content = content;
             receiverMessage.avatarFile = receiverMsg.getFromUser().getAvatarFile();
             receiverMessage.displayName = receiverMsg.getFromUser().getDisplayName();
-            receiverMessage.userName = ((UserInfo) receiverMsg.getTargetInfo()).getUserName();
+            receiverMessage.userName = receiverMsg.getFromUser().getUserName();
             List<MessageItemViewModel> temp = new ObservableArrayList<>();
             temp.add(receiverMessage);
             temp.addAll(items);
@@ -202,6 +201,7 @@ public class GroupViewModel extends GroupContact.ViewModel {
 
     /**
      * 检测是否要添加时间轴数据
+     *
      * @param sendMsg
      * @param isFirst 是否插入到数据之前
      */
@@ -216,7 +216,7 @@ public class GroupViewModel extends GroupContact.ViewModel {
     /**
      * 添加发送消息时间
      *
-     * @param time 消息发送时间
+     * @param time    消息发送时间
      * @param isFirst 是否从头插入
      */
     private void addMsgData(long time, boolean isFirst) {
@@ -298,7 +298,7 @@ public class GroupViewModel extends GroupContact.ViewModel {
         public void onItemBind(ItemBinding itemBinding, int position, MessageItemViewModel item) {
             if (item.type == MessageItemViewModel.MSG_SEND) {
                 itemBinding.set(BR.msgModel, R.layout.item_group_msg_send);
-            } else if (item.type == MessageItemViewModel.MSG_RECEIVER){
+            } else if (item.type == MessageItemViewModel.MSG_RECEIVER) {
                 itemBinding.set(BR.msgModel, R.layout.item_group_msg_receiver);
             } else {
                 itemBinding.set(BR.msgModel, R.layout.item_message_data);

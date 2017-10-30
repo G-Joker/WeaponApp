@@ -13,7 +13,7 @@ import com.weapon.joker.lib.mvvm.common.BaseViewModel;
 
 interface MessageContact {
     interface View extends BaseView{
-
+        void toggleFloatingMenu();
     }
 
     abstract class ViewModel extends BaseViewModel<View,Model>{

@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
 
@@ -24,8 +25,10 @@ import com.umeng.analytics.MobclickAgent;
 
 public class PublicActivity extends AppCompatActivity {
 
-    /** 跳转的 fragment 详细的名字 */
-    private String   mFragmentName;
+    /**
+     * 跳转的 fragment 详细的名字
+     */
+    private String mFragmentName;
     private Fragment mFragment;
 
     @Override
@@ -42,7 +45,7 @@ public class PublicActivity extends AppCompatActivity {
      */
     private void initFragment() {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        Fragment            fragment            = getFragment();
+        Fragment fragment = getFragment();
         if (fragment == null) {
             finish();
             return;
@@ -129,10 +132,14 @@ public class PublicActivity extends AppCompatActivity {
             intent.putExtra("fragment_name", fragmentName);
         }
 
-        if (resultCode != -1) {
-            context.startActivityForResult(intent, resultCode);
-        } else {
-            context.startActivity(intent);
+        try {
+            if (resultCode != -1) {
+                context.startActivityForResult(intent, resultCode);
+            } else {
+                context.startActivity(intent);
+            }
+        } catch (Exception e) {
+            Toast.makeText(context, "跳转到" + fragmentName + "界面", Toast.LENGTH_SHORT).show();
         }
 
     }
