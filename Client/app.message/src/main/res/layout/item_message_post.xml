@@ -46,6 +46,8 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_post_title"
                     android:layout_marginLeft="15dp"
+                    android:ellipsize="end"
+                    android:maxLines="3"
                     android:text='@{postItemModel.content, default="这是内容"}'
                     android:textColor="@color/material_text_color_black_secondary_text"
                     android:textSize="16dp"/>
@@ -65,8 +67,8 @@
             <ImageView
                 android:layout_width="90dp"
                 android:layout_height="60dp"
-                android:layout_gravity="center_vertical"
                 android:layout_alignParentRight="true"
+                android:layout_gravity="center_vertical"
                 android:layout_marginRight="15dp"
                 app:url="@{postItemModel.imageUrl}"/>
 

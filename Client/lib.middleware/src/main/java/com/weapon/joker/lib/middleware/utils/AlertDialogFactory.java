@@ -53,13 +53,18 @@ public class AlertDialogFactory {
      * 为了当输入内容为空点击确认键不关闭对话框，所以重写了 onClickListener
      *
      * @param context
+     * @param content 输入框预设内容
      * @param title    对话框标题
      * @param listener 点击确认回调
      * @return 对话框
      */
-    public static AlertDialog createOneEditDialog(final Context context, String title, final OnOneEditDialogConfirmListener listener) {
+    public static AlertDialog createOneEditDialog(final Context context, String title, String content,  final
+    OnOneEditDialogConfirmListener listener) {
         View view = View.inflate(context, R.layout.dialog_one_edit, null);
-        final EditText etCotent = view.findViewById(R.id.et_content);
+        final EditText etContent = view.findViewById(R.id.et_content);
+        if (!TextUtils.isEmpty(content)) {
+            etContent.setText(content);
+        }
         final AlertDialog alertDialog =
                 new AlertDialog.Builder(context).setView(view)
                                                 .setPositiveButton("确认", null)
@@ -74,10 +79,10 @@ public class AlertDialogFactory {
                 btPositive.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (TextUtils.isEmpty(etCotent.getText().toString())) {
+                        if (TextUtils.isEmpty(etContent.getText().toString())) {
                             Toast.makeText(context, "输入内容不能为空", Toast.LENGTH_SHORT).show();
                         } else {
-                            listener.onOneEditDialogConfirm(etCotent.getText().toString());
+                            listener.onOneEditDialogConfirm(etContent.getText().toString());
                             alertDialog.dismiss();
                         }
                     }

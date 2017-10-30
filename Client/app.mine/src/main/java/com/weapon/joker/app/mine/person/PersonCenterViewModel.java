@@ -197,7 +197,7 @@ public class PersonCenterViewModel extends PersonCenterContact.ViewModel {
      * @param view
      */
     public void onUpdateUserNameClick(View view) {
-        AlertDialogFactory.createOneEditDialog(getContext(), "更新昵称", new AlertDialogFactory.OnOneEditDialogConfirmListener() {
+        AlertDialogFactory.createOneEditDialog(getContext(), "更新昵称", userName,  new AlertDialogFactory.OnOneEditDialogConfirmListener() {
             @Override
             public void onOneEditDialogConfirm(final String etContent) {
                 if (!loadingDialog.isShowing()) {
@@ -228,7 +228,8 @@ public class PersonCenterViewModel extends PersonCenterContact.ViewModel {
      * @param view
      */
     public void onUpdateSignatureClick(View view) {
-        AlertDialogFactory.createOneEditDialog(getContext(), "更新个性签名", new AlertDialogFactory.OnOneEditDialogConfirmListener() {
+        AlertDialogFactory.createOneEditDialog(getContext(), "更新个性签名", signature, new AlertDialogFactory.OnOneEditDialogConfirmListener
+                () {
             @Override
             public void onOneEditDialogConfirm(final String etContent) {
                 if (!loadingDialog.isShowing()) {

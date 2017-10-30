@@ -30,12 +30,15 @@
                 android:fitsSystemWindows="true"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 app:contentScrim="?colorPrimary"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                app:title=" ">
+                app:expandedTitleMarginEnd="64dp"
+                app:expandedTitleMarginStart="48dp"
+                app:expandedTitleTextAppearance="@style/Widget.CollapsingToolbarLayoutExpandedTextStyle"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    app:layout_collapseMode="parallax">
 
                     <ImageView
                         android:layout_width="match_parent"
@@ -50,8 +53,8 @@
                         android:layout_marginTop="60dp"
                         android:background="@mipmap/ic_avatar_default"
                         android:onClick="@{personModel::onChangeAvatarClick}"
-                        app:file="@{personModel.avatarFile}"
                         app:border_width="0dp"
+                        app:file="@{personModel.avatarFile}"
                         app:oval="true"/>
 
                     <TextView
@@ -102,24 +105,28 @@
                     android:background="@color/material_color_grey_1001"
                     android:orientation="vertical">
 
-                    <TextView
-                        style="@style/MineStyle"
-                        android:onClick="@{personModel::onUpdateUserNameClick}"
-                        android:text='@{@string/person_nickname + personModel.userName}'/>
-
-                    <View
+                    <com.weapon.joker.lib.view.component.PublicForm
                         android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:layout_marginLeft="@dimen/public_text_padding"
-                        android:background="@color/material_text_color_black_divider"/>
-
-                    <TextView
-                        style="@style/MineStyle"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/public_click_bg"
+                        android:onClick="@{personModel::onUpdateUserNameClick}"
+                        app:form_content='@{personModel.userName}'
+                        app:form_title='@{@string/person_nickname}'/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginLeft="@dimen/public_text_padding"
+                        android:background="@color/material_text_color_black_divider"/>
+
+
+                    <com.weapon.joker.lib.view.component.PublicForm
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/public_click_bg"
                         android:onClick="@{personModel::onUpdateSignatureClick}"
-                        android:paddingBottom="@dimen/public_text_padding"
-                        android:paddingTop="@dimen/public_text_padding"
-                        android:text='@{@string/person_signature + personModel.signature, default="dfafa"}'/>
+                        app:form_content='@{personModel.signature}'
+                        app:form_title='@{@string/person_signature}'/>
 
                     <View
                         android:layout_width="match_parent"
@@ -127,10 +134,13 @@
                         android:layout_marginLeft="@dimen/public_text_padding"
                         android:background="@color/material_text_color_black_divider"/>
 
-                    <TextView
-                        style="@style/MineStyle"
+                    <com.weapon.joker.lib.view.component.PublicForm
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/public_click_bg"
                         android:onClick="@{personModel::onUpdateBirthDayClick}"
-                        android:text='@{@string/person_birthday + personModel.birthday, default="dfafa"}'/>
+                        app:form_content='@{personModel.birthday}'
+                        app:form_title='@{@string/person_birthday}'/>
 
                     <View
                         android:layout_width="match_parent"
@@ -138,10 +148,14 @@
                         android:layout_marginLeft="@dimen/public_text_padding"
                         android:background="@color/material_text_color_black_divider"/>
 
-                    <TextView
-                        style="@style/MineStyle"
+
+                    <com.weapon.joker.lib.view.component.PublicForm
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/public_click_bg"
                         android:onClick="@{personModel::onUpdateGenderClick}"
-                        android:text='@{@string/person_gender + personModel.gender, default=""}'/>
+                        app:form_content='@{personModel.gender}'
+                        app:form_title='@{@string/person_gender}'/>
 
                     <View
                         android:layout_width="match_parent"
@@ -149,10 +163,12 @@
                         android:layout_marginLeft="@dimen/public_text_padding"
                         android:background="@color/material_text_color_black_divider"/>
 
-                    <TextView
-                        style="@style/MineStyle"
+                    <com.weapon.joker.lib.view.component.PublicForm
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/public_click_bg"
                         android:onClick="@{personModel::onLogoutClick}"
-                        android:text="@string/person_logout"/>
+                        app:form_title='@{@string/person_logout}'/>
 
 
                 </LinearLayout>

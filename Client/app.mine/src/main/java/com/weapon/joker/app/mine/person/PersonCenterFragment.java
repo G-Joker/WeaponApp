@@ -13,6 +13,8 @@ import com.weapon.joker.lib.mvvm.common.BaseFragment;
 
 import java.io.File;
 
+import cn.jpush.im.android.api.JMessageClient;
+
 import static android.app.Activity.RESULT_OK;
 import static com.weapon.joker.app.mine.person.PersonCenterViewModel.RESULT_ALBUM;
 import static com.weapon.joker.app.mine.person.PersonCenterViewModel.RESULT_PHOTO;
@@ -59,6 +61,7 @@ public class PersonCenterFragment extends BaseFragment<PersonCenterViewModel, Pe
                 getActivity().finish();
             }
         });
+        mDataBinding.collapsingToolbar.setTitle(JMessageClient.getMyInfo().getDisplayName());
     }
 
     @Override

@@ -13,6 +13,7 @@ import com.weapon.joker.lib.mvvm.R;
 import com.weapon.joker.lib.mvvm.command.ReplyCommand;
 import com.weapon.joker.lib.mvvm.transform.BlurTransformation;
 import com.weapon.joker.lib.mvvm.transform.GlideCircleTransform;
+import com.weapon.joker.lib.view.component.PublicForm;
 import com.weapon.joker.lib.view.pullrefreshload.PullToRefreshLayout;
 import com.weapon.joker.lib.view.pullrefreshload.PullToRefreshRecyclerView;
 
@@ -125,11 +126,14 @@ public final class ViewBindingAdapter {
                 requestOptions.placeholder(R.mipmap.ic_avatar_default);
                 break;
         }
-        Glide.with(imageView.getContext())
-             .load(file)
-             .apply(requestOptions)
-             .into(imageView);
+        Glide.with(imageView.getContext()).load(file).apply(requestOptions).into(imageView);
 
+    }
+
+    @BindingAdapter (value = {"form_title", "form_content"}, requireAll = false)
+    public static void setForm(PublicForm publicForm, String title, String content) {
+        publicForm.setTitle(title);
+        publicForm.setContent(content);
     }
 
 }
