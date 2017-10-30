@@ -157,14 +157,14 @@ public class SingleViewModel extends SingleContact.ViewModel {
      * @param sendMsg 发送的Message对象
      */
     private void addSendMessage(Message sendMsg) {
-        checkAddMsgData(sendMsg, false);
         if (sendMsg.getContent() instanceof TextContent) {
+            checkAddMsgData(sendMsg, false);
             String content = ((TextContent) sendMsg.getContent()).getText();
             MessageItemViewModel sendMessage = new MessageItemViewModel();
             sendMessage.type = MessageItemViewModel.MSG_SEND;
             sendMessage.content = content;
             sendMessage.avatarFile = sendFile;
-            sendMessage.userName = ((UserInfo) sendMsg.getTargetInfo()).getUserName();
+            sendMessage.userName = sendMsg.getFromUser().getUserName();
             items.add(sendMessage);
         }
     }
@@ -179,14 +179,14 @@ public class SingleViewModel extends SingleContact.ViewModel {
             sendMessage.type = MessageItemViewModel.MSG_SEND;
             sendMessage.content = content;
             sendMessage.avatarFile = sendFile;
-            sendMessage.userName = ((UserInfo) sendMsg.getTargetInfo()).getUserName();
+            sendMessage.userName = sendMsg.getFromUser().getUserName();
             List<MessageItemViewModel> temp = new ObservableArrayList<>();
             temp.add(sendMessage);
             temp.addAll(items);
             items.clear();
             items.addAll(temp);
+            checkAddMsgData(sendMsg, true);
         }
-        checkAddMsgData(sendMsg, true);
     }
 
 
@@ -196,14 +196,14 @@ public class SingleViewModel extends SingleContact.ViewModel {
      * @param receiverMsg 接收的消息对象
      */
     private void addReceiverMessage(Message receiverMsg) {
-        checkAddMsgData(receiverMsg, false);
         if (receiverMsg.getContent() instanceof TextContent) {
+            checkAddMsgData(receiverMsg, false);
             String content = ((TextContent) receiverMsg.getContent()).getText();
             MessageItemViewModel receiverMessage = new MessageItemViewModel();
             receiverMessage.type = MessageItemViewModel.MSG_RECEIVER;
             receiverMessage.content = content;
             receiverMessage.avatarFile = receiverFile;
-            receiverMessage.userName = ((UserInfo) receiverMsg.getTargetInfo()).getUserName();
+            receiverMessage.userName = receiverMsg.getFromUser().getUserName();
             items.add(receiverMessage);
         }
     }
@@ -218,14 +218,14 @@ public class SingleViewModel extends SingleContact.ViewModel {
             receiverMessage.type = MessageItemViewModel.MSG_RECEIVER;
             receiverMessage.content = content;
             receiverMessage.avatarFile = receiverFile;
-            receiverMessage.userName = ((UserInfo) receiverMsg.getTargetInfo()).getUserName();
+            receiverMessage.userName = receiverMsg.getFromUser().getUserName();
             List<MessageItemViewModel> temp = new ObservableArrayList<>();
             temp.add(receiverMessage);
             temp.addAll(items);
             items.clear();
             items.addAll(temp);
+            checkAddMsgData(receiverMsg, true);
         }
-        checkAddMsgData(receiverMsg, true);
     }
 
 

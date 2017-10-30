@@ -6,10 +6,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.weapon.joker.lib.middleware.PublicActivity;
+import com.weapon.joker.lib.middleware.utils.Util;
 import com.weapon.joker.lib.net.data.PushNewsData;
 import com.weapon.joker.lib.net.model.PushNewsModel;
-
-import cn.jpush.im.android.api.JMessageClient;
 
 /**
  * MessageViewModel 消息的VM
@@ -134,9 +133,7 @@ public class MessageViewModel extends MessageContact.ViewModel {
         setServiceRedVisible(View.GONE);
         setServiceContent("暂无最新消息");
         // 如果未登录跳转到登录界面
-        if (JMessageClient.getMyInfo() == null) {
-            PublicActivity.startActivity((Activity) getContext(), "com.weapon.joker.app.mine.login.LoginRegisterFragment");
-        } else {
+        if (Util.checkHasLogin((Activity) getContext())) {
             PublicActivity.startActivity((Activity) getContext(), "com.weapon.joker.app.message.conversion.ConversionFragment");
         }
     }
@@ -147,8 +144,10 @@ public class MessageViewModel extends MessageContact.ViewModel {
      * @param view
      */
     public void onOfficeSingleClick(View view) {
-        PublicActivity.startActivity((Activity) getContext(), "com.weapon.joker.app.message.single.SingleFragment");
         getView().toggleFloatingMenu();
+        if (Util.checkHasLogin((Activity) getContext())) {
+            PublicActivity.startActivity((Activity) getContext(), "com.weapon.joker.app.message.single.SingleFragment");
+        }
     }
 
     /**
@@ -157,8 +156,10 @@ public class MessageViewModel extends MessageContact.ViewModel {
      * @param view
      */
     public void onOfficeGroupClick(View view) {
-        PublicActivity.startActivity((Activity) getContext(), "com.weapon.joker.app.message.group.GroupFragment");
         getView().toggleFloatingMenu();
+        if (Util.checkHasLogin((Activity) getContext())) {
+            PublicActivity.startActivity((Activity) getContext(), "com.weapon.joker.app.message.group.GroupFragment");
+        }
     }
 
 }

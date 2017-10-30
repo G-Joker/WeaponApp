@@ -11,6 +11,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.weapon.joker.lib.mvvm.R;
 import com.weapon.joker.lib.mvvm.command.ReplyCommand;
+import com.weapon.joker.lib.mvvm.transform.BlurTransformation;
 import com.weapon.joker.lib.mvvm.transform.GlideCircleTransform;
 import com.weapon.joker.lib.view.pullrefreshload.PullToRefreshLayout;
 import com.weapon.joker.lib.view.pullrefreshload.PullToRefreshRecyclerView;
@@ -93,19 +94,22 @@ public final class ViewBindingAdapter {
      * @param type      图片的类型
      *                  1 - 单聊默认头像
      *                  2 - 群聊默认头像
-     *                  3 - 其他默认头像
+     *                  3 - 高斯模糊背景
+     *                  4 - 其他
      */
     @BindingAdapter (value = {"url", "file", "type"}, requireAll = false)
     public static void setImageViewUrl(ImageView imageView, String url, File file, int type) {
+        RequestOptions requestOptions = new RequestOptions();
         if (!TextUtils.isEmpty(url)) {
             Glide.with(imageView.getContext())
                  .load(url)
                  .transition(new DrawableTransitionOptions().crossFade())
-                 .apply(new RequestOptions().placeholder(R.mipmap.round))
+                 .apply(requestOptions.placeholder(R.mipmap.round))
                  .into(imageView);
         }
 
-        RequestOptions requestOptions = new RequestOptions().transform(new GlideCircleTransform());
+        GlideCircleTransform glideCircleTransform = new GlideCircleTransform();
+        requestOptions.transform(glideCircleTransform).dontAnimate();
         switch (type) {
             case 1:
                 requestOptions.placeholder(R.drawable.ic_single_default);
@@ -113,13 +117,16 @@ public final class ViewBindingAdapter {
             case 2:
                 requestOptions.placeholder(R.drawable.ic_group_default);
                 break;
+            case 3:
+                BlurTransformation blurTransformation = new BlurTransformation(imageView.getContext());
+                requestOptions.transform(blurTransformation).placeholder(R.drawable.ic_group_default);
+                break;
             default:
                 requestOptions.placeholder(R.mipmap.ic_avatar_default);
                 break;
         }
         Glide.with(imageView.getContext())
              .load(file)
-             .transition(new DrawableTransitionOptions().crossFade())
              .apply(requestOptions)
              .into(imageView);
 

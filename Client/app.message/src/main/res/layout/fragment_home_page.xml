@@ -18,7 +18,7 @@
         <android.support.design.widget.AppBarLayout
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
-            android:layout_height="225dp">
+            android:layout_height="240dp">
 
             <android.support.design.widget.CollapsingToolbarLayout
                 android:id="@+id/collapsing_toolbar"
@@ -27,13 +27,12 @@
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-                <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar"
+                <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="?actionBarSize"
-                    app:contentInsetLeft="0dp"
-                    app:contentInsetStart="0dp"
-                    app:layout_collapseMode="pin"/>
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    app:file="@{homePageModel.avatarFile}"
+                    app:type="@{3}"/>
 
                 <com.weapon.joker.lib.view.SlideView
                     android:id="@+id/stuff_container"
@@ -41,13 +40,19 @@
                     android:layout_height="wrap_content"
                     app:collapsedPadding="52dp">
 
-                    <ImageView
-                        android:id="@+id/profile"
-                        android:layout_width="@dimen/default_expanded_image_size"
-                        android:layout_height="@dimen/default_expanded_image_size"
+                    <com.weapon.joker.lib.view.roundimaegview.RoundedImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
                         android:layout_gravity="center"
-                        android:background="@drawable/ic_share_qq"
-                        android:fitsSystemWindows="true"/>
+                        android:layout_marginRight="20dp"
+                        android:fitsSystemWindows="true"
+                        android:scaleType="centerCrop"
+                        app:border_width="0dp"
+                        app:file="@{homePageModel.avatarFile}"
+                        app:oval="true"
+                        app:type="@{1}"/>
                 </com.weapon.joker.lib.view.SlideView>
 
                 <com.weapon.joker.lib.view.SlideView
@@ -62,10 +67,26 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:gravity="center"
-                        android:text="houlucky"
+                        android:text='@{homePageModel.displayName,default="xiaweizi"}'
                         android:textColor="#FFFFFF"
                         android:textSize="16sp"/>
                 </com.weapon.joker.lib.view.SlideView>
+
+                <TextView
+                    android:textSize="@dimen/public_main_text_size"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text='@{homePageModel.signature, default="this is signature"}'/>
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize"
+                    app:contentInsetLeft="0dp"
+                    app:contentInsetStart="0dp"
+                    app:layout_collapseMode="pin"
+                    app:title=" "/>
 
             </android.support.design.widget.CollapsingToolbarLayout>
 
@@ -88,13 +109,14 @@
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_margin="20dp"
+            android:onClick="@{homePageModel::onStarChatNowClick}"
             android:textSize="30sp"
             app:layout_anchor="@id/app_bar"
             app:layout_anchorGravity="bottom|end"
-            app:srcCompat="@android:drawable/ic_dialog_email"/>
+            app:srcCompat="@mipmap/ic_message_start_conversion"/>
 
     </android.support.design.widget.CoordinatorLayout>
 </layout>

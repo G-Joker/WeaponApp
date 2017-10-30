@@ -1,5 +1,9 @@
 package com.weapon.joker.app.message.homepage;
 
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.callback.GetUserInfoCallback;
+import cn.jpush.im.android.api.model.UserInfo;
+
 /**
  * <pre>
  *     author : xiaweizi
@@ -10,6 +14,23 @@ package com.weapon.joker.app.message.homepage;
  * </pre>
  */
 
-public class HomePageModel extends HomePageContact.Model{
+public class HomePageModel extends HomePageContact.Model {
 
+    /**
+     * 根据用户名获取用户信息
+     * @param userName 用户名
+     */
+    @Override
+    public void getUserInfo(String userName) {
+        JMessageClient.getUserInfo(userName, new GetUserInfoCallback() {
+            @Override
+            public void gotResult(int status, String desc, UserInfo userInfo) {
+                if (status == 0) {
+                    getViewModel().setUserInfo(userInfo);
+                } else {
+                    getViewModel().setError(desc);
+                }
+            }
+        });
+    }
 }

@@ -24,7 +24,6 @@ public class HomePageFragment extends BaseFragment<HomePageViewModel, HomePageMo
 
     private FragmentHomePageBinding mDataBinding;
     private String mUserName;
-    private String mDisplayName;
 
     @Override
     public int getLayoutId() {
@@ -39,10 +38,10 @@ public class HomePageFragment extends BaseFragment<HomePageViewModel, HomePageMo
             if (!TextUtils.isEmpty(intent.getStringExtra("user_name"))) {
                 mUserName = intent.getStringExtra("user_name");
             }
-            if (!TextUtils.isEmpty(intent.getStringExtra("display_name"))) {
-                mDisplayName = intent.getStringExtra("display_name");
-            }
+        } else {
+            finish();
         }
+        getViewModel().init(mUserName);
         setToolbar();
     }
 

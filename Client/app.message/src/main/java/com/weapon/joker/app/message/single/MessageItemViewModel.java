@@ -4,11 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.weapon.joker.lib.middleware.PublicActivity;
 
 import java.io.File;
+
+import cn.jpush.im.android.api.JMessageClient;
 
 /**
  * <pre>
@@ -71,9 +74,13 @@ public class MessageItemViewModel extends BaseObservable {
      * @param view
      */
     public void onAvatarClick(View view) {
-        Intent intent = new Intent(view.getContext(), PublicActivity.class);
-        intent.putExtra("user_name", userName);
-        intent.putExtra("display_name", displayName);
-        PublicActivity.startActivity((Activity) view.getContext(), "com.weapon.joker.app.message.homepage.HomePageFragment");
+        // 如果点击的是自己的头像，则跳转到个人中心界面
+        if (TextUtils.equals(userName, JMessageClient.getMyInfo().getUserName())) {
+            PublicActivity.startActivity((Activity) view.getContext(), "com.weapon.joker.app.mine.person.PersonCenterFragment");
+        } else {
+            Intent intent = new Intent(view.getContext(), PublicActivity.class);
+            intent.putExtra("user_name", userName);
+            PublicActivity.startActivity((Activity) view.getContext(), "com.weapon.joker.app.message.homepage.HomePageFragment", intent);
+        }
     }
 }

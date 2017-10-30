@@ -42,9 +42,6 @@ public class PersonCenterFragment extends BaseFragment<PersonCenterViewModel, Pe
     @Override
     public void initView() {
         mDataBinding = ((FragmentPersonCenterBinding) getViewDataBinding());
-        if (getActivity().getIntent() == null || getActivity().getIntent().getStringExtra(EXTRA_USER_NAME) == null) {
-            finish();
-        }
         setToolbar();
         getViewModel().getUserInfo();
     }

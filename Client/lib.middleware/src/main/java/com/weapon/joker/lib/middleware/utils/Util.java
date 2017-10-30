@@ -6,6 +6,8 @@ import android.os.Build;
 import android.os.StrictMode;
 import android.util.ArrayMap;
 
+import com.weapon.joker.lib.middleware.PublicActivity;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
@@ -18,6 +20,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+import cn.jpush.im.android.api.JMessageClient;
 
 /**
  * Util 常用工具类
@@ -113,6 +117,7 @@ public class Util {
 
     /**
      * 将时间格式转换成时间戳
+     *
      * @param date
      * @param style
      * @return
@@ -228,5 +233,20 @@ public class Util {
             strDate = sdf.format(receiveDate);
         }
         return strDate;
+    }
+
+    /**
+     * 判断是否登录，如果未登录直接跳转到登录界面
+     * @param activity
+     * @return true-已登录
+     *         false-未登录，并且跳转到登录界面
+     */
+    public static boolean checkHasLogin(Activity activity) {
+        if (JMessageClient.getMyInfo() == null) {
+            PublicActivity.startActivity(activity, "com.weapon.joker.app.mine.login.LoginRegisterFragment");
+            return false;
+        } else {
+            return true;
+        }
     }
 }

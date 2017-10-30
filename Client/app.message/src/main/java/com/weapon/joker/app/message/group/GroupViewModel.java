@@ -127,8 +127,8 @@ public class GroupViewModel extends GroupContact.ViewModel {
      * 添加发送消息
      */
     private void addSendMessage(Message sendMsg) {
-        checkAddMsgData(sendMsg, false);
         if (sendMsg.getContent() instanceof TextContent) {
+            checkAddMsgData(sendMsg, false);
             String content = ((TextContent) sendMsg.getContent()).getText();
             MessageItemViewModel sendMessage = new MessageItemViewModel();
             sendMessage.type = MessageItemViewModel.MSG_SEND;
@@ -157,16 +157,16 @@ public class GroupViewModel extends GroupContact.ViewModel {
             temp.addAll(items);
             items.clear();
             items.addAll(temp);
+            checkAddMsgData(sendMsg, true);
         }
-        checkAddMsgData(sendMsg, true);
     }
 
     /**
      * 添加接收消息
      */
     private void addReceiverMessage(Message receiverMsg) {
-        checkAddMsgData(receiverMsg, false);
         if (receiverMsg.getContent() instanceof TextContent) {
+            checkAddMsgData(receiverMsg, false);
             String content = ((TextContent) receiverMsg.getContent()).getText();
             MessageItemViewModel receiverMessage = new MessageItemViewModel();
             receiverMessage.type = MessageItemViewModel.MSG_RECEIVER;
@@ -195,8 +195,8 @@ public class GroupViewModel extends GroupContact.ViewModel {
             temp.addAll(items);
             items.clear();
             items.addAll(temp);
+            checkAddMsgData(receiverMsg, true);
         }
-        checkAddMsgData(receiverMsg, true);
     }
 
     /**
