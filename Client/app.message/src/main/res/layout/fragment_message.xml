@@ -206,7 +206,8 @@
             app:fab_addButtonColorPressed="@color/colorPrimaryDark"
             app:fab_addButtonPlusIconColor="@color/white"
             app:fab_addButtonSize="normal"
-            app:fab_labelsPosition="right">
+            app:fab_labelStyle="@style/menu_labels_style"
+            app:fab_labelsPosition="left">
 
             <com.weapon.joker.lib.view.floatingbutton.FloatingActionButton
                 android:layout_width="wrap_content"

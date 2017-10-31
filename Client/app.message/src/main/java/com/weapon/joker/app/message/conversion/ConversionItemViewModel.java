@@ -124,7 +124,9 @@ public class ConversionItemViewModel extends BaseObservable {
             UserInfo userInfo = (UserInfo) targetInfo;
             displayName = userInfo.getDisplayName();
             userName = userInfo.getUserName();
-            lastContent = latestMessage == null ? "d" : ((TextContent) latestMessage.getContent()).getText();
+            if (latestMessage != null && latestMessage.getContent() instanceof TextContent) {
+                lastContent =  ((TextContent) latestMessage.getContent()).getText();
+            }
             setType(TYPE_SINGLE);
             setAvatarFile(userInfo.getAvatarFile());
         } else if (targetInfo instanceof GroupInfo) {

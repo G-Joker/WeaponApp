@@ -56,6 +56,8 @@ public class SingleFragment extends BaseFragment<SingleViewModel, SingleModel> i
     @Override
     public void initView() {
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        // 注册消息接收事件
+        JMessageClient.registerEventReceiver(this);
         mDataBinding = ((FragmentSingleBinding) getViewDataBinding());
         if (getActivity().getIntent() != null) {
             Intent intent = getActivity().getIntent();
@@ -130,8 +132,9 @@ public class SingleFragment extends BaseFragment<SingleViewModel, SingleModel> i
     @Override
     public void onResume() {
         super.onResume();
-        // 注册消息接收事件
-        JMessageClient.registerEventReceiver(this);
+        if (JMessageClient.getMyInfo() == null) {
+            finish();
+        }
     }
 
     @Override

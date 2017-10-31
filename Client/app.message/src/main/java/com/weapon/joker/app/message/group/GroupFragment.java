@@ -12,14 +12,11 @@ import android.view.WindowManager;
 import com.weapon.joker.app.message.BR;
 import com.weapon.joker.app.message.R;
 import com.weapon.joker.app.message.databinding.FragmentGroupBinding;
-import com.weapon.joker.lib.middleware.utils.LogUtils;
 import com.weapon.joker.lib.mvvm.common.BaseFragment;
 
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.event.MessageEvent;
 import cn.jpush.im.android.api.event.NotificationClickEvent;
-import cn.jpush.im.android.api.model.GroupInfo;
-import cn.jpush.im.android.api.model.Message;
 
 /**
  * class：   com.weapon.joker.app.message.group.GroupFragment
@@ -104,6 +101,14 @@ public class GroupFragment extends BaseFragment<GroupViewModel, GroupModel> impl
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (JMessageClient.getMyInfo() == null) {
+            finish();
+        }
+    }
+
+    @Override
     public void onDestroy() {
         JMessageClient.unRegisterEventReceiver(this);
         super.onDestroy();
@@ -116,21 +121,7 @@ public class GroupFragment extends BaseFragment<GroupViewModel, GroupModel> impl
      * @param event 消息事件
      */
     public void onEventMainThread(MessageEvent event) {
-        Message message = event.getMessage();
-        switch (message.getContentType()) {
-            case text:
-                // 处理文字消息
-                Object targetInfo = message.getTargetInfo();
-                if (targetInfo instanceof GroupInfo) {
-                    GroupInfo groupInfo = (GroupInfo) targetInfo;
-                    if (groupInfo.getGroupID() == GROUP_ID) {
-                        getViewModel().receiveMessage(message);
-                    }
-                }
-            default:
-                LogUtils.i("office", message.getFromType());
-                break;
-        }
+        getViewModel().receiveMessage(event);
     }
 
     /**

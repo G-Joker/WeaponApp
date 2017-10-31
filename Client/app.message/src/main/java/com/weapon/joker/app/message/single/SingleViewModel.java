@@ -16,16 +16,13 @@ import com.weapon.joker.lib.mvvm.command.Action0;
 import com.weapon.joker.lib.mvvm.command.ReplyCommand;
 import com.weapon.joker.lib.view.pullrefreshload.PullToRefreshLayout;
 
-import java.io.File;
 import java.util.Collections;
 import java.util.List;
 
 import cn.jpush.im.android.api.JMessageClient;
-import cn.jpush.im.android.api.content.TextContent;
 import cn.jpush.im.android.api.enums.MessageDirect;
 import cn.jpush.im.android.api.model.Conversation;
 import cn.jpush.im.android.api.model.Message;
-import cn.jpush.im.android.api.model.UserInfo;
 import cn.jpush.im.api.BasicCallback;
 import me.tatarka.bindingcollectionadapter2.BindingRecyclerViewAdapter;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
@@ -69,14 +66,6 @@ public class SingleViewModel extends SingleContact.ViewModel {
      */
     private int curCount = 0;
     /**
-     * 发送的头像
-     */
-    private File sendFile;
-    /**
-     * 接收的头像
-     */
-    private File receiverFile;
-    /**
      * 最新消息的时间
      */
     private long latestMsgTime = 0;
@@ -97,7 +86,6 @@ public class SingleViewModel extends SingleContact.ViewModel {
         if (mConversation == null) {
             getView().finish();
         }
-        setAvatarBitmap();
         // 获取本地所有的消息
         msgCount = mConversation.getAllMessage().size();
         List<Message> messagesFromNewest = mConversation.getMessagesFromNewest(curCount, LIM_COUNT);
@@ -112,15 +100,6 @@ public class SingleViewModel extends SingleContact.ViewModel {
                 addReceiverMessage(message);
             }
         }
-    }
-
-    /**
-     * 设置头像 bitmap
-     */
-    private void setAvatarBitmap() {
-        sendFile = JMessageClient.getMyInfo().getAvatarFile();
-        File avatarFile = ((UserInfo) mConversation.getTargetInfo()).getAvatarFile();
-        receiverFile = avatarFile;
     }
 
     /**
@@ -158,36 +137,22 @@ public class SingleViewModel extends SingleContact.ViewModel {
      * @param sendMsg 发送的Message对象
      */
     private void addSendMessage(Message sendMsg) {
-        if (sendMsg.getContent() instanceof TextContent) {
-            checkAddMsgData(sendMsg, false);
-            String content = ((TextContent) sendMsg.getContent()).getText();
-            MessageItemViewModel sendMessage = new MessageItemViewModel();
-            sendMessage.type = MessageItemViewModel.MSG_SEND;
-            sendMessage.content = content;
-            sendMessage.avatarFile = sendFile;
-            sendMessage.userName = sendMsg.getFromUser().getUserName();
-            items.add(sendMessage);
-        }
+        checkAddMsgData(sendMsg, false);
+        MessageItemViewModel sendMessage = new MessageItemViewModel(sendMsg, MessageItemViewModel.MSG_SEND);
+        items.add(sendMessage);
     }
 
     /**
      * 插入数据到第一条
      */
     private void addSendMessageAtFirst(Message sendMsg) {
-        if (sendMsg.getContent() instanceof TextContent) {
-            String content = ((TextContent) sendMsg.getContent()).getText();
-            MessageItemViewModel sendMessage = new MessageItemViewModel();
-            sendMessage.type = MessageItemViewModel.MSG_SEND;
-            sendMessage.content = content;
-            sendMessage.avatarFile = sendFile;
-            sendMessage.userName = sendMsg.getFromUser().getUserName();
-            List<MessageItemViewModel> temp = new ObservableArrayList<>();
-            temp.add(sendMessage);
-            temp.addAll(items);
-            items.clear();
-            items.addAll(temp);
-            checkAddMsgData(sendMsg, true);
-        }
+        MessageItemViewModel sendMessage = new MessageItemViewModel(sendMsg, MessageItemViewModel.MSG_SEND);
+        List<MessageItemViewModel> temp = new ObservableArrayList<>();
+        temp.add(sendMessage);
+        temp.addAll(items);
+        items.clear();
+        items.addAll(temp);
+        checkAddMsgData(sendMsg, true);
     }
 
 
@@ -197,36 +162,22 @@ public class SingleViewModel extends SingleContact.ViewModel {
      * @param receiverMsg 接收的消息对象
      */
     private void addReceiverMessage(Message receiverMsg) {
-        if (receiverMsg.getContent() instanceof TextContent) {
-            checkAddMsgData(receiverMsg, false);
-            String content = ((TextContent) receiverMsg.getContent()).getText();
-            MessageItemViewModel receiverMessage = new MessageItemViewModel();
-            receiverMessage.type = MessageItemViewModel.MSG_RECEIVER;
-            receiverMessage.content = content;
-            receiverMessage.avatarFile = receiverFile;
-            receiverMessage.userName = receiverMsg.getFromUser().getUserName();
-            items.add(receiverMessage);
-        }
+        checkAddMsgData(receiverMsg, false);
+        MessageItemViewModel receiverMessage = new MessageItemViewModel(receiverMsg, MessageItemViewModel.MSG_RECEIVER);
+        items.add(receiverMessage);
     }
 
     /**
      * 添加接收消息到指定的下标
      */
     private void addReceiverMessageAtFirst(Message receiverMsg) {
-        if (receiverMsg.getContent() instanceof TextContent) {
-            String content = ((TextContent) receiverMsg.getContent()).getText();
-            MessageItemViewModel receiverMessage = new MessageItemViewModel();
-            receiverMessage.type = MessageItemViewModel.MSG_RECEIVER;
-            receiverMessage.content = content;
-            receiverMessage.avatarFile = receiverFile;
-            receiverMessage.userName = receiverMsg.getFromUser().getUserName();
-            List<MessageItemViewModel> temp = new ObservableArrayList<>();
-            temp.add(receiverMessage);
-            temp.addAll(items);
-            items.clear();
-            items.addAll(temp);
-            checkAddMsgData(receiverMsg, true);
-        }
+        MessageItemViewModel receiverMessage = new MessageItemViewModel(receiverMsg, MessageItemViewModel.MSG_RECEIVER);
+        List<MessageItemViewModel> temp = new ObservableArrayList<>();
+        temp.add(receiverMessage);
+        temp.addAll(items);
+        items.clear();
+        items.addAll(temp);
+        checkAddMsgData(receiverMsg, true);
     }
 
 
@@ -252,9 +203,7 @@ public class SingleViewModel extends SingleContact.ViewModel {
      */
     private void addMsgData(long time, boolean isFirst) {
         String timeForShow = Util.getTimeForShowDetail(time);
-        MessageItemViewModel dataMessage = new MessageItemViewModel();
-        dataMessage.type = MessageItemViewModel.MSG_DATA;
-        dataMessage.msgData = timeForShow;
+        MessageItemViewModel dataMessage = new MessageItemViewModel(timeForShow);
         if (isFirst) {
             items.add(0, dataMessage);
         } else {

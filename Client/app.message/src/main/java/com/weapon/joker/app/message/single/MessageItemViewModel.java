@@ -12,6 +12,10 @@ import com.weapon.joker.lib.middleware.PublicActivity;
 import java.io.File;
 
 import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.content.ImageContent;
+import cn.jpush.im.android.api.content.TextContent;
+import cn.jpush.im.android.api.model.Message;
+import cn.jpush.im.android.api.model.UserInfo;
 
 /**
  * <pre>
@@ -67,6 +71,37 @@ public class MessageItemViewModel extends BaseObservable {
      */
     @Bindable
     public String userName;
+
+
+    public MessageItemViewModel(String msgData) {
+        this(null, MessageItemViewModel.MSG_DATA, msgData);
+    }
+
+    public MessageItemViewModel(Message message, int type) {
+        this(message, type, "");
+    }
+
+    public MessageItemViewModel(Message message, int type, String msgData) {
+        this.type = type;
+        this.msgData = msgData;
+        if (message != null) {
+            switch (message.getContentType()) {
+                case text:
+                    this.content = ((TextContent) message.getContent()).getText();
+                    break;
+                case image:
+                    ImageContent imageContent = (ImageContent) message.getContent();
+                    break;
+                default:
+                    break;
+            }
+            UserInfo fromUser = message.getFromUser();
+            this.avatarFile = fromUser.getAvatarFile();
+            this.userName = fromUser.getUserName();
+            this.displayName = fromUser.getDisplayName();
+        }
+    }
+
 
     /**
      * 头像点击事件处理

@@ -83,11 +83,18 @@ public class MainFragment extends BaseFragment<MessageViewModel, MessageModel> i
      */
     @Override
     public void toggleFloatingMenu() {
-        mDataBinding.famStartChat.toggle();
+        // 延迟500ms关闭悬浮按钮
+        mDataBinding.famStartChat.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mDataBinding.famStartChat.toggle();
+            }
+        }, 500);
     }
 
     /**
      * 当接收到推送会发送 {@link PushNewsEvent}
+     *
      * @param event 收到推送的事件
      */
     public void onEvent(PushNewsEvent event) {
@@ -104,7 +111,10 @@ public class MainFragment extends BaseFragment<MessageViewModel, MessageModel> i
      * @param event 消息事件
      */
     public void onEventMainThread(MessageEvent event) {
-        getViewModel().updateOfficeData(((TextContent) event.getMessage().getContent()).getText(), 1);
+        Message message = event.getMessage();
+        if (message.getContent() instanceof TextContent) {
+            getViewModel().updateOfficeData(((TextContent) message.getContent()).getText(), 1);
+        }
     }
 
 
@@ -117,8 +127,11 @@ public class MainFragment extends BaseFragment<MessageViewModel, MessageModel> i
         Conversation conversation = event.getConversation();
         List<Message> newMessageList = event.getOfflineMessageList();//获取此次离线期间会话收到的新消息列表
         if (newMessageList != null && newMessageList.size() > 0) {
-            String content = ((TextContent) newMessageList.get(0).getContent()).getText();
-            getViewModel().updateOfficeData(content, newMessageList.size());
+            Message message = newMessageList.get(0);
+            if (message.getContent() instanceof TextContent) {
+                String content = ((TextContent) message.getContent()).getText();
+                getViewModel().updateOfficeData(content, newMessageList.size());
+            }
         }
     }
 }

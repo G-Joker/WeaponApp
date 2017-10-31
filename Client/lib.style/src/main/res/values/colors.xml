@@ -20,4 +20,6 @@
 
     <!--green-->
     <color name="green_500">#4caf50</color>
+
+    <color name="black_semi_transparent">#90000000</color>
 </resources>
