@@ -64,6 +64,8 @@ public class AlertDialogFactory {
         final EditText etContent = view.findViewById(R.id.et_content);
         if (!TextUtils.isEmpty(content)) {
             etContent.setText(content);
+            etContent.setSelection(content.length());
+            etContent.setFocusable(true);
         }
         final AlertDialog alertDialog =
                 new AlertDialog.Builder(context).setView(view)

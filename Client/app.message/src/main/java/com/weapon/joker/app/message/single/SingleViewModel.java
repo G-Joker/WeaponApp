@@ -93,6 +93,7 @@ public class SingleViewModel extends SingleContact.ViewModel {
      */
     public void init(String userName) {
         mConversation = Conversation.createSingleConversation(userName);
+        JMessageClient.getUserInfo(userName, null);
         if (mConversation == null) {
             getView().finish();
         }

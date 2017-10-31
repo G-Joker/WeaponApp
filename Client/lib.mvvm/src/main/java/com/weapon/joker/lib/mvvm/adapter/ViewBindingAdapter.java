@@ -101,14 +101,6 @@ public final class ViewBindingAdapter {
     @BindingAdapter (value = {"url", "file", "type"}, requireAll = false)
     public static void setImageViewUrl(ImageView imageView, String url, File file, int type) {
         RequestOptions requestOptions = new RequestOptions();
-        if (!TextUtils.isEmpty(url)) {
-            Glide.with(imageView.getContext())
-                 .load(url)
-                 .transition(new DrawableTransitionOptions().crossFade())
-                 .apply(requestOptions.placeholder(R.mipmap.round))
-                 .into(imageView);
-        }
-
         GlideCircleTransform glideCircleTransform = new GlideCircleTransform();
         requestOptions.transform(glideCircleTransform).dontAnimate();
         switch (type) {
@@ -127,6 +119,14 @@ public final class ViewBindingAdapter {
                 break;
         }
         Glide.with(imageView.getContext()).load(file).apply(requestOptions).into(imageView);
+        if (!TextUtils.isEmpty(url)) {
+            Glide.with(imageView.getContext())
+                 .load(url)
+                 .transition(new DrawableTransitionOptions().crossFade())
+                 .apply(requestOptions.placeholder(R.mipmap.round))
+                 .into(imageView);
+        }
+
 
     }
 

@@ -13,18 +13,6 @@
         android:background="@drawable/ic_arrow_right"/>
 
     <TextView
-        android:id="@+id/tv_content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="3dp"
-        android:layout_toLeftOf="@id/iv_right"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:textColor="#8a000000"
-        android:textSize="14sp"/>
-
-    <TextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,4 +21,17 @@
         android:textColor="#de000000"
         android:textSize="16sp"/>
 
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="3dp"
+        android:layout_toLeftOf="@id/iv_right"
+        android:ellipsize="end"
+        android:maxLength="18"
+        android:maxLines="1"
+        android:textColor="#8a000000"
+        android:textSize="14sp"/>
 </RelativeLayout>

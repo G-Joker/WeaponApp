@@ -25,7 +25,7 @@ import java.security.MessageDigest;
 
 public class BlurTransformation extends BitmapTransformation {
 
-    private static int MAX_RADIUS = 10;
+    private static int MAX_RADIUS = 6;
     private static int DEFAULT_DOWN_SAMPLING = 1;
 
     private int radius;

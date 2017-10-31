@@ -32,6 +32,7 @@
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
                     app:file="@{homePageModel.avatarFile}"
+                    app:layout_collapseMode="parallax"
                     app:type="@{3}"/>
 
                 <com.weapon.joker.lib.view.SlideView
@@ -73,11 +74,11 @@
                 </com.weapon.joker.lib.view.SlideView>
 
                 <TextView
-                    android:textSize="@dimen/public_main_text_size"
-                    android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text='@{homePageModel.signature, default="this is signature"}'/>
+                    android:text='@{homePageModel.signature, default="this is signature"}'
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/public_main_text_size"/>
 
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
@@ -114,6 +115,7 @@
             android:layout_margin="20dp"
             android:onClick="@{homePageModel::onStarChatNowClick}"
             android:textSize="30sp"
+            app:backgroundTint="@color/colorPrimary"
             app:layout_anchor="@id/app_bar"
             app:layout_anchorGravity="bottom|end"
             app:srcCompat="@mipmap/ic_message_start_conversion"/>
