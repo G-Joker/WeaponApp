@@ -3,7 +3,6 @@ package com.weapon.joker.app.message.post;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.text.TextUtils;
 import android.view.View;
 
 import com.umeng.analytics.MobclickAgent;
@@ -28,8 +27,6 @@ public class PostItemViewModel extends BaseObservable {
     @Bindable
     public String url = "url";
     @Bindable
-    public String action = "action";
-    @Bindable
     public String time = "";
     @Bindable
     public int messageId = 1;
@@ -45,10 +42,8 @@ public class PostItemViewModel extends BaseObservable {
     /**
      * 公告item点击事件处理
      */
-    public void onPostItemClick(View view){
+    public void onPostItemClick(View view) {
         MobclickAgent.onEvent(mContext.getApplicationContext(), "post_item_click");
-        if (TextUtils.equals(action, "web")) {
-            WebViewActivity.startUrl(mContext, url);
-        }
+        WebViewActivity.startUrl(mContext, url);
     }
 }

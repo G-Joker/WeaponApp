@@ -52,7 +52,6 @@ public class PostViewModel extends PostContact.ViewModel {
             itemViewModel.content = bean.content;
             itemViewModel.title = bean.title;
             itemViewModel.url = bean.url;
-            itemViewModel.action = bean.action;
             itemViewModel.time = bean.time;
             itemViewModel.messageId = bean.messageId;
             itemViewModel.imageUrl = bean.imageUrl;

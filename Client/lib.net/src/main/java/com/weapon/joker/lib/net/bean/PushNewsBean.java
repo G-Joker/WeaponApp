@@ -12,10 +12,6 @@ package com.weapon.joker.lib.net.bean;
 
 public class PushNewsBean {
     /**
-     * 推送类型
-     */
-    public int type;
-    /**
      * 消息 ID
      */
     public int messageId;
@@ -31,10 +27,6 @@ public class PushNewsBean {
      * 推送内容
      */
     public String content;
-    /**
-     * 推送 action
-     */
-    public String action;
     /**
      * 推送跳转的链接 url
      */
