@@ -162,4 +162,16 @@ public class MessageViewModel extends MessageContact.ViewModel {
         }
     }
 
+    /**
+     * 跳转到添加聊天界面
+     *
+     * @param view
+     */
+    public void onOfficeSearchClick(View view) {
+        getView().toggleFloatingMenu();
+        if (Util.checkHasLogin((Activity) getContext())) {
+            PublicActivity.startActivity((Activity) getContext(), "com.weapon.joker.app.message.friend.SearchFriendFragment");
+        }
+    }
+
 }

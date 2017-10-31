@@ -200,7 +200,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="20dp"
             android:layout_marginRight="20dp"
             app:fab_addButtonColorNormal="@color/colorPrimary"
             app:fab_addButtonColorPressed="@color/colorPrimaryDark"
@@ -208,6 +208,15 @@
             app:fab_addButtonSize="normal"
             app:fab_labelStyle="@style/menu_labels_style"
             app:fab_labelsPosition="left">
+
+            <com.weapon.joker.lib.view.floatingbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{messageModel::onOfficeSearchClick}"
+                app:fab_colorNormal="@color/material_color_amber_400"
+                app:fab_colorPressed="@color/material_color_amber_500"
+                app:fab_icon="@mipmap/ic_search_friend"
+                app:fab_title="@string/message_office_search"/>
 
             <com.weapon.joker.lib.view.floatingbutton.FloatingActionButton
                 android:layout_width="wrap_content"
@@ -226,6 +235,7 @@
                 app:fab_colorPressed="@color/material_color_purple_500"
                 app:fab_icon="@mipmap/ic_message_office_group"
                 app:fab_title="@string/message_office_group"/>
+
         </com.weapon.joker.lib.view.floatingbutton.FloatingActionsMenu>
 
     </RelativeLayout>
