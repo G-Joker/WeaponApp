@@ -467,7 +467,10 @@ public class PersonCenterViewModel extends PersonCenterContact.ViewModel {
         JMessageClient.logout();
         // JPush alias 置为空
         JPushInterface.setAlias(getContext(), 2, "");
-        getView().finish();
+//        getView().finish();
+        Intent intent  = new Intent();
+        intent.setClassName(getContext(), "com.weapon.joker.app.main.MainActivity");
+        getContext().startActivity(intent);
     }
 
     private void dismissDialog() {

@@ -106,12 +106,11 @@ public abstract class BaseFragment<VM extends BaseViewModel<? extends BaseView, 
     @Override
     public void onPause() {
         super.onPause();
-        MobclickAgent.onPageEnd(getClass().getSimpleName());
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        MobclickAgent.onPageStart(getClass().getSimpleName());
+        MobclickAgent.onEvent(getActivity(), getClass().getSimpleName());
     }
 }
