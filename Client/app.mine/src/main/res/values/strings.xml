@@ -24,11 +24,37 @@
     <string name="hiyangyue">hiyangyue</string>
     <string name="foxlee">foxlee</string>
 
+    <!--Open Source Licenses-->
+    <string-array name="array_open_source_name">
+        <item>wequick/Small</item>
+        <item>bumptech/glide</item>
+        <item>evant/binding-collection-adapter</item>
+        <item>square/okhttp</item>
+        <item>square/retrofit</item>
+    </string-array>
+
+    <string-array name="array_open_source_link">
+        <item>https://github.com/wequick/Small</item>
+        <item>https://github.com/bumptech/glide</item>
+        <item>https://github.com/evant/binding-collection-adapter</item>
+        <item>https://github.com/square/okhttp</item>
+        <item>https://github.com/square/retrofit</item>
+    </string-array>
+
+    <string-array name="array_open_source_licenses">
+        <item></item>
+        <item>BSD, part MIT and Apache 2.0. See the LICENSE file for details.</item>
+        <item>Licensed under the Apache License, Version 2.0 (the "License") </item>
+        <item>Licensed under the Apache License, Version 2.0 (the "License")</item>
+        <item>Licensed under the Apache License, Version 2.0 (the "License")</item>
+    </string-array>
+
     <!--个人中心-->
     <string name="person_logout">注销登录</string>
     <string name="person_nickname">昵称:  </string>
     <string name="person_signature">个性签名:  </string>
     <string name="person_birthday">生日:  </string>
     <string name="person_gender">性别:  </string>
+
 
 </resources>

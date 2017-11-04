@@ -238,6 +238,7 @@
                     android:layout_marginRight="@dimen/card_margin">
 
                     <LinearLayout
+                        android:id="@+id/ll_open_source"
                         style="@style/Widget.CardContent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -248,10 +249,6 @@
                             android:text="@string/open_source_licenses"
                             android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="sss"/>
 
                     </LinearLayout>
 
