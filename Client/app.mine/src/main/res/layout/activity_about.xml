@@ -136,13 +136,11 @@
 
                         <com.weapon.joker.lib.view.roundimaegview.RoundedImageView
                             android:id="@+id/iv_developer_weaponzhi"
-                            android:layout_marginTop="10dp"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
                             app:border_color="@color/grey500"
                             app:border_width="0.3dp"
                             android:layout_below="@+id/tv_developer_title"
                             android:src="@drawable/icon_avatar_weaponzhi"
+                            style="@style/AboutPageAvatar"
                             app:oval="true"/>
 
                         <TextView
@@ -165,9 +163,7 @@
 
                         <com.weapon.joker.lib.view.roundimaegview.RoundedImageView
                             android:id="@+id/iv_developer_hiyangyue"
-                            android:layout_marginTop="10dp"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
+                            style="@style/AboutPageAvatar"
                             app:border_color="@color/grey500"
                             app:border_width="0.3dp"
                             android:layout_below="@+id/tv_developer_title"
@@ -189,9 +185,7 @@
 
                         <com.weapon.joker.lib.view.roundimaegview.RoundedImageView
                             android:id="@+id/iv_developer_foxlee"
-                            android:layout_marginTop="10dp"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
+                            style="@style/AboutPageAvatar"
                             app:border_color="@color/grey500"
                             app:border_width="0.3dp"
                             android:layout_below="@+id/iv_developer_hiyangyue"
@@ -212,9 +206,7 @@
 
                         <com.weapon.joker.lib.view.roundimaegview.RoundedImageView
                             android:id="@+id/iv_developer_xiaweizi"
-                            android:layout_marginTop="10dp"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
+                            style="@style/AboutPageAvatar"
                             app:border_color="@color/grey500"
                             app:border_width="0.3dp"
                             android:layout_below="@+id/iv_developer_hiyangyue"
@@ -233,7 +225,6 @@
                             android:layout_toEndOf="@+id/iv_developer_hiyangyue"
                             android:gravity="center_vertical"
                             android:text="@string/xiaweizi"/>
-
 
                     </RelativeLayout>
 

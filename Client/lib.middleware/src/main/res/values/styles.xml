@@ -35,4 +35,10 @@
         <item name="colorControlActivated">#1565C0</item>
     </style>
 
+    <style name="AboutPageAvatar">
+        <item name="android:layout_width">@dimen/about_page_avatar_size</item>
+        <item name="android:layout_height">@dimen/about_page_avatar_size</item>
+        <item name="android:layout_marginTop">@dimen/about_page_avatar_margin_top</item>
+    </style>
+
 </resources>
