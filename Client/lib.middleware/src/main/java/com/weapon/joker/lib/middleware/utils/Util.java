@@ -2,9 +2,12 @@ package com.weapon.joker.lib.middleware.utils;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.StrictMode;
 import android.util.ArrayMap;
+import android.util.DisplayMetrics;
 
 import com.weapon.joker.lib.middleware.PublicActivity;
 
@@ -32,6 +35,7 @@ import cn.jpush.im.android.api.JMessageClient;
 
 public class Util {
 
+    private static final String TAG = Util.class.getSimpleName();
 
     @TargetApi (Build.VERSION_CODES.KITKAT)
     public static Activity getTopActivity() {
@@ -248,5 +252,13 @@ public class Util {
         } else {
             return true;
         }
+    }
+
+    public static int dip2px(Context context, float dpValue) {
+        if (context == null) {
+            throw new IllegalArgumentException(TAG + ":convertPixelsToDp context cannot be null");
+        }
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
     }
 }

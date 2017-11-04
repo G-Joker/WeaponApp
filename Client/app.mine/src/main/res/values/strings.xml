@@ -18,6 +18,12 @@
     <string name="open_source_licenses">Open Source Licenses</string>
     <string name="app_intro">一个极致的App。学习项目，帮助你提升独自开发 Android 业务层的能力。基于该开发框架，可以快速构建应用，同时你可以当做一个工具 App，以供你平时开发参考。</string>
 
+    <!--developers-->
+    <string name="weaponZhi">WeaponZhi</string>
+    <string name="xiaweizi">WeaponZhi</string>
+    <string name="hiyangyue">hiyangyue</string>
+    <string name="foxlee">foxlee</string>
+
     <!--个人中心-->
     <string name="person_logout">注销登录</string>
     <string name="person_nickname">昵称:  </string>
