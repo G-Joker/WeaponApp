@@ -2,7 +2,7 @@ package com.weapon.joker.app.mine.about;
 
 import android.content.Context;
 import android.databinding.BaseObservable;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.weapon.joker.app.mine.R;
@@ -58,5 +58,16 @@ public class AboutModel extends BaseObservable {
         }
 
         return openSourceLibraryList;
+    }
+
+    public View.OnClickListener OpenSourceLibraryClickLisener(final String url) {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!TextUtils.isEmpty(url)) {
+                    // TODO: 2017/11/4 loadUrl
+                }
+            }
+        };
     }
 }

@@ -29,14 +29,16 @@ public class AboutActivity extends AppCompatActivity {
         context.startActivity(intent);
     }
 
+    private AboutModel mAboutModel;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityAboutBinding aboutBinding = DataBindingUtil.setContentView(this, R.layout.activity_about);
-        AboutModel aboutModel = new AboutModel(this);
-        aboutBinding.setAboutmodel(aboutModel);
+        mAboutModel = new AboutModel(this);
+        aboutBinding.setAboutmodel(mAboutModel);
         initToolbar(aboutBinding);
-        initOpenSourceLibrary(aboutBinding, aboutModel);
+        initOpenSourceLibrary(aboutBinding, mAboutModel);
     }
 
     private void initToolbar(ActivityAboutBinding aboutBinding) {
@@ -45,7 +47,6 @@ public class AboutActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
     }
-
 
     /**
      *
@@ -81,6 +82,9 @@ public class AboutActivity extends AppCompatActivity {
             tvOpenSourceName.setLayoutParams(paramsOpenSourceName);
             tvOpenSourceName.setText(sourceLibrary.getName());
             rootView.addView(tvOpenSourceName);
+            if (mAboutModel != null) {
+                tvOpenSourceName.setOnClickListener(mAboutModel.OpenSourceLibraryClickLisener(sourceLibrary.getLink()));
+            }
         }
 
         if (!TextUtils.isEmpty(sourceLibrary.getLicenses())) {
@@ -90,6 +94,9 @@ public class AboutActivity extends AppCompatActivity {
             tvOpenSourceLicenses.setTextColor(getResources().getColor(R.color.grey500));
             tvOpenSourceLicenses.setLayoutParams(paramsOpenSourceLicenses);
             tvOpenSourceLicenses.setText(sourceLibrary.getLicenses());
+            if (mAboutModel != null) {
+                tvOpenSourceLicenses.setOnClickListener(mAboutModel.OpenSourceLibraryClickLisener(sourceLibrary.getLink()));
+            }
             rootView.addView(tvOpenSourceLicenses);
         }
     }
