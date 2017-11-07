@@ -26,7 +26,7 @@ public class NotificationUtil {
      * @param notifyId 通知 id
      * @param iconId   通知图标 资源id
      */
-    public static void commonNotfication(Intent intent, Context context, String content, int notifyId, int iconId) {
+    public static void commonNotfication(Intent intent, Context context,String title, String content, int notifyId, int iconId) {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
@@ -36,7 +36,7 @@ public class NotificationUtil {
 
         PendingIntent        contentIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         Notification.Builder builder       = new Notification.Builder(context);
-        builder.setContentTitle("WeaponApp");
+        builder.setContentTitle(title);
         builder.setContentText(content);
         builder.setContentIntent(contentIntent);
 

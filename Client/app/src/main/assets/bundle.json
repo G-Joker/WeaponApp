@@ -18,6 +18,10 @@
       "pkg": "com.weapon.joker.lib.style"
     },
     {
+      "uri": "lib.view",
+      "pkg": "com.weapon.joker.lib.view"
+    },
+    {
       "uri": "main",
       "pkg": "com.weapon.joker.app.main"
     },

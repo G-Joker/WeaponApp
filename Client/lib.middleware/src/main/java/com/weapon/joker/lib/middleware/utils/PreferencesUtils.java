@@ -72,4 +72,16 @@ public class PreferencesUtils {
         editor.clear();
         editor.apply();
     }
+
+    /**
+     * 清除单个数据
+     * @param context
+     * @param key 需要被清除的 key
+     */
+    public static void remove(Context context, String key) {
+        SharedPreferences preferences = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.remove(key);
+        editor.apply();
+    }
 }

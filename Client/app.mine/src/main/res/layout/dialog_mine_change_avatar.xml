@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_mine_photo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingBottom="22dp"
+        android:paddingTop="22dp"
+        android:text="相机拍摄"
+        android:textColor="@color/material_text_color_black_text"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/tv_mine_album"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingBottom="22dp"
+        android:paddingTop="22dp"
+        android:text="本地相册"
+        android:textColor="@color/material_text_color_black_text"
+        android:textSize="20sp"/>
+
+</LinearLayout>

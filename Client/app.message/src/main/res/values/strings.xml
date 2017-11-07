@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">App.message</string>
+    <string name="message_office_single">官方消息</string>
+    <string name="message_office_group">官方交流群</string>
+    <string name="search_user_name">请输入用户名</string>
+    <string name="search_no_user">未搜到此用户</string>
+    <string name="message_office_search">添加聊天</string>
 </resources>

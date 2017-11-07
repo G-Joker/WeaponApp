@@ -33,7 +33,7 @@ public class UserData{
      * 保存用户信息到缓存
      */
     public void setUserBean(Context context,UserBean userData) {
-        LogUtils.logd(TAG,"setUserBean : " + GsonUtil.getInstance().toJson(userData));
+        LogUtils.d(TAG, "setUserBean : " + GsonUtil.getInstance().toJson(userData));
         PreferencesUtils.putString(context,USER_DATA,GsonUtil.getInstance().toJson(userData));
     }
 
@@ -42,7 +42,7 @@ public class UserData{
      */
     public UserBean getUserBean(Context context) {
         String userData = PreferencesUtils.getString(context,USER_DATA,"");
-        LogUtils.logd(TAG,"getUserBean : " + userData);
+        LogUtils.d(TAG, "getUserBean : " + userData);
         if (TextUtils.isEmpty(userData)) {
             return new UserBean();
         }
@@ -53,6 +53,6 @@ public class UserData{
      * 清除用户缓存数据
      */
     public void clearUserData(Context context) {
-        PreferencesUtils.clear(context);
+        PreferencesUtils.remove(context, USER_DATA);
     }
 }

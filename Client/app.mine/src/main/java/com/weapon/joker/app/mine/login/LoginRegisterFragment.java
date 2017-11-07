@@ -1,5 +1,6 @@
 package com.weapon.joker.app.mine.login;
 
+import android.graphics.Paint;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
@@ -31,6 +32,7 @@ public class LoginRegisterFragment extends BaseFragment<LoginRegisterViewModel, 
         setToolbar();
     }
 
+
     /**
      * Toolbar 相关设置
      */
@@ -38,12 +40,15 @@ public class LoginRegisterFragment extends BaseFragment<LoginRegisterViewModel, 
         ((AppCompatActivity) getActivity()).setSupportActionBar(mDataBinding.toolbar);
         // 设置 toolbar 具有返回按钮
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
+
         mDataBinding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getActivity().finish();
             }
         });
+        mDataBinding.tvRegisterNow.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
     }
 
     @Override

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="postModel"
+            type="com.weapon.joker.app.message.post.PostViewModel"/>
+
+        <import
+            type="me.tatarka.bindingcollectionadapter2.LayoutManagers"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:title="公告"/>
+
+        <com.weapon.joker.lib.view.pullrefreshload.PullToRefreshLayout
+            android:id="@+id/pull_refresh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:onRefreshCommand="@{postModel.onRefreshCommand}">
+
+            <include layout="@layout/refresh_head"/>
+
+            <com.weapon.joker.lib.view.pullrefreshload.PullToRefreshRecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:canLoadMore="@{false}"
+                app:canRefresh="@{true}"
+                app:itemBinding="@{postModel.singleItem}"
+                app:itemIds="@{postModel.itemIds}"
+                app:items="@{postModel.items}"
+                app:layoutManager="@{LayoutManagers.linear()}"/>
+
+            <include layout="@layout/load_more"/>
+        </com.weapon.joker.lib.view.pullrefreshload.PullToRefreshLayout>
+
+    </LinearLayout>
+</layout>
+

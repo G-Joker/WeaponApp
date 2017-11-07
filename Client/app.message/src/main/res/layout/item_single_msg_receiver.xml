@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="msgModel"
+            type="com.weapon.joker.app.message.single.MessageItemViewModel"/>
+    </data>
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
+
+        <com.weapon.joker.lib.view.roundimaegview.RoundedImageView
+            android:id="@+id/iv_receiver_avatar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:onClick="@{msgModel::onAvatarClick}"
+            android:scaleType="centerCrop"
+            app:border_width="0dp"
+            app:file="@{msgModel.avatarFile}"
+            app:oval="true"
+            app:type="@{1}"/>
+
+        <com.weapon.joker.lib.view.bubble.BubbleTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="40dp"
+            android:layout_toRightOf="@id/iv_receiver_avatar"
+            android:padding="10dp"
+            android:text='@{msgModel.content, default="dafadgdddadadadaddadadafadfdafdafadfadadgadgadgadgdage"}'
+            android:textColor="@color/material_text_color_black_secondary_text"
+            android:textSize="16sp"
+            app:angle="8dp"
+            app:arrowCenter="true"
+            app:arrowHeight="10dp"
+            app:arrowLocation="left"
+            app:arrowPosition="14dp"
+            app:arrowWidth="8dp"
+            app:bubbleColor="#df87ac"/>
+    </RelativeLayout>
+
+
+</layout>

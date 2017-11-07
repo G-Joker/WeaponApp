@@ -9,3 +9,4 @@
 .externalNativeBuild
 /.idea/
 /build-small/
+/lib.view/public.txt

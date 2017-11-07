@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="messageModel"
+            type="com.weapon.joker.app.message.MessageViewModel"/>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/material_color_grey_200">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="?colorPrimary"
+            android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/colorPrimary"
+                android:gravity="center"
+                android:text="消息"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+        </android.support.v7.widget.Toolbar>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cv_message_post"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/toolbar"
+            app:cardCornerRadius="3dp"
+            app:cardElevation="2dp"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/public_click_bg"
+                android:clickable="true"
+                android:onClick="@{messageModel::onPostClick}"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="25dp">
+
+                    <RelativeLayout
+                        android:id="@+id/rl_announcement"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp">
+
+                        <ImageView
+                            android:id="@+id/iv_announcement"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:background="@mipmap/ic_message_announcement"/>
+
+                        <TextView
+                            android:layout_width="14dp"
+                            android:layout_height="10dp"
+                            android:layout_alignRight="@id/iv_announcement"
+                            android:background="@drawable/shape_red_num"
+                            android:gravity="center"
+                            android:text='@{messageModel.postNum+""}'
+                            android:textColor="#fff"
+                            android:textSize="7sp"
+                            android:visibility="@{messageModel.postRedVisible}"/>
+
+                    </RelativeLayout>
+
+
+                    <TextView
+                        android:id="@+id/tv_announcement_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:layout_toRightOf="@id/rl_announcement"
+                        android:text="公告"
+                        android:textColor="@color/material_text_color_black_text"
+                        android:textSize="@dimen/public_main_text_size"/>
+
+                    <TextView
+                        android:id="@+id/tv_announcement_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@id/tv_announcement_title"
+                        android:layout_below="@id/tv_announcement_title"
+                        android:layout_marginRight="12dp"
+                        android:ellipsize="marquee"
+                        android:singleLine="true"
+                        android:text="@{messageModel.postContent}"
+                        android:textColor="@color/material_text_color_black_secondary_text"
+                        android:textSize="@dimen/public_sub_text_size"/>
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginLeft="12dp"
+                    android:background="@color/material_text_color_black_divider"/>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cv_message_post"
+            app:cardCornerRadius="3dp"
+            app:cardElevation="2dp"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/public_click_bg"
+                android:clickable="true"
+                android:onClick="@{messageModel::onServiceClick}"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="25dp">
+
+                    <RelativeLayout
+                        android:id="@+id/rl_service"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp">
+
+                        <ImageView
+                            android:id="@+id/iv_service"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:background="@mipmap/ic_message_service"/>
+
+                        <TextView
+                            android:layout_width="14dp"
+                            android:layout_height="10dp"
+                            android:layout_alignRight="@id/iv_service"
+                            android:background="@drawable/shape_red_num"
+                            android:gravity="center"
+                            android:text='@{messageModel.officeNum+""}'
+                            android:textColor="#fff"
+                            android:textSize="7sp"
+                            android:visibility="@{messageModel.serviceRedVisible}"/>
+
+                    </RelativeLayout>
+
+
+                    <TextView
+                        android:id="@+id/tv_service_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:layout_toRightOf="@id/rl_service"
+                        android:text="最新消息"
+                        android:textColor="@color/material_text_color_black_text"
+                        android:textSize="@dimen/public_main_text_size"/>
+
+                    <TextView
+                        android:id="@+id/tv_service_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@id/tv_service_title"
+                        android:layout_below="@id/tv_service_title"
+                        android:layout_marginRight="12dp"
+                        android:ellipsize="marquee"
+                        android:singleLine="true"
+                        android:text="@{messageModel.serviceContent}"
+                        android:textColor="@color/material_text_color_black_secondary_text"
+                        android:textSize="@dimen/public_sub_text_size"/>
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginLeft="12dp"
+                    android:background="@color/material_text_color_black_divider"/>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <com.weapon.joker.lib.view.floatingbutton.FloatingActionsMenu
+            android:id="@+id/fam_start_chat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="20dp"
+            app:fab_addButtonColorNormal="@color/colorPrimary"
+            app:fab_addButtonColorPressed="@color/colorPrimaryDark"
+            app:fab_addButtonPlusIconColor="@color/white"
+            app:fab_addButtonSize="normal"
+            app:fab_labelStyle="@style/menu_labels_style"
+            app:fab_labelsPosition="left">
+
+            <com.weapon.joker.lib.view.floatingbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{messageModel::onOfficeSearchClick}"
+                app:fab_colorNormal="@color/material_color_amber_400"
+                app:fab_colorPressed="@color/material_color_amber_500"
+                app:fab_icon="@mipmap/ic_search_friend"
+                app:fab_title="@string/message_office_search"/>
+
+            <com.weapon.joker.lib.view.floatingbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{messageModel::onOfficeSingleClick}"
+                app:fab_colorNormal="@color/material_color_deep_orange_400"
+                app:fab_colorPressed="@color/material_color_deep_orange_500"
+                app:fab_icon="@mipmap/ic_message_office_single"
+                app:fab_title="@string/message_office_single"/>
+
+            <com.weapon.joker.lib.view.floatingbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{messageModel::onOfficeGroupClick}"
+                app:fab_colorNormal="@color/material_color_purple_400"
+                app:fab_colorPressed="@color/material_color_purple_500"
+                app:fab_icon="@mipmap/ic_message_office_group"
+                app:fab_title="@string/message_office_group"/>
+
+        </com.weapon.joker.lib.view.floatingbutton.FloatingActionsMenu>
+
+    </RelativeLayout>
+</layout>

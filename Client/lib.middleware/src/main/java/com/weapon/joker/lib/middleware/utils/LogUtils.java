@@ -11,63 +11,107 @@ import com.orhanobut.logger.Logger;
 public class LogUtils {
     public static boolean DEBUG_ENABLE = true;// 是否调试模式
 
-    public static void logd(String tag, String message) {
+    /**
+     * 默认的 TAG
+     */
+    private static final String DEFAULT_TAG = "WeaponApp";
+
+
+    public static void v(String tag, String message, Object... args) {
         if (DEBUG_ENABLE) {
-            Logger.d(tag+":"+ message);
+            Logger.t(tag).v(message, args);
         }
     }
 
-    public static void logd(String message) {
+    public static void v(String message, Object... args) {
         if (DEBUG_ENABLE) {
-            Logger.d(message);
+            Logger.t(DEFAULT_TAG).v(message, args);
         }
     }
 
-    public static void loge(Throwable throwable, String message, Object... args) {
+    public static void d(String tag, String message, Object... args) {
         if (DEBUG_ENABLE) {
-            Logger.e(throwable, message, args);
+            Logger.t(tag).d(message, args);
         }
     }
 
-    public static void loge(String message, Object... args) {
+    public static void d(String message, Object... args) {
         if (DEBUG_ENABLE) {
-            Logger.e(message, args);
+            Logger.t(DEFAULT_TAG).d(message, args);
         }
     }
 
-    public static void logi(String message, Object... args) {
+
+    public static void i(String tag, String message, Object... args) {
         if (DEBUG_ENABLE) {
-            Logger.i(message, args);
+            Logger.t(tag).i(message, args);
         }
     }
 
-    public static void logv(String message, Object... args) {
+    public static void i(String message, Object... args) {
         if (DEBUG_ENABLE) {
-            Logger.v(message, args);
+            Logger.t(DEFAULT_TAG).i(message, args);
         }
     }
 
-    public static void logw(String message, Object... args) {
+    public static void w(String tag, String message, Object... args) {
         if (DEBUG_ENABLE) {
-            Logger.v(message, args);
+            Logger.t(tag).w(message, args);
         }
     }
 
-    public static void logwtf(String message, Object... args) {
+    public static void w(String message, Object... args) {
         if (DEBUG_ENABLE) {
-            Logger.wtf(message, args);
+            Logger.t(DEFAULT_TAG).w(message, args);
         }
     }
 
-    public static void logjson(String message) {
+    public static void wtf(String tag, String message, Object... args) {
         if (DEBUG_ENABLE) {
-            Logger.json(message);
+            Logger.t(tag).wtf(message, args);
         }
     }
 
-    public static void logxml(String message) {
+    public static void wtf(String message, Object... args) {
         if (DEBUG_ENABLE) {
-            Logger.xml(message);
+            Logger.t(DEFAULT_TAG).wtf(message, args);
+        }
+    }
+
+    public static void e(String tag, Throwable throwable, String message, Object... args) {
+        if (DEBUG_ENABLE) {
+            Logger.t(tag).e(throwable, message, args);
+        }
+    }
+
+    public static void e(String message, Object... args) {
+        if (DEBUG_ENABLE) {
+            Logger.t(DEFAULT_TAG).e(message, args);
+        }
+    }
+
+
+    public static void json(String tag, String message) {
+        if (DEBUG_ENABLE) {
+            Logger.t(tag).json(message);
+        }
+    }
+
+    public static void json(String message) {
+        if (DEBUG_ENABLE) {
+            Logger.t(DEFAULT_TAG).json(message);
+        }
+    }
+
+    public static void xml(String tag, String message) {
+        if (DEBUG_ENABLE) {
+            Logger.t(tag).xml(message);
+        }
+    }
+
+    public static void xml(String message) {
+        if (DEBUG_ENABLE) {
+            Logger.t(DEFAULT_TAG).xml(message);
         }
     }
 }

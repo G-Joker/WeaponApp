@@ -29,6 +29,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true">
 
+        <activity android:name="com.weapon.joker.lib.middleware.PublicActivity"/>
 
         <!-- Required SDK核心功能-->
         <activity
@@ -48,6 +49,7 @@
         <!-- 可配置android:process参数将PushService放在其他进程中 -->
         <service
             android:name="cn.jpush.android.service.PushService"
+            android:enabled="true"
             android:exported="false"
             android:process=":mult">
             <intent-filter>
@@ -98,6 +100,18 @@
             </intent-filter>
         </receiver>
 
+        <!-- since 1.8.0 option 可选项。用于同一设备中不同应用的JPush服务相互拉起的功能。 -->
+        <!-- 若不启用该功能可删除该组件，将不拉起其他应用也不能被其他应用拉起 -->
+        <service
+            android:name="cn.jpush.android.service.DaemonService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter >
+                <action android:name="cn.jpush.android.intent.DaemonService" />
+                <category android:name="com.weapon.joker"/>
+            </intent-filter>
+        </service>
+
         <!-- since 3.0.9 Required SDK 核心功能-->
         <provider
             android:name="cn.jpush.android.service.DataProvider"
@@ -110,10 +124,23 @@
             android:name="cn.jpush.android.service.AlarmReceiver"
             android:exported="false"/>
 
+        <!-- Required JMessage SDK核心功能-->
+        <receiver
+            android:name="cn.jpush.im.android.helpers.IMReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter android:priority="1000">
+                <action android:name="cn.jpush.im.android.action.IM_RESPONSE"/>
+                <action android:name="cn.jpush.im.android.action.NOTIFICATION_CLICK_PROXY"/>
+
+                <category android:name="com.weapon.joker"/>
+            </intent-filter>
+        </receiver>
+
         <!-- Required  . Enable it you can get statistics data with channel -->
         <meta-data
             android:name="JPUSH_CHANNEL"
-            android:value="developer-default"/>
+            android:value="office"/>
         <meta-data
             android:name="JPUSH_APPKEY"
             android:value="505a6c2fd4058902bbd76fb8"/> <!--  </>值来自开发者平台取得的AppKey-->
@@ -139,9 +166,9 @@
 
         <activity
             android:name="com.weapon.joker.wxapi.WXEntryActivity"
-            android:theme="@style/NoTitleTranslucentTheme"
+            android:exported="true"
             android:launchMode="singleTask"
-            android:exported="true"></activity>
+            android:theme="@style/NoTitleTranslucentTheme"></activity>
 
         <!-- 友盟统计 appKey -->
         <meta-data

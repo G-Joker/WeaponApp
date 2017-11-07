@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="conversionItemModel"
+            type="com.weapon.joker.app.message.conversion.ConversionItemViewModel"/>
+    </data>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="1dp"
+        app:cardUseCompatPadding="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/public_click_bg"
+            android:clickable="true"
+            android:onClick="@{conversionItemModel::onConversionItemClick}"
+            android:onLongClick="@{conversionItemModel::onConversionItemLongClick}"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
+
+            <com.weapon.joker.lib.view.roundimaegview.RoundedImageView
+                android:id="@+id/iv_conversion_avatar"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12dp"
+                app:file="@{conversionItemModel.avatarFile}"
+                app:type="@{conversionItemModel.type}"
+                app:border_width="0dp"
+                app:oval="true"/>
+
+
+            <TextView
+                android:id="@+id/tv_post_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="3dp"
+                android:layout_toRightOf="@id/iv_conversion_avatar"
+                android:text='@{conversionItemModel.displayName, default="这是标题"}'
+                android:textColor="@color/material_text_color_black_text"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/tv_post_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_post_title"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@id/iv_conversion_avatar"
+                android:maxLines="1"
+                android:text='@{conversionItemModel.lastContent, default="这是内容"}'
+                android:textColor="@color/material_text_color_black_secondary_text"
+                android:textSize="16dp"/>
+
+            <TextView
+                android:id="@+id/tv_conversion_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="4dp"
+                android:text='@{conversionItemModel.lastTime, default="2017-12-12"}'
+                android:textColor="@color/material_text_color_black_secondary_text"
+                android:textSize="@dimen/public_sub_text_size"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="16dp"
+                android:layout_alignEnd="@+id/tv_conversion_data"
+                android:layout_below="@+id/tv_conversion_data"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/shape_red_num_conversion"
+                android:gravity="center"
+                android:paddingLeft="6dp"
+                android:paddingRight="6dp"
+                android:text='@{conversionItemModel.unReadNum+"", default=12}'
+                android:textColor="#fff"
+                android:textSize="12sp"
+                app:visibility="@{conversionItemModel.redVisible}"/>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+</layout>

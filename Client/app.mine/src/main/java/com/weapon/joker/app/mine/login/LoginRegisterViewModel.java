@@ -1,16 +1,20 @@
 package com.weapon.joker.app.mine.login;
 
+import android.app.Activity;
 import android.databinding.Bindable;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
 import com.weapon.joker.app.mine.R;
-import com.weapon.joker.lib.net.BaseObserver;
-import com.weapon.joker.lib.net.data.UserData;
-import com.weapon.joker.lib.net.model.BaseResModel;
-import com.weapon.joker.lib.net.model.LoginModel;
-import com.weapon.joker.lib.net.model.RegisterModel;
+import com.weapon.joker.lib.middleware.utils.AlertDialogFactory;
+import com.weapon.joker.lib.middleware.PublicActivity;
+import com.weapon.joker.lib.net.JMessageCallBack;
+
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.model.UserInfo;
 
 /**
  * class：   Client
@@ -20,7 +24,6 @@ import com.weapon.joker.lib.net.model.RegisterModel;
  * desc:     登录注册 viewModel
  */
 public class LoginRegisterViewModel extends LoginRegisterContact.ViewModel {
-
 
     /**
      * 用户名
@@ -33,84 +36,108 @@ public class LoginRegisterViewModel extends LoginRegisterContact.ViewModel {
     @Bindable
     public String password;
 
-    /*************************** 网络请求 ***************************/
     /**
-     * 请求登录接口
-     * @param userName 用户名
-     * @param password 登录密码
+     * 正在加载对话框
      */
-    @Override
-    void requestLogin(String userName, String password) {
-        getModel().login(userName, password)
-                .subscribe(new BaseObserver<LoginModel>() {
-                    @Override
-                    protected void onSuccess(LoginModel entry) throws Exception {
-                        if (entry != null) {
-                            if (entry.status == BaseResModel.REQUEST_SUCCESS && entry.data != null) {
-                                loginSuccess(entry);
-                            } else {
-                                loginFailed(entry.desc);
-                            }
-                        } else {
-                            loginFailed(getContext().getString(R.string.public_net_error));
-                        }
-                    }
+    protected AlertDialog mLoadingDialog;
 
-                    @Override
-                    protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                        loginFailed(getContext().getString(R.string.public_net_error));
-                    }
-                });
-    }
+    /*============================== 事件点击 ===================================*/
 
     /**
-     * 登录失败
-     * @param desc 失败描述
+     * 登录按钮点击处理
+     *
+     * @param view
      */
-    private void loginFailed(String desc) {
-        Toast.makeText(getContext(), desc, Toast.LENGTH_SHORT).show();
-    }
-
-    /**
-     * 登录成功
-     * @param entry 登录成功返回的实体 bean
-     */
-    private void loginSuccess(LoginModel entry) {
-        Toast.makeText(getContext(), R.string.mine_login_success, Toast.LENGTH_SHORT).show();
-        /** 统计用户信息 */
-        MobclickAgent.onProfileSignIn(entry.data.uid);
-        /** 统计用户点击登录事件 */
-        MobclickAgent.onEvent(getContext().getApplicationContext(), "mine_login", entry.data.user);
-        /** 保存用户信息到缓存 */
-        UserData.getInstance().setUserBean(getContext().getApplicationContext(), entry.data);
-        getView().finish();
-    }
-
-    /**
-     * 请求注册接口
-     * @param userName 用户名
-     * @param password 登录密码
-     */
-    @Override
-    void requestRegister(String userName, String password) {
-        getModel().register(userName, password)
-                .subscribe(new BaseObserver<RegisterModel>() {
-                    @Override
-                    protected void onSuccess(RegisterModel entry) throws Exception {
-
-                    }
-
-                    @Override
-                    protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-
-                    }
-                });
-    }
-
     public void onLoginClick(View view) {
         if (!getView().checkInputContent()) {
             return;
         }
         requestLogin(userName, password);
     }
+
+    /**
+     * 注册按钮点击处理
+     *
+     * @param view
+     */
+    public void onRegisterClick(View view) {
+        PublicActivity.startActivity((Activity) getContext(), "com.weapon.joker.app.mine.login.RegisterFragment");
+    }
+
+
+    /*============================== 网络请求 ===================================*/
+
+    /**
+     * 请求登录接口
+     *
+     * @param userName 用户名
+     * @param password 登录密码
+     */
+    @Override
+    void requestLogin(String userName, String password) {
+        if (mLoadingDialog == null) {
+            mLoadingDialog = AlertDialogFactory.createLoadingDialog(getContext(), "正在登录");
+        }
+        mLoadingDialog.show();
+        // 使用 JMessage 提供的登录接口
+        JMessageClient.login(userName, password, new JMessageCallBack() {
+            @Override
+            public void onSuccess() {
+                loginSuccess();
+            }
+
+            @Override
+            public void onFailed(int status, String desc) {
+                loginFailed(desc);
+            }
+        });
+    }
+
+    /**
+     * 请求注册接口
+     *
+     * @param userName 用户名
+     * @param password 登录密码
+     */
+    @Override
+    void requestRegister(String userName, String password) {
+
+    }
+
+
+    /*============================== 网络请求回调处理 ===================================*/
+
+    /**
+     * 登录失败
+     *
+     * @param desc 失败描述
+     */
+    private void loginFailed(String desc) {
+        dismissDialog();
+        Toast.makeText(getContext(), desc, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 登录成功
+     */
+    private void loginSuccess() {
+        dismissDialog();
+        Toast.makeText(getContext(), R.string.mine_login_success, Toast.LENGTH_SHORT).show();
+        // 获取本地用户信息
+        UserInfo myInfo = JMessageClient.getMyInfo();
+        // 统计用户信息
+        MobclickAgent.onProfileSignIn(userName);
+        // 统计用户点击登录事件
+        MobclickAgent.onEvent(getContext().getApplicationContext(), "mine_login", userName);
+        // JPush 设置 alias
+        JPushInterface.setAlias(getContext().getApplicationContext(), 12, userName);
+        getView().finish();
+    }
+
+    protected void dismissDialog() {
+        if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
+            mLoadingDialog.dismiss();
+        }
+    }
+
 }

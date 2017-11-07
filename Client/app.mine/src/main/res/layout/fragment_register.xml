@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="registerModel"
+            type="com.weapon.joker.app.mine.login.RegisterViewModel"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:title="@string/mine_register"/>
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="72dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="24dp"
+            android:src="@mipmap/round"/>
+
+        <com.weapon.joker.lib.view.CustomTextInputLayout
+            android:id="@+id/til_user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginTop="8dp">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/mine_user_name"
+                android:imeOptions="actionNext"
+                android:inputType="textPersonName"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="@={registerModel.userName}"
+                android:textColor="@color/material_text_color_white_text"
+                android:textSize="13sp"/>
+        </com.weapon.joker.lib.view.CustomTextInputLayout>
+
+
+        <com.weapon.joker.lib.view.CustomTextInputLayout
+            android:id="@+id/til_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginTop="8dp"
+            app:passwordToggleEnabled="true">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/material_text_color_white_text"
+                android:hint="@string/mine_password"
+                android:imeOptions="actionUnspecified"
+                android:inputType="textPassword"
+                android:text="@={registerModel.password}"
+                android:textSize="13sp"/>
+        </com.weapon.joker.lib.view.CustomTextInputLayout>
+
+
+        <com.weapon.joker.lib.view.CustomTextInputLayout
+            android:id="@+id/til_password_again"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginTop="8dp"
+            app:passwordToggleEnabled="true">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/mine_password_again"
+                android:imeOptions="actionUnspecified"
+                android:inputType="textPassword"
+                android:textColor="@color/material_text_color_white_text"
+                android:text="@={registerModel.passwordAgain}"
+                android:textSize="13sp"/>
+        </com.weapon.joker.lib.view.CustomTextInputLayout>
+
+        <Button
+            android:id="@+id/bt_login"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:onClick="@{registerModel::onRegisterClick}"
+            android:text="@string/mine_register"/>
+
+    </LinearLayout>
+
+
+</layout>

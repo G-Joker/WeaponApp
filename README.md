@@ -54,6 +54,7 @@ buildBundle q d 相当于加-q 和 -Dbundle.arch=x86
 - [ ] **控件组件化**
 - [ ] **单元测试**
 - [ ] **集成测试**
+- [x] **即时通讯**
 - [ ] 视频服务
 - [ ] Material Design
 - [x] Glide

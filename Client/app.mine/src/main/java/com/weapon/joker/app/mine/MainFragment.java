@@ -5,6 +5,9 @@ import android.content.Intent;
 import com.tencent.tauth.Tencent;
 import com.weapon.joker.lib.mvvm.common.BaseFragment;
 
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.event.LoginStateChangeEvent;
+
 /**
  * MainFragment 我的 Fragment
  * author:张冠之
@@ -21,6 +24,7 @@ public class MainFragment extends BaseFragment<MineViewModel, MineModel> impleme
 
     @Override
     public void initView() {
+        JMessageClient.registerEventReceiver(this);
         getViewModel().initShare();
     }
 
@@ -40,4 +44,15 @@ public class MainFragment extends BaseFragment<MineViewModel, MineModel> impleme
         super.onResume();
         getViewModel().updateUserInfo();
     }
+
+    @Override
+    public void onDestroy() {
+        JMessageClient.unRegisterEventReceiver(this);
+        super.onDestroy();
+    }
+
+    public void onEventMainThread(LoginStateChangeEvent event) {
+        getViewModel().updateUserInfo();
+    }
+
 }

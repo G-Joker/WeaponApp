@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="singleModel"
+            type="com.weapon.joker.app.message.single.SingleViewModel"/>
+
+        <import type="me.tatarka.bindingcollectionadapter2.LayoutManagers"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="?colorPrimary"
+            android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:title="小之"/>
+
+        <com.weapon.joker.lib.view.pullrefreshload.PullToRefreshLayout
+            android:id="@+id/pull_refresh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:onRefreshCommand="@{singleModel.onRefreshCommand}">
+
+            <include layout="@layout/refresh_head"/>
+
+            <com.weapon.joker.lib.view.pullrefreshload.PullToRefreshRecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:canLoadMore="@{false}"
+                app:canRefresh="@{true}"
+                app:itemBinding="@{singleModel.multiItems}"
+                app:itemIds="@{singleModel.itemIds}"
+                app:items="@{singleModel.items}"
+                app:layoutManager="@{LayoutManagers.linear()}"/>
+
+            <include layout="@layout/load_more"/>
+        </com.weapon.joker.lib.view.pullrefreshload.PullToRefreshLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_weight="1"
+                android:text="@={singleModel.sendContent}"/>
+
+            <Button
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginRight="12dp"
+                android:onClick="@{singleModel::sendMessageToOffice}"
+                android:text="发送"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="searchFriendModel"
+            type="com.weapon.joker.app.message.friend.SearchFriendViewModel"/>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="#fcfcfc"
+            android:orientation="horizontal">
+
+            <com.weapon.joker.lib.view.SearchEditText
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="11dp"
+                android:layout_weight="1"
+                android:background="@drawable/shape_search_edit_text"
+                android:focusable="true"
+                android:hint="@string/search_user_name"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingLeft="8dp"
+                android:paddingRight="4dp"
+                android:text="@={searchFriendModel.userName}"
+                android:textColor="@color/material_text_color_black_secondary_text"
+                android:textColorHint="@color/material_text_color_black_hint"
+                android:textSize="15dp"/>
+
+            <Button
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="12dp"
+                android:background="@drawable/public_click_bg"
+                android:onClick="@{searchFriendModel::onSearchFriendClick}"
+                android:text="搜索"
+                android:textSize="15sp"/>
+        </LinearLayout>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="2dp"
+            app:cardUseCompatPadding="true"
+            app:visibility="@{searchFriendModel.searchItemVisible}">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/public_click_bg"
+                android:onClick="@{searchFriendModel::onFriendClick}"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp">
+
+                <com.weapon.joker.lib.view.roundimaegview.RoundedImageView
+                    android:id="@+id/iv_friend_avatar"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="12dp"
+                    android:onClick="@{searchFriendModel::onAvatarClick}"
+                    android:scaleType="centerCrop"
+                    app:border_width="0dp"
+                    app:file="@{searchFriendModel.avatarFile}"
+                    app:oval="true"
+                    app:type="@{1}"/>
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="12dp"
+                    android:layout_toRightOf="@id/iv_friend_avatar"
+                    android:text='@{searchFriendModel.displayName, default="xiaweizi"}'
+                    android:textColor="#de000000"
+                    android:textSize="16sp"/>
+
+                <ImageView
+                    android:id="@+id/iv_right"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="6dp"
+                    android:background="@drawable/ic_arrow_right"/>
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="80dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="6dp"
+            app:visibility="@{searchFriendModel.noUserVisible}">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/search_no_user"
+                android:textColor="@color/material_text_color_black_text"
+                android:textSize="25sp"/>
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+</layout>

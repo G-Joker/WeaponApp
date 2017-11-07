@@ -24,4 +24,21 @@
         <item name="android:orientation">vertical</item>
     </style>
 
+    <style name="Dialog" parent="Base.Theme.AppCompat.Light.Dialog">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="PersonEditTextStyle" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorControlActivated">#1565C0</item>
+    </style>
+
+    <style name="AboutPageAvatar">
+        <item name="android:layout_width">@dimen/about_page_avatar_size</item>
+        <item name="android:layout_height">@dimen/about_page_avatar_size</item>
+        <item name="android:layout_marginTop">@dimen/about_page_avatar_margin_top</item>
+    </style>
+
 </resources>

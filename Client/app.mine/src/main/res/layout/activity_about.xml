@@ -1,0 +1,275 @@
+<layout>
+
+    <data>
+
+        <variable
+            name="aboutmodel"
+            type="com.weapon.joker.app.mine.about.AboutModel"/>
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/main_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="256dp"
+            android:fitsSystemWindows="true"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                app:contentScrim="?attr/colorPrimary"
+                app:expandedTitleMarginEnd="64dp"
+                app:expandedTitleMarginStart="48dp"
+                app:expandedTitleTextAppearance="@style/Widget.CollapsingToolbarLayoutExpandedTextStyle"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    app:layout_collapseMode="parallax"
+                    app:layout_collapseParallaxMultiplier="0.7">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/ic_launcher"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/app_name"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Version 1.0-alpha"
+                        android:textColor="@color/white"/>
+
+                </LinearLayout>
+
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:layout_collapseMode="pin"
+                    app:navigationIcon="@drawable/icon_close"
+                    />
+
+
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingTop="24dp">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/card_margin">
+
+                    <LinearLayout
+                        style="@style/Widget.CardContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/about"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/app_intro"/>
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/card_margin"
+                    android:layout_marginLeft="@dimen/card_margin"
+                    android:layout_marginRight="@dimen/card_margin">
+
+                    <RelativeLayout
+                        style="@style/Widget.CardContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_developer_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/developers"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+
+                        <com.weapon.joker.lib.view.roundimaegview.RoundedImageView
+                            android:id="@+id/iv_developer_weaponzhi"
+                            app:border_color="@color/grey500"
+                            app:border_width="0.3dp"
+                            android:layout_below="@+id/tv_developer_title"
+                            android:src="@drawable/icon_avatar_weaponzhi"
+                            style="@style/AboutPageAvatar"
+                            app:oval="true"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBottom="@+id/iv_developer_weaponzhi"
+                            android:layout_alignTop="@+id/iv_developer_weaponzhi"
+                            android:layout_below="@+id/tv_developer_title"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="5dp"
+                            android:layout_toEndOf="@+id/iv_developer_weaponzhi"
+                            android:gravity="center_vertical"
+                            android:text="@string/weaponZhi"/>
+
+                        <View
+                            android:id="@+id/view_flag"
+                            android:layout_centerInParent="true"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"/>
+
+                        <com.weapon.joker.lib.view.roundimaegview.RoundedImageView
+                            android:id="@+id/iv_developer_hiyangyue"
+                            style="@style/AboutPageAvatar"
+                            app:border_color="@color/grey500"
+                            app:border_width="0.3dp"
+                            android:layout_below="@+id/tv_developer_title"
+                            android:src="@drawable/icon_avatar_hiyangyue"
+                            android:layout_toEndOf="@+id/view_flag"
+                            app:oval="true"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBottom="@+id/iv_developer_hiyangyue"
+                            android:layout_alignTop="@+id/iv_developer_hiyangyue"
+                            android:layout_below="@+id/tv_developer_title"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="5dp"
+                            android:layout_toEndOf="@+id/iv_developer_hiyangyue"
+                            android:gravity="center_vertical"
+                            android:text="@string/hiyangyue"/>
+
+                        <com.weapon.joker.lib.view.roundimaegview.RoundedImageView
+                            android:id="@+id/iv_developer_foxlee"
+                            style="@style/AboutPageAvatar"
+                            app:border_color="@color/grey500"
+                            app:border_width="0.3dp"
+                            android:layout_below="@+id/iv_developer_hiyangyue"
+                            android:src="@drawable/icon_avatar_foxlee"
+                            app:oval="true"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBottom="@+id/iv_developer_foxlee"
+                            android:layout_alignTop="@+id/iv_developer_foxlee"
+                            android:layout_below="@+id/iv_developer_hiyangyue"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="5dp"
+                            android:layout_toEndOf="@+id/iv_developer_foxlee"
+                            android:gravity="center_vertical"
+                            android:text="@string/foxlee"/>
+
+                        <com.weapon.joker.lib.view.roundimaegview.RoundedImageView
+                            android:id="@+id/iv_developer_xiaweizi"
+                            style="@style/AboutPageAvatar"
+                            app:border_color="@color/grey500"
+                            app:border_width="0.3dp"
+                            android:layout_below="@+id/iv_developer_hiyangyue"
+                            android:src="@drawable/icon_avatar_xiaweizhi"
+                            android:layout_toEndOf="@+id/view_flag"
+                            app:oval="true"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBottom="@+id/iv_developer_foxlee"
+                            android:layout_alignTop="@+id/iv_developer_foxlee"
+                            android:layout_below="@+id/iv_developer_hiyangyue"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="5dp"
+                            android:layout_toEndOf="@+id/iv_developer_hiyangyue"
+                            android:gravity="center_vertical"
+                            android:text="@string/xiaweizi"/>
+
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/card_margin"
+                    android:layout_marginLeft="@dimen/card_margin"
+                    android:layout_marginRight="@dimen/card_margin">
+
+                    <LinearLayout
+                        android:id="@+id/ll_open_source"
+                        style="@style/Widget.CardContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/open_source_licenses"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="@{aboutmodel.clickFabFavorite()}"
+            android:src="@drawable/icon_favorite"
+            app:layout_anchor="@id/appbar"
+            app:layout_anchorGravity="bottom|right|end"/>
+
+    </android.support.design.widget.CoordinatorLayout>
+
+</layout>

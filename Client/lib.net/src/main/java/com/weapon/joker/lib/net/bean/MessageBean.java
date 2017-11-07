@@ -23,6 +23,6 @@ public class MessageBean {
 
     /** 定义 输出返回数据 的方法 */
     public void show() {
-        LogUtils.logi("Request"+status+"\n"+content.from+"\n"+content.vendor+"\n"+content.out+"\n"+content.errNo);
+        LogUtils.i("Request" + status + "\n" + content.from + "\n" + content.vendor + "\n" + content.out + "\n" + content.errNo);
     }
 }

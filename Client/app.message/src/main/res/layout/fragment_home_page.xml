@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="homePageModel"
+            type="com.weapon.joker.app.message.homepage.HomePageViewModel"/>
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="true"
+        android:fitsSystemWindows="true">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="240dp">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    app:file="@{homePageModel.avatarFile}"
+                    app:layout_collapseMode="parallax"
+                    app:type="@{3}"/>
+
+                <com.weapon.joker.lib.view.SlideView
+                    android:id="@+id/stuff_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:collapsedPadding="52dp">
+
+                    <com.weapon.joker.lib.view.roundimaegview.RoundedImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="20dp"
+                        android:fitsSystemWindows="true"
+                        android:scaleType="centerCrop"
+                        app:border_width="0dp"
+                        app:file="@{homePageModel.avatarFile}"
+                        app:oval="true"
+                        app:type="@{1}"/>
+                </com.weapon.joker.lib.view.SlideView>
+
+                <com.weapon.joker.lib.view.SlideView
+                    android:id="@+id/stuff_container1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:collapsedPadding="100dp">
+
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center"
+                        android:text='@{homePageModel.displayName,default="xiaweizi"}'
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"/>
+                </com.weapon.joker.lib.view.SlideView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text='@{homePageModel.signature, default="this is signature"}'
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/public_main_text_size"/>
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize"
+                    app:contentInsetLeft="0dp"
+                    app:contentInsetStart="0dp"
+                    app:layout_collapseMode="pin"
+                    app:title=" "/>
+
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:text="@{homePageModel.homePage}"/>
+
+        </android.support.v4.widget.NestedScrollView>
+
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="20dp"
+            android:onClick="@{homePageModel::onStarChatNowClick}"
+            android:textSize="30sp"
+            app:backgroundTint="@color/colorPrimary"
+            app:layout_anchor="@id/app_bar"
+            app:layout_anchorGravity="bottom|end"
+            app:srcCompat="@mipmap/ic_message_start_conversion"/>
+
+    </android.support.design.widget.CoordinatorLayout>
+</layout>

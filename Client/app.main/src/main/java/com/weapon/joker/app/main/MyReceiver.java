@@ -8,6 +8,11 @@ import android.text.TextUtils;
 
 import com.weapon.joker.lib.middleware.utils.LogUtils;
 import com.weapon.joker.lib.middleware.utils.NotificationUtil;
+import com.weapon.joker.lib.middleware.PublicActivity;
+import com.weapon.joker.lib.net.GsonUtil;
+import com.weapon.joker.lib.net.bean.PushNewsBean;
+import com.weapon.joker.lib.net.data.PushNewsData;
+import com.weapon.joker.lib.net.event.PushNewsEvent;
 
 import net.wequick.small.Small;
 
@@ -17,6 +22,7 @@ import org.json.JSONObject;
 import java.util.Iterator;
 
 import cn.jpush.android.api.JPushInterface;
+import cn.jpush.im.android.eventbus.EventBus;
 
 /**
  * <pre>
@@ -29,64 +35,66 @@ import cn.jpush.android.api.JPushInterface;
  */
 public class MyReceiver extends BroadcastReceiver {
 
+    /**
+     * 自定义消息类型-每日推荐
+     */
+    private static final String TYPE_RECOMMEND = "每日推荐";
+
     @Override
     public void onReceive(final Context context, Intent intent) {
         try {
             Bundle bundle = intent.getExtras();
-            LogUtils.logi("action:" + intent.getAction() + ", extras: " + printBundle(bundle));
+            LogUtils.i("action:" + intent.getAction() + ", extras: " + printBundle(bundle));
             if (JPushInterface.ACTION_REGISTRATION_ID.equals(intent.getAction())) {
                 String regId = bundle.getString(JPushInterface.EXTRA_REGISTRATION_ID);
-                LogUtils.logi("Registration Id : " + regId);
+                LogUtils.i("Registration Id : " + regId);
 
             } else if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(intent.getAction())) {
-                LogUtils.logi("Custom message : " + bundle.getString(JPushInterface.EXTRA_MESSAGE));
-                dealCustomPush(context, bundle.getString(JPushInterface.EXTRA_MESSAGE));
-            } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {
-                LogUtils.logi("Get push message!");
-                int notification = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
-                LogUtils.logi("Push message notification Id : " + notification);
-
-            } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
-                LogUtils.logi("User has clicked the notification!");
-
-                //打开自定义的Activity
-
-
-            } else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent.getAction())) {
-                //在这里根据 JPushInterface.EXTRA_EXTRA 的内容处理代码，比如打开新的Activity， 打开一个网页等..
-                LogUtils.logi("Rich push callback : " + bundle.getString(JPushInterface.EXTRA_EXTRA));
-
-            } else if (JPushInterface.ACTION_CONNECTION_CHANGE.equals(intent.getAction())) {
-                boolean connected = intent.getBooleanExtra(JPushInterface.EXTRA_CONNECTION_CHANGE, false);
-                LogUtils.logi("connected state change to " + connected);
-            } else {
-                LogUtils.logi("Unhandled intent - " + intent.getAction());
+                dealCustomPush(context, bundle);
             }
         } catch (Exception e) {
-            LogUtils.loge("Push has occurs some error! error message : " + e.getMessage());
+            LogUtils.e("Push has occurs some error! error message : " + e.getMessage());
         }
 
     }
 
     /**
      * 处理自定义推送消息
-     *
-     * @param extra 自定义推送消息
      */
-    private void dealCustomPush(Context context, String extra) {
-        if (TextUtils.isEmpty(extra)) {
-            return;
-        }
-        try {
-            JSONObject jsonObject = new JSONObject(extra);
-            String     title      = jsonObject.getString("title");
-            Intent     intent     = new Intent(context, MainActivity.class);
-            Small.wrapIntent(intent);
-            NotificationUtil.commonNotfication(intent, context, title, 12, R.mipmap.ic_launcher);
-        } catch (JSONException e) {
-            e.printStackTrace();
+    private void dealCustomPush(Context context, Bundle bundle) {
+        String message = bundle.getString(JPushInterface.EXTRA_MESSAGE);
+        String contentType = bundle.getString(JPushInterface.EXTRA_CONTENT_TYPE);
+        int msgId = bundle.getInt(JPushInterface.EXTRA_MSG_ID);
+
+        if (TextUtils.equals(TYPE_RECOMMEND, contentType)) {
+            // 每日推荐
+            dealRecommendDay(context, message, msgId);
+        } else {
+            // 处理其他类型
         }
 
+    }
+
+    /**
+     * 每日推荐的消息类型的处理
+     * @param context
+     * @param message
+     * @param msgId
+     */
+    private void dealRecommendDay(Context context, String message, int msgId) {
+        try {
+            PushNewsBean pushNewsBean = GsonUtil.getInstance().fromJson(message, PushNewsBean.class);
+            pushNewsBean.messageId = msgId;
+            // 将收到的消息保存到本地
+            PushNewsData.getInstance().addPushNewsModel(context, pushNewsBean);
+            Intent intent = new Intent(context, PublicActivity.class);
+            intent.putExtra("fragment_name", "com.weapon.joker.app.message.post.PostFragment");
+            Small.wrapIntent(intent);
+            NotificationUtil.commonNotfication(intent, context, pushNewsBean.title, pushNewsBean.content, 12, R.mipmap.ic_launcher);
+            EventBus.getDefault().post(new PushNewsEvent());
+        } catch (Exception e) {
+            LogUtils.e("MyReceiver", "dealCustomPush error! desc: " + e.getMessage());
+        }
     }
 
     /**
@@ -104,21 +112,20 @@ public class MyReceiver extends BroadcastReceiver {
                 sb.append("\nkey:" + key + ", value:" + bundle.getBoolean(key));
             } else if (key.equals(JPushInterface.EXTRA_EXTRA)) {
                 if (TextUtils.isEmpty(bundle.getString(JPushInterface.EXTRA_EXTRA))) {
-                    LogUtils.logi("This message has no Extra data");
+                    LogUtils.i("This message has no Extra data");
                     continue;
                 }
 
                 try {
-                    JSONObject       json = new JSONObject(bundle.getString(JPushInterface.EXTRA_EXTRA));
-                    Iterator<String> it   = json.keys();
+                    JSONObject json = new JSONObject(bundle.getString(JPushInterface.EXTRA_EXTRA));
+                    Iterator<String> it = json.keys();
 
                     while (it.hasNext()) {
                         String myKey = it.next().toString();
-                        sb.append("\nkey:" + key + ", value: [" +
-                                  myKey + " - " + json.optString(myKey) + "]");
+                        sb.append("\nkey:" + key + ", value: [" + myKey + " - " + json.optString(myKey) + "]");
                     }
                 } catch (JSONException e) {
-                    LogUtils.logi("Get message extra JSON error!");
+                    LogUtils.i("Get message extra JSON error!");
                 }
 
             } else {

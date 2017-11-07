@@ -8,6 +8,7 @@ import com.umeng.analytics.MobclickAgent;
 import net.wequick.small.Small;
 
 import cn.jpush.android.api.JPushInterface;
+import cn.jpush.im.android.api.JMessageClient;
 
 /**
  * BaseApplication 程序入口，做初始化工作，并对整个应用提供上下文环境
@@ -29,8 +30,12 @@ public class WeaponApplication extends Application{
     public void onCreate() {
         super.onCreate();
         sApplication = this;
-        JPushInterface.setDebugMode(true); 	// 设置开启日志,发布时请关闭日志
-        JPushInterface.init(this);     		// 初始化 JPush
+        // 设置开启日志,发布时请关闭日志
+        JPushInterface.setDebugMode(true);
+        JMessageClient.setDebugMode(true);
+        // 初始化 JPush
+        JPushInterface.init(this);
+        JMessageClient.init(this);
 
         // 设置友盟统计场景为 普通统计场景类型
         MobclickAgent.setScenarioType(getApplicationContext(), MobclickAgent.EScenarioType.E_UM_NORMAL);

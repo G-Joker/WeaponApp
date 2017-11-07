@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="conversionModel"
+            type="com.weapon.joker.app.message.conversion.ConversionViewModel"/>
+
+        <import type="me.tatarka.bindingcollectionadapter2.LayoutManagers"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="?colorPrimary"
+            app:title="最近聊天"
+            android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+
+        <com.weapon.joker.lib.view.pullrefreshload.PullToRefreshRecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:canLoadMore="@{false}"
+            app:canRefresh="@{false}"
+            app:itemBinding="@{conversionModel.singleItem}"
+            app:itemIds="@{conversionModel.itemIds}"
+            app:items="@{conversionModel.items}"
+            app:layoutManager="@{LayoutManagers.linear()}"/>
+
+
+    </LinearLayout>
+</layout>

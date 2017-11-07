@@ -1,22 +1,27 @@
 package com.weapon.joker.app.mine;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.databinding.Bindable;
-import android.text.TextUtils;
+import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.Toast;
 
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.UiError;
 import com.umeng.analytics.MobclickAgent;
+import com.weapon.joker.app.mine.about.AboutActivity;
 import com.weapon.joker.app.stub.share.IShareListener;
 import com.weapon.joker.app.stub.share.ShareParams;
 import com.weapon.joker.app.stub.share.ShareType;
+import com.weapon.joker.lib.middleware.PublicActivity;
 import com.weapon.joker.lib.middleware.utils.LogUtils;
 import com.weapon.joker.lib.middleware.utils.share.ShareView;
-import com.weapon.joker.lib.mvvm.common.PublicActivity;
-import com.weapon.joker.lib.net.bean.UserBean;
-import com.weapon.joker.lib.net.data.UserData;
+
+import java.io.File;
+
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.model.UserInfo;
 
 /**
  * class：   WeaponApp
@@ -27,22 +32,39 @@ import com.weapon.joker.lib.net.data.UserData;
  */
 public class MineViewModel extends MineContact.ViewModel implements IShareListener, IUiListener {
 
-    /** 分享 view */
+    /**
+     * 分享 view
+     */
     private ShareView mShareView;
-    /** 用户名 */
+    /**
+     * 用户名
+     */
     private String userName;
-    /** 是否登录 */
+    /**
+     * 是否登录
+     */
     private boolean hasLogin = false;
-    /** 用户 bean */
-    private UserBean mUserBean;
+    /**
+     * 用户信息
+     */
+    private UserInfo mUserInfo;
+    /**
+     * 用户头像
+     */
+    @Bindable
+    public File avatarFile;
+
+    public void setAvatarFile(File avatarFile) {
+        this.avatarFile = avatarFile;
+        notifyPropertyChanged(com.weapon.joker.app.mine.BR.avatarFile);
+    }
 
     /**
      * 设置用户名
      * @param userName
-     */
-    public void setUserName(String userName) {
+     */ public void setUserName(String userName) {
         this.userName = userName;
-        notifyPropertyChanged(BR.userName);
+        notifyPropertyChanged(com.weapon.joker.app.mine.BR.userName);
     }
 
     @Bindable
@@ -52,10 +74,12 @@ public class MineViewModel extends MineContact.ViewModel implements IShareListen
 
     /**
      * 设置是否登录
+     *
      * @param hasLogin
      */
     public void setHasLogin(boolean hasLogin) {
         this.hasLogin = hasLogin;
+        notifyPropertyChanged(com.weapon.joker.app.mine.BR.hasLogin);
     }
 
     @Bindable
@@ -67,15 +91,17 @@ public class MineViewModel extends MineContact.ViewModel implements IShareListen
      * 更新用户信息
      */
     public void updateUserInfo() {
-        mUserBean = UserData.getInstance().getUserBean(getContext());
-        if (TextUtils.isEmpty(mUserBean.token)) {
+        mUserInfo = JMessageClient.getMyInfo();
+        if (mUserInfo == null) {
             // 未登录
             setUserName("我的");
             setHasLogin(false);
+            setAvatarFile(null);
         } else {
             // 已经登录
-            setUserName(mUserBean.user);
+            setUserName(mUserInfo.getDisplayName());
             setHasLogin(true);
+            setAvatarFile(mUserInfo.getAvatarFile());
         }
     }
 
@@ -88,7 +114,7 @@ public class MineViewModel extends MineContact.ViewModel implements IShareListen
                 .setDescription(getContext().getResources().getString(R.string.share_desc))
                 .setAppUrl(getContext().getResources().getString(R.string.share_url))
                 .setImgUrl(getContext().getResources().getString(R.string.share_img_url))
-                .setResId(R.mipmap.ic_launcher_round)
+                .setResId(R.mipmap.round)
                 .build();
         mShareView = new ShareView(getContext(), params, this);
     }
@@ -106,13 +132,24 @@ public class MineViewModel extends MineContact.ViewModel implements IShareListen
         if (getHasLogin()) {
             // 如果已经登录则跳转到个人中心界面
             MobclickAgent.onEvent(getContext(), "mine_person_center");
-            PublicActivity.startActivity((Activity) getContext(), "com.weapon.joker.app.mine.person.PersonCenterFragment");
+            Intent intent = new Intent(getContext(), PublicActivity.class);
+            intent.putExtra("user_name", mUserInfo.getUserName());
+            PublicActivity.startActivity((Activity) getContext(), "com.weapon.joker.app.mine.person.PersonCenterFragment", intent);
         } else {
             // 如果没有登录则跳转到登录界面
 //            Intent intent = new Intent(getContext(), LoginActivity.class);
 //            getContext().startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(((Activity) getContext())).toBundle());
             PublicActivity.startActivity((Activity) getContext(), "com.weapon.joker.app.mine.login.LoginRegisterFragment");
         }
+    }
+
+    /**
+     *
+     *  跳转到关于界面
+     * author: yueyang
+     **/
+    public void jumpToAboutPage(View view) {
+        AboutActivity.launch(getContext());
     }
 
     public IUiListener getIUiListener() {
@@ -123,24 +160,24 @@ public class MineViewModel extends MineContact.ViewModel implements IShareListen
     /*************************** 分享事件相关的回调 ***************************/
     @Override public void onShareSuccess(ShareType shareType, String s) {
         Toast.makeText(getContext(), shareType.toString() + ":\t分享成功", Toast.LENGTH_SHORT).show();
-        LogUtils.logi("Share result:\t" + "type:\t" + shareType.toString() + "desc:\t" + s);
+        LogUtils.i("Share result:\t" + "type:\t" + shareType.toString() + "desc:\t" + s);
     }
 
     @Override public void onShareFailed(ShareType shareType, String s) {
         Toast.makeText(getContext(), shareType.toString() + ":\t分享失败", Toast.LENGTH_SHORT).show();
-        LogUtils.logi("Share result:\t" + "type:\t" + shareType.toString() + "desc:\t" + s);
+        LogUtils.i("Share result:\t" + "type:\t" + shareType.toString() + "desc:\t" + s);
 
     }
 
     @Override public void onShareCancel(ShareType shareType) {
         Toast.makeText(getContext(), shareType.toString() + ":\t分享取消", Toast.LENGTH_SHORT).show();
-        LogUtils.logi("Share result:\t" + "type:\t" + shareType.toString());
+        LogUtils.i("Share result:\t" + "type:\t" + shareType.toString());
 
     }
 
-    @Override public void onComplete(Object o) {LogUtils.logi("QQ Share result:\tonComplete!" + o.toString());}
-    @Override public void onError(UiError uiError) {LogUtils.logi("QQ Share result:\tonError!" + uiError.errorMessage);}
-    @Override public void onCancel() {LogUtils.logi("QQ Share result:\tonCancel!");}
+    @Override public void onComplete(Object o) {LogUtils.i("QQ Share result:\tonComplete!" + o.toString());}
+    @Override public void onError(UiError uiError) {LogUtils.i("QQ Share result:\tonError!" + uiError.errorMessage);}
+    @Override public void onCancel() {LogUtils.i("QQ Share result:\tonCancel!");}
     /************************************************************************/
 
 

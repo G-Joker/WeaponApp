@@ -38,13 +38,16 @@
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp">
 
-                    <ImageView
+                    <com.weapon.joker.lib.view.roundimaegview.RoundedImageView
                         android:id="@+id/iv_mine_avatar"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:layout_marginLeft="20dp"
-                        android:padding="10dp"
-                        android:src="@mipmap/ic_avatar_default"/>
+                        android:layout_marginStart="20dp"
+                        android:background="@mipmap/ic_avatar_default"
+                        app:border_width="0.3dp"
+                        app:file="@{model.avatarFile}"
+                        app:oval="true"/>
 
                     <TextView
                         android:id="@+id/tv_mine_login_info"
@@ -52,6 +55,8 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="20dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_toEndOf="@+id/iv_mine_avatar"
                         android:layout_toRightOf="@+id/iv_mine_avatar"
                         android:text="@string/unlogin"
                         android:textColor="@color/material_text_color_black_text"
@@ -74,7 +79,7 @@
                         android:layout_toRightOf="@+id/iv_mine_avatar"
                         android:text="@{model.userName}"
                         android:textColor="@color/material_text_color_black_text"
-                        android:textSize="13sp"
+                        android:textSize="23sp"
                         app:visibility="@{model.hasLogin}"/>
 
 
@@ -94,9 +99,10 @@
                         android:layout_height="match_parent"
                         android:background="?attr/colorPrimary"
                         android:gravity="center"
-                        android:text='@{model.userName}'
-                        android:textColor="@color/material_text_color_white_text"
-                        android:textSize="@dimen/public_main_text_size"/>
+                        android:text='@{model.userName, default="Weapon"}'
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:textStyle="bold"/>
                 </android.support.v7.widget.Toolbar>
 
 
@@ -171,6 +177,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="0.5dp"
                         android:background="@color/material_text_color_black_divider"/>
+
+                    <TextView
+                        android:id="@+id/tv_mine_about"
+                        style="@style/MineStyle"
+                        android:onClick="@{model.jumpToAboutPage}"
+                        android:text="@string/about"/>
 
                 </LinearLayout>
 

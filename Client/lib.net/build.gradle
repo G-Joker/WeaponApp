@@ -3,7 +3,7 @@ apply plugin: 'com.android.library'
 android {
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
 
@@ -37,5 +37,4 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
 
     compile project(':lib.middleware')
-    compile project(':lib.mvvm')
 }

@@ -13,4 +13,48 @@
     <string name="version_update">版本更新</string>
     <string name="mine_nick_name">昵称</string>
     <string name="mine_signature">个性签名</string>
+    <string name="about">关于</string>
+    <string name="developers">developers</string>
+    <string name="open_source_licenses">Open Source Licenses</string>
+    <string name="app_intro">一个极致的App。学习项目，帮助你提升独自开发 Android 业务层的能力。基于该开发框架，可以快速构建应用，同时你可以当做一个工具 App，以供你平时开发参考。</string>
+
+    <!--developers-->
+    <string name="weaponZhi">WeaponZhi</string>
+    <string name="xiaweizi">xiaweizi</string>
+    <string name="hiyangyue">hiyangyue</string>
+    <string name="foxlee">foxlee</string>
+
+    <!--Open Source Licenses-->
+    <string-array name="array_open_source_name">
+        <item>wequick/Small</item>
+        <item>bumptech/glide</item>
+        <item>evant/binding-collection-adapter</item>
+        <item>square/okhttp</item>
+        <item>square/retrofit</item>
+    </string-array>
+
+    <string-array name="array_open_source_link">
+        <item>https://github.com/wequick/Small</item>
+        <item>https://github.com/bumptech/glide</item>
+        <item>https://github.com/evant/binding-collection-adapter</item>
+        <item>https://github.com/square/okhttp</item>
+        <item>https://github.com/square/retrofit</item>
+    </string-array>
+
+    <string-array name="array_open_source_licenses">
+        <item></item>
+        <item>BSD, part MIT and Apache 2.0. See the LICENSE file for details.</item>
+        <item>Licensed under the Apache License, Version 2.0 (the "License") </item>
+        <item>Licensed under the Apache License, Version 2.0 (the "License")</item>
+        <item>Licensed under the Apache License, Version 2.0 (the "License")</item>
+    </string-array>
+
+    <!--个人中心-->
+    <string name="person_logout">注销登录</string>
+    <string name="person_nickname">昵称:  </string>
+    <string name="person_signature">个性签名:  </string>
+    <string name="person_birthday">生日:  </string>
+    <string name="person_gender">性别:  </string>
+
+
 </resources>
