@@ -73,7 +73,14 @@ buildBundle q d 相当于加-q 和 -Dbundle.arch=x86
 待补充
 >未完待续，目前正迭代中...
 
+### 联系我们
+
+[![QQ1Group][qqgroupsvg]][qq1group]
+
 ------------
 **开发人员**：*WeaponZhi，xiaweizi，hiyangyue，foxlee*
+
+[qqgroupsvg]: https://img.shields.io/badge/QQ群-559169318-ff73a3.svg
+[qq1group]: https://jq.qq.com/?_wv=1027&k=5WqyE5X
 
 
