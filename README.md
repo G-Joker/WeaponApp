@@ -1,8 +1,13 @@
 # WeaponApp
 
+### 联系我们
+
+[![QQ1Group][qqgroupsvg]][qq1group]
+
 >**一个极致的App**。学习项目，帮助你提升独自开发 `Android` 业务层的能力。基于该开发框架，可以快速构建应用，同时你可以当做一个工具 App，以供你平时开发参考。
 
 整包打包方式：
+
 ```
 gradlew cleanLib
 gradlew buildLib -q -Dbundle.arch=x86
@@ -73,9 +78,6 @@ buildBundle q d 相当于加-q 和 -Dbundle.arch=x86
 待补充
 >未完待续，目前正迭代中...
 
-### 联系我们
-
-[![QQ1Group][qqgroupsvg]][qq1group]
 
 ------------
 **开发人员**：*WeaponZhi，xiaweizi，hiyangyue，foxlee*
