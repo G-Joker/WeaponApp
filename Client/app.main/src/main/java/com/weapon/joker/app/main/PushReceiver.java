@@ -27,13 +27,13 @@ import cn.jpush.im.android.eventbus.EventBus;
 /**
  * <pre>
  *     author : xiaweizi
- *     class  : com.weapon.joker.app.main.MyReceiver
+ *     class  : com.weapon.joker.app.main.PushReceiver
  *     e-mail : 1012126908@qq.com
  *     time   : 2017/09/20
  *     desc   : 极光推送自定义Receiver
  * </pre>
  */
-public class MyReceiver extends BroadcastReceiver {
+public class PushReceiver extends BroadcastReceiver {
 
     /**
      * 自定义消息类型-每日推荐
@@ -64,11 +64,11 @@ public class MyReceiver extends BroadcastReceiver {
     private void dealCustomPush(Context context, Bundle bundle) {
         String message = bundle.getString(JPushInterface.EXTRA_EXTRA);
         String contentType = bundle.getString(JPushInterface.EXTRA_CONTENT_TYPE);
-//        String msgId = bundle.getString(JPushInterface.EXTRA_MSG_ID);
+        String msgId = bundle.getString(JPushInterface.EXTRA_MSG_ID);
 
         if (TextUtils.equals(TYPE_RECOMMEND, contentType)) {
             // 每日推荐
-            dealRecommendDay(context, message, 12);
+            dealRecommendDay(context, message, msgId);
         } else {
             // 处理其他类型
         }
@@ -81,7 +81,7 @@ public class MyReceiver extends BroadcastReceiver {
      * @param message
      * @param msgId
      */
-    private void dealRecommendDay(Context context, String message, int msgId) {
+    private void dealRecommendDay(Context context, String message, String msgId) {
         try {
             PushNewsBean pushNewsBean = GsonUtil.getInstance().fromJson(message, PushNewsBean.class);
             pushNewsBean.messageId = msgId;
@@ -93,7 +93,7 @@ public class MyReceiver extends BroadcastReceiver {
             NotificationUtil.commonNotfication(intent, context, pushNewsBean.title, pushNewsBean.content, 12, R.mipmap.ic_launcher);
             EventBus.getDefault().post(new PushNewsEvent());
         } catch (Exception e) {
-            LogUtils.e("MyReceiver", "dealCustomPush error! desc: " + e.getMessage());
+            LogUtils.e("PushReceiver", "dealCustomPush error! desc: " + e.getMessage());
         }
     }
 

@@ -1,20 +1,16 @@
-package com.weapon.joker.lib.net.bean;
+package com.app.push.model;
 
 /**
  * <pre>
  *     author : xiaweizi
- *     class  : com.weapon.joker.lib.net.bean.PushNewsBean
+ *     class  : com.app.push.model.RecommendDailyModel
  *     e-mail : 1012126908@qq.com
- *     time   : 2017/10/17
- *     desc   : 推送消息 bean
+ *     time   : 2018/01/25
+ *     desc   : 每日推送 model
  * </pre>
  */
 
-public class PushNewsBean {
-    /**
-     * 消息 ID
-     */
-    public String messageId;
+public class RecommendDailyModel {
     /**
      * 消息时间
      */

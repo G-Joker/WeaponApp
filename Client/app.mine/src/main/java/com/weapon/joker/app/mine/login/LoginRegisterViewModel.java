@@ -8,11 +8,11 @@ import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
 import com.weapon.joker.app.mine.R;
-import com.weapon.joker.lib.middleware.utils.AlertDialogFactory;
 import com.weapon.joker.lib.middleware.PublicActivity;
+import com.weapon.joker.lib.middleware.utils.AlertDialogFactory;
+import com.weapon.joker.lib.middleware.utils.PushUtils;
 import com.weapon.joker.lib.net.JMessageCallBack;
 
-import cn.jpush.android.api.JPushInterface;
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.model.UserInfo;
 
@@ -130,7 +130,7 @@ public class LoginRegisterViewModel extends LoginRegisterContact.ViewModel {
         // 统计用户点击登录事件
         MobclickAgent.onEvent(getContext().getApplicationContext(), "mine_login", userName);
         // JPush 设置 alias
-        JPushInterface.setAlias(getContext().getApplicationContext(), 12, userName);
+        PushUtils.setAlias(getContext().getApplicationContext(), userName);
         getView().finish();
     }
 

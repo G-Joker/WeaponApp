@@ -24,13 +24,13 @@ import com.weapon.joker.lib.middleware.utils.AlertDialogFactory;
 import com.weapon.joker.lib.middleware.utils.ImageUtil;
 import com.weapon.joker.lib.middleware.utils.LogUtils;
 import com.weapon.joker.lib.middleware.utils.PreferencesUtils;
+import com.weapon.joker.lib.middleware.utils.PushUtils;
 import com.weapon.joker.lib.middleware.utils.Util;
 import com.weapon.joker.lib.net.JMessageCallBack;
 
 import java.io.File;
 import java.util.Calendar;
 
-import cn.jpush.android.api.JPushInterface;
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.model.UserInfo;
 
@@ -466,7 +466,7 @@ public class PersonCenterViewModel extends PersonCenterContact.ViewModel {
         // JMessage 的登出
         JMessageClient.logout();
         // JPush alias 置为空
-        JPushInterface.setAlias(getContext(), 2, "");
+        PushUtils.setAlias(getContext().getApplicationContext(), userName);
 //        getView().finish();
         Intent intent  = new Intent();
         intent.setClassName(getContext(), "com.weapon.joker.app.main.MainActivity");

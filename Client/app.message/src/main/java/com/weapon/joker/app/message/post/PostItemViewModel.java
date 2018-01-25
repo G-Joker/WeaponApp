@@ -29,7 +29,7 @@ public class PostItemViewModel extends BaseObservable {
     @Bindable
     public String time = "";
     @Bindable
-    public int messageId = 1;
+    public String messageId = "";
     @Bindable
     public String imageUrl = "";
 

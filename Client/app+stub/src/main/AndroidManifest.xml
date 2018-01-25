@@ -83,7 +83,7 @@
         </receiver>
 
         <receiver
-            android:name="com.weapon.joker.app.main.MyReceiver"
+            android:name="com.weapon.joker.app.main.PushReceiver"
             android:enabled="true">
             <intent-filter>
                 <!--Required 用户注册SDK的intent-->
@@ -96,6 +96,14 @@
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED"/>
                 <!-- 接收网络变化 连接/断开 since 1.6.3 -->
                 <action android:name="cn.jpush.android.intent.CONNECTION"/>
+                <category android:name="com.weapon.joker"/>
+            </intent-filter>
+        </receiver>
+
+        <!-- User defined.  For test only  用户自定义接收消息器,3.0.7开始支持,目前新tag/alias接口设置结果会在该广播接收器对应的方法中回调-->
+        <receiver android:name="com.weapon.joker.lib.middleware.PushMessageReceiver">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE"/>
                 <category android:name="com.weapon.joker"/>
             </intent-filter>
         </receiver>
@@ -136,6 +144,7 @@
                 <category android:name="com.weapon.joker"/>
             </intent-filter>
         </receiver>
+
 
         <!-- Required  . Enable it you can get statistics data with channel -->
         <meta-data
