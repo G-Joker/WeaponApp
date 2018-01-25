@@ -4,11 +4,10 @@
 
         <variable
             name="aboutmodel"
-            type="com.weapon.joker.app.mine.about.AboutModel"/>
+            type="com.weapon.joker.app.mine.about.AboutModel" />
     </data>
 
-    <android.support.design.widget.CoordinatorLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/main_content"
         android:layout_width="match_parent"
@@ -45,7 +44,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/ic_launcher"/>
+                        android:src="@mipmap/ic_launcher" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -53,14 +52,14 @@
                         android:layout_marginTop="10dp"
                         android:text="@string/app_name"
                         android:textColor="@color/white"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:text="Version 1.0-alpha"
-                        android:textColor="@color/white"/>
+                        android:textColor="@color/white" />
 
                 </LinearLayout>
 
@@ -70,8 +69,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     app:layout_collapseMode="pin"
-                    app:navigationIcon="@drawable/icon_close"
-                    />
+                    app:navigationIcon="@drawable/icon_close" />
 
 
             </android.support.design.widget.CollapsingToolbarLayout>
@@ -103,12 +101,12 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/about"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+                            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/app_intro"/>
+                            android:text="@string/app_intro" />
 
                     </LinearLayout>
 
@@ -132,16 +130,17 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/developers"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+                            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                         <com.weapon.joker.lib.view.roundimaegview.RoundedImageView
                             android:id="@+id/iv_developer_weaponzhi"
+                            style="@style/AboutPageAvatar"
+                            android:layout_below="@+id/tv_developer_title"
+                            android:onClick="@{aboutmodel::onAvatarListener}"
+                            android:src="@drawable/icon_avatar_weaponzhi"
                             app:border_color="@color/grey500"
                             app:border_width="0.3dp"
-                            android:layout_below="@+id/tv_developer_title"
-                            android:src="@drawable/icon_avatar_weaponzhi"
-                            style="@style/AboutPageAvatar"
-                            app:oval="true"/>
+                            app:oval="true" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -153,23 +152,24 @@
                             android:layout_marginStart="5dp"
                             android:layout_toEndOf="@+id/iv_developer_weaponzhi"
                             android:gravity="center_vertical"
-                            android:text="@string/weaponZhi"/>
+                            android:text="@string/weaponZhi" />
 
                         <View
                             android:id="@+id/view_flag"
-                            android:layout_centerInParent="true"
                             android:layout_width="0dp"
-                            android:layout_height="0dp"/>
+                            android:layout_height="0dp"
+                            android:layout_centerInParent="true" />
 
                         <com.weapon.joker.lib.view.roundimaegview.RoundedImageView
                             android:id="@+id/iv_developer_hiyangyue"
                             style="@style/AboutPageAvatar"
+                            android:layout_below="@+id/tv_developer_title"
+                            android:layout_toEndOf="@+id/view_flag"
+                            android:onClick="@{aboutmodel::onAvatarListener}"
+                            android:src="@drawable/icon_avatar_hiyangyue"
                             app:border_color="@color/grey500"
                             app:border_width="0.3dp"
-                            android:layout_below="@+id/tv_developer_title"
-                            android:src="@drawable/icon_avatar_hiyangyue"
-                            android:layout_toEndOf="@+id/view_flag"
-                            app:oval="true"/>
+                            app:oval="true" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -181,16 +181,17 @@
                             android:layout_marginStart="5dp"
                             android:layout_toEndOf="@+id/iv_developer_hiyangyue"
                             android:gravity="center_vertical"
-                            android:text="@string/hiyangyue"/>
+                            android:text="@string/hiyangyue" />
 
                         <com.weapon.joker.lib.view.roundimaegview.RoundedImageView
                             android:id="@+id/iv_developer_foxlee"
                             style="@style/AboutPageAvatar"
+                            android:layout_below="@+id/iv_developer_hiyangyue"
+                            android:onClick="@{aboutmodel::onAvatarListener}"
+                            android:src="@drawable/icon_avatar_foxlee"
                             app:border_color="@color/grey500"
                             app:border_width="0.3dp"
-                            android:layout_below="@+id/iv_developer_hiyangyue"
-                            android:src="@drawable/icon_avatar_foxlee"
-                            app:oval="true"/>
+                            app:oval="true" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -202,17 +203,18 @@
                             android:layout_marginStart="5dp"
                             android:layout_toEndOf="@+id/iv_developer_foxlee"
                             android:gravity="center_vertical"
-                            android:text="@string/foxlee"/>
+                            android:text="@string/foxlee" />
 
                         <com.weapon.joker.lib.view.roundimaegview.RoundedImageView
                             android:id="@+id/iv_developer_xiaweizi"
                             style="@style/AboutPageAvatar"
+                            android:layout_below="@+id/iv_developer_hiyangyue"
+                            android:layout_toEndOf="@+id/view_flag"
+                            android:onClick="@{aboutmodel::onAvatarListener}"
+                            android:src="@drawable/icon_avatar_xiaweizhi"
                             app:border_color="@color/grey500"
                             app:border_width="0.3dp"
-                            android:layout_below="@+id/iv_developer_hiyangyue"
-                            android:src="@drawable/icon_avatar_xiaweizhi"
-                            android:layout_toEndOf="@+id/view_flag"
-                            app:oval="true"/>
+                            app:oval="true" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -224,7 +226,7 @@
                             android:layout_marginStart="5dp"
                             android:layout_toEndOf="@+id/iv_developer_hiyangyue"
                             android:gravity="center_vertical"
-                            android:text="@string/xiaweizi"/>
+                            android:text="@string/xiaweizi" />
 
                     </RelativeLayout>
 
@@ -247,7 +249,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/open_source_licenses"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+                            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
 
                     </LinearLayout>
@@ -268,7 +270,7 @@
             android:onClick="@{aboutmodel.clickFabFavorite()}"
             android:src="@drawable/icon_favorite"
             app:layout_anchor="@id/appbar"
-            app:layout_anchorGravity="bottom|right|end"/>
+            app:layout_anchorGravity="bottom|right|end" />
 
     </android.support.design.widget.CoordinatorLayout>
 

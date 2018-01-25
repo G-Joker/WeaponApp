@@ -1,17 +1,21 @@
 package com.weapon.joker.app.mine.about;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.text.TextUtils;
 import android.view.View;
 
 import com.weapon.joker.app.mine.R;
 import com.weapon.joker.app.mine.about.model.OpenSourceLibrary;
+import com.weapon.joker.lib.middleware.PublicActivity;
 import com.weapon.joker.lib.middleware.utils.LogUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
+import cn.jpush.im.android.api.JMessageClient;
 
 /**
  * author : yueyang
@@ -69,5 +73,34 @@ public class AboutModel extends BaseObservable {
                 }
             }
         };
+    }
+
+    public void onAvatarListener(View view) {
+        switch (view.getId()) {
+            case R.id.iv_developer_weaponzhi:
+                jumpToHomePage(view, "WeaponApp");
+                break;
+            case R.id.iv_developer_hiyangyue:
+                jumpToHomePage(view, "yangyue");
+                break;
+            case R.id.iv_developer_foxlee:
+                jumpToHomePage(view, "foxleezh");
+                break;
+            case R.id.iv_developer_xiaweizi:
+                jumpToHomePage(view, "xiaweizi");
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void jumpToHomePage(View view, String userName) {
+        if (TextUtils.equals(userName, JMessageClient.getMyInfo().getUserName())) {
+            PublicActivity.startActivity((Activity) view.getContext(), "com.weapon.joker.app.mine.person.PersonCenterFragment");
+        } else {
+            Intent intent = new Intent(view.getContext(), PublicActivity.class);
+            intent.putExtra("user_name", userName);
+            PublicActivity.startActivity((Activity) view.getContext(), "com.weapon.joker.app.message.homepage.HomePageFragment", intent);
+        }
     }
 }
