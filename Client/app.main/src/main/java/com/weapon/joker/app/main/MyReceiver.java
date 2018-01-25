@@ -62,13 +62,13 @@ public class MyReceiver extends BroadcastReceiver {
      * 处理自定义推送消息
      */
     private void dealCustomPush(Context context, Bundle bundle) {
-        String message = bundle.getString(JPushInterface.EXTRA_MESSAGE);
+        String message = bundle.getString(JPushInterface.EXTRA_EXTRA);
         String contentType = bundle.getString(JPushInterface.EXTRA_CONTENT_TYPE);
-        int msgId = bundle.getInt(JPushInterface.EXTRA_MSG_ID);
+//        String msgId = bundle.getString(JPushInterface.EXTRA_MSG_ID);
 
         if (TextUtils.equals(TYPE_RECOMMEND, contentType)) {
             // 每日推荐
-            dealRecommendDay(context, message, msgId);
+            dealRecommendDay(context, message, 12);
         } else {
             // 处理其他类型
         }
