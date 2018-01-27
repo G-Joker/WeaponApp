@@ -22,7 +22,7 @@ import java.lang.reflect.Method;
  */
 
 public abstract class BaseFragment<VM extends BaseViewModel<? extends BaseView, ? extends BaseModel>,
-        M extends BaseModel>
+        M extends BaseModel<? extends BaseViewModel>>
         extends Fragment
         implements BaseView {
 
@@ -36,11 +36,6 @@ public abstract class BaseFragment<VM extends BaseViewModel<? extends BaseView, 
         return initFragment(inflater, container);
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mViewModel.detachView();
-    }
 
     private View initFragment(LayoutInflater inflater, ViewGroup container) {
         if (mViewDataBinding == null) {
@@ -67,7 +62,12 @@ public abstract class BaseFragment<VM extends BaseViewModel<? extends BaseView, 
             //Model 和 VM 绑定
             if (model != null) {
                 model.setContext(mContext);
-                model.attachViewModel(mViewModel);
+                try {
+                    Method attachViewModel = mViewModel.getClass().getMethod("attachViewModel",Object.class);
+                    attachViewModel.invoke(model,mViewModel);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
 
             //DataBinding 绑定
@@ -112,5 +112,11 @@ public abstract class BaseFragment<VM extends BaseViewModel<? extends BaseView, 
     public void onResume() {
         super.onResume();
         MobclickAgent.onEvent(getActivity(), getClass().getSimpleName());
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mViewModel.detachView();
     }
 }

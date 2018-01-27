@@ -49,6 +49,11 @@ public class MainActivity extends BaseActivity {
         initTabLayout();
     }
 
+    @Override
+    public int getBR() {
+        return 0;
+    }
+
     /**
      * 初始化 ViewPager
      */

@@ -68,6 +68,11 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         mBtRegister.setOnClickListener(this);
     }
 
+    @Override
+    public int getBR() {
+        return 0;
+    }
+
     /**
      * 给 FloatActionButton 设置共享元素动画
      */
