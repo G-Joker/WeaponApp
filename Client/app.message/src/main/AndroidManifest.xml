@@ -9,12 +9,13 @@
         android:roundIcon="@mipmap/round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Base">
-        <activity android:name=".MessageActivity">
+        <activity android:name="com.weapon.joker.lib.middleware.PublicActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+            <meta-data android:name="fragmentName" android:value="com.weapon.joker.app.message.MainFragment"/>
         </activity>
     </application>
 
