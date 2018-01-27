@@ -72,6 +72,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     @Override
+    public int getBR() {
+        return 0;
+    }
+
+    @Override
     protected Transition getTransition() {
         return new Explode();
     }
