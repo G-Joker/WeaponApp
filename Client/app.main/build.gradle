@@ -30,7 +30,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.1.0'
     compile 'com.android.support:design:25.1.0'
     compile project(':lib.style')
-    compile project(':lib.mvvm')
     compile project(':lib.middleware')
     compile project(':lib.net')
 }

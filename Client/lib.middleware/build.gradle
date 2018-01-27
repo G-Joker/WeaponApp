@@ -21,6 +21,10 @@ android {
             buildConfigField "boolean", "LOG_DEBUG", "true"  // 日志开关
         }
     }
+
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -33,4 +37,6 @@ dependencies {
     compile 'com.orhanobut:logger:1.13'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.1.1'
     compile 'com.android.support:appcompat-v7:25.1.0+'
+
+    compile project(':lib.mvvm')
 }

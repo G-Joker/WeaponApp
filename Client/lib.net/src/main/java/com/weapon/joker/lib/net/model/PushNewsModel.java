@@ -2,7 +2,6 @@ package com.weapon.joker.lib.net.model;
 
 import com.weapon.joker.lib.net.bean.PushNewsBean;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,6 +14,5 @@ import java.util.List;
  * </pre>
  */
 
-public class PushNewsModel {
-    public List<PushNewsBean> data = new ArrayList<>();
+public class PushNewsModel extends BaseResModel<List<PushNewsBean>>{
 }

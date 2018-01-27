@@ -3,7 +3,6 @@ package com.weapon.joker.app.message.conversion;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -14,6 +13,7 @@ import android.widget.Toast;
 import com.weapon.joker.app.message.BR;
 import com.weapon.joker.lib.middleware.PublicActivity;
 import com.weapon.joker.lib.middleware.utils.Util;
+import com.weapon.joker.lib.mvvm.common.BaseItemViewModel;
 import com.weapon.joker.lib.view.CustomPopWindow;
 
 import java.io.File;
@@ -35,7 +35,7 @@ import cn.jpush.im.android.api.model.UserInfo;
  * </pre>
  */
 
-public class ConversionItemViewModel extends BaseObservable {
+public class ConversionItemViewModel extends BaseItemViewModel {
 
     /**
      * 单聊类型
@@ -113,6 +113,7 @@ public class ConversionItemViewModel extends BaseObservable {
     }
 
     public ConversionItemViewModel(Context context, Conversation conversation, OnDeleteConversionListener listener) {
+        super(null);
         mContext = context;
         mConversion = conversation;
         mListener = listener;

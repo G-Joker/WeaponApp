@@ -41,13 +41,14 @@ public class Api {
     /**
      * @param hostType 1-首页 2-消息 3-我的
      */
-    public static ApiManager getDefault(int hostType) {
+    public static <A extends ApiManager> A getDefault(int hostType,Class<A> managerClass) {
         Api retrofitManager = sRetrofitManager.get(hostType);
         if (retrofitManager == null) {
             retrofitManager = new Api(hostType);
             sRetrofitManager.put(hostType, retrofitManager);
         }
-        return retrofitManager.mApiManager;
+        retrofitManager.mApiManager = retrofitManager.mRetrofit.create(managerClass);
+        return (A)retrofitManager.mApiManager;
     }
 
     /**
@@ -78,7 +79,7 @@ public class Api {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .baseUrl(ApiConstants.getHost(hostType))
                 .build();
-        mApiManager = mRetrofit.create(ApiManager.class);
     }
+
 
 }

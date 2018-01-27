@@ -1,6 +1,7 @@
-package com.weapon.joker.lib.net.model;
+package com.weapon.joker.app.mine.login.dataBean;
 
 import com.weapon.joker.lib.net.bean.UserBean;
+import com.weapon.joker.lib.net.model.BaseResModel;
 
 /**
  * <pre>
@@ -12,6 +13,5 @@ import com.weapon.joker.lib.net.bean.UserBean;
  * </pre>
  */
 
-public class LoginModel extends BaseResModel{
-    public UserBean data;
+public class LoginModel extends BaseResModel<UserBean> {
 }

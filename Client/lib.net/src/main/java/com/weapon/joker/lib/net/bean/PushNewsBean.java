@@ -1,5 +1,6 @@
 package com.weapon.joker.lib.net.bean;
 
+
 /**
  * <pre>
  *     author : xiaweizi
