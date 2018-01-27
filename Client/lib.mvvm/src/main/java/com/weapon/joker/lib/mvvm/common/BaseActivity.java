@@ -2,8 +2,6 @@ package com.weapon.joker.lib.mvvm.common;
 
 import android.content.Context;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
@@ -33,7 +31,7 @@ public abstract class BaseActivity
         implements BaseView {
 
     protected VM mViewModel;
-    protected ViewDataBinding mViewDataBinding;
+//    protected ViewDataBinding mViewDataBinding;
     protected Context mContext;
 
     private FragmentTransaction mFragmentTransaction;
@@ -42,13 +40,15 @@ public abstract class BaseActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (mViewDataBinding == null){
-            mViewDataBinding = DataBindingUtil.setContentView(this,getLayoutId());
+//        if (mViewDataBinding == null){
+//            mViewDataBinding = DataBindingUtil.setContentView(this,getLayoutId());
             mContext = this;
-        }
+//        }
+
         // 添加转场动画
         getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         getWindow().setEnterTransition(getTransition());
+        setContentView(getLayoutId());
 
         //反射生成泛型类对象
         mViewModel = TUtil.getT(this, 0);
@@ -79,7 +79,7 @@ public abstract class BaseActivity
         }
 
         //DataBinding 绑定
-        mViewDataBinding.setVariable(getBR(), mViewModel);
+//        mViewDataBinding.setVariable(getBR(), mViewModel);
 
         initView();
 
@@ -96,9 +96,9 @@ public abstract class BaseActivity
         return mViewModel;
     }
 
-    public ViewDataBinding getViewDataBinding() {
-        return mViewDataBinding;
-    }
+//    public ViewDataBinding getViewDataBinding() {
+//        return mViewDataBinding;
+//    }
 
     public void setContext(Context context) {
         mContext = context;

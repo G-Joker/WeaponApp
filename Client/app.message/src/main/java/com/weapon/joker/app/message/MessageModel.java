@@ -1,12 +1,5 @@
 package com.weapon.joker.app.message;
 
-import com.weapon.joker.lib.net.Api;
-import com.weapon.joker.lib.net.HostType;
-import com.weapon.joker.lib.net.bean.MessageBean;
-import com.weapon.joker.lib.net.rx.RxSchedulers;
-
-import io.reactivex.Observable;
-
 /**
  * MessageModel 消息Model
  * author:张冠之

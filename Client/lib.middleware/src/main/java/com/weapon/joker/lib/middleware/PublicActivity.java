@@ -2,6 +2,8 @@ package com.weapon.joker.lib.middleware;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -36,6 +38,18 @@ public class PublicActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         mFragmentName = getIntent().getStringExtra("fragment_name");
+        //从meta中获取mFragmentName，作为单独调试的入口
+        if (TextUtils.isEmpty(mFragmentName)) {
+            ActivityInfo info = null;
+            try {
+                info = this.getPackageManager()
+                        .getActivityInfo(getComponentName(),
+                                PackageManager.GET_META_DATA);
+                mFragmentName = info.metaData.getString("fragmentName");
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
         setContentView(R.layout.activity_public_empty);
         initFragment();
     }

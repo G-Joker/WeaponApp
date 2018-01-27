@@ -62,4 +62,21 @@ task cleanBuild(type: Delete){
     delete "$rootDir/build-small"
     delete "$rootDir/app/smallLibs"
 
+    delete "$rootDir/app+stub/build"
+    delete "$rootDir/app.home/build"
+    delete "$rootDir/app.main/build"
+    delete "$rootDir/app.message/build"
+    delete "$rootDir/app.mine/build"
+
+    delete "$rootDir/lib.middleware/build"
+    delete "$rootDir/lib.mvvm/build"
+    delete "$rootDir/lib.net/build"
+    delete "$rootDir/lib.style/build"
+    delete "$rootDir/lib.view/build"
+
+    delete "$rootDir/lib.middleware/public.txt"
+    delete "$rootDir/lib.mvvm/public.txt"
+    delete "$rootDir/lib.net/public.txt"
+    delete "$rootDir/lib.style/public.txt"
+    delete "$rootDir/lib.view/public.txt"
 }
