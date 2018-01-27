@@ -1,4 +1,4 @@
-package com.weapon.joker.lib.net.model;
+package com.weapon.joker.app.mine.login.dataBean;
 
 /**
  * author : yueyang

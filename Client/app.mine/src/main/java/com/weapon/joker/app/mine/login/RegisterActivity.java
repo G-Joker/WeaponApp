@@ -18,11 +18,12 @@ import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
 import com.weapon.joker.app.mine.R;
+import com.weapon.joker.app.mine.api.MineApi;
 import com.weapon.joker.lib.mvvm.common.BaseActivity;
 import com.weapon.joker.lib.net.Api;
 import com.weapon.joker.lib.net.BaseObserver;
 import com.weapon.joker.lib.net.HostType;
-import com.weapon.joker.lib.net.model.RegisterModel;
+import com.weapon.joker.app.mine.login.dataBean.RegisterModel;
 import com.weapon.joker.lib.net.rx.RxSchedulers;
 
 import io.reactivex.schedulers.Schedulers;
@@ -217,7 +218,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
      * @param password 密码
      */
     private void registerRequest(String userName, String password) {
-        Api.getDefault(HostType.MINE)
+        Api.getDefault(HostType.MINE, MineApi.class)
            .register(userName, password)
            .subscribeOn(Schedulers.io())
            .compose(RxSchedulers.<RegisterModel>io_main())

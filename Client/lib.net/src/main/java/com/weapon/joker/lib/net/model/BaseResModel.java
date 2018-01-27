@@ -1,5 +1,7 @@
 package com.weapon.joker.lib.net.model;
 
+import com.weapon.joker.lib.mvvm.common.BaseEntry;
+
 /**
  * <pre>
  *     author : xiaweizi
@@ -10,7 +12,7 @@ package com.weapon.joker.lib.net.model;
  * </pre>
  */
 
-public class BaseResModel {
+public class BaseResModel<T> extends BaseEntry<T>{
 
     public static final int REQUEST_SUCCESS = 1000;
 

@@ -3,8 +3,8 @@ package com.weapon.joker.app.mine.login;
 import com.weapon.joker.lib.mvvm.common.BaseModel;
 import com.weapon.joker.lib.mvvm.common.BaseView;
 import com.weapon.joker.lib.mvvm.common.BaseViewModel;
-import com.weapon.joker.lib.net.model.LoginModel;
-import com.weapon.joker.lib.net.model.RegisterModel;
+import com.weapon.joker.app.mine.login.dataBean.LoginModel;
+import com.weapon.joker.app.mine.login.dataBean.RegisterModel;
 
 import io.reactivex.Observable;
 
