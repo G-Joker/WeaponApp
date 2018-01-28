@@ -58,7 +58,7 @@ buildBundle q d 相当于加-q 和 -Dbundle.arch=x86
 - [ ] **通过 RecyclerView 拓展的刷新列表库**
 - [ ] **控件组件化**
 - [ ] **单元测试**
-- [ ] **集成测试**
+- [x] **组件化集成调试**
 - [x] **即时通讯**
 - [ ] 视频服务
 - [ ] Material Design
@@ -73,6 +73,14 @@ buildBundle q d 相当于加-q 和 -Dbundle.arch=x86
 * **[test] do sth**：添加测试代码
 * **[optimize] do sth**: 优化部分代码
 * **[style] do sth**: 格式化上的格式化、删除空白行等，无关功能
+
+### 集成调试方法
+在 gradle.properties 中 DEBUG 为 true 则打开集成调试环境，需要哪几个模块联调，就把下面的对应模块置为 true。
+
+比如我要联调 mine 和 message 模块，就把`DEBUG`、`DEVELOP_MINE`和`DEVELOP_MESSAGE`置为true，然后重新同步一下Gradle即可
+
+DEBUG 置为 false 的时候为整包编译或者可以理解为Release模式，将默认添加所有模块，忽略下面模块的单独配置布尔值。
+
 
 ### 代码规范
 待补充
