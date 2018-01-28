@@ -1,8 +1,21 @@
-include ':app', ':app.message', ':app.mine', ':app.main', ':buildSrc', ':lib.view',
+include ':app',
+        ':app+stub',
+        ':app.main',
+
+        ':lib.view',
         ':lib.mvvm',
         ':lib.middleware',
         ':lib.style',
         ':lib.net',
+        ':buildSrc'
 
-        ':app.home',
-        ':app+stub'
+if (DEVELOP_HOME.toBoolean() || !DEBUG.toBoolean()) {
+    include ':app.home'
+}
+if (DEVELOP_MESSAGE.toBoolean() || !DEBUG.toBoolean()) {
+    include ':app.message'
+}
+
+if (DEVELOP_MINE.toBoolean() || !DEBUG.toBoolean()) {
+    include ':app.mine'
+}
