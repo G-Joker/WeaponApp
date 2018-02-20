@@ -18,6 +18,8 @@ import android.widget.Toast;
 import com.umeng.analytics.MobclickAgent;
 import com.weapon.joker.app.mine.R;
 import com.weapon.joker.app.mine.api.MineApi;
+import com.weapon.joker.app.mine.login.dataBean.LoginModel;
+import com.weapon.joker.app.mine.login.dataBean.LoginRequestModel;
 import com.weapon.joker.lib.mvvm.common.BaseActivity;
 import com.weapon.joker.lib.net.Api;
 import com.weapon.joker.lib.net.ApiConvertUtil;
@@ -25,11 +27,7 @@ import com.weapon.joker.lib.net.BaseObserver;
 import com.weapon.joker.lib.net.HostType;
 import com.weapon.joker.lib.net.bean.UserBean;
 import com.weapon.joker.lib.net.data.UserData;
-import com.weapon.joker.app.mine.login.dataBean.LoginModel;
-import com.weapon.joker.app.mine.login.dataBean.LoginRequestModel;
 import com.weapon.joker.lib.net.rx.RxSchedulers;
-
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * class：   Client
@@ -134,7 +132,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         loginRequestModel.password = password;
         Api.getDefault(HostType.MINE, MineApi.class)
                 .login(ApiConvertUtil.beanToMap(loginRequestModel))
-           .subscribeOn(Schedulers.io())
            .compose(RxSchedulers.<LoginModel>io_main())
            .subscribe(new BaseObserver<LoginModel>() {
                @Override
