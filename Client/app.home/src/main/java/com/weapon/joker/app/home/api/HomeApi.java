@@ -1,6 +1,10 @@
 package com.weapon.joker.app.home.api;
 
+import com.weapon.joker.app.home.HomeBean;
 import com.weapon.joker.lib.net.ApiManager;
+
+import io.reactivex.Observable;
+import retrofit2.http.GET;
 
 /**
  * HomeApi 首页接口api
@@ -10,5 +14,6 @@ import com.weapon.joker.lib.net.ApiManager;
  */
 
 public interface HomeApi extends ApiManager {
-
+    @GET
+    Observable<HomeBean> getHomeListData();
 }
