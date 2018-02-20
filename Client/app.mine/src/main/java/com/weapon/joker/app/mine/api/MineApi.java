@@ -12,7 +12,10 @@ import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
 /**
- * Created by WeaponZhi on 2018/1/27.
+ * MineApi 我的接口API
+ * author:张冠之
+ * time: 2018/2/20 下午11:03
+ * e-mail: guanzhi.zhang@sojex.cn
  */
 
 public interface MineApi extends ApiManager{
