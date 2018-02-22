@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="itemViewModel"
             type="com.weapon.joker.app.home.HomeItemViewModel"/>
@@ -9,7 +11,112 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:background="@color/white">
 
+        <com.weapon.joker.lib.view.roundimaegview.RoundedImageView
+            android:id="@+id/roundImage"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:oval="true"
+            app:url="@{itemViewModel.bean.logo}"/>
+
+        <TextView
+            android:id="@+id/item_title_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text='@{itemViewModel.bean.title,default="微微一笑很优酷"}'
+            android:textColor="@color/color_333333"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toRightOf="@+id/roundImage"
+            app:layout_constraintTop_toTopOf="@+id/roundImage"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:text='@{itemViewModel.bean.price,default="$123"}'
+            android:textColor="@color/color_ffff4444"
+            android:textSize="18sp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/roundImage"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text='@{itemViewModel.bean.info+"天前"}'
+            android:textColor="@color/result_view"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/roundImage"
+            app:layout_constraintLeft_toRightOf="@+id/roundImage"/>
+
+        <ImageView
+            android:id="@+id/product_photo_view"
+            android:layout_width="250dp"
+            android:layout_height="150dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/roundImage"
+            app:url="@{itemViewModel.bean.url.get(0)}"/>
+
+        <TextView
+            android:id="@+id/item_footer_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:ellipsize="end"
+            android:lines="2"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text='@{itemViewModel.bean.text,default="杨洋郑爽“聊”破次元盛,甜蜜演绎《微微一笑很优酷》优酷独家热播中"}'
+            android:textColor="@color/color_333333"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@+id/product_photo_view"/>
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/color_d0d0d0"
+            app:layout_constraintTop_toBottomOf="@+id/item_footer_view"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="12dp"
+            android:textColor="@android:color/holo_blue_light"
+            android:textSize="15sp"
+            android:text='@{itemViewModel.bean.from,default="来自北京"}'
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="15dp"
+            android:textColor="@color/color_bfbfbf"
+            android:text='@{"点赞"+itemViewModel.bean.zan}'
+            android:textSize="15sp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider"/>
     </android.support.constraint.ConstraintLayout>
 </layout>

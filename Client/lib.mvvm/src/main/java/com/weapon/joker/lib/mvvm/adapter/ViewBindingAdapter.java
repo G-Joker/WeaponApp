@@ -98,11 +98,13 @@ public final class ViewBindingAdapter {
      *                  3 - 高斯模糊背景
      *                  4 - 其他
      */
-    @BindingAdapter (value = {"url", "file", "type"}, requireAll = false)
-    public static void setImageViewUrl(ImageView imageView, String url, File file, int type) {
+    @BindingAdapter (value = {"url", "file", "type", "isRound"}, requireAll = false)
+    public static void setImageViewUrl(ImageView imageView, String url, File file, int type,boolean isRound) {
         RequestOptions requestOptions = new RequestOptions();
         GlideCircleTransform glideCircleTransform = new GlideCircleTransform();
-        requestOptions.transform(glideCircleTransform).dontAnimate();
+        if (isRound) {
+            requestOptions.transform(glideCircleTransform).dontAnimate();
+        }
         switch (type) {
             case 1:
                 requestOptions.placeholder(R.drawable.ic_single_default);
