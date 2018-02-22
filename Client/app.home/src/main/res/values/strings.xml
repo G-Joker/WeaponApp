@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">App.home</string>
+    <string name="point_remind">请输入关键词</string>
 </resources>

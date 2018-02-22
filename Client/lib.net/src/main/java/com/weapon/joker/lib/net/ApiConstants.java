@@ -18,7 +18,7 @@ package com.weapon.joker.lib.net;
 
 public class ApiConstants {
 
-    public static final String HOME_HOST = "";
+    public static final String HOME_HOST = "http://www.baidu.com/";
     public static final String MESSAGE_HOST = "http://fy.iciba.com/";
     public static final String MINE_HOST = "http://47.95.198.174/api/";
 
