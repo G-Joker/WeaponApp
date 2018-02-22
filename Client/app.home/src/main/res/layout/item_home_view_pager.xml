@@ -1,0 +1,141 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vpViewModel"
+            type="com.weapon.joker.app.home.HomeItemViewPagerViewModel"/>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        >
+
+        <TextView
+            android:id="@+id/title_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="@{vpViewModel.bean.title}"
+            android:textColor="@color/color_333333"
+            android:textSize="18sp"
+            />
+
+        <TextView
+            android:id="@+id/info_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/title_view"
+            android:layout_below="@id/title_view"
+            android:layout_marginTop="15dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="@{vpViewModel.bean.price}"
+            android:textColor="@color/color_333333"
+            android:textSize="14sp"
+            />
+
+        <TextView
+            android:id="@+id/gonggao_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/title_view"
+            android:layout_below="@id/info_view"
+            android:layout_marginTop="15dp"
+            android:drawableLeft="@mipmap/icon_gonggao"
+            android:drawablePadding="6dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="@{vpViewModel.bean.info}"
+            android:textColor="@color/color_333333"
+            android:textSize="14sp"
+            />
+
+        <LinearLayout
+            android:id="@+id/image_layout"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_alignLeft="@id/title_view"
+            android:layout_below="@id/gonggao_view"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            >
+
+            <ImageView
+                android:id="@+id/image_one"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:scaleType="fitXY"
+                app:isRound="@{false}"
+                app:url="@{vpViewModel.bean.url.get(0)}"
+                />
+
+            <View
+                android:layout_width="6dp"
+                android:layout_height="match_parent"
+                />
+
+            <ImageView
+                android:id="@+id/image_two"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:scaleType="fitXY"
+                app:isRound="@{false}"
+                app:url="@{vpViewModel.bean.url.get(1)}"
+                />
+
+            <View
+                android:layout_width="6dp"
+                android:layout_height="match_parent"
+                />
+
+            <ImageView
+                android:id="@+id/image_three"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:scaleType="fitXY"
+                app:isRound="@{false}"
+                app:url="@{vpViewModel.bean.url.get(2)}"
+                />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_alignLeft="@id/title_view"
+            android:layout_alignRight="@id/image_layout"
+            android:layout_below="@id/image_layout"
+            android:layout_marginTop="15dp"
+            android:background="@color/color_e3e3e3"
+            />
+
+        <TextView
+            android:id="@+id/sale_num_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/divider"
+            android:layout_centerHorizontal="true"
+            android:drawableLeft="@mipmap/icon_follow"
+            android:drawablePadding="5dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:lines="1"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:text="@{vpViewModel.bean.text}"
+            />
+    </RelativeLayout>
+</layout>
+

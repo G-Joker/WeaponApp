@@ -4,6 +4,8 @@ import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.BindingAdapter;
+import android.databinding.ObservableArrayList;
+import android.databinding.ObservableList;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -12,6 +14,9 @@ import com.weapon.joker.lib.middleware.utils.Util;
 import com.weapon.joker.lib.net.bean.HomeBean.RecommandBodyValue;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import me.tatarka.bindingcollectionadapter2.ItemBinding;
 
 /**
  * HomeItemViewModel 首页ItemViewModel
@@ -33,6 +38,17 @@ public class HomeItemViewModel extends BaseObservable {
     public HomeItemViewModel(RecommandBodyValue bean){
         this.type = bean.type;
         this.bean = bean;
+
+        if (type == CARD_TYPE_THREE){
+            List<HomeItemViewPagerViewModel> temp = new ObservableArrayList<>();
+            ArrayList<RecommandBodyValue> recommandList = HomeItemViewPagerViewModel.handleData(bean);
+            for (RecommandBodyValue value : recommandList) {
+                HomeItemViewPagerViewModel viewModel = new HomeItemViewPagerViewModel(value);
+                temp.add(viewModel);
+            }
+            viewPageItems.clear();
+            viewPageItems.addAll(temp);
+        }
     }
 
     @BindingAdapter("addImageViews")
@@ -53,4 +69,7 @@ public class HomeItemViewModel extends BaseObservable {
         }
     }
 
+    /** ViewPager 相关*/
+    public final ObservableList<HomeItemViewPagerViewModel> viewPageItems = new ObservableArrayList<>();
+    public final ItemBinding<HomeItemViewPagerViewModel> viewPageItem = ItemBinding.of(BR.vpViewModel,R.layout.item_home_view_pager);
 }

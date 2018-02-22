@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
+        <import type="com.weapon.joker.lib.middleware.utils.Util"/>
+
         <variable
             name="itemViewModel"
             type="com.weapon.joker.app.home.HomeItemViewModel"/>
@@ -9,7 +13,22 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:background="@color/color_cccccc"
+        android:clipChildren="false">
+
+        <android.support.v4.view.ViewPager
+            android:layout_width="match_parent"
+            android:layout_height="290dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:clipChildren="false"
+            app:itemBinding="@{itemViewModel.viewPageItem}"
+            app:items="@{itemViewModel.viewPageItems}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:pageLimit="@{5}"
+            app:pageMargin="@{15}"/>
 
     </android.support.constraint.ConstraintLayout>
 </layout>
