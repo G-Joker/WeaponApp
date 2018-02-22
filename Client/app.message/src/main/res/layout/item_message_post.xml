@@ -70,7 +70,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="15dp"
-                app:url="@{postItemModel.imageUrl}"/>
+                app:url="@{postItemModel.imageUrl}"
+                app:isRound="@{true}"/>
 
         </LinearLayout>
 
