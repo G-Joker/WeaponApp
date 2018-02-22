@@ -1,10 +1,20 @@
 package com.weapon.joker.app.home;
 
+import android.databinding.Bindable;
+import android.databinding.ObservableArrayList;
+import android.databinding.ObservableList;
 import android.view.View;
 
 import com.weapon.joker.lib.middleware.utils.LogUtils;
 import com.weapon.joker.lib.net.BaseObserver;
 import com.weapon.joker.lib.net.bean.HomeBean.HomeBean;
+import com.weapon.joker.lib.net.bean.HomeBean.RecommandBodyValue;
+
+import java.util.List;
+
+import me.tatarka.bindingcollectionadapter2.BindingRecyclerViewAdapter;
+import me.tatarka.bindingcollectionadapter2.ItemBinding;
+import me.tatarka.bindingcollectionadapter2.OnItemBind;
 
 /**
  * HomeViewModel 首页Fragment ViewModel
@@ -14,13 +24,26 @@ import com.weapon.joker.lib.net.bean.HomeBean.HomeBean;
  */
 public class HomeViewModel extends HomeContact.ViewModel {
 
+    @Bindable
+    public boolean listViewVisibility = false;
+
+    public void setListViewVisibility(boolean visibility){
+        listViewVisibility = visibility;
+        notifyPropertyChanged(BR.listViewVisibility);
+    }
 
     @Override
     void requestRecommandData() {
         getModel().getHomeListData().subscribe(new BaseObserver<HomeBean>() {
             @Override
             protected void onSuccess(HomeBean entry) throws Exception {
-                LogUtils.i("onSuccess",entry.ecode);
+                LogUtils.i("onSuccess"+entry.status);
+                if (entry.data.list != null && entry.data.list.size()>0){
+                    setListViewVisibility(true);
+                    refreshListData(entry);
+                }else {
+                    setListViewVisibility(false);
+                }
             }
 
             @Override
@@ -28,6 +51,17 @@ public class HomeViewModel extends HomeContact.ViewModel {
                 LogUtils.i("onFailure",e.getMessage());
             }
         });
+    }
+
+    /** 刷新list数据 */
+    private void refreshListData(HomeBean bean) {
+        List<HomeItemViewModel> temp = new ObservableArrayList<>();
+        for (RecommandBodyValue value : bean.data.list) {
+            HomeItemViewModel viewModel = new HomeItemViewModel(value);
+            temp.add(viewModel);
+            items.clear();
+            items.addAll(temp);
+        }
     }
 
     /** 二维码点击事 */
@@ -44,4 +78,36 @@ public class HomeViewModel extends HomeContact.ViewModel {
     public void onSearchTextClick(View view) {
         LogUtils.i("search is clicked");
     }
+
+    /** RecyclerView相关 */
+    public final ObservableList<HomeItemViewModel> items = new ObservableArrayList<>();
+    public final BindingRecyclerViewAdapter.ItemIds<HomeItemViewModel> itemIds
+            = new BindingRecyclerViewAdapter.ItemIds<HomeItemViewModel>() {
+        @Override
+        public long getItemId(int position, HomeItemViewModel item) {
+            return position;
+        }
+    };
+    public final OnItemBind<HomeItemViewModel> multiItems = new OnItemBind<HomeItemViewModel>() {
+        @Override
+        public void onItemBind(ItemBinding itemBinding, int position, HomeItemViewModel item) {
+            switch (item.type){
+                case HomeItemViewModel.VIDEO_TYPE:
+                    itemBinding.set(BR.itemViewModel, R.layout.item_home_video);
+                    break;
+                case HomeItemViewModel.CARD_TYPE_ONE:
+                    itemBinding.set(BR.itemViewModel, R.layout.item_home_card_one);
+                    break;
+                case HomeItemViewModel.CARD_TYPE_TWO:
+                    itemBinding.set(BR.itemViewModel, R.layout.item_home_card_two);
+                    break;
+                case HomeItemViewModel.CARD_TYPE_THREE:
+                    itemBinding.set(BR.itemViewModel, R.layout.item_home_card_three);
+                    break;
+                default:
+                    itemBinding.set(BR.itemViewModel, R.layout.item_home_card_one);
+                    break;
+            }
+        }
+    };
 }

@@ -16,7 +16,7 @@ import java.lang.ref.WeakReference;
  * e-mail: guanzhi.zhang@sojex.cn
  */
 
-public abstract class BaseViewModel<V , M > extends BaseObservable {
+public abstract class BaseViewModel<V , M> extends BaseObservable {
     private WeakReference<V> mView;
     private M mModel;
     private Context mContext;

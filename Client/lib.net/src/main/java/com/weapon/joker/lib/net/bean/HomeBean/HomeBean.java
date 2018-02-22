@@ -9,6 +9,4 @@ import com.weapon.joker.lib.net.model.BaseResModel;
  * e-mail: guanzhi.zhang@sojex.cn
  */
 public class HomeBean extends BaseResModel<RecommandModel>{
-    public String ecode;
-    public String emsg;
 }
