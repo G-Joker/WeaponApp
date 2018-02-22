@@ -1,6 +1,6 @@
 package com.weapon.joker.lib.net.model;
 
-import com.weapon.joker.lib.net.bean.PushNewsBean;
+import com.weapon.joker.lib.net.bean.CommonBean.PushNewsBean;
 
 import java.util.List;
 

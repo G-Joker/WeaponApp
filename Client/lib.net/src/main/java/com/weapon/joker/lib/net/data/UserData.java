@@ -6,7 +6,7 @@ import android.text.TextUtils;
 import com.weapon.joker.lib.middleware.utils.LogUtils;
 import com.weapon.joker.lib.middleware.utils.PreferencesUtils;
 import com.weapon.joker.lib.net.GsonUtil;
-import com.weapon.joker.lib.net.bean.UserBean;
+import com.weapon.joker.lib.net.bean.CommonBean.UserBean;
 
 /**
  * <pre>

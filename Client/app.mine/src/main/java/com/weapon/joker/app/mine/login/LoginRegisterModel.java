@@ -1,12 +1,11 @@
 package com.weapon.joker.app.mine.login;
 
-import com.weapon.joker.app.mine.api.MineApi;
+import com.weapon.joker.app.mine.login.dataBean.LoginRequestModel;
 import com.weapon.joker.lib.net.Api;
 import com.weapon.joker.lib.net.ApiConvertUtil;
 import com.weapon.joker.lib.net.HostType;
-import com.weapon.joker.app.mine.login.dataBean.LoginModel;
-import com.weapon.joker.app.mine.login.dataBean.LoginRequestModel;
-import com.weapon.joker.app.mine.login.dataBean.RegisterModel;
+import com.weapon.joker.lib.net.bean.MineBean.LoginModel;
+import com.weapon.joker.lib.net.bean.MineBean.RegisterModel;
 import com.weapon.joker.lib.net.rx.RxSchedulers;
 
 import io.reactivex.Observable;
@@ -26,14 +25,14 @@ public class LoginRegisterModel extends LoginRegisterContact.Model {
         LoginRequestModel loginRequestModel = new LoginRequestModel();
         loginRequestModel.name = userName;
         loginRequestModel.password = password;
-        return Api.getDefault(HostType.MINE,MineApi.class)
+        return Api.getDefault(HostType.MINE)
                 .login(ApiConvertUtil.beanToMap(loginRequestModel))
                 .compose(RxSchedulers.<LoginModel>io_main());
     }
 
     @Override
     Observable<RegisterModel> register(String userName, String password) {
-        return Api.getDefault(HostType.MINE, MineApi.class)
+        return Api.getDefault(HostType.MINE)
                 .register(userName, password)
                 .compose(RxSchedulers.<RegisterModel>io_main());
     }

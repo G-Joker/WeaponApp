@@ -1,4 +1,6 @@
-package com.weapon.joker.lib.net.bean;
+package com.weapon.joker.lib.net.bean.CommonBean;
+
+import com.weapon.joker.lib.net.model.BaseBean;
 
 /**
  * <pre>
@@ -10,7 +12,7 @@ package com.weapon.joker.lib.net.bean;
  * </pre>
  */
 
-public class UserBean {
+public class UserBean extends BaseBean{
     public String user;
     public String token;
     public String uid;
