@@ -41,14 +41,14 @@ public class Api {
     /**
      * @param hostType 1-首页 2-消息 3-我的
      */
-    public static <A extends ApiManager> A getDefault(int hostType,Class<A> managerClass) {
+    public static ApiManager getDefault(int hostType) {
         Api retrofitManager = sRetrofitManager.get(hostType);
         if (retrofitManager == null) {
             retrofitManager = new Api(hostType);
             sRetrofitManager.put(hostType, retrofitManager);
         }
-        retrofitManager.mApiManager = retrofitManager.mRetrofit.create(managerClass);
-        return (A)retrofitManager.mApiManager;
+        retrofitManager.mApiManager = retrofitManager.mRetrofit.create(ApiManager.class);
+        return retrofitManager.mApiManager;
     }
 
     /**

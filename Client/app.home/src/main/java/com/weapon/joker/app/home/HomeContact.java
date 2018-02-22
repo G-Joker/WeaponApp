@@ -3,6 +3,7 @@ package com.weapon.joker.app.home;
 import com.weapon.joker.lib.mvvm.common.BaseModel;
 import com.weapon.joker.lib.mvvm.common.BaseView;
 import com.weapon.joker.lib.mvvm.common.BaseViewModel;
+import com.weapon.joker.lib.net.bean.HomeBean.HomeBean;
 
 import io.reactivex.Observable;
 

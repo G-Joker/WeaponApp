@@ -1,6 +1,6 @@
-package com.weapon.joker.app.mine.login.dataBean;
+package com.weapon.joker.lib.net.bean.MineBean;
 
-import com.weapon.joker.lib.net.bean.UserBean;
+import com.weapon.joker.lib.net.bean.CommonBean.UserBean;
 import com.weapon.joker.lib.net.model.BaseResModel;
 
 /**

@@ -10,7 +10,7 @@ import com.weapon.joker.lib.middleware.utils.LogUtils;
 import com.weapon.joker.lib.middleware.utils.NotificationUtil;
 import com.weapon.joker.lib.middleware.PublicActivity;
 import com.weapon.joker.lib.net.GsonUtil;
-import com.weapon.joker.lib.net.bean.PushNewsBean;
+import com.weapon.joker.lib.net.bean.CommonBean.PushNewsBean;
 import com.weapon.joker.lib.net.data.PushNewsData;
 import com.weapon.joker.lib.net.event.PushNewsEvent;
 

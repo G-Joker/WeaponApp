@@ -13,7 +13,6 @@ import com.weapon.joker.app.mine.login.RegisterActivity;
 interface Function {
 
     /**
-     * {@link MineActivity 我的界面}
      * {@link LoginActivity 登录界面}
      * {@link RegisterActivity 注册界面}
      */

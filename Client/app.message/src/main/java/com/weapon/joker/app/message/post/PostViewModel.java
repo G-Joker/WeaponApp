@@ -8,7 +8,7 @@ import com.weapon.joker.app.message.BR;
 import com.weapon.joker.app.message.R;
 import com.weapon.joker.lib.mvvm.command.Action0;
 import com.weapon.joker.lib.mvvm.command.ReplyCommand;
-import com.weapon.joker.lib.net.bean.PushNewsBean;
+import com.weapon.joker.lib.net.bean.CommonBean.PushNewsBean;
 import com.weapon.joker.lib.view.pullrefreshload.PullToRefreshLayout;
 import com.weapon.joker.lib.net.data.PushNewsData;
 import com.weapon.joker.lib.net.model.PushNewsModel;
