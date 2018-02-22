@@ -1,18 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
             name="viewModel"
             type="com.weapon.joker.app.home.HomeViewModel"/>
+
+        <import type="me.tatarka.bindingcollectionadapter2.LayoutManagers"/>
     </data>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/color_fed952">
 
+        <TextView
+            android:id="@+id/tv_qrcode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@mipmap/bar_code_scan_icon"
+            android:onClick="@{viewModel.onQrcodeClick}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
+        <TextView
+            android:id="@+id/tv_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@mipmap/category"
+            android:onClick="@{viewModel.onCategoryClick}"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/bg_home_edittext"
+            android:gravity="center"
+            android:onClick="@{viewModel.onSearchTextClick}"
+            android:padding="6dp"
+            android:text="@string/point_remind"
+            android:textColor="@color/color_cdcdcd"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_category"
+            app:layout_constraintLeft_toRightOf="@id/tv_qrcode"
+            app:layout_constraintRight_toLeftOf="@+id/tv_category"
+            app:layout_constraintTop_toTopOf="@id/tv_category"/>
+
+        <com.weapon.joker.lib.view.pullrefreshload.PullToRefreshRecyclerView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/white"
+            app:canLoadMore="@{false}"
+            app:canRefresh="@{false}"
+            app:layoutManager="@{LayoutManagers.linear()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_category">
+
+        </com.weapon.joker.lib.view.pullrefreshload.PullToRefreshRecyclerView>
     </android.support.constraint.ConstraintLayout>
 </layout>

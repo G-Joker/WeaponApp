@@ -19,7 +19,7 @@ public class MainFragment extends BaseFragment<HomeViewModel, HomeModel> impleme
 
     @Override
     public void initView() {
-        getViewModel().requestRecommandData();
+//        getViewModel().requestRecommandData();
     }
 
     @Override
