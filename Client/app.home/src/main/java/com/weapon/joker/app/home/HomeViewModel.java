@@ -59,9 +59,9 @@ public class HomeViewModel extends HomeContact.ViewModel {
         for (RecommandBodyValue value : bean.data.list) {
             HomeItemViewModel viewModel = new HomeItemViewModel(value);
             temp.add(viewModel);
-            items.clear();
-            items.addAll(temp);
         }
+        items.clear();
+        items.addAll(temp);
     }
 
     /** 二维码点击事 */
@@ -79,7 +79,7 @@ public class HomeViewModel extends HomeContact.ViewModel {
         LogUtils.i("search is clicked");
     }
 
-    /** RecyclerView相关 */
+    /** RecyclerView 相关 */
     public final ObservableList<HomeItemViewModel> items = new ObservableArrayList<>();
     public final BindingRecyclerViewAdapter.ItemIds<HomeItemViewModel> itemIds
             = new BindingRecyclerViewAdapter.ItemIds<HomeItemViewModel>() {

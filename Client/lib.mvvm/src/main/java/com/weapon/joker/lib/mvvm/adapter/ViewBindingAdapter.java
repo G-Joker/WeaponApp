@@ -2,6 +2,7 @@ package com.weapon.joker.lib.mvvm.adapter;
 
 import android.databinding.BindingAdapter;
 import android.support.design.widget.AppBarLayout;
+import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -138,4 +139,12 @@ public final class ViewBindingAdapter {
         publicForm.setContent(content);
     }
 
+    @BindingAdapter(value={"pageMargin","pageLimit","currentItem"},requireAll = false)
+    public static void setPageMargin(ViewPager viewPager,int margin,int pageLimit,int currentItem){
+        if (pageLimit != 0){
+            viewPager.setOffscreenPageLimit(pageLimit);
+        }
+        viewPager.setCurrentItem(currentItem);
+        viewPager.setPageMargin(margin);
+    }
 }
