@@ -1,9 +1,17 @@
 package com.weapon.joker.app.home;
 
+import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.databinding.BindingAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
+import com.bumptech.glide.Glide;
+import com.weapon.joker.lib.middleware.utils.Util;
 import com.weapon.joker.lib.net.bean.HomeBean.RecommandBodyValue;
+
+import java.util.ArrayList;
 
 /**
  * HomeItemViewModel 首页ItemViewModel
@@ -25,6 +33,24 @@ public class HomeItemViewModel extends BaseObservable {
     public HomeItemViewModel(RecommandBodyValue bean){
         this.type = bean.type;
         this.bean = bean;
+    }
+
+    @BindingAdapter("addImageViews")
+    public static void setOnOffsetChanged(LinearLayout layout, ArrayList<String> list) {
+        Context context = layout.getContext();
+        layout.removeAllViews();
+        for (String url:list) {
+            ImageView photoView = new ImageView(layout.getContext());
+            LinearLayout.LayoutParams params = new LinearLayout.
+                    LayoutParams(Util.dip2px(context, 100),
+                    LinearLayout.LayoutParams.MATCH_PARENT);
+            params.leftMargin = Util.dip2px(context, 5);
+            photoView.setLayoutParams(params);
+            Glide.with(photoView.getContext())
+                    .load(url)
+                    .into(photoView);
+            layout.addView(photoView);
+        }
     }
 
 }
