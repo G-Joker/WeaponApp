@@ -1,5 +1,11 @@
 apply from: '../module.gradle'
 
+android{
+    defaultConfig{
+        applicationId "com.weapon.joker.app.home"
+    }
+}
+
 dependencies{
     compile('cn.trinea.android.view.autoscrollviewpager:android-auto-scroll-view-pager:1.1.2') {
         exclude module: 'support-v4'
