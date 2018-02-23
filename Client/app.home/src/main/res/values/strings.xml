@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">App.home</string>
     <string name="point_remind">请输入关键词</string>
+    <string name="today_zuixing">------------&#062;&#062;今日最新&#060;&#060;------------</string>
 </resources>

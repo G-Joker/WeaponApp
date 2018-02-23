@@ -5,6 +5,7 @@ import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
 import android.view.View;
 
+import com.weapon.joker.app.home.header.HomeHeaderViewModel;
 import com.weapon.joker.lib.middleware.utils.LogUtils;
 import com.weapon.joker.lib.net.BaseObserver;
 import com.weapon.joker.lib.net.bean.HomeBean.HomeBean;
@@ -55,7 +56,7 @@ public class HomeViewModel extends HomeContact.ViewModel {
 
     /** 刷新list数据 */
     private void refreshListData(HomeBean bean) {
-//        headerViewModel = new HomeHeaderViewModel();
+        headerViewModel.setHeadValue(bean.data.head);
         List<HomeItemViewModel> temp = new ObservableArrayList<>();
         for (RecommandBodyValue value : bean.data.list) {
             HomeItemViewModel viewModel = new HomeItemViewModel(value);
@@ -81,7 +82,7 @@ public class HomeViewModel extends HomeContact.ViewModel {
     }
 
     /** RecyclerView 相关 */
-    public HomeHeaderViewModel headerViewModel = new HomeHeaderViewModel(null);
+    public HomeHeaderViewModel headerViewModel = new HomeHeaderViewModel();//这里必须要先初始化
     public final ObservableList<HomeItemViewModel> items = new ObservableArrayList<>();
     //添加HeaderView
     public final MergeObservableList<Object> headerItems = new MergeObservableList<>()
