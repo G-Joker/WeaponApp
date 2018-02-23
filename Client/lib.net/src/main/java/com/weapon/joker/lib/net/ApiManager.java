@@ -23,7 +23,7 @@ public interface ApiManager {
     /**
      * 首页数据请求
      */
-    @GET("product/home_recommand.php")
+    @GET("home_data.json")
     Observable<HomeBean> getHomeListData();
 
     /**
