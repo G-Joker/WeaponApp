@@ -28,7 +28,8 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:pageLimit="@{5}"
-            app:pageMargin="@{15}"/>
+            app:pageMargin="@{15}"
+            app:currentItem="@{2}"/>
 
     </android.support.constraint.ConstraintLayout>
 </layout>
