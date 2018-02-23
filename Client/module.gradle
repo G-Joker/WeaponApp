@@ -1,13 +1,19 @@
-apply plugin: 'com.android.library'
+apply plugin: 'com.android.application'
 
 android {
+
     defaultConfig {
+        applicationId "com.weapon.joker.app.mine"
         minSdkVersion 21
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        jackOptions {
+            enabled true
+        }
 
     }
     buildTypes {
@@ -27,9 +33,17 @@ android {
     }
 }
 
+
+
 dependencies {
-    //databinding adapter 框架，适用于 ListView,RecyclerView,ViewPager
-    compile 'me.tatarka.bindingcollectionadapter2:bindingcollectionadapter:2.2.0'
-    compile 'me.tatarka.bindingcollectionadapter2:bindingcollectionadapter-recyclerview:2.2.0'
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    testCompile 'junit:junit:4.12'
+    compile project(':lib.style')
+    compile project(':lib.middleware')
+    compile project(':lib.net')
     compile project(':lib.view')
 }

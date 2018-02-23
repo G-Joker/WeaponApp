@@ -13,7 +13,6 @@ import com.weapon.joker.lib.net.bean.HomeBean.RecommandBodyValue;
 import java.util.List;
 
 import me.tatarka.bindingcollectionadapter2.BindingRecyclerViewAdapter;
-import me.tatarka.bindingcollectionadapter2.ItemBinding;
 import me.tatarka.bindingcollectionadapter2.OnItemBind;
 
 /**
@@ -82,32 +81,24 @@ public class HomeViewModel extends HomeContact.ViewModel {
     /** RecyclerView 相关 */
     public final ObservableList<HomeItemViewModel> items = new ObservableArrayList<>();
     public final BindingRecyclerViewAdapter.ItemIds<HomeItemViewModel> itemIds
-            = new BindingRecyclerViewAdapter.ItemIds<HomeItemViewModel>() {
-        @Override
-        public long getItemId(int position, HomeItemViewModel item) {
-            return position;
-        }
-    };
-    public final OnItemBind<HomeItemViewModel> multiItems = new OnItemBind<HomeItemViewModel>() {
-        @Override
-        public void onItemBind(ItemBinding itemBinding, int position, HomeItemViewModel item) {
-            switch (item.type){
-                case HomeItemViewModel.VIDEO_TYPE:
-                    itemBinding.set(BR.itemViewModel, R.layout.item_home_video);
-                    break;
-                case HomeItemViewModel.CARD_TYPE_ONE:
-                    itemBinding.set(BR.itemViewModel, R.layout.item_home_card_one);
-                    break;
-                case HomeItemViewModel.CARD_TYPE_TWO:
-                    itemBinding.set(BR.itemViewModel, R.layout.item_home_card_two);
-                    break;
-                case HomeItemViewModel.CARD_TYPE_THREE:
-                    itemBinding.set(BR.itemViewModel, R.layout.item_home_card_three);
-                    break;
-                default:
-                    itemBinding.set(BR.itemViewModel, R.layout.item_home_card_one);
-                    break;
-            }
+            = (position, item) -> position;
+    public final OnItemBind<HomeItemViewModel> multiItems = (itemBinding, position, item) -> {
+        switch (item.type){
+            case HomeItemViewModel.VIDEO_TYPE:
+                itemBinding.set(BR.itemViewModel, R.layout.item_home_video);
+                break;
+            case HomeItemViewModel.CARD_TYPE_ONE:
+                itemBinding.set(BR.itemViewModel, R.layout.item_home_card_one);
+                break;
+            case HomeItemViewModel.CARD_TYPE_TWO:
+                itemBinding.set(BR.itemViewModel, R.layout.item_home_card_two);
+                break;
+            case HomeItemViewModel.CARD_TYPE_THREE:
+                itemBinding.set(BR.itemViewModel, R.layout.item_home_card_three);
+                break;
+            default:
+                itemBinding.set(BR.itemViewModel, R.layout.item_home_card_one);
+                break;
         }
     };
 }
