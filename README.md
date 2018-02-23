@@ -46,22 +46,23 @@ buildBundle q d 相当于加-q 和 -Dbundle.arch=x86
 
 我们将在项目中集成、封装和二次开发现在 Android 领域使用最多，最专业，最热门的技术，并实用在项目中，目前计划引入的技术有(加粗字体为二次开发或者完全自主开发库)：
 
+- [x] DataBinding+MVVM开发
 - [x] **组件化开发**
 - [x] Small 插件化框架
 - [x] **Databinding**
 - [x] **自建服务器**
 - [x] **自定义 Gradle 插件**
-- [ ] **集成QQ、微信、微博官方分享**
+- [x] **集成QQ、微信、微博官方分享**
 - [x] **全平台推送服务**
 - [x] **友盟统计**
 - [x] OkHttp + Retrofit + RxJava
-- [ ] **通过 RecyclerView 拓展的刷新列表库**
+- [x] **通过 RecyclerView 拓展的刷新列表库**
 - [ ] **控件组件化**
 - [ ] **单元测试**
 - [x] **组件化集成调试**
 - [x] **即时通讯**
 - [ ] 视频服务
-- [ ] Material Design
+- [x] Material Design
 - [x] Glide
 
 ### 提交规范
