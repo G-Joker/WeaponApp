@@ -4,8 +4,6 @@
 
     <data>
 
-        <import type="com.weapon.joker.lib.middleware.utils.Util"/>
-
         <variable
             name="itemViewModel"
             type="com.weapon.joker.app.home.HomeItemViewModel"/>

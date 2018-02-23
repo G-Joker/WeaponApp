@@ -13,7 +13,7 @@ import com.weapon.joker.lib.net.bean.HomeBean.RecommandBodyValue;
 
 import java.util.List;
 
-import me.tatarka.bindingcollectionadapter2.BindingRecyclerViewAdapter;
+import me.tatarka.bindingcollectionadapter2.BindingListViewAdapter;
 import me.tatarka.bindingcollectionadapter2.OnItemBind;
 import me.tatarka.bindingcollectionadapter2.collections.MergeObservableList;
 
@@ -88,7 +88,7 @@ public class HomeViewModel extends HomeContact.ViewModel {
     public final MergeObservableList<Object> headerItems = new MergeObservableList<>()
             .insertItem(headerViewModel)
             .insertList(items);
-    public final BindingRecyclerViewAdapter.ItemIds<Object> itemIds = (position, item) -> position;
+    public final BindingListViewAdapter.ItemIds<Object> itemIds = (position, item) -> position;
     public final OnItemBind<Object> multiItems = (itemBinding, position, item) -> {
         if (HomeHeaderViewModel.class.equals(item.getClass())){
             itemBinding.set(BR.itemViewModel,R.layout.item_home_list_header);
