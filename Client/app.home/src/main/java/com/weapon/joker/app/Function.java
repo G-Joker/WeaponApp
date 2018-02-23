@@ -1,5 +1,7 @@
 package com.weapon.joker.app;
 
+import com.weapon.joker.app.home.HomeItemViewModel;
+import com.weapon.joker.app.home.HomeItemViewPagerViewModel;
 import com.weapon.joker.app.home.HomeViewModel;
 import com.weapon.joker.app.home.MainFragment;
 
@@ -21,6 +23,8 @@ interface Function {
 
     /**
      * {@link HomeViewModel 首页ViewModel}
+     * {@link HomeItemViewModel 首页Item的ViewModel}
+     * {@link HomeItemViewPagerViewModel 首页ViewPager的ViewModel}
      */
     void viewModel();
 }

@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-
+apply plugin: 'me.tatarka.retrolambda'
 android {
     defaultConfig {
         minSdkVersion 21
@@ -20,11 +20,13 @@ android {
     dataBinding {
         enabled = true
     }
-
     compileOptions {
-        targetCompatibility 1.8
-        sourceCompatibility 1.8
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
+}
+retrolambda {
+    javaVersion JavaVersion.VERSION_1_7
 }
 
 dependencies {

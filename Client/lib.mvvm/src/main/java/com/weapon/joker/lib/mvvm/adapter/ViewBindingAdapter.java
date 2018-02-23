@@ -150,6 +150,6 @@ public final class ViewBindingAdapter {
 
     @BindingAdapter("currentItem")
     public static void setCurrentItem(final ViewPager viewPager,final int currentItem){
-        new Handler().postDelayed(()->viewPager.setCurrentItem(currentItem),500);
+        new Handler().postDelayed(() -> viewPager.setCurrentItem(currentItem), 500);
     }
 }
