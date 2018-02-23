@@ -62,16 +62,14 @@
             android:background="@color/white"
             app:canLoadMore="@{false}"
             app:canRefresh="@{false}"
-            app:itemBinding="@{viewModel.multiItems}"
             app:itemIds="@{viewModel.itemIds}"
-            app:items="@{viewModel.items}"
-            app:layoutManager="@{LayoutManagers.linear()}"
+            app:itemBinding="@{viewModel.multiItems}"
+            app:items="@{viewModel.headerItems}"
             app:visibility="@{viewModel.listViewVisibility}"
+            app:layoutManager="@{LayoutManagers.linear()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_category">
-
-        </com.weapon.joker.lib.view.pullrefreshload.PullToRefreshRecyclerView>
+            app:layout_constraintTop_toBottomOf="@+id/tv_category"/>
     </android.support.constraint.ConstraintLayout>
 </layout>
