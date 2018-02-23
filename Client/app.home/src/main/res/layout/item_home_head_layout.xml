@@ -1,0 +1,94 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+
+>
+    <cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+    />
+    <com.weapon.joker.lib.view.viewpagerindictor.CirclePageIndicator
+        android:id="@+id/pager_indictor_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/pager"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="12dp"
+        android:padding="5dp"
+    />
+    <TextView
+        android:id="@+id/zuixing_view"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/pager"
+        android:gravity="center"
+        android:textColor="@color/color_ff33b5e5"
+        android:textSize="22sp"
+    />
+
+    <LinearLayout
+        android:id="@+id/category_layout"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@id/zuixing_view"
+        android:orientation="horizontal"
+    >
+
+        <ImageView
+            android:id="@+id/head_image_one"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scaleType="fitXY"
+        />
+
+        <View
+            android:layout_width="7dp"
+            android:layout_height="match_parent"
+        />
+
+        <ImageView
+            android:id="@+id/head_image_two"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scaleType="fitXY"
+        />
+
+        <View
+            android:layout_width="7dp"
+            android:layout_height="match_parent"
+        />
+
+        <ImageView
+            android:id="@+id/head_image_three"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scaleType="fitXY"
+        />
+
+        <View
+            android:layout_width="7dp"
+            android:layout_height="match_parent"
+        />
+
+        <ImageView
+            android:id="@+id/head_image_four"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scaleType="fitXY"
+        />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/content_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/category_layout"
+        android:orientation="vertical"
+    />
+</RelativeLayout>
