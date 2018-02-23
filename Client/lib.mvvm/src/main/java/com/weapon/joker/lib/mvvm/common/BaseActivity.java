@@ -136,6 +136,8 @@ public abstract class BaseActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mViewModel.detachView();
+        if (mViewModel != null) {
+            mViewModel.detachView();
+        }
     }
 }
