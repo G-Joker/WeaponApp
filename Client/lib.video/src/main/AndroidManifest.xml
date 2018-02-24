@@ -1,2 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.weapon.joker.lib.video"/>
+          package="com.weapon.joker.lib.video">
+    <application
+        android:allowBackup="true"
+        android:label="@string/app_name"
+        >
+
+        <activity android:name=".activity.AdBrowserActivity"/>
+    </application>
+
+</manifest>

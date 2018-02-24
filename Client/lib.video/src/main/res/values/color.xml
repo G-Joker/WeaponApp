@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="transparent">#00000000</color>
+
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="mycenter_upload_video_upload_btn_bg">#ebebeb</color>
+    <color name="actionbar_menu_bg">#f6f6f6</color>
+
+    <color name="detail_background_color">#e2e2e2</color>
+
+    <color name="xadsdk_yd_dialog_cancel_normal">#fffafafa</color>
+    <color name="xadsdk_yd_dialog_cancel_pressed">#ffe7e7e7</color>
+    <color name="xadsdk_yd_dialog_ok_normal">#1500baff</color>
+    <color name="xadsdk_yd_dialog_ok_pressed">#33049dd5</color>
+
+    <color name="sdk_youdo_dialog_ok_normal">#1500baff</color>
+    <color name="sdk_youdo_dialog_ok_pressed">#33049dd5</color>
+
+    <color name="xadsdk_controller_background_half_alpha">#7f000000</color>
+
+    <!-- youku ad icon background color -->
+    <color name="yp_ad_background_color_youku">#cc292929</color>
+    <color name="xadsdk_frame_bg">#e5e5e5</color>
+</resources>

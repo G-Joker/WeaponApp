@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@+id/root_view"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/black"
+    >
+
+    <RelativeLayout
+        android:id="@+id/content_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        />
+
+    <ImageView
+        android:id="@+id/xadsdk_player_close_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="9dp"
+        android:layout_marginTop="9dp"
+        android:padding="18dp"
+        android:src="@drawable/xadsdk_ad_close"
+        />
+
+    <ImageView
+        android:id="@+id/big_framing_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/xadsdk_frame_bg"
+        android:scaleType="fitCenter"
+        android:visibility="gone"
+        />
+
+    <Button
+        android:id="@+id/xadsdk_big_play_btn"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/xadsdk_ad_play"
+        android:visibility="gone"
+        />
+
+    <ImageView
+        android:id="@+id/loading_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/xadsdk_ad_loading_anim"
+        android:visibility="gone"
+        />
+</RelativeLayout>

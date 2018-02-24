@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <ImageView
+        android:id="@+id/framing_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/xadsdk_frame_bg"
+        android:scaleType="fitCenter"
+        android:visibility="gone"
+        />
+
+    <Button
+        android:id="@+id/xadsdk_to_full_view"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="18dp"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/xadsdk_ad_mini"
+        />
+
+    <Button
+        android:id="@+id/xadsdk_small_play_btn"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/xadsdk_ad_play"
+        android:visibility="gone"
+        />
+
+    <!--
+    <Button
+        android:id="@+id/xadsdk_small_pause_btn"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/xadsdk_ad_pause"
+        android:visibility="gone"
+        />
+    -->
+    <ImageView
+        android:id="@+id/loading_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/xadsdk_ad_loading_anim"
+        />
+</RelativeLayout>
