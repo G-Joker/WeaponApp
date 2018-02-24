@@ -11,6 +11,7 @@ include ':app',
 
 if (DEVELOP_HOME.toBoolean() || !DEBUG.toBoolean()) {
     include ':app.home'
+    include ':lib.video'
 }
 if (DEVELOP_MESSAGE.toBoolean() || !DEBUG.toBoolean()) {
     include ':app.message'

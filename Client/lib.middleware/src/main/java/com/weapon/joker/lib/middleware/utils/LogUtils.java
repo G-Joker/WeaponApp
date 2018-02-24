@@ -2,6 +2,7 @@ package com.weapon.joker.lib.middleware.utils;
 
 
 import com.orhanobut.logger.Logger;
+import com.weapon.joker.lib.middleware.BuildConfig;
 
 
 /**
@@ -9,7 +10,7 @@ import com.orhanobut.logger.Logger;
  * 使用logger封装
  */
 public class LogUtils {
-    public static boolean DEBUG_ENABLE = true;// 是否调试模式
+    public static boolean DEBUG_ENABLE = BuildConfig.LOG;// 是否调试模式
 
     /**
      * 默认的 TAG
