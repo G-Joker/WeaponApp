@@ -2,6 +2,4 @@
           package="com.weapon.joker.lib.middleware">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <application>
-    </application>
 </manifest>

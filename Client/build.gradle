@@ -82,4 +82,6 @@ task cleanBuild(type: Delete){
     delete "$rootDir/lib.net/public.txt"
     delete "$rootDir/lib.style/public.txt"
     delete "$rootDir/lib.view/public.txt"
+
+    delete "$rootDir/.gradle"
 }

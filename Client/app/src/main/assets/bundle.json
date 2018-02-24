@@ -22,6 +22,10 @@
       "pkg": "com.weapon.joker.lib.view"
     },
     {
+      "uri":"lib.video",
+      "pkg":"com.weapon.joker.lib.video"
+    },
+    {
       "uri": "main",
       "pkg": "com.weapon.joker.app.main"
     },

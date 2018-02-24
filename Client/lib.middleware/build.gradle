@@ -1,5 +1,5 @@
-apply from: '../lib.gradle'
-
+apply plugin: 'com.android.library'
+apply plugin: 'me.tatarka.retrolambda'
 android {
 
     buildTypes {
@@ -23,9 +23,35 @@ android {
     dataBinding {
         enabled = true
     }
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
 }
 
+retrolambda {
+    javaVersion JavaVersion.VERSION_1_7
+}
+
+
 dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    androidTestCompile('com.android.support.test.espresso:espresso-core:3.0.1', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
     compile 'com.orhanobut:logger:1.13'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.1.1'
 

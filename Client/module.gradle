@@ -3,7 +3,6 @@ apply plugin: 'me.tatarka.retrolambda'
 android {
 
     defaultConfig {
-        applicationId "com.weapon.joker.app.mine"
         minSdkVersion 21
         targetSdkVersion 26
         versionCode 1
