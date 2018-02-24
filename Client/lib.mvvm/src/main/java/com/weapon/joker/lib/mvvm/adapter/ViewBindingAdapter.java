@@ -6,7 +6,9 @@ import android.support.design.widget.AppBarLayout;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.ImageView;
+import android.widget.ListView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
@@ -151,5 +153,22 @@ public final class ViewBindingAdapter {
     @BindingAdapter("currentItem")
     public static void setCurrentItem(final ViewPager viewPager,final int currentItem){
         new Handler().postDelayed(() -> viewPager.setCurrentItem(currentItem), 500);
+    }
+
+    @BindingAdapter("onScroll")
+    public static void setOnScroll(ListView listView,final ReplyCommand replyCommand){
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                if (replyCommand!=null) {
+                    replyCommand.execute();
+                }
+            }
+        });
     }
 }

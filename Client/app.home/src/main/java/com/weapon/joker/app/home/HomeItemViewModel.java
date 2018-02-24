@@ -34,6 +34,13 @@ public class HomeItemViewModel extends BaseObservable {
     @Bindable
     public RecommandBodyValue bean;
 
+    @Bindable
+    public int updateIndex;
+
+    public void setUpdateIndex(){
+        ++updateIndex;
+        notifyPropertyChanged(com.weapon.joker.app.home.BR.updateIndex);
+    }
 
     public HomeItemViewModel(RecommandBodyValue bean){
         this.type = bean.type;
@@ -71,5 +78,5 @@ public class HomeItemViewModel extends BaseObservable {
 
     /** ViewPager 相关*/
     public final ObservableList<HomeItemViewPagerViewModel> viewPageItems = new ObservableArrayList<>();
-    public final ItemBinding<HomeItemViewPagerViewModel> viewPageItem = ItemBinding.of(BR.vpViewModel,R.layout.item_home_view_pager);
+    public final ItemBinding<HomeItemViewPagerViewModel> viewPageItem = ItemBinding.of(com.weapon.joker.app.home.BR.vpViewModel,R.layout.item_home_view_pager);
 }

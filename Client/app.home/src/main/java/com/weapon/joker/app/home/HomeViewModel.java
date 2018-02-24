@@ -7,10 +7,12 @@ import android.view.View;
 
 import com.weapon.joker.app.home.header.HomeHeaderViewModel;
 import com.weapon.joker.lib.middleware.utils.LogUtils;
+import com.weapon.joker.lib.mvvm.command.ReplyCommand;
 import com.weapon.joker.lib.net.BaseObserver;
 import com.weapon.joker.lib.net.bean.HomeBean.HomeBean;
 import com.weapon.joker.lib.net.bean.HomeBean.RecommandBodyValue;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import me.tatarka.bindingcollectionadapter2.BindingListViewAdapter;
@@ -28,9 +30,11 @@ public class HomeViewModel extends HomeContact.ViewModel {
     @Bindable
     public boolean listViewVisibility = false;
 
+    private ArrayList<HomeItemViewModel> videoList = new ArrayList<>();
+
     public void setListViewVisibility(boolean visibility){
         listViewVisibility = visibility;
-        notifyPropertyChanged(BR.listViewVisibility);
+        notifyPropertyChanged(com.weapon.joker.app.home.BR.listViewVisibility);
     }
 
     @Override
@@ -58,9 +62,14 @@ public class HomeViewModel extends HomeContact.ViewModel {
     private void refreshListData(HomeBean bean) {
         headerViewModel.setHeadValue(bean.data.head);
         List<HomeItemViewModel> temp = new ObservableArrayList<>();
+        videoList.clear();
         for (RecommandBodyValue value : bean.data.list) {
             HomeItemViewModel viewModel = new HomeItemViewModel(value);
             temp.add(viewModel);
+
+            if (value.type == HomeItemViewModel.VIDEO_TYPE){
+                videoList.add(viewModel);
+            }
         }
         items.clear();
         items.addAll(temp);
@@ -81,7 +90,12 @@ public class HomeViewModel extends HomeContact.ViewModel {
         LogUtils.i("search is clicked");
     }
 
-    /** RecyclerView 相关 */
+    /** ListView 相关 */
+    public final ReplyCommand scrollReply = new ReplyCommand(() -> {
+        for (HomeItemViewModel viewModel:videoList){
+            viewModel.setUpdateIndex();
+        }
+    });
     public HomeHeaderViewModel headerViewModel = new HomeHeaderViewModel();//这里必须要先初始化
     public final ObservableList<HomeItemViewModel> items = new ObservableArrayList<>();
     //添加HeaderView
@@ -91,20 +105,20 @@ public class HomeViewModel extends HomeContact.ViewModel {
     public final BindingListViewAdapter.ItemIds<Object> itemIds = (position, item) -> position;
     public final OnItemBind<Object> multiItems = (itemBinding, position, item) -> {
         if (HomeHeaderViewModel.class.equals(item.getClass())){
-            itemBinding.set(BR.itemViewModel,R.layout.item_home_list_header);
+            itemBinding.set(com.weapon.joker.app.home.BR.itemViewModel,R.layout.item_home_list_header);
         }else if (HomeItemViewModel.class.equals(item.getClass())){
             switch (((HomeItemViewModel)item).type) {
                 case HomeItemViewModel.VIDEO_TYPE:
-                    itemBinding.set(BR.itemViewModel, R.layout.item_home_video);
+                    itemBinding.set(com.weapon.joker.app.home.BR.itemViewModel, R.layout.item_home_video);
                     break;
                 case HomeItemViewModel.CARD_TYPE_ONE:
-                    itemBinding.set(BR.itemViewModel, R.layout.item_home_card_one);
+                    itemBinding.set(com.weapon.joker.app.home.BR.itemViewModel, R.layout.item_home_card_one);
                     break;
                 case HomeItemViewModel.CARD_TYPE_TWO:
-                    itemBinding.set(BR.itemViewModel, R.layout.item_home_card_two);
+                    itemBinding.set(com.weapon.joker.app.home.BR.itemViewModel, R.layout.item_home_card_two);
                     break;
                 case HomeItemViewModel.CARD_TYPE_THREE:
-                    itemBinding.set(BR.itemViewModel, R.layout.item_home_card_three);
+                    itemBinding.set(com.weapon.joker.app.home.BR.itemViewModel, R.layout.item_home_card_three);
                     break;
             }
         }

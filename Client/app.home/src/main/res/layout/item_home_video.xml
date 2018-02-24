@@ -1,15 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="itemViewModel"
             type="com.weapon.joker.app.home.HomeItemViewModel"/>
     </data>
 
     <android.support.constraint.ConstraintLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <com.weapon.joker.lib.view.roundimaegview.RoundedImageView
+            android:id="@+id/roundImage"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:oval="true"
+            app:url="@{itemViewModel.bean.logo}"/>
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{itemViewModel.bean.title}"
+            android:textColor="@color/color_333333"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toRightOf="@+id/roundImage"
+            app:layout_constraintTop_toTopOf="@id/roundImage"/>
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="15dp"
+            android:src="@mipmap/trade_share"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_title"
+            />
+
+        <TextView
+            android:id="@+id/item_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text='@{itemViewModel.bean.info+"天前"}'
+            android:textColor="@color/result_view"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/roundImage"
+            app:layout_constraintLeft_toRightOf="@+id/roundImage"/>
+
+        <com.weapon.joker.app.home.video.VideoLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/video_ad_layout"
+            app:layout_constraintTop_toBottomOf="@+id/roundImage"
+            app:setVideoData="@{itemViewModel.bean}"
+            app:updateScrollView="@{itemViewModel.updateIndex}"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/video_ad_layout"
+            android:layout_marginTop="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="12dp"
+            android:paddingRight="15dp"
+            android:paddingLeft="15dp"
+            android:textColor="@color/color_333333"
+            android:textSize="16sp"
+            android:text="@{itemViewModel.bean.text}"
+            />
 
     </android.support.constraint.ConstraintLayout>
 </layout>

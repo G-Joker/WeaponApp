@@ -7,6 +7,7 @@ android{
 }
 
 dependencies{
+    compile project(':lib.video')
     compile('cn.trinea.android.view.autoscrollviewpager:android-auto-scroll-view-pager:1.1.2') {
         exclude module: 'support-v4'
     }
