@@ -26,6 +26,7 @@ buildAll q d    相当于加-q 和 -Dbundle.arch=x86
 buildBundle q d 相当于加-q 和 -Dbundle.arch=x86
 ```
 
+打包如果出现异常，可以先输入 gradlew cleanBuild，再重新执行一遍打包流程
 详细打包指令参数请参考`Small`文档:[Small文档](http://code.wequick.net/Small/cn/compile-options)
 
 ### 开发方法：**测试驱动开发**
