@@ -25,7 +25,7 @@
         android:layout_below="@id/pager"
         android:gravity="center"
         android:textColor="@color/color_ff33b5e5"
-        android:textSize="22sp"
+        android:textSize="16sp"
     />
 
     <LinearLayout
