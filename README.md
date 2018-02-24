@@ -61,9 +61,12 @@ buildBundle q d 相当于加-q 和 -Dbundle.arch=x86
 - [ ] **单元测试**
 - [x] **组件化集成调试**
 - [x] **即时通讯**
-- [ ] 视频服务
+- [x] 视频服务
 - [x] Material Design
 - [x] Glide
+
+>注：首页数据样式参考于慕课网组件化视频 [https://coding.imooc.com/learn/list/84.html](https://coding.imooc.com/learn/list/84.html) 使用项目MVVM重新实现
+>感谢 qndroid 老师
 
 ### 提交规范
 
@@ -90,6 +93,9 @@ DEBUG 置为 false 的时候为整包编译或者可以理解为Release模式，
 
 ------------
 **开发人员**：*WeaponZhi，xiaweizi，hiyangyue，foxlee*
+
+WeaponZhi-小之的公众号欢迎关注~
+![公号二维码](https://lh3.googleusercontent.com/-kxWJeTryKnM/WeWfwdZC8rI/AAAAAAAAABk/UvcN9QabJrMeyjJrrFe6dozHXjkMa5OQQCHMYCw/I/qrcode_for_gh_6c64ef149807_258.jpg)
 
 [qqgroupsvg]: https://img.shields.io/badge/QQ群-559169318-ff73a3.svg
 [qq1group]: https://jq.qq.com/?_wv=1027&k=5WqyE5X
