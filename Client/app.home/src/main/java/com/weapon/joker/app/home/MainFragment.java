@@ -1,6 +1,9 @@
 package com.weapon.joker.app.home;
 
 
+import android.graphics.drawable.AnimationDrawable;
+
+import com.weapon.joker.app.home.databinding.FragmentHomeBinding;
 import com.weapon.joker.lib.mvvm.common.BaseFragment;
 
 /**
@@ -20,6 +23,8 @@ public class MainFragment extends BaseFragment<HomeViewModel, HomeModel> impleme
     @Override
     public void initView() {
         getViewModel().requestRecommandData();
+        AnimationDrawable anim = (AnimationDrawable) ((FragmentHomeBinding)getViewDataBinding()).imgLoading.getDrawable();
+        anim.start();
     }
 
     @Override

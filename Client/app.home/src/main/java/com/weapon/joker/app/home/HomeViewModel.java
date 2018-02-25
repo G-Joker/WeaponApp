@@ -29,12 +29,19 @@ public class HomeViewModel extends HomeContact.ViewModel {
 
     @Bindable
     public boolean listViewVisibility = false;
+    @Bindable
+    public boolean loadingVisibility = true;
 
     private ArrayList<HomeItemViewModel> videoList = new ArrayList<>();
 
     public void setListViewVisibility(boolean visibility){
         listViewVisibility = visibility;
         notifyPropertyChanged(com.weapon.joker.app.home.BR.listViewVisibility);
+    }
+
+    public void setLoadingVisibility(boolean visibility){
+        loadingVisibility = visibility;
+        notifyPropertyChanged(com.weapon.joker.app.home.BR.loadingVisibility);
     }
 
     @Override
@@ -45,8 +52,10 @@ public class HomeViewModel extends HomeContact.ViewModel {
                 LogUtils.i("onSuccess"+entry.status);
                 if (entry.data.list != null && entry.data.list.size()>0){
                     setListViewVisibility(true);
+                    setLoadingVisibility(false);
                     refreshListData(entry);
                 }else {
+                    setLoadingVisibility(true);
                     setListViewVisibility(false);
                 }
             }

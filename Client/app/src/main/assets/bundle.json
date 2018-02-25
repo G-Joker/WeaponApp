@@ -2,12 +2,12 @@
   "version": "1.0.0",
   "bundles": [
     {
-      "uri": "lib.middleware",
-      "pkg": "com.weapon.joker.lib.middleware"
-    },
-    {
       "uri": "lib.mvvm",
       "pkg": "com.weapon.joker.lib.mvvm"
+    },
+    {
+      "uri": "lib.middleware",
+      "pkg": "com.weapon.joker.lib.middleware"
     },
     {
       "uri": "lib.style",

@@ -55,6 +55,20 @@
             app:layout_constraintRight_toLeftOf="@+id/tv_category"
             app:layout_constraintTop_toTopOf="@id/tv_category"/>
 
+        <ImageView
+            android:id="@+id/img_loading"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/white"
+            android:scaleType="center"
+            android:src="@drawable/loading_data_anim"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_category"
+            app:visibility="@{viewModel.loadingVisibility}"/>
+
         <ListView
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -62,14 +76,14 @@
             android:background="@color/white"
             android:divider="@color/color_cccccc"
             android:dividerHeight="5dp"
-            app:itemIds="@{viewModel.itemIds}"
             app:itemBinding="@{viewModel.multiItems}"
-            app:items="@{viewModel.headerItems}"
+            app:itemIds="@{viewModel.itemIds}"
             app:itemTypeCount="@{5}"
-            app:visibility="@{viewModel.listViewVisibility}"
+            app:items="@{viewModel.headerItems}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_category"/>
+            app:layout_constraintTop_toBottomOf="@+id/tv_category"
+            app:visibility="@{viewModel.listViewVisibility}"/>
     </android.support.constraint.ConstraintLayout>
 </layout>

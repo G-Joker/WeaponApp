@@ -13,5 +13,6 @@ dependencies {
     /** Gson 解析 */
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
 
+    compile project(':lib.mvvm')
     compile project(':lib.middleware')
 }
