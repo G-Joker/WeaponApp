@@ -15,7 +15,28 @@ gradlew cleanBundle
 gradlew buildBundle -q -Dbundle.arch=x86
 ```
 其中 -q 代表整洁模式，只看到插件的打包结果信息。
+
 -Dbundle.arch 中，如果是模拟器调试，则是`x86`，如果是真机调试则是`armeabi`
+
+**如遇真机启动奔溃**
+
+请先检查`Logcat`下的日志，并定位到对应的错误。若无明显的错误日志，或者是`PushReceiver ClassNotFoundException`的错误，请先确定真机的`CPU`的类型，并根据类型进行相应的打包。
+
+通过
+```
+adb shell
+cat /proc/cpuinfo  
+```
+的方式获取`CPU`类型，比如红米 note 3：
+```
+Processor	: AArch64 Processor rev 2 (aarch64)
+```
+对应的打包则更换为
+```
+#so版， 区分CPU架构，一般模拟器使用 x86，真机使用 armabi armeabi-v7a arm64-v8a
+gradlew buildLib -q -Dbundle.arch=arm64-v8a
+gradlew buildBundle -q -Dbundle.arch=arm64-v8a
+```
 
 脚本打包方式：
 
