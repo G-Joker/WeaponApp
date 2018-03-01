@@ -1,7 +1,13 @@
 # WeaponApp
 
 ### 联系我们
+**开发人员**：*WeaponZhi，xiaweizi，hiyangyue，foxlee*
 
+AI极客研修站-作者WeaponZhi的公众号欢迎关注~
+![image.png](http://upload-images.jianshu.io/upload_images/3363394-a9f2619313e5a8e5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+[qqgroupsvg]: https://img.shields.io/badge/QQ群-559169318-ff73a3.svg
+[qq1group]: https://jq.qq.com/?_wv=1027&k=5WqyE5X
 [![QQ1Group][qqgroupsvg]][qq1group]
 
 >**一个极致的App**。学习项目，帮助你提升独自开发 `Android` 业务层的能力。基于该开发框架，可以快速构建应用，同时你可以当做一个工具 App，以供你平时开发参考。
@@ -107,19 +113,11 @@ buildBundle q d 相当于加-q 和 -Dbundle.arch=x86
 
 DEBUG 置为 false 的时候为整包编译或者可以理解为Release模式，将默认添加所有模块，忽略下面模块的单独配置布尔值。
 
-
-### 代码规范
+### 单元测试设计思路与使用方法
 待补充
+
+### 待补充
 >未完待续，目前正迭代中...
 
-
-------------
-**开发人员**：*WeaponZhi，xiaweizi，hiyangyue，foxlee*
-
-WeaponZhi-小之的公众号欢迎关注~
-![公号二维码](https://lh3.googleusercontent.com/-kxWJeTryKnM/WeWfwdZC8rI/AAAAAAAAABk/UvcN9QabJrMeyjJrrFe6dozHXjkMa5OQQCHMYCw/I/qrcode_for_gh_6c64ef149807_258.jpg)
-
-[qqgroupsvg]: https://img.shields.io/badge/QQ群-559169318-ff73a3.svg
-[qq1group]: https://jq.qq.com/?_wv=1027&k=5WqyE5X
 
 
