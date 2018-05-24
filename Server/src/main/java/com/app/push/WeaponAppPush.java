@@ -11,7 +11,7 @@ import cn.jpush.api.push.model.audience.Audience;
  *     class  : com.app.push.WeaponAppPush
  *     e-mail : 1012126908@qq.com
  *     time   : 2018/01/25
- *     desc   :
+ *     desc   : 推送后台
  * </pre>
  */
 
