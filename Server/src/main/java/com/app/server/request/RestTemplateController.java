@@ -2,13 +2,13 @@ package com.app.server.request;
 
 import com.app.server.model.TaobaoModel;
 import com.app.server.util.MathUtil;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.web.client.RestTemplate;
 
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 

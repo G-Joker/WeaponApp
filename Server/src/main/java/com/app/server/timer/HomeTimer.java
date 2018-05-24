@@ -25,8 +25,10 @@ public class HomeTimer {
     public void timerRate() {
         String url="https://s.2.taobao.com/list/list.htm";
         List<TaobaoModel> list=RestTemplateController.getInstance().getTaobao(url);
-        taobaoMappper.deleteAll();
-        taobaoMappper.insertAll(list);
+        if (list != null && list.size() > 0) {
+            taobaoMappper.deleteAll();
+            taobaoMappper.insertAll(list);
+        }
     }
 
     /*每天12:00:00时执行*/
