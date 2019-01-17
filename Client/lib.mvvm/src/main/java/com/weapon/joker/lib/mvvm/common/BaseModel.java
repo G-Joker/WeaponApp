@@ -15,7 +15,9 @@ public abstract class BaseModel<VM extends BaseViewModel> extends BaseObservable
         return mViewModel;
     }
 
-    public void attachViewModel(VM viewModel){mViewModel = viewModel;}
+    public void attachViewModel(VM viewModel){
+        mViewModel = viewModel;
+    }
 
     public void setContext(Context context){
         mContext = context.getApplicationContext();

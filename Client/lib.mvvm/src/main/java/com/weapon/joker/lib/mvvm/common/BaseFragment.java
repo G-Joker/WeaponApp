@@ -63,7 +63,7 @@ public abstract class BaseFragment<VM extends BaseViewModel<? extends BaseView, 
             if (model != null) {
                 model.setContext(mContext);
                 try {
-                    Method attachViewModel = mViewModel.getClass().getMethod("attachViewModel",Object.class);
+                    Method attachViewModel = model.getClass().getMethod("attachViewModel",BaseViewModel.class);
                     attachViewModel.invoke(model,mViewModel);
                 }catch (Exception e){
                     e.printStackTrace();
