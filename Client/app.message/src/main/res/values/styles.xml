@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CommonEditText">
+        <item name="android:textCursorDrawable">@drawable/shape_cursor_bg</item>
+        <item name="android:background">@drawable/shape_edit_bg</item>
+        <item name="android:paddingLeft">4dp</item>
+    </style>
+</resources>

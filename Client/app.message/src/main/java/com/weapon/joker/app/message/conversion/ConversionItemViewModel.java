@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.weapon.joker.app.message.BR;
+import com.weapon.joker.app.message.R;
 import com.weapon.joker.lib.middleware.PublicActivity;
 import com.weapon.joker.lib.middleware.utils.Util;
 import com.weapon.joker.lib.mvvm.common.BaseItemViewModel;
@@ -178,6 +179,8 @@ public class ConversionItemViewModel extends BaseItemViewModel {
      */
     public boolean onConversionItemLongClick(View view) {
         Button button = new Button(view.getContext());
+        button.setTextColor(view.getContext().getResources().getColor(R.color.white));
+        button.setBackground(view.getContext().getResources().getDrawable(R.drawable.shape_button_bg));
         button.setText("删除此会话");
         final CustomPopWindow popWindow = new CustomPopWindow.PopupWindowBuilder(view.getContext()).setView(button)
                                                                                                    .setFocusable(true)

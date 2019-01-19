@@ -54,6 +54,7 @@
             android:orientation="horizontal"
             android:paddingTop="5dp"
             android:elevation="5dp"
+            android:background="@color/material_color_grey_300"
             android:paddingBottom="5dp">
 
             <EditText
@@ -63,7 +64,7 @@
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"
                 android:layout_weight="1"
-                android:background="@drawable/shape_edit_bg"
+                style="@style/CommonEditText"
                 android:text="@={groupModel.sendContent}" />
 
             <Button
