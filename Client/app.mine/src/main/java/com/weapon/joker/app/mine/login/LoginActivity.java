@@ -17,16 +17,12 @@ import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
 import com.weapon.joker.app.mine.R;
-import com.weapon.joker.app.mine.login.dataBean.LoginRequestModel;
+import com.weapon.joker.lib.middleware.utils.PushUtils;
 import com.weapon.joker.lib.mvvm.common.BaseActivity;
-import com.weapon.joker.lib.net.Api;
-import com.weapon.joker.lib.net.ApiConvertUtil;
-import com.weapon.joker.lib.net.BaseObserver;
-import com.weapon.joker.lib.net.HostType;
-import com.weapon.joker.lib.net.bean.MineBean.LoginModel;
-import com.weapon.joker.lib.net.bean.CommonBean.UserBean;
-import com.weapon.joker.lib.net.data.UserData;
-import com.weapon.joker.lib.net.rx.RxSchedulers;
+import com.weapon.joker.lib.net.JMessageCallBack;
+
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.model.UserInfo;
 
 /**
  * class：   Client
@@ -126,29 +122,18 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
      * @param password 密码
      */
     private void loginRequest(String userName, String password) {
-        LoginRequestModel loginRequestModel = new LoginRequestModel();
-        loginRequestModel.name = userName;
-        loginRequestModel.password = password;
-        Api.getDefault(HostType.MINE)
-                .login(ApiConvertUtil.beanToMap(loginRequestModel))
-           .compose(RxSchedulers.<LoginModel>io_main())
-           .subscribe(new BaseObserver<LoginModel>() {
-               @Override
-               protected void onSuccess(LoginModel entry) throws Exception {
-                   if (entry != null && entry.status == 1000 && entry.data != null) {
-                       loginSuccess(entry.data);
-                   } else if (entry != null) {
-                       loginFailed(entry.desc);
-                   } else {
-                       loginFailed(getString(R.string.public_net_error));
-                   }
-               }
+        // 使用 JMessage 提供的登录接口
+        JMessageClient.login(userName, password, new JMessageCallBack() {
+            @Override
+            public void onSuccess() {
+                loginSuccess(userName);
+            }
 
-               @Override
-               protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                   loginFailed(e.getMessage());
-               }
-           });
+            @Override
+            public void onFailed(int status, String desc) {
+                loginFailed(desc);
+            }
+        });
     }
 
     /**
@@ -166,16 +151,17 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     /**
      * 登陆成功
      *
-     * @param data 用户信息
      */
-    private void loginSuccess(UserBean data) {
-        Toast.makeText(this, getString(R.string.mine_login_success), Toast.LENGTH_SHORT).show();
-        /** 统计用户信息 */
-        MobclickAgent.onProfileSignIn(data.uid);
-        /** 统计用户点击登录事件 */
-        MobclickAgent.onEvent(getApplicationContext(), "mine_login", data.user);
-        /** 保存用户信息到缓存 */
-        UserData.getInstance().setUserBean(this,data);
+    private void loginSuccess(String userName) {
+        Toast.makeText(getContext(), R.string.mine_login_success, Toast.LENGTH_SHORT).show();
+        // 获取本地用户信息
+        UserInfo myInfo = JMessageClient.getMyInfo();
+        // 统计用户信息
+        MobclickAgent.onProfileSignIn(userName);
+        // 统计用户点击登录事件
+        MobclickAgent.onEvent(getContext().getApplicationContext(), "mine_login", userName);
+        // JPush 设置 alias
+        PushUtils.setAlias(getContext().getApplicationContext(), userName);
 
         mPbLoading.setVisibility(View.GONE);
         mBtLogin.setVisibility(View.VISIBLE);

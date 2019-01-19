@@ -3,7 +3,7 @@ package com.weapon.joker.app.mine;
 import android.app.Activity;
 import android.content.Intent;
 import android.databinding.Bindable;
-import android.graphics.Bitmap;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.view.View;
 import android.widget.Toast;
 
@@ -11,6 +11,7 @@ import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.UiError;
 import com.umeng.analytics.MobclickAgent;
 import com.weapon.joker.app.mine.about.AboutActivity;
+import com.weapon.joker.app.mine.login.LoginActivity;
 import com.weapon.joker.app.stub.share.IShareListener;
 import com.weapon.joker.app.stub.share.ShareParams;
 import com.weapon.joker.app.stub.share.ShareType;
@@ -137,9 +138,9 @@ public class MineViewModel extends MineContact.ViewModel implements IShareListen
             PublicActivity.startActivity((Activity) getContext(), "com.weapon.joker.app.mine.person.PersonCenterFragment", intent);
         } else {
             // 如果没有登录则跳转到登录界面
-//            Intent intent = new Intent(getContext(), LoginActivity.class);
-//            getContext().startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(((Activity) getContext())).toBundle());
-            PublicActivity.startActivity((Activity) getContext(), "com.weapon.joker.app.mine.login.LoginRegisterFragment");
+            Intent intent = new Intent(getContext(), LoginActivity.class);
+            getContext().startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(((Activity) getContext())).toBundle());
+//            PublicActivity.startActivity((Activity) getContext(), "com.weapon.joker.app.mine.login.LoginRegisterFragment");
         }
     }
 
