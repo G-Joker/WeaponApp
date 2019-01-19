@@ -169,7 +169,9 @@ public class MainActivity extends BaseActivity {
             intent.putExtra("display_name", displayName);
             PublicActivity.startActivity(this, "com.weapon.joker.app.message.single.SingleFragment", intent);
         } else if (targetInfo instanceof GroupInfo) {
-            PublicActivity.startActivity(this, "com.weapon.joker.app.message.group.GroupFragment");
+            Intent intent = new Intent(this, PublicActivity.class);
+            intent.putExtra("group_id", ((GroupInfo) targetInfo).getGroupID());
+            PublicActivity.startActivity(this, "com.weapon.joker.app.message.group.GroupFragment", intent);
         }
     }
 

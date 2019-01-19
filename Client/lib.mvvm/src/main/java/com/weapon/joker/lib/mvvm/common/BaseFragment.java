@@ -117,6 +117,8 @@ public abstract class BaseFragment<VM extends BaseViewModel<? extends BaseView, 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mViewModel.detachView();
+        if (mViewModel != null) {
+            mViewModel.detachView();
+        }
     }
 }

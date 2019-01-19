@@ -29,12 +29,12 @@ import cn.jpush.im.android.api.event.NotificationClickEvent;
  * desc:
  */
 public class GroupFragment extends BaseFragment<GroupViewModel, GroupModel> implements GroupContact.View {
-
     /**
      * 默认群 ID
      */
-    private static final long GROUP_ID = 23349803;
+    public static final long GROUP_ID = 23349803;
     private FragmentGroupBinding mDataBinding;
+    private long mGroupId = GROUP_ID;
 
     @Override
     public int getLayoutId() {
@@ -46,8 +46,11 @@ public class GroupFragment extends BaseFragment<GroupViewModel, GroupModel> impl
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         JMessageClient.registerEventReceiver(this);
         mDataBinding = ((FragmentGroupBinding) getViewDataBinding());
+        if (getActivity().getIntent() != null) {
+            mGroupId = getActivity().getIntent().getLongExtra("group_id", GROUP_ID);
+        }
         setToolbar();
-        getViewModel().init();
+        getViewModel().init(mGroupId);
         mDataBinding.recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {

@@ -40,10 +40,6 @@ import me.tatarka.bindingcollectionadapter2.OnItemBind;
 public class GroupViewModel extends GroupContact.ViewModel {
 
     /**
-     * 默认群 ID
-     */
-    private static final long GROUP_ID = 23349803;
-    /**
      * 每次获取聊天记录的数量
      */
     private static final int LIM_COUNT = 5;
@@ -69,13 +65,16 @@ public class GroupViewModel extends GroupContact.ViewModel {
      */
     private long latestMsgTime = 0;
 
+    private long mGroupId = GroupFragment.GROUP_ID;
+
     public void setSendContent(String sendContent) {
         this.sendContent = sendContent;
         notifyPropertyChanged(BR.sendContent);
     }
 
-    public void init() {
-        mConversation = Conversation.createGroupConversation(GROUP_ID);
+    public void init(long groupId) {
+        mGroupId = groupId;
+        mConversation = Conversation.createGroupConversation(groupId);
         if (mConversation == null) {
             getView().finish();
             return;
@@ -214,7 +213,7 @@ public class GroupViewModel extends GroupContact.ViewModel {
                 Object targetInfo = message.getTargetInfo();
                 if (targetInfo instanceof GroupInfo) {
                     GroupInfo groupInfo = (GroupInfo) targetInfo;
-                    if (groupInfo.getGroupID() == GROUP_ID) {
+                    if (groupInfo.getGroupID() == mGroupId) {
                         addReceiverMessage(message);
                         getView().scrollToPosition(items.size() - 1);
                     }
