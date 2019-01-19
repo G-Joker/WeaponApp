@@ -165,6 +165,7 @@ public class ConversionItemViewModel extends BaseItemViewModel {
             // 如果用户名为空的时候，就跳转到群组界面
             if (mConversion.getTargetInfo() instanceof GroupInfo) {
                 intent.putExtra("group_id", ((GroupInfo) mConversion.getTargetInfo()).getGroupID());
+                intent.putExtra("group_name", ((GroupInfo) mConversion.getTargetInfo()).getGroupName());
                 PublicActivity.startActivity((Activity) mContext, "com.weapon.joker.app.message.group.GroupFragment", intent);
             }
         } else {

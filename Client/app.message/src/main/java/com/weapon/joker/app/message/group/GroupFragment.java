@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -33,8 +34,11 @@ public class GroupFragment extends BaseFragment<GroupViewModel, GroupModel> impl
      * 默认群 ID
      */
     public static final long GROUP_ID = 23349803;
+    public static final String DEFAULE_GROUP_NAME = "WeaponApp官方交流群";
     private FragmentGroupBinding mDataBinding;
     private long mGroupId = GROUP_ID;
+    private String mDisplayName = DEFAULE_GROUP_NAME;
+
 
     @Override
     public int getLayoutId() {
@@ -48,6 +52,10 @@ public class GroupFragment extends BaseFragment<GroupViewModel, GroupModel> impl
         mDataBinding = ((FragmentGroupBinding) getViewDataBinding());
         if (getActivity().getIntent() != null) {
             mGroupId = getActivity().getIntent().getLongExtra("group_id", GROUP_ID);
+            mDisplayName = getActivity().getIntent().getStringExtra("group_name");
+            if (TextUtils.isEmpty(mDisplayName)) {
+                mDisplayName = DEFAULE_GROUP_NAME;
+            }
         }
         setToolbar();
         getViewModel().init(mGroupId);
@@ -88,6 +96,7 @@ public class GroupFragment extends BaseFragment<GroupViewModel, GroupModel> impl
                 getActivity().finish();
             }
         });
+        mDataBinding.toolbar.setTitle(mDisplayName);
     }
 
     @Override
