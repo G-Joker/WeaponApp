@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
             name="singleModel"
-            type="com.weapon.joker.app.message.single.SingleViewModel"/>
+            type="com.weapon.joker.app.message.single.SingleViewModel" />
 
-        <import type="me.tatarka.bindingcollectionadapter2.LayoutManagers"/>
+        <import type="me.tatarka.bindingcollectionadapter2.LayoutManagers" />
     </data>
 
     <LinearLayout
+        android:id="@+id/ll_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/material_color_grey_200"
         android:orientation="vertical">
 
         <android.support.v7.widget.Toolbar
@@ -23,7 +25,7 @@
             android:background="?colorPrimary"
             android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:title="小之"/>
+            app:title="小之" />
 
         <com.weapon.joker.lib.view.pullrefreshload.PullToRefreshLayout
             android:id="@+id/pull_refresh_layout"
@@ -32,7 +34,7 @@
             android:layout_weight="1"
             app:onRefreshCommand="@{singleModel.onRefreshCommand}">
 
-            <include layout="@layout/refresh_head"/>
+            <include layout="@layout/refresh_head" />
 
             <com.weapon.joker.lib.view.pullrefreshload.PullToRefreshRecyclerView
                 android:id="@+id/recyclerView"
@@ -43,31 +45,38 @@
                 app:itemBinding="@{singleModel.multiItems}"
                 app:itemIds="@{singleModel.itemIds}"
                 app:items="@{singleModel.items}"
-                app:layoutManager="@{LayoutManagers.linear()}"/>
+                app:layoutManager="@{LayoutManagers.linear()}" />
 
-            <include layout="@layout/load_more"/>
+            <include layout="@layout/load_more" />
         </com.weapon.joker.lib.view.pullrefreshload.PullToRefreshLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
+            android:layout_height="45dp"
+            android:orientation="horizontal"
+            android:paddingTop="5dp"
+            android:elevation="5dp"
+            android:paddingBottom="5dp">
 
             <EditText
+                android:id="@+id/et_input_content"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"
                 android:layout_weight="1"
-                android:text="@={singleModel.sendContent}"/>
+                android:background="@drawable/shape_edit_bg"
+                android:text="@={singleModel.sendContent}" />
 
             <Button
                 android:layout_width="60dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center_vertical|right"
                 android:layout_marginRight="12dp"
+                android:background="@drawable/shape_button_bg"
                 android:onClick="@{singleModel::sendMessageToOffice}"
-                android:text="发送"/>
+                android:text="发送"
+                android:textColor="@color/white" />
 
         </LinearLayout>
 

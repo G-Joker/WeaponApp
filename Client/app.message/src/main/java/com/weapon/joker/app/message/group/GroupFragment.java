@@ -1,13 +1,16 @@
 package com.weapon.joker.app.message.group;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 
 import com.weapon.joker.app.message.BR;
 import com.weapon.joker.app.message.R;
@@ -40,11 +43,27 @@ public class GroupFragment extends BaseFragment<GroupViewModel, GroupModel> impl
 
     @Override
     public void initView() {
-        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         JMessageClient.registerEventReceiver(this);
         mDataBinding = ((FragmentGroupBinding) getViewDataBinding());
         setToolbar();
         getViewModel().init();
+        mDataBinding.recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    if (imm != null) {
+                        imm.hideSoftInputFromInputMethod(mDataBinding.etInputContent.getWindowToken(), 0);
+                    }
+                }
+            }
+        });
+        mDataBinding.llRoot.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
+            if (oldBottom != -1 && oldBottom > bottom) {
+                mDataBinding.recyclerView.post(() -> mDataBinding.recyclerView.getLayoutManager().scrollToPosition(getViewModel().items.size() - 1));
+            }
+        });
     }
 
     @Override

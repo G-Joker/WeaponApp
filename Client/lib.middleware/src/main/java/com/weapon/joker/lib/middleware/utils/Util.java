@@ -3,13 +3,10 @@ package com.weapon.joker.lib.middleware.utils;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.Resources;
+import android.content.Intent;
 import android.os.Build;
 import android.os.StrictMode;
 import android.util.ArrayMap;
-import android.util.DisplayMetrics;
-
-import com.weapon.joker.lib.middleware.PublicActivity;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -247,7 +244,10 @@ public class Util {
      */
     public static boolean checkHasLogin(Activity activity) {
         if (JMessageClient.getMyInfo() == null) {
-            PublicActivity.startActivity(activity, "com.weapon.joker.app.mine.login.LoginRegisterFragment");
+//            PublicActivity.startActivity(activity, "com.weapon.joker.app.mine.login.LoginRegisterFragment");
+            Intent intent = new Intent();
+            intent.setClassName(activity, "com.weapon.joker.app.mine.login.LoginActivity");
+            activity.startActivity(intent);
             return false;
         } else {
             return true;

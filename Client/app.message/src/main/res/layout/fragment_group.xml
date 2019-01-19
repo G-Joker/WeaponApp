@@ -12,6 +12,7 @@
     </data>
 
     <LinearLayout
+        android:id="@+id/ll_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -47,27 +48,33 @@
 
             <include layout="@layout/load_more"/>
         </com.weapon.joker.lib.view.pullrefreshload.PullToRefreshLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
+            android:layout_height="45dp"
+            android:orientation="horizontal"
+            android:paddingTop="5dp"
+            android:elevation="5dp"
+            android:paddingBottom="5dp">
 
             <EditText
+                android:id="@+id/et_input_content"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"
                 android:layout_weight="1"
-                android:text="@={groupModel.sendContent}"/>
+                android:background="@drawable/shape_edit_bg"
+                android:text="@={groupModel.sendContent}" />
 
             <Button
                 android:layout_width="60dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center_vertical|right"
                 android:layout_marginRight="12dp"
+                android:background="@drawable/shape_button_bg"
                 android:onClick="@{groupModel::sendMessageToOffice}"
-                android:text="发送"/>
+                android:text="发送"
+                android:textColor="@color/white" />
 
         </LinearLayout>
 

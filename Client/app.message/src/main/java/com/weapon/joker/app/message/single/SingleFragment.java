@@ -1,15 +1,17 @@
 package com.weapon.joker.app.message.single;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 
 import com.weapon.joker.app.message.BR;
 import com.weapon.joker.app.message.R;
@@ -55,7 +57,7 @@ public class SingleFragment extends BaseFragment<SingleViewModel, SingleModel> i
 
     @Override
     public void initView() {
-        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         // 注册消息接收事件
         JMessageClient.registerEventReceiver(this);
         mDataBinding = ((FragmentSingleBinding) getViewDataBinding());
@@ -71,7 +73,22 @@ public class SingleFragment extends BaseFragment<SingleViewModel, SingleModel> i
         }
         setToolbar();
         getViewModel().init(mUserName);
-        mDataBinding.recyclerView.setItemAnimator(null);
+        mDataBinding.recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    if (imm != null) {
+                        imm.hideSoftInputFromInputMethod(mDataBinding.etInputContent.getWindowToken(), 0);
+                    }
+                }
+            }
+        });
+        mDataBinding.llRoot.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
+            if (oldBottom != -1 && oldBottom > bottom) {
+                mDataBinding.recyclerView.post(() -> mDataBinding.recyclerView.getLayoutManager().scrollToPosition(getViewModel().items.size() - 1));
+            }
+        });
     }
 
     /**
@@ -83,12 +100,7 @@ public class SingleFragment extends BaseFragment<SingleViewModel, SingleModel> i
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setHasOptionsMenu(true);
         mDataBinding.toolbar.setTitle(mDisplayName);
-        mDataBinding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().finish();
-            }
-        });
+        mDataBinding.toolbar.setNavigationOnClickListener(view -> getActivity().finish());
     }
 
     @Override
