@@ -19,11 +19,9 @@ import android.widget.Toast;
 import com.umeng.analytics.MobclickAgent;
 import com.weapon.joker.app.mine.R;
 import com.weapon.joker.lib.mvvm.common.BaseActivity;
-import com.weapon.joker.lib.net.Api;
-import com.weapon.joker.lib.net.BaseObserver;
-import com.weapon.joker.lib.net.HostType;
-import com.weapon.joker.lib.net.bean.MineBean.RegisterModel;
-import com.weapon.joker.lib.net.rx.RxSchedulers;
+import com.weapon.joker.lib.net.JMessageCallBack;
+
+import cn.jpush.im.android.api.JMessageClient;
 
 /**
  * class：   Client
@@ -220,40 +218,31 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
      * @param password 密码
      */
     private void registerRequest(String userName, String password) {
-        Api.getDefault(HostType.MINE)
-           .register(userName, password)
-           .compose(RxSchedulers.<RegisterModel>io_main())
-           .subscribe(new BaseObserver<RegisterModel>() {
-               @Override
-               protected void onSuccess(RegisterModel entry) throws Exception {
-                   if (entry != null && entry.status == 1000 && entry.data != null) {
-                       registerSuccess(entry);
-                   } else if (entry != null) {
-                       registerFailed(entry.desc);
-                   } else {
-                       registerFailed(getString(R.string.public_net_error));
-                   }
-               }
+        JMessageClient.register(userName, password, new JMessageCallBack() {
+            @Override
+            public void onSuccess() {
+                registerSuccess(userName);
+            }
 
-               @Override
-               protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                   registerFailed(e.getMessage());
-               }
-           });
+            @Override
+            public void onFailed(int status, String desc) {
+                registerFailed(desc);
+            }
+        });
+
     }
 
     /**
      * 登陆成功
      *
-     * @param model
      */
-    private void registerSuccess(RegisterModel model) {
+    private void registerSuccess(String userName) {
         Toast.makeText(this, getString(R.string.mine_register_repeat), Toast.LENGTH_SHORT).show();
-        MobclickAgent.onEvent(getApplicationContext(), "mine_register", model.data.user);
+        MobclickAgent.onEvent(getApplicationContext(), "mine_register", userName);
 
         /** 将结果回传给登陆界面 */
         Intent result = new Intent();
-        result.putExtra("user_name", model.data.user);
+        result.putExtra("user_name", mTilUserName.getEditText().getText().toString());
         result.putExtra("password", mTilPassword.getEditText().getText().toString().trim());
         setResult(201, result);
 
