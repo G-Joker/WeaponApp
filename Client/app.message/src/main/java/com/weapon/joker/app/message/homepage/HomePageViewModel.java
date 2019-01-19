@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.databinding.Bindable;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
 
@@ -28,10 +29,7 @@ import cn.jpush.im.android.api.model.UserInfo;
 public class HomePageViewModel extends HomePageContact.ViewModel {
 
     @Bindable
-    public String homePage =
-            "homehomepahomehomepagehomepagehomepagehomepagepagehomehomepagehomepagehomepagehomepagepagehomehomepagehomepagehomepagehomepagepagegehomepagehom" +
-            "homehomepahomehomepagehomepagehomepagehomepagepagehomehomepagehomepagehomepagehomepagepagehomehomepagehomepagehomepagehomepagepagegehomepageh" +
-            "homehomepahomehomepagehomepagehomepagehomepagepagehomehomepagehomepagehomepagehomepagepagehomehomepagehomepagehomepagehomepagepagegehomepagehomepagehomepagepageomepagehomepagepageepagehomepagepage";
+    public String homePage = "";
 
     /**
      * 显示名
@@ -69,6 +67,11 @@ public class HomePageViewModel extends HomePageContact.ViewModel {
         notifyPropertyChanged(BR.singleModel);
     }
 
+    public void setHomePage(String homePage) {
+        this.homePage = homePage;
+        notifyPropertyChanged(BR.homePage);
+    }
+
     @Override
     public void attachView(HomePageContact.View view) {
         super.attachView(view);
@@ -96,6 +99,19 @@ public class HomePageViewModel extends HomePageContact.ViewModel {
         setAvatarFile(userInfo.getAvatarFile());
         // 设置个性签名
         setSignature(userInfo.getSignature());
+        // 添加详细内容
+        StringBuffer sb = new StringBuffer();
+        sb.append("\n\n");
+        if (!TextUtils.isEmpty(userInfo.getSignature())) {
+            sb.append("个性签名:\t").append(userInfo.getSignature()).append("\n\n");
+        }
+        if (!TextUtils.isEmpty(userInfo.getAddress())) {
+            sb.append("地址:\t").append(userInfo.getAddress()).append("\n\n");
+        }
+        if (userInfo.getGender() != null) {
+            sb.append("性别:\t").append(userInfo.getGender() == UserInfo.Gender.female ? "女" : userInfo.getGender() == UserInfo.Gender.male ? "男" : "未知").append("\n\n");
+        }
+        setHomePage(sb.toString());
     }
 
     @Override

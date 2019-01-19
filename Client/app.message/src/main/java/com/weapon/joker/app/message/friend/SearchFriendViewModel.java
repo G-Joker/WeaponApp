@@ -91,10 +91,7 @@ public class SearchFriendViewModel extends SearchFriendContact.ViewModel {
     }
 
     public void onFriendClick(View view) {
-        Intent intent = new Intent(getContext(), PublicActivity.class);
-        intent.putExtra("user_name", userName);
-        intent.putExtra("display_name", displayName);
-        PublicActivity.startActivity((Activity) getContext(), "com.weapon.joker.app.message.single.SingleFragment", intent);
+        onAvatarClick(view);
     }
 
     public void onAvatarClick(View view) {

@@ -12,6 +12,7 @@ import com.weapon.joker.lib.middleware.PublicActivity;
 import java.io.File;
 
 import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.content.EventNotificationContent;
 import cn.jpush.im.android.api.content.ImageContent;
 import cn.jpush.im.android.api.content.TextContent;
 import cn.jpush.im.android.api.model.Message;
@@ -91,6 +92,25 @@ public class MessageItemViewModel extends BaseObservable {
                     break;
                 case image:
                     ImageContent imageContent = (ImageContent) message.getContent();
+                    break;
+                case eventNotification:
+                    EventNotificationContent notificationContent = (EventNotificationContent) message.getContent();
+                    switch (notificationContent.getEventNotificationType()) {
+                        case group_member_exit:
+                            this.content = "退出群聊";
+                            break;
+                        case group_info_updated:
+                            this.content = "群信息已经更新";
+                            break;
+                        case group_member_added:
+                            this.content = "欢迎新人加入群聊";
+                            break;
+                        case group_member_removed:
+                            this.content = "被移除";
+                            break;
+                        default:
+                            break;
+                    }
                     break;
                 default:
                     break;

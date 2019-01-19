@@ -103,6 +103,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
+                android:textSize="16dp"
+                android:textColor="@color/material_text_color_amber_50"
                 android:text="@{homePageModel.homePage}"/>
 
         </android.support.v4.widget.NestedScrollView>
