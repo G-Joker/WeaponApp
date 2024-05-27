@@ -1,4 +1,126 @@
+
 # WeaponApp
+## WeaponApp
+
+### Contact Us
+
+**Developers:** *WeaponZhi, hiyangyue, xiaweizi, foxlee*
+
+**AI Geek Workshop** - Public account, welcome to follow us if you are interested in **AI**!
+
+[![image.png](https://camo.githubusercontent.com/7a12e9f77629ebeec13f00e2286f131a4086e9ae340c001c0238c1d760fdd97b/687474703a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f333336333339342d613966323631393331336535613865352e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430)](https://camo.githubusercontent.com/7a12e9f77629ebeec13f00e2286f131a4086e9ae340c001c0238c1d760fdd97b/687474703a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f333336333339342d613966323631393331336535613865352e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430)
+
+
+> **An ultimate App.** A learning project to help you enhance your ability to independently develop the business layer of `Android` applications. This development framework enables rapid application building. You can also use it as a tool app for reference in your daily development.
+
+**Package Building Methods:**
+
+```
+gradlew cleanLib
+gradlew buildLib -q -Dbundle.arch=x86
+gradlew cleanBundle
+gradlew buildBundle -q -Dbundle.arch=x86
+```
+
+- `-q` represents the clean mode, displaying only the packaging results of the plugin.
+- In `-Dbundle.arch`, use `x86` for emulator debugging and `armeabi` for physical device debugging.
+
+**In Case of App Crash on Physical Device:**
+
+1. Check the logs in `Logcat` and locate the error. 
+2. If there are no obvious error logs, or if the error is `PushReceiver ClassNotFoundException`, please determine the `CPU` type of the physical device and package accordingly.
+
+You can obtain the `CPU` type through:
+
+```
+adb shell
+cat /proc/cpuinfo  
+```
+
+For example, Redmi Note 3:
+
+```
+Processor	: AArch64 Processor rev 2 (aarch64)
+```
+
+The corresponding packaging command should be changed to:
+
+```
+# For '.so' files, differentiate CPU architecture. 
+# Generally, use 'x86' for emulators and 'armabi armeabi-v7a arm64-v8a' for physical devices.
+gradlew buildLib -q -Dbundle.arch=arm64-v8a
+gradlew buildBundle -q -Dbundle.arch=arm64-v8a
+```
+
+**Script Packaging Method:**
+
+```
+buildAll        # Full packaging
+buildBundle     # Package only the Bundle if Lib remains unchanged
+buildAll q d    # Equivalent to adding '-q' and '-Dbundle.arch=x86'
+buildBundle q d # Equivalent to adding '-q' and '-Dbundle.arch=x86'
+```
+
+If there are errors during packaging, you can first execute `gradlew cleanBuild` and then retry the packaging process.
+
+For detailed packaging command parameters, please refer to the `Small` documentation: [Small Documentation](http://code.wequick.net/Small/cn/compile-options)
+
+### Development Methodology: Test-Driven Development (TDD)
+
+TDD requires writing test code before writing the actual code for a feature. Then, you write only the code necessary to pass the tests. This process helps in producing concise, usable, and high-quality code, ultimately accelerating the development process.
+
+**TDD indirectly assists programmers in writing well-designed code.** To ensure testability, the classes and methods in the code must strictly adhere to the Single Responsibility Principle.
+
+Furthermore, with the encapsulated MVVM framework, you can test the entire page logic by performing **unit tests** only on the ViewModel layer methods, constructing empty View and Model parameters.
+
+### Development Framework: MVVM
+
+This project utilizes a highly encapsulated MVVM framework and `databinding` for efficient development. This framework allows for rapid business logic development while abstracting the underlying `databinding` technical details. As a result, even developers who are not deeply familiar with MVVM and `databinding` can develop smoothly by following the framework's flow.
+
+Moreover, this framework facilitates effortless unit testing. The specific development process of MVVM and unit testing operations will be supplemented in subsequent development stages.
+
+### Technology Stack
+
+This project will integrate, encapsulate, and redevelop the most widely used, professional, and popular technologies in the current Android landscape, applying them to practical scenarios. The currently planned technologies for introduction include (bolded items indicate secondary development or fully self-developed libraries):
+
+-  DataBinding + MVVM Development
+-  **Component-Based Development**
+-  Small Plugin Framework
+-  **Databinding**
+-  **Custom Server**
+-  **Custom Gradle Plugin**
+-  **Integrated Official Sharing for QQ, WeChat, and Weibo**
+-  **Cross-Platform Push Notification Service**
+-  **UMeng Statistics**
+-  OkHttp + Retrofit + RxJava
+-  **Refresh List Library Extended from RecyclerView**
+-  **Component-Based Controls**
+-  **Unit Testing**
+-  **Integrated Debugging for Components**
+-  **Instant Messaging**
+-  Video Service
+-  Material Design
+-  Glide
+
+### Submission Specifications
+
+- **[func] do sth:** Feature development
+- **[fixbug] #xx# do sth:** Bug fix, where #xx# is the issue number
+- **[docs] do sth:** Documentation
+- **[chore] do sth:** Build-related modifications
+- **[test] do sth:** Adding test code
+- **[optimize] do sth**: Optimizing parts of the code
+- **[style] do sth**: Code formatting, removing blank lines, etc., not related to functionality
+
+### Integrated Debugging Method
+
+Set `DEBUG` to `true` in `gradle.properties` to enable the integrated debugging environment. Set the corresponding modules you need to debug to `true`.
+
+For instance, if you need to debug the `mine` and `message` modules, set `DEBUG`, `DEVELOP_MINE`, and `DEVELOP_MESSAGE` to `true`, and then re-sync Gradle.
+
+When `DEBUG` is set to `false`, it represents a full package compilation or Release mode, where all modules are added by default, ignoring the individual configuration boolean values of the modules below.
+
+---
 
 ### 联系我们
 **开发人员**：*WeaponZhi，xiaweizi，hiyangyue，foxlee*
